@@ -75,14 +75,14 @@
     <Filter Include="GameFramework2D\이펙트">
       <UniqueIdentifier>{71c9ef92-de11-4d77-a74a-2817260b208f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\로테이트">
-      <UniqueIdentifier>{78ec6bad-644d-4edb-a2bc-928cffc998ef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainGame\GDIPLUS">
       <UniqueIdentifier>{5fd88ac0-7934-4a60-a97c-116b436e8242}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameFramework2D\GDI+">
       <UniqueIdentifier>{a44cecfe-3b36-4ded-8993-16c1f3883147}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\로딩화면\로테이트">
+      <UniqueIdentifier>{78ec6bad-644d-4edb-a2bc-928cffc998ef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -189,7 +189,7 @@
       <Filter>GameFramework2D\매니져</Filter>
     </ClInclude>
     <ClInclude Include="rotateTestScene.h">
-      <Filter>MainGame\로테이트</Filter>
+      <Filter>MainGame\로딩화면\로테이트</Filter>
     </ClInclude>
     <ClInclude Include="gdipTestScene.h">
       <Filter>MainGame\GDIPLUS</Filter>
@@ -299,7 +299,7 @@
       <Filter>GameFramework2D\매니져</Filter>
     </ClCompile>
     <ClCompile Include="rotateTestScene.cpp">
-      <Filter>MainGame\로테이트</Filter>
+      <Filter>MainGame\로딩화면\로테이트</Filter>
     </ClCompile>
     <ClCompile Include="gdipTestScene.cpp">
       <Filter>MainGame\GDIPLUS</Filter>
