@@ -88,7 +88,7 @@ void stage1::update(void)
 		cameraMove();
 	}
 
-<<<<<<< HEAD
+
 	_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
 
 
@@ -100,9 +100,9 @@ void stage1::update(void)
 
 
 
-=======
+
 	//_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
->>>>>>> 5e87f3f14af7a208ccbaaa944a20a93f7383116e
+
 }
 
 void stage1::render(void)

@@ -99,4 +99,5 @@ void foxPlayer::move()
 		_player.rc.bottom = WINSIZEY - 90;
 		_player.isJump = false;
 	}
+	
 }
