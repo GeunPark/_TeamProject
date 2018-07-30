@@ -35,7 +35,7 @@ HRESULT stage1::init(void)
 		_river[i]._img = IMAGEMANAGER->findImage("물가");
 	}
 
-<<<<<<< HEAD
+
 	//에너미매니저
 	_eMG = new enemyManager;
 
@@ -44,7 +44,7 @@ HRESULT stage1::init(void)
 
 
 
-=======
+
 	_normalBack1._x = 0;
 	_normalBack1._y = 0;
 	_normalBack1._img = IMAGEMANAGER->findImage("레이어1배경");
@@ -52,7 +52,7 @@ HRESULT stage1::init(void)
 	_normalBack2._x = 0;
 	_normalBack2._y = 0;
 	_normalBack2._img = IMAGEMANAGER->findImage("레이어2배경");
->>>>>>> 0c963311c5585297425d19c9daa158d117d1d766
+
 
 	return S_OK;
 }
@@ -98,18 +98,18 @@ void stage1::render(void)
 	feildpixel->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
 	feild->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
 
-<<<<<<< HEAD
+
 
 	//TextOut(getMemDC(), 100, WINSIZEY, )
 
 	//에너미매니저
 	_eMG->render(_cam.rc.left, _cam.rc.top);
 
-=======
+
 	char str[128];
 	sprintf_s(str, "%d    %d ",_ptMouse.x + _cam.rc.left, _ptMouse.y + _cam.rc.top);
 	TextOut(getMemDC(), 120 , WINSIZEY /2 , str, strlen(str));
->>>>>>> 0c963311c5585297425d19c9daa158d117d1d766
+
 }
 
 // 프레임 이미지 움직임
@@ -130,22 +130,22 @@ void stage1::cameraMove()
 {
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		_cam.x += 100;
+		_cam.x += 30;
 		_normalBack1._x += 1;
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		_cam.x -= 100;
+		_cam.x -= 30;
 		_normalBack1._x -= 1;
 
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
-		_cam.y -= 100;
+		_cam.y -= 30;
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
-		_cam.y += 100;
+		_cam.y += 30;
 	}
 	if (_cam.x - WINSIZEX / 2 <= 0)
 	{
