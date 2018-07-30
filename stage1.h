@@ -56,8 +56,9 @@ public:
 	void render(void);
 
 	void imageMove();
-
 	void cameraMove();
+	void imagePosition();
+	void images();
 	stage1() {}
 	~stage1() {}
 };
