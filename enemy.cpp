@@ -70,7 +70,7 @@ void enemy::update(void)
 	if (enemyAction != E_ATTACK)
 	{
 		_rc = RectMakeCenter(_x, _y, _image[enemyAction]->getFrameWidth(), _image[enemyAction]->getFrameHeight());
-		_collRc = RectMakeCenter(_x, _y, _image[E_MOVE]->getFrameWidth(), _image[E_MOVE]->getFrameHeight());
+		_collRc = RectMakeCenter(_x, _y, _image[E_MOVE]->getFrameWidth()/2, _image[E_MOVE]->getFrameHeight());
 		_sensor = RectMakeCenter(_x, _y, 400, _image[enemyAction]->getFrameHeight());
 	}
 

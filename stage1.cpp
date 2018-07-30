@@ -80,6 +80,16 @@ void stage1::update(void)
 	}
 
 	_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
+
+
+	//리셋(임시)
+	if (KEYMANAGER->isOnceKeyDown('R'))
+	{
+		this->init();
+	}
+
+
+
 }
 
 void stage1::render(void)

@@ -141,50 +141,159 @@ void enemyManager::render(float FX, float FY)
 
 void enemyManager::setMinion()
 {
+
+	//잠자리
 	for (int i = 0; i < 2; ++i)
 	{
 		dragonfly* drangonFly = new dragonfly;
-		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(300, 100 + i * 100), 0, 100 * i, 0, 1, 1);
+		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(1400, 2250 + i * 100), 0, 100 * i, 0, 1, 1);
 		_vDragonFly.push_back(drangonFly);
 	}
-	for (int i = 2; i < 4; ++i)
+	for (int i = 0; i < 2; ++i)
 	{
 		dragonfly* drangonFly = new dragonfly;
-		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(400, 100 + i * 100), 0, 100 * i, 0, 1, 1);
+		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(3750, 2100 + i * 200), 0, 100 * i, 0, 1, 1);
 		_vDragonFly.push_back(drangonFly);
 	}
+	for (int i = 0; i < 2; ++i)
+	{
+		dragonfly* drangonFly = new dragonfly;
+		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(5230 + i * 200, 2250 + i * 200), 0, 100 * i, 0, 1, 1);
+		_vDragonFly.push_back(drangonFly);
+	}
+	for (int i = 0; i < 2; ++i)
+	{
+		dragonfly* drangonFly = new dragonfly;
+		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(6200 + i * 200, 2500 ), 0, 100 * i, 0, 1, 1);
+		_vDragonFly.push_back(drangonFly);
+	}
+	for (int i = 0; i < 2; ++i)
+	{
+		dragonfly* drangonFly = new dragonfly;
+		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(8250 , 2000 + i * 200), 0, 100 * i, 0, 1, 1);
+		_vDragonFly.push_back(drangonFly);
+	}
+	for (int i = 0; i < 2; ++i)
+	{
+		dragonfly* drangonFly = new dragonfly;
+		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(10850, 1800 + i * 200), 0, 100 * i, 0, 1, 1);
+		_vDragonFly.push_back(drangonFly);
+	}
+
+	for (int i = 0; i < 2; ++i)
+	{
+		dragonfly* drangonFly = new dragonfly;
+		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(12050 + i * 200, 1250 + i * 100), 0, 100 * i, 0, 1, 1);
+		_vDragonFly.push_back(drangonFly);
+	}
+
+	for (int i = 0; i < 6; ++i)
+	{
+		dragonfly* drangonFly = new dragonfly;
+		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(12600 + i * 100, 850 - i * 100), 0, 100 * i, 0, 1, 1);
+		_vDragonFly.push_back(drangonFly);
+	}
+
+
+	for (int i = 0; i < 2; ++i)
+	{
+		dragonfly* drangonFly = new dragonfly;
+		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(16580, 2200 + i * 200), 0, 100 * i, 0, 1, 1);
+		_vDragonFly.push_back(drangonFly);
+	}
+	for (int i = 0; i < 2; ++i)
+	{
+		dragonfly* drangonFly = new dragonfly;
+		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(17000, 1800 + i * 300), 0, 100 * i, 0, 1, 1);
+		_vDragonFly.push_back(drangonFly);
+	}
+	for (int i = 0; i < 2; ++i)
+	{
+		dragonfly* drangonFly = new dragonfly;
+		drangonFly->init("null", "잠자리spawn", "잠자리move", "null", "잠자리dead", PointMake(18080, 1750 + i * 200), 0, 100 * i, 0, 1, 1);
+		_vDragonFly.push_back(drangonFly);
+	}
+
+	//나무인간
 	for (int i = 0; i < 1; ++i)
 	{
 		vineman* _vineman = new vineman;
-		_vineman->init("null", "나무인간spawn", "나무인간move", "나무인간attack", "잠자리dead", PointMake(-900, 100 + i * 200), 0, 100 * i, 0, 1, 1);
+		_vineman->init("null", "나무인간spawn", "나무인간move", "나무인간attack", "잠자리dead", PointMake(1650, 2390 + i * 200), 0, 100 * i, 0, 1, 1);
 		_vVineMan.push_back(_vineman);
 	}
-	for (int i = 0; i < 1; ++i)
+	for (int i = 0; i < 2; ++i)
+	{
+		vineman* _vineman = new vineman;
+		_vineman->init("null", "나무인간spawn", "나무인간move", "나무인간attack", "잠자리dead", PointMake(7400 + i * 500, 2570), 0, 100 * i, 0, 1, 1);
+		_vVineMan.push_back(_vineman);
+	}
+	for (int i = 0; i < 2; ++i)
+	{
+		vineman* _vineman = new vineman;
+		_vineman->init("null", "나무인간spawn", "나무인간move", "나무인간attack", "잠자리dead", PointMake(12300 + i * 100, 2570), 0, 100 * i, 0, 1, 1);
+		_vVineMan.push_back(_vineman);
+	}
+
+	//버그
+	for (int i = 0; i < 2; ++i)
 	{
 		bug* _bug = new bug;
-		_bug->init("null", "버그move", "버그move", "null", "잠자리dead", PointMake(-200, 100 + i * 200), 0, 100 * i, 0, 1, 1);
+		_bug->init("null", "버그move", "버그move", "null", "잠자리dead", PointMake(13250 + i * 200, 2530 ), 0, 100 * i, 0, 1, 1);
 		_vBug.push_back(_bug);
 	}
 
+	for (int i = 0; i < 2; ++i)
+	{
+		bug* _bug = new bug;
+		_bug->init("null", "버그move", "버그move", "null", "잠자리dead", PointMake(15500 + i * 300, 2240), 0, 100 * i, 0, 1, 1);
+		_vBug.push_back(_bug);
+	}
+
+	//통나무
+	for (int i = 0; i < 2; ++i)
+	{
+		treeman* _treeman = new treeman;
+		_treeman->init("null", "통나무move", "통나무move", "null", "잠자리dead", PointMake(3270 + i * 450, 2520), 0, 100 * i, 3, 0, 0);
+		_vTreeMan.push_back(_treeman);
+	}
 	for (int i = 0; i < 1; ++i)
 	{
 		treeman* _treeman = new treeman;
-		_treeman->init("null", "통나무move", "통나무move", "null", "잠자리dead", PointMake(-500 + i * 300, -100), 0, 100 * i, 3, 0, 0);
+		_treeman->init("null", "통나무move", "통나무move", "null", "잠자리dead", PointMake(9800 + i * 450, 2050), 0, 100 * i, 3, 0, 0);
+		_vTreeMan.push_back(_treeman);
+	}
+	for (int i = 0; i < 2; ++i)
+	{
+		treeman* _treeman = new treeman;
+		_treeman->init("null", "통나무move", "통나무move", "null", "잠자리dead", PointMake(15250 + i * 780, 2530), 0, 100 * i, 3, 0, 0);
+		_vTreeMan.push_back(_treeman);
+	}
+	for (int i = 0; i < 1; ++i)
+	{
+		treeman* _treeman = new treeman;
+		_treeman->init("null", "통나무move", "통나무move", "null", "잠자리dead", PointMake(18200 + i * 450, 2530), 0, 100 * i, 3, 0, 0);
 		_vTreeMan.push_back(_treeman);
 	}
 
+	//두꺼비
 	for (int i = 0; i < 1; ++i)
 	{
 		plantfrog* _plantfrog = new plantfrog;
-		_plantfrog->init("null", "두꺼비spawn", "두꺼비move", "두꺼비attack", "잠자리dead", PointMake(200 + 300 * i, 30), 0, 150 * i, 1, 1, 0);
+		_plantfrog->init("null", "두꺼비spawn", "두꺼비move", "두꺼비attack", "잠자리dead", PointMake(3900 + 300 * i, 2550), 0, 150 * i, 1, 1, 0);
 		_vPlantFrog.push_back(_plantfrog);
-
 	}
-
 	for (int i = 0; i < 1; ++i)
 	{
+		plantfrog* _plantfrog = new plantfrog;
+		_plantfrog->init("null", "두꺼비spawn", "두꺼비move", "두꺼비attack", "잠자리dead", PointMake(13135 + 300 * i, 2080), 0, 150 * i, 1, 1, 0);
+		_vPlantFrog.push_back(_plantfrog);
+	}
+
+	//꼼장어
+	for (int i = 0; i < 2; ++i)
+	{
 		electriceel* _electriceel = new electriceel;
-		_electriceel->init("null", "꼼장어move", "꼼장어move", "null", "잠자리dead", PointMake(400 + i * 320, 420), i * 2, 150 * i, 0, 1, 1);
+		_electriceel->init("null", "꼼장어move", "꼼장어move", "null", "잠자리dead", PointMake(11870 + i * 1070, 2630), i * 2, 150 * i, 0, 1, 1);
 		_vElectriceel.push_back(_electriceel);
 
 	}
@@ -273,9 +382,9 @@ void enemyManager::setMinion()
 
 void enemyManager::pixelCollision()
 {
-	for (int k = 0; k < 1; ++k)
+	for (int k = 0; k < 2; ++k)
 	{
-		for (int i = _vPlantFrog[k]->getRect().left; i < _vPlantFrog[k]->getRect().right; i += 2)
+		for (int i = _vPlantFrog[k]->getColliRect().left; i < _vPlantFrog[k]->getColliRect().right; i += 2)
 		{
 			for (int j = _vPlantFrog[k]->getRect().bottom - 10; j <_vPlantFrog[k]->getRect().bottom; j += _vPlantFrog[k]->getEnemyImage(E_MOVE)->getFrameHeight() / 2)  // _rc.bottom - 10; j < _rc.bottom; j++)
 			{
@@ -284,7 +393,7 @@ void enemyManager::pixelCollision()
 				int g = GetGValue(color);
 				int b = GetBValue(color);
 
-				if ((r == 0 && g == 255 && b == 255))
+				if ((r == 0 && g == 255 && b == 255) && _vPlantFrog[k]->getGravity() > 10)
 				{
 					_vPlantFrog[k]->setY(j - _vPlantFrog[k]->getEnemyImage(_vPlantFrog[k]->getEnemyAction())->getFrameHeight() / 2);           // = j - _image[E_MOVE]->getFrameHeight();
 					_vPlantFrog[k]->setGravity(0);
