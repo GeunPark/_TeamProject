@@ -84,6 +84,18 @@
     <Filter Include="GameFramework2D\GDI+">
       <UniqueIdentifier>{a44cecfe-3b36-4ded-8993-16c1f3883147}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\근화">
+      <UniqueIdentifier>{407570bf-b536-4959-89b5-aef0c4d23e40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\세원">
+      <UniqueIdentifier>{63ee2c34-870b-4a82-a205-875edfd715c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\기훈">
+      <UniqueIdentifier>{a1b6e3e6-efc5-4846-b8eb-2d6a9a6aafb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\선수">
+      <UniqueIdentifier>{e324e35d-9851-4422-99f8-6bcbcef7b469}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonMacroFunction.h">
@@ -309,6 +321,18 @@
     </ClCompile>
     <ClCompile Include="gdipManager.cpp">
       <Filter>GameFramework2D\GDI+</Filter>
+    </ClCompile>
+    <ClCompile Include="GeunHwaLoadFile.cpp">
+      <Filter>MainGame\근화</Filter>
+    </ClCompile>
+    <ClCompile Include="GiHunLoadFile.cpp">
+      <Filter>MainGame\기훈</Filter>
+    </ClCompile>
+    <ClCompile Include="SunSooLoadFile.cpp">
+      <Filter>MainGame\선수</Filter>
+    </ClCompile>
+    <ClCompile Include="SaeWonLoadFile.cpp">
+      <Filter>MainGame\세원</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
