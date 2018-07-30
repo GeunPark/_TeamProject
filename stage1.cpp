@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "stage1.h"
-
+#include "foxPlayer.h"
 HRESULT stage1::init(void)
 {
 	// 상태
@@ -41,8 +41,9 @@ HRESULT stage1::init(void)
 
 	_eMG->init();
 
-
-
+	//플레이어 동적할당
+	_player = new foxPlayer;
+	_player->init();
 
 
 	_normalBack1._x = 0;
@@ -64,9 +65,12 @@ void stage1::release(void)
 void stage1::update(void)
 {
 
-	imageMove();
+	//imageMove();
+	// 기훈아 두개라서 이거 주석처리했다 니가 나중에 알아서 정리해 -근화-########################################################################
+	//if(KEYMANAGER->isToggleKey(VK_F2))cameraMove();
 
-	if(KEYMANAGER->isToggleKey(VK_F2))cameraMove();
+	//To Do : 기훈아 내일 이거 건들지말아바 -근화- ##############################################################################################
+
 
 	//cameraMove();
 	imageMove();
@@ -74,40 +78,48 @@ void stage1::update(void)
 	//에너미매니저
 	_eMG->update();
 
+	//플레이어
+	_player->update();
+
+	
+
 	if (KEYMANAGER->isToggleKey(VK_F2))
 	{
 		cameraMove();
 	}
 
-	_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
+	//_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
 }
 
 void stage1::render(void)
 {
-	_normalBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _cam.rc.top, WINSIZEX, 2550), _normalBack1._x, _normalBack1._y);
+	_normalBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _player->getPlayerCam().top, WINSIZEX, 2550), _normalBack1._x, _normalBack1._y);
 
 	//IMAGEMANAGER->findImage("스테이지1")->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
 	for (int i = 0; i < 6; i++)
 	{
 
-		_river[i]._img->frameRender(getMemDC(), _river[i]._x - _cam.rc.left, _river[i]._y - _cam.rc.top);
+		_river[i]._img->frameRender(getMemDC(), _river[i]._x - _player->getPlayerCam().left, _river[i]._y - _player->getPlayerCam().top);
 
-		_river[i]._img->frameRender(getMemDC(), _riverX[i] - _cam.rc.left, _riverY[i] - _cam.rc.top);
+		_river[i]._img->frameRender(getMemDC(), _riverX[i] - _player->getPlayerCam().left, _riverY[i]-_player->getPlayerCam().top);
 
 	}
-	feildpixel->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
-	feild->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
+	feildpixel->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
+	feild->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
 
 
 
 	//TextOut(getMemDC(), 100, WINSIZEY, )
 
 	//에너미매니저
-	_eMG->render(_cam.rc.left, _cam.rc.top);
+	_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 
 
+	//플레이어
+	//_player->render(_cam.rc.left, _cam.rc.top);
+	_player->render();
 	char str[128];
-	sprintf_s(str, "%d    %d ",_ptMouse.x + _cam.rc.left, _ptMouse.y + _cam.rc.top);
+	sprintf_s(str, "%d    %d ",_ptMouse.x + _player->getPlayerCam().left, _ptMouse.y + _player->getPlayerCam().top);
 	TextOut(getMemDC(), 120 , WINSIZEY /2 , str, strlen(str));
 
 }
@@ -131,12 +143,12 @@ void stage1::cameraMove()
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
 		_cam.x += 30;
-		_normalBack1._x += 1;
+		//_normalBack1._x += 1;
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		_cam.x -= 30;
-		_normalBack1._x -= 1;
+		//_normalBack1._x -= 1;
 
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))

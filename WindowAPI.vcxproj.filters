@@ -99,6 +99,9 @@
     <Filter Include="MainGame\선수\EnemyClass">
       <UniqueIdentifier>{916a354f-293a-4dc8-977a-8d5f6584b5ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\세원\플레이어">
+      <UniqueIdentifier>{8f299df8-f6a7-45ae-8474-6669e46b76e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonMacroFunction.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="enemyManager.h">
       <Filter>MainGame\선수\EnemyClass</Filter>
+    </ClInclude>
+    <ClInclude Include="foxPlayer.h">
+      <Filter>MainGame\세원\플레이어</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -336,6 +342,9 @@
     </ClCompile>
     <ClCompile Include="enemyManager.cpp">
       <Filter>MainGame\선수\EnemyClass</Filter>
+    </ClCompile>
+    <ClCompile Include="foxPlayer.cpp">
+      <Filter>MainGame\세원\플레이어</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

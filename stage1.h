@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "enemyManager.h"
+#include "foxPlayer.h"
 
 
 struct imgInfo
@@ -29,6 +30,9 @@ private:
 
 	//에너미매니져 할당
 	enemyManager * _eMG;
+
+	//플레이어 할당
+	foxPlayer* _player;
 
 	state _state;
 	tagBoxs _cam;
