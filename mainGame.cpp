@@ -22,9 +22,10 @@ HRESULT mainGame::init(void)
 	SCENEMANAGER->addScene("이펙트", new effectTestScene);
 	SCENEMANAGER->addScene("로테이트", new rotateTestScene);
 	SCENEMANAGER->addScene("GDIPLUS", new gdipTestScene);
+	SCENEMANAGER->addScene("스테이지1", new stage1);
 
 	/*현재씬 설정*/
-	SCENEMANAGER->loadScene("로테이트");
+	SCENEMANAGER->loadScene("로딩화면");
 
 	return S_OK;
 }

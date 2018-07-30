@@ -8,7 +8,7 @@ HRESULT loadingScene::init(void)
 	_loading->init();
 
 	//이미지 및 사운드 로딩
-	//this->loadingImage();
+	this->loadingImage();
 	this->loadingSound();
 
 	return S_OK;
@@ -30,7 +30,7 @@ void loadingScene::update(void)
 	if (_loading->loadingDone())
 	{
 		//SCENEMANAGER->loadScene("픽셀충돌");
-		SCENEMANAGER->loadScene("사운드");
+		SCENEMANAGER->loadScene("스테이지1");
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
@@ -73,21 +73,24 @@ void loadingScene::loadingImage()
 	//_loading->loadSound();
 	SetBkMode(getMemDC(), TRANSPARENT);
 	//로딩이 너무 빠르게 진행되서 천천히 돌아가도록 테스트용으로 만들기
-	for (int i = 0; i < 500; i++)
-	{
-		char str[128];
-		sprintf_s(str, "%s_%d", "testImage", i + 1);
-		_loading->loadImage(str, WINSIZEX, WINSIZEY);
-	}
-	//IMAGEMANAGER->addImage("mountain", "mountain.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
-	//백그라운드 이미지
-	for (int i = 0; i < 500; i++)
-	{
-		char str[128];
-		sprintf_s(str, "%s_%d", "mountain", i + 1);
-		_loading->loadImage(str, "mountain.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
-	}
-	
+	//for (int i = 0; i < 500; i++)
+	//{
+	//	char str[128];
+	//	sprintf_s(str, "%s_%d", "testImage", i + 1);
+	//	_loading->loadImage(str, WINSIZEX, WINSIZEY);
+	//}
+	////IMAGEMANAGER->addImage("mountain", "mountain.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
+	////백그라운드 이미지
+	//for (int i = 0; i < 500; i++)
+	//{
+	//	char str[128];
+	//	sprintf_s(str, "%s_%d", "mountain", i + 1);
+	//	_loading->loadImage(str, "mountain.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
+	//}
+	GeunHwaImage();
+	SaeWonImage();
+	SunSooImage();
+	GiHunImage();
 
 }
 

@@ -10,6 +10,7 @@
 #include "effectTestScene.h"
 #include "rotateTestScene.h"
 #include "gdipTestScene.h"
+#include "stage1.h"
 
 class mainGame : public gameNode
 {

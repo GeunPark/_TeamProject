@@ -212,6 +212,9 @@
     <ClInclude Include="gdipManager.h">
       <Filter>GameFramework2D\GDI+</Filter>
     </ClInclude>
+    <ClInclude Include="stage1.h">
+      <Filter>MainGame\기훈</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -333,6 +336,9 @@
     </ClCompile>
     <ClCompile Include="SaeWonLoadFile.cpp">
       <Filter>MainGame\세원</Filter>
+    </ClCompile>
+    <ClCompile Include="stage1.cpp">
+      <Filter>MainGame\기훈</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
