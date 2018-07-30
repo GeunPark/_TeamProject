@@ -84,11 +84,6 @@
     <Filter Include="GameFramework2D\GDI+">
       <UniqueIdentifier>{a44cecfe-3b36-4ded-8993-16c1f3883147}</UniqueIdentifier>
     </Filter>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <Filter Include="MainGame\로딩화면\로테이트">
-      <UniqueIdentifier>{78ec6bad-644d-4edb-a2bc-928cffc998ef}</UniqueIdentifier>
-=======
     <Filter Include="MainGame\근화">
       <UniqueIdentifier>{407570bf-b536-4959-89b5-aef0c4d23e40}</UniqueIdentifier>
     </Filter>
@@ -100,10 +95,7 @@
     </Filter>
     <Filter Include="MainGame\선수">
       <UniqueIdentifier>{e324e35d-9851-4422-99f8-6bcbcef7b469}</UniqueIdentifier>
->>>>>>> 203dae953f68e17fe74919fee63ead9cf623255c
     </Filter>
-=======
->>>>>>> parent of 41e3c71... 냉무
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonMacroFunction.h">
