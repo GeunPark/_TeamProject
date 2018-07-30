@@ -12,10 +12,10 @@ HRESULT stage1::init(void)
 	// 프레임 이미지 카운터, 인덱스 값 초기화
 	_count = 0;
 	_index = 0;
-<<<<<<< HEAD
+
 	imagePosition();
 	images();
-=======
+
 	// 물가 x좌표
 	
 	
@@ -34,7 +34,15 @@ HRESULT stage1::init(void)
 		_river[i]._y = 2630;
 		_river[i]._img = IMAGEMANAGER->findImage("물가");
 	}
->>>>>>> e3f537a6e8a5cf56efb32f678640a2db0b115137
+
+	_normalBack1._x = 0;
+	_normalBack1._y = 0;
+	_normalBack1._img = IMAGEMANAGER->findImage("레이어1배경");
+
+	_normalBack2._x = 0;
+	_normalBack2._y = 0;
+	_normalBack2._img = IMAGEMANAGER->findImage("레이어2배경");
+
 	return S_OK;
 }
 void stage1::release(void)
@@ -44,11 +52,11 @@ void stage1::release(void)
 
 void stage1::update(void)
 {
-<<<<<<< HEAD
+
 	imageMove();
 
 	if(KEYMANAGER->isToggleKey(VK_F2))cameraMove();
-=======
+
 	//cameraMove();
 	imageMove();
 
@@ -56,20 +64,22 @@ void stage1::update(void)
 	{
 		cameraMove();
 	}
->>>>>>> e3f537a6e8a5cf56efb32f678640a2db0b115137
+
 	_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
 }
 
 void stage1::render(void)
 {
+	_normalBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _cam.rc.top, WINSIZEX, 2550), _normalBack1._x, _normalBack1._y);
+
 	//IMAGEMANAGER->findImage("스테이지1")->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
 	for (int i = 0; i < 6; i++)
 	{
-<<<<<<< HEAD
+
 		_river[i]._img->frameRender(getMemDC(), _river[i]._x - _cam.rc.left, _river[i]._y - _cam.rc.top);
-=======
+
 		_river[i]._img->frameRender(getMemDC(), _riverX[i] - _cam.rc.left, _riverY[i] - _cam.rc.top);
->>>>>>> e3f537a6e8a5cf56efb32f678640a2db0b115137
+
 	}
 	feildpixel->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
 	feild->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
@@ -98,10 +108,12 @@ void stage1::cameraMove()
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
 		_cam.x += 100;
+		_normalBack1._x += 1;
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		_cam.x -= 100;
+		_normalBack1._x -= 1;
 
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
