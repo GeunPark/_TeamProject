@@ -42,6 +42,11 @@ private:
 
 	image* feild;
 	image* feildpixel;
+
+	//기훈아 내가 여기에다가 레이어 배경 두개 일단 입혀놓을게!!
+	imgInfo _normalBack1;
+	imgInfo _normalBack2;
+	imgInfo _iceBack1;
 	
 	float _riverX[10], _riverY[10];
 
@@ -62,8 +67,9 @@ public:
 	void render(void);
 
 	void imageMove();
-
 	void cameraMove();
+	void imagePosition();
+	void images();
 	stage1() {}
 	~stage1() {}
 };
