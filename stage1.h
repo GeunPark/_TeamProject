@@ -1,6 +1,12 @@
 #pragma once
 #include "gameNode.h"
 
+struct imgInfo
+{
+	float _x, _y;
+	image * _img;
+};
+
 enum state
 {
 	NORMAL,
@@ -20,6 +26,9 @@ class stage1 : public gameNode
 private:
 	state _state;
 	tagBoxs _cam;
+	imgInfo _river[6];
+	imgInfo waterfall[3];
+	imgInfo waterfalls[3];
 	//ū Ǯ
 	tagBoxs _bush[10];
 	vector<tagBoxs> _vBush;
@@ -28,6 +37,7 @@ private:
 	image* feild;
 	image* feildpixel;
 	
+	float _riverX[10], _riverY[10];
 
 	int _count;
 	int _index;
