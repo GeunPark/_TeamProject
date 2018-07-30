@@ -30,6 +30,16 @@ HRESULT stage1::init(void)
 		_river[i]._y = 2630;
 		_river[i]._img = IMAGEMANAGER->findImage("물가");
 	}
+
+	//에너미매니저
+	_eMG = new enemyManager;
+
+	_eMG->init();
+
+
+
+
+
 	return S_OK;
 }
 
@@ -41,6 +51,9 @@ void stage1::update(void)
 {
 	//cameraMove();
 	imageMove();
+
+	//에너미매니저
+	_eMG->update();
 
 	if (KEYMANAGER->isToggleKey(VK_F2))
 	{
@@ -58,6 +71,13 @@ void stage1::render(void)
 	}
 	feildpixel->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
 	feild->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
+
+
+	//TextOut(getMemDC(), 100, WINSIZEY, )
+
+	//에너미매니저
+	_eMG->render(_cam.rc.left, _cam.rc.top);
+
 }
 
 // 프레임 이미지 움직임

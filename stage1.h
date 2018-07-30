@@ -1,5 +1,7 @@
 #pragma once
 #include "gameNode.h"
+#include "enemyManager.h"
+
 
 struct imgInfo
 {
@@ -24,6 +26,10 @@ struct tagBoxs
 class stage1 : public gameNode
 {
 private:
+
+	//에너미매니져 할당
+	enemyManager * _eMG;
+
 	state _state;
 	tagBoxs _cam;
 	imgInfo _river[6];

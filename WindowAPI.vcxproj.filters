@@ -24,9 +24,6 @@
     <Filter Include="GameFramework2D\이미지">
       <UniqueIdentifier>{1851a966-ba68-4f2f-8ebc-640729b7e225}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\슈팅게임">
-      <UniqueIdentifier>{8dedb022-032e-4e6d-955f-9603c8277adf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework2D\총알">
       <UniqueIdentifier>{b9eb04df-28c2-4810-892e-c2bfca8911fd}</UniqueIdentifier>
     </Filter>
@@ -96,6 +93,12 @@
     <Filter Include="MainGame\선수">
       <UniqueIdentifier>{e324e35d-9851-4422-99f8-6bcbcef7b469}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\선수\Stage_1_Enemy">
+      <UniqueIdentifier>{10ecaa9c-5b87-4060-bf14-5dbf8632eec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\선수\EnemyClass">
+      <UniqueIdentifier>{916a354f-293a-4dc8-977a-8d5f6584b5ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonMacroFunction.h">
@@ -128,20 +131,8 @@
     <ClInclude Include="util.h">
       <Filter>GameFramework2D\유틸</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>MainGame\슈팅게임</Filter>
-    </ClInclude>
     <ClInclude Include="bullet.h">
       <Filter>GameFramework2D\총알</Filter>
-    </ClInclude>
-    <ClInclude Include="enemy.h">
-      <Filter>MainGame\슈팅게임</Filter>
-    </ClInclude>
-    <ClInclude Include="minion.h">
-      <Filter>MainGame\슈팅게임</Filter>
-    </ClInclude>
-    <ClInclude Include="enemyManager.h">
-      <Filter>MainGame\슈팅게임</Filter>
     </ClInclude>
     <ClInclude Include="pixelCollision.h">
       <Filter>MainGame\픽셀충돌</Filter>
@@ -215,6 +206,15 @@
     <ClInclude Include="stage1.h">
       <Filter>MainGame\기훈</Filter>
     </ClInclude>
+    <ClInclude Include="stage_1_enemy.h">
+      <Filter>MainGame\선수\Stage_1_Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>MainGame\선수\EnemyClass</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyManager.h">
+      <Filter>MainGame\선수\EnemyClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -241,20 +241,8 @@
     <ClCompile Include="util.cpp">
       <Filter>GameFramework2D\유틸</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>MainGame\슈팅게임</Filter>
-    </ClCompile>
     <ClCompile Include="bullet.cpp">
       <Filter>GameFramework2D\총알</Filter>
-    </ClCompile>
-    <ClCompile Include="enemy.cpp">
-      <Filter>MainGame\슈팅게임</Filter>
-    </ClCompile>
-    <ClCompile Include="minion.cpp">
-      <Filter>MainGame\슈팅게임</Filter>
-    </ClCompile>
-    <ClCompile Include="enemyManager.cpp">
-      <Filter>MainGame\슈팅게임</Filter>
     </ClCompile>
     <ClCompile Include="pixelCollision.cpp">
       <Filter>MainGame\픽셀충돌</Filter>
@@ -339,6 +327,15 @@
     </ClCompile>
     <ClCompile Include="stage1.cpp">
       <Filter>MainGame\기훈</Filter>
+    </ClCompile>
+    <ClCompile Include="stage_1_enemy.cpp">
+      <Filter>MainGame\선수\Stage_1_Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>MainGame\선수\EnemyClass</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyManager.cpp">
+      <Filter>MainGame\선수\EnemyClass</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
