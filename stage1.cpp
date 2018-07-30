@@ -38,8 +38,14 @@ void stage1::release(void)
 }
 void stage1::update(void)
 {
+<<<<<<< HEAD
 	cameraMove();
 	imageMove();
+=======
+	if(KEYMANAGER->isToggleKey(VK_F2))
+		cameraMove();
+
+>>>>>>> 89c184541233c3d543180f154b4d42e354caf9fa
 	_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
 }
 
