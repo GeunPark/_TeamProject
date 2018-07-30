@@ -26,6 +26,7 @@ private:
 	vector<tagBoxs>::iterator _viBush;
 
 	image* feild;
+	image* feildpixel;
 	
 
 	int _count;

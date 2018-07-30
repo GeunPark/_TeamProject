@@ -9,7 +9,7 @@ HRESULT stage1::init(void)
 	_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
 
 	feild = IMAGEMANAGER->findImage("스테이지1");
-
+	feildpixel = IMAGEMANAGER->findImage("스테이지1 픽셀");
 	return S_OK;
 }
 
@@ -27,13 +27,11 @@ void stage1::update(void)
 void stage1::render(void)
 {
 	//IMAGEMANAGER->findImage("스테이지1")->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
-
+	feildpixel->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
 	feild->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
-
 
 	if (KEYMANAGER->isToggleKey(VK_F4))
 	{
-	//	IMAGEMANAGER->findImage("스테이지1 픽셀")->render(getMemDC(), 0, 0, _cam.rc.left, _cam.rc.top, WINSIZEX, WINSIZEY);
 		Rectangle(getMemDC(), _cam.rc);
 
 	}
