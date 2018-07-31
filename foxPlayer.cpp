@@ -3,13 +3,15 @@
 
 HRESULT foxPlayer::init(void)
 {
+	imageSetting();
+	_state = IDLE;
 	_player.x = 180;
 	_player.y = MAX_HEIGHT - 180;
 	_player.speed = 10.f;
 	_player.gravity = 0.f;
 	_player.angle = PI / 2;
 	_player.radian = 90;
-	_player.isJump = _player.isLeft = _player.isRight = _player.isAtt = false;
+	_player.isJump = _player.isLeft = _player.isRight = _player.isAtt = _player.isUp = _player.isDown = false;
 	
 	_camera.x = _player.x;
 	_camera.y = _player.y;
@@ -60,6 +62,26 @@ void foxPlayer::render()
 	
 }
 
+void foxPlayer::imageSetting()
+{
+	nick[IDLE] = IMAGEMANAGER->findImage("Idle");		//아이들
+	nick[RUN] = IMAGEMANAGER->findImage("Run");			//달리기
+	nick[JUMP] = IMAGEMANAGER->findImage("Jump");		//점프
+	nick[DOUBLEJUMP] = IMAGEMANAGER->findImage("Jump2");	//이단점프
+	nick[FALL] = IMAGEMANAGER->findImage("Fall");		//떨어지는
+	nick[FIRE] = IMAGEMANAGER->findImage("Fire");		//발사
+	nick[UPATT] = IMAGEMANAGER->findImage("UpAtt");		//상단베기
+	nick[SITATT] = IMAGEMANAGER->findImage("SitAtt");	//앉아공격
+	nick[SIT] = IMAGEMANAGER->findImage("Sit");			//앉기
+	nick[JUMPATT] = IMAGEMANAGER->findImage("JumpAtt");	//점프공격
+	nick[JUMPATT2] = IMAGEMANAGER->findImage("JumpAtt2");	//점프공격2 회전회오리~!
+	nick[DOWNATT] = IMAGEMANAGER->findImage("DownAtt");	//내려찍기
+}
+
+void foxPlayer::frameMove()
+{
+}
+
 void foxPlayer::keySetting()
 {
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
@@ -70,7 +92,6 @@ void foxPlayer::keySetting()
 	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 	{
 		_player.isRight = false;
-		_player.speed = 10.0f;
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
@@ -83,11 +104,11 @@ void foxPlayer::keySetting()
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
-		_player.y -= _player.speed;
+		_player.isUp = true;
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
-		_player.y += _player.speed;
+		_player.isDown = true;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
@@ -147,22 +168,7 @@ void foxPlayer::camera()		//카메라 움직이는 함수
 
 void foxPlayer::pixelCollision()		//픽셀 충돌
 {
-	for(int i=_player.rc.right - _player.speed;i<=_player.rc.right; ++i)
-	{
-		COLORREF color = GetPixel(_bfx->getMemDC(), i, _player.y);
-
-		int r = GetRValue(color);
-		int g = GetGValue(color);
-		int b = GetBValue(color);
-
-		if (r == 0 && g == 255 && b == 255)
-		{
-			_player.x = i - (_player.rc.right - _player.rc.left)/2 ;
-			break;
-		}
-	}
-
-
+	//플레이어 렉트 바텀 픽셀충돌
 	for (int i = _player.rc.bottom - _player.speed; i < _player.rc.bottom+30; ++i)
 	{
 		

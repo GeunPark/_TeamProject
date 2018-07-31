@@ -2,7 +2,23 @@
 #include "gameNode.h"
 #define MAX_HEIGHT 2750
 #define MAX_WIDTH 20000
+#define MAX_STATE 12
 
+enum tagState
+{
+	IDLE=0,
+	RUN,
+	SIT,
+	JUMP,
+	DOUBLEJUMP,
+	FALL,
+	FIRE,
+	UPATT,
+	SITATT,
+	JUMPATT,
+	JUMPATT2,
+	DOWNATT
+};
 
 struct tagPlayer
 {
@@ -16,6 +32,8 @@ struct tagPlayer
 	bool isJump;
 	bool isLeft;
 	bool isRight;
+	bool isUp;
+	bool isDown;
 	bool isAtt;
 };
 
@@ -32,11 +50,15 @@ class foxPlayer : public gameNode
 private:
 	tagPlayer _player;
 	tagCam _camera;
+	tagState _state;
+
+	image* nick[MAX_STATE];
 	image* _bfx;
-	RECT attRc;
+	
+	RECT attRc;	//임시 공격렉트(잘 되면 주로 사용)
 	image* _bpx;
 
-	image* _bpx2;
+	//image* _bpx2;
 
 public:
 	HRESULT init(void);
@@ -46,6 +68,8 @@ public:
 	//void render(float FX, float FY);
 
 	//함수들
+	void imageSetting();
+	void frameMove();
 	void keySetting();
 	void camera();
 	void pixelCollision();
