@@ -28,6 +28,7 @@ private:
 	vector<enemy*> _vElectriceel;
 	vector<enemy*>::iterator _viElectriceel;
 
+	image* _bpx;
 
 	int _count;
 	//dragonfly* _dragonFly;

@@ -26,13 +26,13 @@ void loadingScene::SunSooImage()
 	//IMAGEMANAGER->addFrameImage("꼼장어spawn", "resource/꼼장어spawn.bmp", 810, 60, 6, 1);
 	_loading->loadFrameImage("꼼장어move", "resource/이선수/몬스터/꼼장어move2.bmp", 4290, 186, 26, 1);
 
+
+
 	//아이템
-	//IMAGEMANAGER->addFrameImage("헬스라지", "resource/헬스라지.bmp", 350, 30, 10, 1);
 	_loading->loadFrameImage("헬스라지", "resource/이선수/아이템/하트L2.bmp", 665, 30, 19, 1);
 	_loading->loadFrameImage("헬스빅", "resource/이선수/아이템/하트B.bmp", 300, 14, 20, 1);
 	_loading->loadFrameImage("마나빅", "resource/이선수/아이템/마나B.bmp", 660, 60, 11, 1);
-	//IMAGEMANAGER->addFrameImage("마나빅", "resource/마나B2.bmp", 1320, 60, 22, 1);
-	_loading->loadFrameImage("마나스몰", "resource/item/마나S.bmp", 660, 60, 11, 1);
+	_loading->loadFrameImage("마나스몰", "resource/이선수/아이템/마나S.bmp", 660, 60, 11, 1);
 	//코인
 	_loading->loadFrameImage("금화", "resource/이선수/아이템/금화2.bmp", 256, 32, 8, 1);
 	_loading->loadFrameImage("은화", "resource/이선수/아이템/은화2.bmp", 256, 32, 8, 1);

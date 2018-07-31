@@ -102,6 +102,9 @@
     <Filter Include="MainGame\세원\플레이어">
       <UniqueIdentifier>{8f299df8-f6a7-45ae-8474-6669e46b76e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\선수\ItemClass">
+      <UniqueIdentifier>{63e1f06e-7780-4660-8163-06b0fe1cd695}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonMacroFunction.h">
@@ -220,6 +223,12 @@
     </ClInclude>
     <ClInclude Include="foxPlayer.h">
       <Filter>MainGame\세원\플레이어</Filter>
+    </ClInclude>
+    <ClInclude Include="itemManager.h">
+      <Filter>MainGame\선수\ItemClass</Filter>
+    </ClInclude>
+    <ClInclude Include="item.h">
+      <Filter>MainGame\선수\ItemClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -345,6 +354,12 @@
     </ClCompile>
     <ClCompile Include="foxPlayer.cpp">
       <Filter>MainGame\세원\플레이어</Filter>
+    </ClCompile>
+    <ClCompile Include="itemManager.cpp">
+      <Filter>MainGame\선수\ItemClass</Filter>
+    </ClCompile>
+    <ClCompile Include="item.cpp">
+      <Filter>MainGame\선수\ItemClass</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
