@@ -29,13 +29,10 @@ void foxPlayer::update(void)
 	this->keySetting();	  //키셋팅 함수 호출
 	
 	this->camera();			//카메라 움직이는 함수 호출
-<<<<<<< HEAD
 	_player.rc = RectMakeCenter(_player.x, _player.y, 180, 180);
-=======
 	
 	_player.rc = RectMakeCenter(_player.x, _player.y, 180, 180);
 
->>>>>>> c2e7ffd33a46cb3971e382f74a0239e442e7d059
 	this->pixelCollision();		//픽셀충돌 함수 호출
 	if (_player.isAtt)
 	{
@@ -150,7 +147,6 @@ void foxPlayer::camera()		//카메라 움직이는 함수
 
 void foxPlayer::pixelCollision()		//픽셀 충돌
 {
-<<<<<<< HEAD
 	for(int i=_player.rc.right - _player.speed;i<=_player.rc.right; ++i)
 	{
 		COLORREF color = GetPixel(_bfx->getMemDC(), i, _player.y);
@@ -166,10 +162,8 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 		}
 	}
 
-	for (int i = _player.rc.bottom-10; i < _player.rc.bottom + 10 ; ++i)
-=======
+
 	for (int i = _player.rc.bottom - _player.speed; i < _player.rc.bottom+30; ++i)
->>>>>>> c2e7ffd33a46cb3971e382f74a0239e442e7d059
 	{
 		
 			COLORREF color = GetPixel(_bfx->getMemDC(), _player.x, i);
