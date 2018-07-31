@@ -2,7 +2,7 @@
 #include "gameNode.h"
 #include "enemyManager.h"
 #include "foxPlayer.h"
-
+#include "itemManager.h"
 
 struct imgInfo
 {
@@ -27,6 +27,9 @@ struct tagBoxs
 class stage1 : public gameNode
 {
 private:
+
+	//아이템매니져 할당
+	itemManager * _iMG;
 
 	//에너미매니져 할당
 	enemyManager * _eMG;

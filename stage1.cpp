@@ -41,6 +41,11 @@ HRESULT stage1::init(void)
 
 	_eMG->init();
 
+	//아이템매니저
+	_iMG = new itemManager;
+	_iMG->init();
+
+
 	//플레이어 동적할당
 	_player = new foxPlayer;
 	_player->init();
@@ -59,6 +64,9 @@ HRESULT stage1::init(void)
 }
 void stage1::release(void)
 {
+	SAFE_DELETE(_player);
+	SAFE_DELETE(_eMG);
+	SAFE_DELETE(_iMG);
 
 }
 
@@ -77,6 +85,9 @@ void stage1::update(void)
 
 	//에너미매니저
 	_eMG->update();
+
+	//아이템매니저
+	_iMG->update();
 
 	//플레이어
 	_player->update();
@@ -128,6 +139,8 @@ void stage1::render(void)
 	//에너미매니저
 	_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 
+	//아이템매니저
+	_iMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 
 	//플레이어
 	//_player->render(_cam.rc.left, _cam.rc.top);

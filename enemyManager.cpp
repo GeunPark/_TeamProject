@@ -11,6 +11,7 @@ HRESULT enemyManager::init(void)
 	_count = 0;
 	//_dragonFly = new dragonfly;
 
+	_bpx = IMAGEMANAGER->findImage("스테이지1 픽셀");
 
 	//총알클래스 생성 및 초기화
 	//_bullet = new bullet;
@@ -37,10 +38,7 @@ void enemyManager::update(void)
 	//_bullet->update();
 
 	//벡터에 담긴 미니언들 업데이트
-	//for (int i = 0; i < _vMinion.size(); i++)
-	//{
-	//	_vMinion[i]->update();
-	//}
+
 	_viDragonFly = _vDragonFly.begin();
 	for (_viDragonFly; _viDragonFly != _vDragonFly.end(); ++_viDragonFly)
 	{
@@ -259,13 +257,13 @@ void enemyManager::setMinion()
 	for (int i = 0; i < 1; ++i)
 	{
 		treeman* _treeman = new treeman;
-		_treeman->init("null", "통나무move", "통나무move", "null", "잠자리dead", PointMake(9800 + i * 450, 2050), 0, 100 * i, 3, 0, 0);
+		_treeman->init("null", "통나무move", "통나무move", "null", "잠자리dead", PointMake(9800 + i * 450, 2040), 0, 100 * i, 3, 0, 0);
 		_vTreeMan.push_back(_treeman);
 	}
 	for (int i = 0; i < 2; ++i)
 	{
 		treeman* _treeman = new treeman;
-		_treeman->init("null", "통나무move", "통나무move", "null", "잠자리dead", PointMake(15250 + i * 780, 2530), 0, 100 * i, 3, 0, 0);
+		_treeman->init("null", "통나무move", "통나무move", "null", "잠자리dead", PointMake(15200 + i * 780, 2530), 0, 100 * i, 3, 0, 0);
 		_vTreeMan.push_back(_treeman);
 	}
 	for (int i = 0; i < 1; ++i)
@@ -388,7 +386,7 @@ void enemyManager::pixelCollision()
 		{
 			for (int j = _vPlantFrog[k]->getRect().bottom - 10; j <_vPlantFrog[k]->getRect().bottom; j += _vPlantFrog[k]->getEnemyImage(E_MOVE)->getFrameHeight() / 2)  // _rc.bottom - 10; j < _rc.bottom; j++)
 			{
-				COLORREF color = GetPixel(IMAGEMANAGER->findImage("스테이지1 픽셀")->getMemDC(), i, j);
+				COLORREF color = GetPixel(_bpx->getMemDC(), i, j);
 				int r = GetRValue(color);
 				int g = GetGValue(color);
 				int b = GetBValue(color);
