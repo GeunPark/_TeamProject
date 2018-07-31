@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "stage1.h"
-#include "foxPlayer.h"
 HRESULT stage1::init(void)
 {
 	// ป๓ลย
@@ -65,11 +64,17 @@ void stage1::update(void)
 	{
 		this->init();
 	}
+<<<<<<< HEAD
 	if (KEYMANAGER->isOnceKeyDown('A'))
 	{
 		if (_state == ICE)_state = NORMAL;
 		else if (_state == NORMAL)_state = ICE;
 	}
+=======
+
+
+	this->bgMove();
+>>>>>>> 114d6dd79833973f3adc7a25e090ccfe7a3bb36c
 
 	//_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
 
@@ -289,4 +294,16 @@ void stage1::images()
 		_waterfall[i]._index = _waterfalls[i]._index = 0;
 	}
 	
+}
+
+void stage1::bgMove()
+{
+	if (_player->getLeft())
+	{
+		_normalBack1._x -= 1;
+	}
+	if (_player->getRight())
+	{
+		_normalBack1._x += 1;
+	}
 }

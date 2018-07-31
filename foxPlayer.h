@@ -13,7 +13,8 @@ struct tagPlayer
 	float angle;
 	float bulletAngle;
 	bool isJump;
-
+	bool isLeft;
+	bool isRight;
 };
 
 struct tagCam
@@ -37,12 +38,17 @@ public:
 	void render();
 	//void render(float FX, float FY);
 
-	void move();
+	//함수들
+	void keySetting();
+	void camera();
 
+	// get, set함수들
 	float getX() { return _player.x; }
-
-
+	bool getLeft() { return _player.isLeft; }
+	bool getRight() { return _player.isRight; }
 	RECT getPlayerCam() { return _camera.rc; }
+
+
 	foxPlayer() {}
 	~foxPlayer() {}
 

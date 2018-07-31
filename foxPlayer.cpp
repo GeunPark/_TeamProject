@@ -8,7 +8,7 @@ HRESULT foxPlayer::init(void)
 	_player.speed = 10.f;
 	_player.gravity = 0.f;
 	_player.angle = PI / 2;
-	_player.isJump = false;
+	_player.isJump = _player.isLeft = _player.isRight = false;
 
 	_camera.x = _player.x;
 	_camera.y = _player.y;
@@ -22,29 +22,11 @@ void foxPlayer::release(void)
 
 void foxPlayer::update(void)
 {
-
 	
-		this->move();
+	this->keySetting();
 	
-	_camera.x = _player.x;
-	_camera.y = _player.y;
-
-	if (_camera.x - WINSIZEX / 2 < 0)
-	{
-		_camera.x = WINSIZEX / 2;
-	}
-	if (_camera.x + WINSIZEX / 2 > MAX_WIDTH)
-	{
-		_camera.x = MAX_WIDTH - WINSIZEX / 2;
-	}
-	if (_camera.y - WINSIZEY / 2 < 0)
-	{
-		_camera.y = WINSIZEY / 2;
-	}
-	if (_camera.y + WINSIZEY / 2 > MAX_HEIGHT)
-	{
-		_camera.y = MAX_HEIGHT - WINSIZEY / 2;
-	}
+	this->camera();
+	
 	_player.rc = RectMakeCenter(_player.x, _player.y , 180 , 180);
 	_camera.rc = RectMakeCenter(_camera.x, _camera.y, WINSIZEX, WINSIZEY);
 }
@@ -62,15 +44,26 @@ void foxPlayer::render()
 		Rectangle(getMemDC(), _camera.rc);
 	}
 }
-void foxPlayer::move()
+
+void foxPlayer::keySetting()
 {
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
+		_player.isRight = true;
 		_player.x += _player.speed;
+	}
+	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
+	{
+		_player.isRight = false;
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
+		_player.isLeft = true;
 		_player.x -= _player.speed;
+	}
+	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
+	{
+		_player.isLeft = false;
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
@@ -100,4 +93,27 @@ void foxPlayer::move()
 		_player.isJump = false;
 	}
 	
+}
+
+void foxPlayer::camera()
+{
+	_camera.x = _player.x;
+	_camera.y = _player.y;
+
+	if (_camera.x - WINSIZEX / 2 < 0)
+	{
+		_camera.x = WINSIZEX / 2;
+	}
+	if (_camera.x + WINSIZEX / 2 > MAX_WIDTH)
+	{
+		_camera.x = MAX_WIDTH - WINSIZEX / 2;
+	}
+	if (_camera.y - WINSIZEY / 2 < 0)
+	{
+		_camera.y = WINSIZEY / 2;
+	}
+	if (_camera.y + WINSIZEY / 2 > MAX_HEIGHT)
+	{
+		_camera.y = MAX_HEIGHT - WINSIZEY / 2;
+	}
 }

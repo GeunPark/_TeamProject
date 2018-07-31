@@ -76,6 +76,10 @@ public:
 	void cameraMove();
 	void imagePosition();
 	void images();
+
+	//배경 움직이는 함수
+	void bgMove();
+
 	stage1() {}
 	~stage1() {}
 };
