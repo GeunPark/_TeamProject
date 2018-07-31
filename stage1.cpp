@@ -60,13 +60,10 @@ void stage1::update(void)
 
 	//에너미매니저
 	_eMG->update();
-<<<<<<< HEAD
 
 	//아이템매니저
 	_iMG->update();
 
-=======
->>>>>>> c6dc5105574410daa313a65136f76eeffe5f0089
 	//플레이어
 	_player->update();
 	if (KEYMANAGER->isToggleKey(VK_F2))
@@ -79,17 +76,14 @@ void stage1::update(void)
 	{
 		this->init();
 	}
-<<<<<<< HEAD
 	if (KEYMANAGER->isOnceKeyDown('A'))
 	{
 		if (_state == ICE)_state = NORMAL;
 		else if (_state == NORMAL)_state = ICE;
 	}
-=======
 
 
 	this->bgMove();
->>>>>>> 114d6dd79833973f3adc7a25e090ccfe7a3bb36c
 
 	//_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
 
@@ -138,12 +132,9 @@ void stage1::render(void)
 	//에너미매니저
 	_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 
-<<<<<<< HEAD
 	//아이템매니저
 	_iMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 
-=======
->>>>>>> c6dc5105574410daa313a65136f76eeffe5f0089
 	//플레이어
 	//_player->render(_cam.rc.left, _cam.rc.top);
 	
