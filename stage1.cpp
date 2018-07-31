@@ -147,7 +147,7 @@ void stage1::render(void)
 	char str[128];
 	sprintf_s(str, "%d    %d ",_ptMouse.x + _player->getPlayerCam().left, _ptMouse.y + _player->getPlayerCam().top);
 	TextOut(getMemDC(), 120 , WINSIZEY /2 , str, strlen(str));
-
+	
 }
 
 // 프레임 이미지 움직임

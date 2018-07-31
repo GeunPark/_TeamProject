@@ -34,6 +34,10 @@ private:
 	tagCam _camera;
 	image* _bfx;
 	RECT attRc;
+	image* _bpx;
+
+	image* _bpx2;
+
 public:
 	HRESULT init(void);
 	void release(void);

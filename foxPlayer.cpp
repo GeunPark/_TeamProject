@@ -15,6 +15,7 @@ HRESULT foxPlayer::init(void)
 	_camera.y = _player.y;
 
 	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+	
 	return S_OK;
 }
 
@@ -28,7 +29,13 @@ void foxPlayer::update(void)
 	this->keySetting();	  //키셋팅 함수 호출
 	
 	this->camera();			//카메라 움직이는 함수 호출
+<<<<<<< HEAD
 	_player.rc = RectMakeCenter(_player.x, _player.y, 180, 180);
+=======
+	
+	_player.rc = RectMakeCenter(_player.x, _player.y, 180, 180);
+
+>>>>>>> c2e7ffd33a46cb3971e382f74a0239e442e7d059
 	this->pixelCollision();		//픽셀충돌 함수 호출
 	if (_player.isAtt)
 	{
@@ -36,9 +43,9 @@ void foxPlayer::update(void)
 	}
 	else
 	{
-		attRc = RectMakeCenter(-10000,-10000 , 30, 30);
+		attRc = RectMakeCenter(-10000,-10000 , 50, 50);
 	}
-	_player.rc = RectMakeCenter(_player.x, _player.y , 180 , 180);
+	
 	_camera.rc = RectMakeCenter(_camera.x, _camera.y, WINSIZEX, WINSIZEY);
 }
 
@@ -53,10 +60,7 @@ void foxPlayer::render()
 	Rectangle(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, _player.rc.right - _camera.rc.left, _player.rc.bottom - _camera.rc.top);
 	
 	Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
-	if (KEYMANAGER->isToggleKey('P'))
-	{
-		Rectangle(getMemDC(), _camera.rc);
-	}
+	
 }
 
 void foxPlayer::keySetting()
@@ -69,6 +73,7 @@ void foxPlayer::keySetting()
 	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 	{
 		_player.isRight = false;
+		_player.speed = 10.0f;
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
@@ -145,6 +150,7 @@ void foxPlayer::camera()		//카메라 움직이는 함수
 
 void foxPlayer::pixelCollision()		//픽셀 충돌
 {
+<<<<<<< HEAD
 	for(int i=_player.rc.right - _player.speed;i<=_player.rc.right; ++i)
 	{
 		COLORREF color = GetPixel(_bfx->getMemDC(), i, _player.y);
@@ -161,6 +167,9 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 	}
 
 	for (int i = _player.rc.bottom-10; i < _player.rc.bottom + 10 ; ++i)
+=======
+	for (int i = _player.rc.bottom - _player.speed; i < _player.rc.bottom+30; ++i)
+>>>>>>> c2e7ffd33a46cb3971e382f74a0239e442e7d059
 	{
 		
 			COLORREF color = GetPixel(_bfx->getMemDC(), _player.x, i);
@@ -170,28 +179,30 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			int b = GetBValue(color);
 
 			if (r == 0 && g == 255 && b == 255 && (-sinf(_player.angle)*_player.speed + _player.gravity > 0 || !_player.isJump))
-			{
+			{ 
 				_player.y = i - _player.radian;
 				_player.gravity = 0.f;
 				_player.isJump = false;
 				break;
 			}
-			else if(!(r == 0 && g == 255 && b == 255) && !_player.isJump)
+			else if (!(r == 0 && g == 255 && b == 255) && !_player.isJump)
 			{
 				_player.y += 0.2f;
 			}
+		
+			
 	}
-	//for (int i = _player.rc.top; i > _player.rc.top - 1; --i)
+	//for (int i = _player.rc.top-10; i < _player.rc.top; ++i)
 	//{
 	//	COLORREF color = GetPixel(_bfx->getMemDC(), _player.x, i);
-
+	//
 	//	int r = GetRValue(color);
 	//	int g = GetGValue(color);
 	//	int b = GetBValue(color);
-
+	//
 	//	if (r == 0 && g == 255 && b == 255)
 	//	{
-	//		_player.y = i - _player.radian - 1;
+	//		_player.y = i + _player.radian;
 	//		
 	//		break;
 	//	}
@@ -200,23 +211,66 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 	//		//			_player.y += 0.2f;
 	//	}
 	//}
-	//for (int i = _player.rc.left; i < _player.rc.right; ++i)
+	
+	for (int i = _player.rc.right - _player.speed ; i < _player.rc.right+5 ; i++ )
+	{
+		COLORREF color = GetPixel(_bfx->getMemDC(), i, _player.y);
+	
+		int r = GetRValue(color);
+		int g = GetGValue(color);
+		int b = GetBValue(color);
+	
+		if (r == 0 && g == 255 && b == 255)
+		{
+			_player.x = i - _player.radian;
+			
+			_player.isRight = false;
+			
+
+	
+			break;
+		}
+		else
+		{
+			//_player.x -= 0.2f;
+		}
+	}
+	for (int i = _player.rc.left + _player.speed; i > _player.rc.left; --i)
+	{
+		COLORREF color = GetPixel(_bfx->getMemDC(), i, _player.y);
+
+		int r = GetRValue(color);
+		int g = GetGValue(color);
+		int b = GetBValue(color);
+
+		if (r == 0 && g == 255 && b == 255)
+		{
+			_player.x = i + _player.radian;
+			_player.isLeft = false;
+			//if (_player.isLeft == false)
+			//{
+			//	_player.x -= 2;
+			//}
+
+			break;
+		}
+	}
+	//for (int i = _player.rc.top; i < _player.rc.bottom; i += (_player.rc.bottom - _player.rc.top) / 2)
 	//{
-	//	COLORREF color = GetPixel(_bfx->getMemDC(), i, _player.y);
-
-	//	int r = GetRValue(color);
-	//	int g = GetGValue(color);
-	//	int b = GetBValue(color);
-
-	//	if (r == 0 && g == 255 && b == 255)
+	//	for (int j = _player.rc.right; j < _player.rc.right; ++j)
 	//	{
-	//		_player.y = i - _player.radian - 1;
-
-	//		break;
-	//	}
-	//	else
-	//	{
-	//		//			_player.y += 0.2f;
+	//		COLORREF color = GetPixel(_bfx->getMemDC(), j, i);
+	//
+	//		int r = GetRValue(color);
+	//		int g = GetGValue(color);
+	//		int b = GetBValue(color);
+	//
+	//		if (r == 0 && g == 255 && b == 255 )
+	//		{
+	//			_player.x = j - _player.radian;
+	//			_player.isJump = false;
+	//			break;
+	//		}
 	//	}
 	//}
 }
