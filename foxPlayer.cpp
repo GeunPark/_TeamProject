@@ -145,7 +145,7 @@ void foxPlayer::camera()		//카메라 움직이는 함수
 
 void foxPlayer::pixelCollision()		//픽셀 충돌
 {
-	for (int i = _player.rc.bottom-50; i < _player.rc.bottom + 1 ; ++i)
+	for (int i = _player.rc.bottom-50; i < _player.rc.bottom + 30 ; ++i)
 	{
 		
 			COLORREF color = GetPixel(_bfx->getMemDC(), _player.x, i);
@@ -154,16 +154,16 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			int g = GetGValue(color);
 			int b = GetBValue(color);
 
-			if (r == 0 && g == 255 && b == 255)
+			if (r == 0 && g == 255 && b == 255 && (-sinf(_player.angle)*_player.speed + _player.gravity > 0 || !_player.isJump))
 			{
-				_player.y = i - _player.radian-1;
+				_player.y = i - _player.radian;
 				_player.gravity = 0.f;
 				_player.isJump = false;
 				break;
 			}
-			else
+			else if(!(r == 0 && g == 255 && b == 255) && !_player.isJump)
 			{
-	//			_player.y += 0.2f;
+				_player.y += 0.2f;
 			}
 	}
 	//for (int i = _player.rc.top; i > _player.rc.top - 1; --i)
