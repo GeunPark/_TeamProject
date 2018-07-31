@@ -38,6 +38,11 @@ HRESULT stage1::init(void)
 	_normalBack2._img = IMAGEMANAGER->findImage("레이어2배경");
 
 
+	//상호참조
+	_eMG->setPlayerLink(_player);
+	_eMG->setItemMGLink(_iMG);
+
+
 	return S_OK;
 }
 void stage1::release(void)

@@ -108,8 +108,12 @@ public:
 
 	void setPlayerLink(player* player) { _player = player; }
 
+	//죽음
+	int getCurrentFrameX() { return _currentFrameX; }
+
 	//아이템
-	bool getIsDrop() { return isDead; }
+	bool getIsDead() { return isDead; }
+	bool getIsDrop() { return isDrop; }
 	int getGold() { return _gold; }
 	int getSilver() { return _silver; }
 	int getBronze() { return _bronze; }

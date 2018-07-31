@@ -5,7 +5,8 @@
 //#include "player.h"
 //플레이어 상호참조하기 위해 클래스 전방선언
 
-class player;
+class foxPlayer;
+class itemManager;
 
 class enemyManager : public gameNode
 {
@@ -32,7 +33,8 @@ private:
 
 	int _count;
 	//dragonfly* _dragonFly;
-	player* _player;	//동적할당 하면 안된다!!!
+	foxPlayer* _player;	//동적할당 하면 안된다!!!
+	itemManager* _iMG;
 
 public:
 	HRESULT init(void);
@@ -50,7 +52,11 @@ public:
 	//void removeMinion(int index);
 
 	//충돌함수
+	
 	//void collision(vector<enemy*> _temp);
+	//void removeEnemy(vector<enemy*> _temp);
+	//void coinDrop(vector<enemy*> _temp);
+	void collision();
 	//void sensorCollision();
 	void pixelCollision(); //두꺼비
 
@@ -66,7 +72,8 @@ public:
 
 
 	//상호참조시 플레이어 포인터 넘길 셋터함수
-	void setPlayerLink(player* player) { _player = player; }
+	void setPlayerLink(foxPlayer* player) { _player = player; }
+	void setItemMGLink(itemManager* iMG) { _iMG = iMG; }
 
 
 

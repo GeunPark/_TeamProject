@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "enemyManager.h"
-
+#include "foxPlayer.h"
+#include "itemManager.h"
 
 HRESULT enemyManager::init(void)
 {
@@ -77,15 +78,20 @@ void enemyManager::update(void)
 
 	//this->sensorCollision();
 	this->pixelCollision();
-	//미니언 총알발사
-	//this->minionBulletFire();
-
+	this->collision();
 	//this->collision(_vDragonFly);
 	//this->collision(_vVineMan);
 	//this->collision(_vBug);
 	//this->collision(_vElectriceel);
 	//this->collision(_vTreeMan);
 	//this->collision(_vPlantFrog);
+
+	//this->removeEnemy(_vDragonFly);
+	//this->removeEnemy(_vVineMan);
+	//this->removeEnemy(_vBug);
+	//this->removeEnemy(_vElectriceel);
+	//this->removeEnemy(_vTreeMan);
+	//this->removeEnemy(_vPlantFrog);
 }
 
 void enemyManager::render(float FX, float FY)
@@ -132,8 +138,6 @@ void enemyManager::render(float FX, float FY)
 	{
 		(*_viElectriceel)->render(FX, FY);
 	}
-
-
 
 }
 
@@ -378,9 +382,111 @@ void enemyManager::setMinion()
 //
 //}
 
+void enemyManager::collision()
+{
+	for (int i = 0; i < _vDragonFly.size(); i++)
+	{
+		RECT rct;
+		if (IntersectRect(&rct, &_vDragonFly[i]->getColliRect(), &_player->getAttRc()) && _vDragonFly[i]->getEnemyAction() != E_SPAWN)
+		{
+	
+			_vDragonFly[i]->setEnemyAction(E_DEAD);
+			_player->setIsAttack(false);
+			_iMG->setCoin(_vDragonFly[i]->getX(), _vDragonFly[i]->getY(), _vDragonFly[i]->getGold(), _vDragonFly[i]->getSilver(), _vDragonFly[i]->getBronze());
+			_vDragonFly.erase(_vDragonFly.begin() + i);
+	
+			//_vBug[i]->setY(-1000);
+			//--i;
+		}
+	}
+
+	for (int i = 0; i < _vVineMan.size(); i++)
+	{
+		RECT rct;
+		if (IntersectRect(&rct, &_vVineMan[i]->getColliRect(), &_player->getAttRc()) && _vVineMan[i]->getEnemyAction() != E_SPAWN)
+		{
+
+			_vVineMan[i]->setEnemyAction(E_DEAD);
+			_player->setIsAttack(false);
+			_iMG->setCoin(_vVineMan[i]->getX(), _vVineMan[i]->getY(), _vVineMan[i]->getGold(), _vVineMan[i]->getSilver(), _vVineMan[i]->getBronze());
+			_vVineMan.erase(_vVineMan.begin() + i);
+
+			//_vBug[i]->setY(-1000);
+			//--i;
+		}
+	}
+
+	for (int i = 0; i < _vBug.size(); i++)
+	{
+		RECT rct;
+		if (IntersectRect(&rct, &_vBug[i]->getColliRect(), &_player->getAttRc()) && _vBug[i]->getEnemyAction() != E_SPAWN)
+		{
+
+			_vBug[i]->setEnemyAction(E_DEAD);
+			_player->setIsAttack(false);
+			_iMG->setCoin(_vBug[i]->getX(), _vBug[i]->getY(), _vBug[i]->getGold(), _vBug[i]->getSilver(), _vBug[i]->getBronze());
+			_vBug.erase(_vBug.begin() + i);
+
+			//_vBug[i]->setY(-1000);
+			//--i;
+		}
+	}
+
+	for (int i = 0; i < _vTreeMan.size(); i++)
+	{
+		RECT rct;
+		if (IntersectRect(&rct, &_vTreeMan[i]->getColliRect(), &_player->getAttRc()) && _vTreeMan[i]->getEnemyAction() != E_SPAWN)
+		{
+
+			_vTreeMan[i]->setEnemyAction(E_DEAD);
+			_player->setIsAttack(false);
+			_iMG->setCoin(_vTreeMan[i]->getX(), _vTreeMan[i]->getY(), _vTreeMan[i]->getGold(), _vTreeMan[i]->getSilver(), _vTreeMan[i]->getBronze());
+			_vTreeMan.erase(_vTreeMan.begin() + i);
+
+			//_vBug[i]->setY(-1000);
+			//--i;
+		}
+	}
+
+	for (int i = 0; i < _vElectriceel.size(); i++)
+	{
+		RECT rct;
+		if (IntersectRect(&rct, &_vElectriceel[i]->getColliRect(), &_player->getAttRc()) && _vElectriceel[i]->getEnemyAction() != E_SPAWN)
+		{
+
+			_vElectriceel[i]->setEnemyAction(E_DEAD);
+			_player->setIsAttack(false);
+			_iMG->setCoin(_vElectriceel[i]->getX(), _vElectriceel[i]->getY(), _vElectriceel[i]->getGold(), _vElectriceel[i]->getSilver(), _vElectriceel[i]->getBronze());
+			_vElectriceel.erase(_vElectriceel.begin() + i);
+
+			//_vBug[i]->setY(-1000);
+			//--i;
+		}
+	}
+
+	for (int i = 0; i < _vPlantFrog.size(); i++)
+	{
+		RECT rct;
+		if (IntersectRect(&rct, &_vPlantFrog[i]->getColliRect(), &_player->getAttRc()) && _vPlantFrog[i]->getEnemyAction() != E_SPAWN)
+		{
+
+			_vPlantFrog[i]->setEnemyAction(E_DEAD);
+			_player->setIsAttack(false);
+			_iMG->setCoin(_vPlantFrog[i]->getX(), _vPlantFrog[i]->getY(), _vPlantFrog[i]->getGold(), _vPlantFrog[i]->getSilver(), _vPlantFrog[i]->getBronze());
+			_vPlantFrog.erase(_vPlantFrog.begin() + i);
+
+			//_vBug[i]->setY(-1000);
+			//--i;
+		}
+	}
+
+
+
+}
+
 void enemyManager::pixelCollision()
 {
-	for (int k = 0; k < 2; ++k)
+	for (int k = 0; k < _vPlantFrog.size(); ++k)
 	{
 		for (int i = _vPlantFrog[k]->getColliRect().left; i < _vPlantFrog[k]->getColliRect().right; i += 2)
 		{
@@ -391,7 +497,7 @@ void enemyManager::pixelCollision()
 				int g = GetGValue(color);
 				int b = GetBValue(color);
 
-				if ((r == 0 && g == 255 && b == 255) && _vPlantFrog[k]->getGravity() > 10)
+				if ((r == 0 && g == 255 && b == 255) && _vPlantFrog[k]->getGravity() > 10)// && _vPlantFrog[k]->getEnemyAction() != E_DEAD)
 				{
 					_vPlantFrog[k]->setY(j - _vPlantFrog[k]->getEnemyImage(_vPlantFrog[k]->getEnemyAction())->getFrameHeight() / 2);           // = j - _image[E_MOVE]->getFrameHeight();
 					_vPlantFrog[k]->setGravity(0);
@@ -403,3 +509,102 @@ void enemyManager::pixelCollision()
 		}
 	}
 }
+
+//void enemyManager::collision(vector<enemy*> _temp)
+//{
+//	//vector<enemy*> temp;
+//	//temp = _temp;
+//
+//	for (int i = 0; i < _temp.size(); i++)
+//	{
+//		RECT rct;
+//		if (IntersectRect(&rct, &_temp[i]->getColliRect(), &_player->getAttRc()) && _temp[i]->getEnemyAction() != E_SPAWN)
+//		{
+//
+//			_temp[i]->setEnemyAction(E_DEAD);
+//			_player->setIsAttack(false);
+//			_iMG->setCoin(_temp[i]->getX(), _temp[i]->getY(), _temp[i]->getGold(), _temp[i]->getSilver(), _temp[i]->getBronze());
+//
+//			_temp[i]->setY(-1000);
+//			//_temp.erase(_temp.begin() + i);
+//			
+//			//--i;
+//		}
+//	}
+//}
+
+//void enemyManager::removeEnemy(vector<enemy*> _temp)
+//{
+//	vector<enemy*> temp;
+//	temp = _temp;
+//
+//	for (int i = 0; i < temp.size(); i++)
+//	{
+//		if (_temp[i]->getIsDrop())
+//		{
+//		}
+//	}
+//
+//}
+
+//void enemyManager::coinDrop(vector<enemy*> _temp)
+//{
+//	vector<enemy*> temp;
+//	temp = _temp;
+//
+//	for (int i = 0; i < temp.size(); i++)
+//	{
+//		if (temp[i]->getEnemyAction() == E_DEAD)
+//		{
+//
+//
+//
+//		}
+//	}
+//
+//}
+
+
+
+
+
+
+//void enemyManager::sensorCollision()
+//{
+//	for (int i = 0; i < _vVineMan.size(); i++)
+//	{
+//		RECT rct;
+//		if (IntersectRect(&rct, &_vVineMan[i]->getSensorRect(), &_player->getColliRect()) && _vVineMan[i]->getEnemyAction() != E_SPAWN)
+//		{
+//
+//			if (_player->getX() > _vVineMan[i]->getX())
+//			{
+//				_vVineMan[i]->setEnemyState(E_RIGHT);
+//
+//			}
+//			else
+//				_vVineMan[i]->setEnemyState(E_LEFT);
+//
+//			_vVineMan[i]->setEnemyAction(E_ATTACK);
+//
+//		}
+//	}
+//
+//	for (int i = 0; i < _vPlantFrog.size(); i++)
+//	{
+//		RECT rct;
+//		if (IntersectRect(&rct, &_vPlantFrog[i]->getSensorRect(), &_player->getColliRect()) && _vPlantFrog[i]->getEnemyAction() != E_SPAWN && _vPlantFrog[i]->getGravity() == 0)
+//		{
+//			_vPlantFrog[i]->setEnemyAction(E_ATTACK);
+//
+//			if (_player->getX() > _vPlantFrog[i]->getX())
+//			{
+//				_vPlantFrog[i]->setEnemyState(E_RIGHT);
+//
+//			}
+//			else
+//				_vPlantFrog[i]->setEnemyState(E_LEFT);
+//		}
+//	}
+//
+//}

@@ -45,12 +45,15 @@ private:
 	vector<item*> _vCoinBronze;
 	vector<item*> ::iterator _viCoinBronze;
 
-	vector<item*> _vDragonFlyCoin[4];
-	vector<item*>::iterator _viDragonFlyCoin[4];
-
 	healthLarge* _healthLarge;
 
 	//bronzeCoin* _bronzeCoin;
+
+	float enemyX;
+	float enemyY;
+	int gold;
+	int silver;
+	int bronze;
 
 public:
 
@@ -60,11 +63,23 @@ public:
 	void update(void);
 	void render(float FX, float FY);
 
-	void setItem();
+
+	void setCoin(float _enemyX, float _enemyY, int _gold, int _silver, int _bronze)
+	{
+		enemyX = _enemyX;
+		enemyY = _enemyY;
+		gold = _gold;
+		silver = _silver;
+		bronze = _bronze;
+	}
 
 	void dropCoin();
 
-	void pixelCollision(vector<item*> vCoin);
+	void setItem();
+
+	//void dropCoin();
+
+	//void pixelCollision(vector<item*> vCoin);
 
 	void setPlayerLink(player* player) { _player = player; }
 	void setEMGLink(enemyManager* eMG) { _eMG = eMG; }

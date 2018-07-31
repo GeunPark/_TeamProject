@@ -9,7 +9,7 @@ HRESULT item::init(const char * ImageName, POINT position, int currentFrameX, fl
 
 	this->_x = position.x;
 	this->_y = position.y;
-	this->speed = 2.0f;
+	this->speed = 4.0f;
 	this->angle = _angle;
 	this->gravity = 0;
 	this->_currentFrameX = currentFrameX;
@@ -66,11 +66,11 @@ void item::move()
 void item::pixelCollision()
 {
 
-	for (int i = _rc.left; i < _rc.right; i += 2)
-	{
-		for (int j = _rc.bottom - 10; j <_rc.bottom; j += 2)  // _rc.bottom - 10; j < _rc.bottom; j++)
+	//for (int i = _rc.left; i < _rc.right; i += 2)
+	//{
+		for (int j = _rc.bottom - 4; j <_rc.bottom; j += 2)  // _rc.bottom - 10; j < _rc.bottom; j++)
 		{
-			COLORREF color = GetPixel(_bfx->getMemDC(), i, j);
+			COLORREF color = GetPixel(_bfx->getMemDC(), _x, j);
 			int r = GetRValue(color);
 			int g = GetGValue(color);
 			int b = GetBValue(color);
@@ -80,9 +80,9 @@ void item::pixelCollision()
 				_y = j - _image->getFrameHeight() / 2;
 				gravity = 0;
 
-				if (speed > 0)
+				if (speed > 0.5f)
 				{
-					speed -= 0.02f;
+					speed /= 2.0f;
 				}
 				else
 				{
@@ -91,7 +91,7 @@ void item::pixelCollision()
 				break;
 			}
 		}
-	}
+	//}
 
 
 }

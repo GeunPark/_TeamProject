@@ -133,36 +133,70 @@ void enemy::draw(float FX, float FY)
 void enemy::animation()
 {
 	_count++;
-	if (_count % 10 == 0)
+	
+	if (enemyAction == E_DEAD)
 	{
-		if (enemyState == E_RIGHT)
+		if (_count % 6 == 0)
 		{
-			_currentFrameX--;
-			if (_currentFrameX < 0)
+			if (enemyState == E_RIGHT)
 			{
-				_currentFrameX = _image[enemyAction]->getMaxFrameX();
-				enemyAction = E_MOVE;
-				_count = 0;
+				_currentFrameX--;
+				if (_currentFrameX < 0)
+				{
+					//_currentFrameX = _image[enemyAction]->getMaxFrameX();
+					isDrop = true;
+					_count = 0;
+				}
 			}
-		}
-		else if (enemyState == E_LEFT)
-		{
-			_currentFrameX++;
-			if (_currentFrameX > _image[enemyAction]->getMaxFrameX())
+			else if (enemyState == E_LEFT)
 			{
-				_currentFrameX = 0;
-				enemyAction = E_MOVE;
-				_count = 0;
-			}
+				_currentFrameX++;
+				if (_currentFrameX > _image[enemyAction]->getMaxFrameX())
+				{
+					//_currentFrameX = 0;
+					isDrop = true;
+					_count = 0;
+				}
 
+			}
 		}
+
 
 	}
+	else
+	{
+		if (_count % 10 == 0)
+		{
+			if (enemyState == E_RIGHT)
+			{
+				_currentFrameX--;
+				if (_currentFrameX < 0)
+				{
+					_currentFrameX = _image[enemyAction]->getMaxFrameX();
+					enemyAction = E_MOVE;
+					_count = 0;
+				}
+			}
+			else if (enemyState == E_LEFT)
+			{
+				_currentFrameX++;
+				if (_currentFrameX > _image[enemyAction]->getMaxFrameX())
+				{
+					_currentFrameX = 0;
+					enemyAction = E_MOVE;
+					_count = 0;
+				}
+
+			}
+		}
+	}
+	
+	
 	if (enemyState == E_RIGHT)
 		_currentFrameY = 1;
 	else if (enemyState == E_LEFT)
 		_currentFrameY = 0;
-
+	
 }
 
 // void enemy::enemyDead()
@@ -171,47 +205,30 @@ void enemy::animation()
 // 	{
 // 		isDead = true;
 // 	}
-// 	if (isDead)
-// 	{
-// 		for (int i = 0; i < _gold; ++i)
-// 		{
-// 			_goldCoin[i].init("금화", PointMake(_x, _y), 0, PI * 75 / 150 + 0.1*i);
-// 		}
-// 		for (int i = 0; i < _silver; ++i)
-// 		{
-// 			_silverCoin[i].init("은화", PointMake(_x, _y), 0, PI * 73 / 150 + 0.1*i);
-// 		}
-// 		for (int i = 0; i < _bronze; ++i)
-// 		{
-// 			_bronzeCoin[i].init("동화", PointMake(_x, _y), 0, PI * 77 / 150 + 0.1*i);
-// 		}
-// 
-// 		isDrop = true;
-// 		isDead = false;
-// 	}
-// }
-// 
-// void enemy::coinDrop()
-// {
-// 	if (isDrop)
-// 	{
-// 		for (int i = 0; i < _gold; ++i)
-// 		{
-// 			_goldCoin[i].update();
-// 		}
-// 		for (int i = 0; i < _silver; ++i)
-// 		{
-// 			_silverCoin[i].update();
-// 
-// 		}
-// 		for (int i = 0; i < _bronze; ++i)
-// 		{
-// 			_bronzeCoin[i].update();
-// 		}
-// 	}
-// 
 // 
 // }
+ 
+ //void enemy::coinDrop()
+ //{
+ //	if (isDrop)
+ //	{
+ //		for (int i = 0; i < _gold; ++i)
+ //		{
+ //			_goldCoin[i].update();
+ //		}
+ //		for (int i = 0; i < _silver; ++i)
+ //		{
+ //			_silverCoin[i].update();
+ //
+ //		}
+ //		for (int i = 0; i < _bronze; ++i)
+ //		{
+ //			_bronzeCoin[i].update();
+ //		}
+ //	}
+ //
+ //
+ //}
 
 bool enemy::bulletCountFire()
 {
