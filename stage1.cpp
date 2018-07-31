@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "stage1.h"
-#include "foxPlayer.h"
 HRESULT stage1::init(void)
 {
 	// 상태
@@ -99,7 +98,7 @@ void stage1::update(void)
 	}
 
 
-
+	this->bgMove();
 
 	//_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
 
@@ -216,5 +215,17 @@ void stage1::images()
 	for (int i = 0; i < 6; i++)
 	{
 		_river[i]._img = IMAGEMANAGER->findImage("물가");
+	}
+}
+
+void stage1::bgMove()
+{
+	if (_player->getLeft())
+	{
+		_normalBack1._x -= 1;
+	}
+	if (_player->getRight())
+	{
+		_normalBack1._x += 1;
 	}
 }
