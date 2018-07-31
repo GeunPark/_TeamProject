@@ -234,7 +234,7 @@ void enemyManager::setMinion()
 		_vVineMan.push_back(_vineman);
 	}
 
-	//버그
+	//버그 (벌레)
 	for (int i = 0; i < 2; ++i)
 	{
 		bug* _bug = new bug;

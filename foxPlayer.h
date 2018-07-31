@@ -12,9 +12,11 @@ struct tagPlayer
 	float gravity;
 	float angle;
 	float bulletAngle;
+	float radian;
 	bool isJump;
 	bool isLeft;
 	bool isRight;
+	bool isAtt;
 };
 
 struct tagCam
@@ -30,7 +32,8 @@ class foxPlayer : public gameNode
 private:
 	tagPlayer _player;
 	tagCam _camera;
-
+	image* _bfx;
+	RECT attRc;
 public:
 	HRESULT init(void);
 	void release(void);
@@ -41,13 +44,14 @@ public:
 	//함수들
 	void keySetting();
 	void camera();
+	void pixelCollision();
 
 	// get, set함수들
 	float getX() { return _player.x; }
 	bool getLeft() { return _player.isLeft; }
 	bool getRight() { return _player.isRight; }
 	RECT getPlayerCam() { return _camera.rc; }
-
+	RECT getAttRc() { return attRc; }
 
 	foxPlayer() {}
 	~foxPlayer() {}
