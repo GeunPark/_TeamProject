@@ -319,7 +319,7 @@ void stage1::bgMove()
 	{
 		_normalBack1._x -= 1;
 	}
-	if (_player->getRight())
+	if(_player->getRight())
 	{
 		_normalBack1._x += 1;
 	}

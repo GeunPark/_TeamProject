@@ -2,7 +2,7 @@
 #include "gameNode.h"
 #define MAX_HEIGHT 2750
 #define MAX_WIDTH 20000
-#define MAX_STATE 12
+#define MAX_STATE 14
 
 enum tagState
 {
@@ -12,6 +12,8 @@ enum tagState
 	JUMP,
 	DOUBLEJUMP,
 	FALL,
+	WEATHER1,
+	WEATHER2,
 	FIRE,
 	UPATT,
 	SITATT,
@@ -32,6 +34,8 @@ struct tagPlayer
 	bool isJump;
 	bool isLeft;
 	bool isRight;
+	//bool isFoxLeft;
+	//bool isFoxRight;
 	bool isUp;
 	bool isDown;
 	bool isAtt;
@@ -57,7 +61,8 @@ private:
 	
 	RECT attRc;	//임시 공격렉트(잘 되면 주로 사용)
 	image* _bpx;
-
+	int count, index, actionCount, actionIndex;
+	int jumpCount;
 	//image* _bpx2;
 
 public:
@@ -70,6 +75,7 @@ public:
 	//함수들
 	void imageSetting();
 	void frameMove();
+	void foxState();
 	void keySetting();
 	void camera();
 	void pixelCollision();
@@ -80,6 +86,8 @@ public:
 	bool getRight() { return _player.isRight; }
 	RECT getPlayerCam() { return _camera.rc; }
 	RECT getAttRc() { return attRc; }
+
+	tagPlayer getTag() { return _player; }
 
 	//세원쓰^^~ 나 형구쓰 이거 내가 추가했스스 ^^~ ♡
 	void setIsAttack(bool _isAttack) { _player.isAtt = _isAttack; }
