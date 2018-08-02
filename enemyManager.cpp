@@ -11,10 +11,10 @@ HRESULT enemyManager::init(void)
 	_factory = new enemyFactory;
 
 	//INIDATA·Î ¹Ù²Ü°Í
-	_dragonFlyPos[0].x = 100.f, _dragonFlyPos[0].y = 2400.f;
-	_dragonFlyPos[1].x = 200.f, _dragonFlyPos[1].y = 2400.f;
+	_dragonFlyPos[0].x = 500.f, _dragonFlyPos[0].y = 2400.f;
+	_dragonFlyPos[1].x = 700.f, _dragonFlyPos[1].y = 2400.f;
 	_dragonFlyPos[2].x = 300.f, _dragonFlyPos[2].y = 2400.f;
-	_dragonFlyPos[3].x = 400.f, _dragonFlyPos[3].y = 2400.f;
+	_dragonFlyPos[3].x = 900.f, _dragonFlyPos[3].y = 2400.f;
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -42,14 +42,14 @@ void enemyManager::update(void)
 {
 	for (int i = 0; i < _vEnemy.size(); i++)
 	{
-		//if ((180 / 3.14f * getAngle(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _playerManager->getPlayer()->getX(), _playerManager->getPlayer()->getY())) >= 91.f && (180 / 3.14f * getAngle(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _playerManager->getPlayer()->getX(), _playerManager->getPlayer()->getY()) <= 270.f))
-		//{
-		//	_vEnemy[i]->setIsLeft(true);
-		//}
-		//else
-		//{
-		//	_vEnemy[i]->setIsLeft(false);
-		//}
+		if (_vEnemy[i]->getX() > _player->getX())
+		{
+			_vEnemy[i]->setIsLeft(true);
+		}
+		else
+		{
+			_vEnemy[i]->setIsLeft(false);
+		}
 
 		_vEnemy[i]->update();
 	}

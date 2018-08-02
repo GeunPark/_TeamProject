@@ -281,7 +281,17 @@ void enemy::update()
 			_index = 0;
 		}
 		_bodyImage[_state]->setFrameX(_index);
+
+		
+	}
+
+	if (_isLeft)
+	{
 		_bodyImage[_state]->setFrameY(0);
+	}
+	else
+	{
+		_bodyImage[_state]->setFrameY(1);
 	}
 
 	_rc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth(), _bodyImage[_state]->getFrameHeight());

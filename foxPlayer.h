@@ -82,6 +82,7 @@ public:
 
 	// get, setÇÔ¼öµé
 	float getX() { return _player.x; }
+	float getY() { return _player.y; }
 	bool getLeft() { return _player.isLeft; }
 	bool getRight() { return _player.isRight; }
 	RECT getPlayerCam() { return _camera.rc; }
