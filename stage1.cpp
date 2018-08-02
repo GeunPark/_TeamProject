@@ -15,6 +15,13 @@ HRESULT stage1::init(void)
 	images();
 	
 
+
+
+
+	//플레이어 동적할당
+	_player = new foxPlayer;
+	_player->init();
+
 	//에너미매니저
 	_eMG = new enemyManager;
 
@@ -23,12 +30,6 @@ HRESULT stage1::init(void)
 	//아이템매니저
 	_iMG = new itemManager;
 	_iMG->init();
-
-
-	//플레이어 동적할당
-	_player = new foxPlayer;
-	_player->init();
-
 
 	_normalBack1._x = 0;
 	_normalBack1._y = 0;
@@ -40,9 +41,10 @@ HRESULT stage1::init(void)
 
 
 	//상호참조
-	_eMG->setPlayerLink(_player);
-	_eMG->setItemMGLink(_iMG);
-
+	//_eMG->setPlayerLink(_player);
+	//_eMG->setItemMGLink(_iMG);
+	// 플레이어매니저 클래스 가져오기
+	_eMG->setPlayerManager(_player);
 
 	return S_OK;
 }
@@ -64,14 +66,18 @@ void stage1::update(void)
 	//To Do : 기훈아 내일 이거 건들지말아바 -근화- ##############################################################################################
 	imageMove();
 
+	
+
+
+
+	//플레이어
+	_player->update();
 	//에너미매니저
 	_eMG->update();
 
 	//아이템매니저
 	_iMG->update();
 
-	//플레이어
-	_player->update();
 	if (KEYMANAGER->isToggleKey(VK_F2))
 	{
 		cameraMove();
@@ -136,8 +142,8 @@ void stage1::render(void)
 	}
 	
 	//에너미매니저
-	_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
-
+	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
+	_eMG->render();
 	//아이템매니저
 	_iMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 
