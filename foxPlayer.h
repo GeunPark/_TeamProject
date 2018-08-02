@@ -1,8 +1,9 @@
 #pragma once
 #include "gameNode.h"
+#include "arrow.h"
 #define MAX_HEIGHT 2750
 #define MAX_WIDTH 20000
-#define MAX_STATE 14
+#define MAX_STATE 12
 
 enum tagState
 {
@@ -12,8 +13,8 @@ enum tagState
 	JUMP,
 	DOUBLEJUMP,
 	FALL,
-	WEATHER1,
-	WEATHER2,
+	//WEATHER1,
+	//WEATHER2,
 	FIRE,
 	UPATT,
 	SITATT,
@@ -25,6 +26,7 @@ enum tagState
 struct tagPlayer
 {
 	RECT rc;
+	RECT collisionRc;
 	float x, y;
 	float speed;
 	float gravity;
@@ -55,6 +57,8 @@ private:
 	tagPlayer _player;
 	tagCam _camera;
 	tagState _state;
+
+	arrow* _arrow;
 
 	image* nick[MAX_STATE];
 	image* _bfx;
@@ -91,6 +95,8 @@ public:
 
 	//세원쓰^^~ 나 형구쓰 이거 내가 추가했스스 ^^~ ♡
 	void setIsAttack(bool _isAttack) { _player.isAtt = _isAttack; }
+
+	//tagCam getCamera(tagCam camera) { return _camera; }
 
 	foxPlayer() {}
 	~foxPlayer() {}
