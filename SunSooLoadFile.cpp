@@ -14,18 +14,27 @@ void loadingScene::SunSooImage()
 	_loading->loadFrameImage("나무인간spawn", "resource/이선수/몬스터/나무인간spawn2.bmp", 1680, 444, 14, 2);
 	_loading->loadFrameImage("나무인간move", "resource/이선수/몬스터/나무인간move.bmp", 770, 300, 7, 2);
 	_loading->loadFrameImage("나무인간attack", "resource/이선수/몬스터/나무인간attack.bmp", 2448, 384, 8, 2);
+	_loading->loadFrameImage("나무인간dead", "resource/이선수/몬스터/나무인간dead.bmp", 1752, 348, 8, 2);
+
 	//버그
 	_loading->loadFrameImage("버그move", "resource/이선수/몬스터/버그move.bmp", 540, 80, 6, 2);
+	_loading->loadFrameImage("버그dead", "resource/이선수/몬스터/버그dead.bmp", 2220, 348, 10, 2);
+
 	//통나무
 	_loading->loadFrameImage("통나무move", "resource/이선수/몬스터/통나무move.bmp", 1280, 516, 8, 2);
+	_loading->loadFrameImage("통나무dead", "resource/이선수/몬스터/통나무dead.bmp", 1896, 510, 8, 2);
+
 	//두꺼비
 	_loading->loadFrameImage("두꺼비spawn", "resource/이선수/몬스터/두꺼비spawn.bmp", 480, 288, 6, 2);
 	_loading->loadFrameImage("두꺼비move", "resource/이선수/몬스터/두꺼비move.bmp", 1176, 288, 7, 2);
 	_loading->loadFrameImage("두꺼비attack", "resource/이선수/몬스터/두꺼비attack.bmp", 792, 288, 9, 2);
+	_loading->loadFrameImage("두꺼비dead", "resource/이선수/몬스터/두꺼비dead.bmp", 2442, 348, 11, 2);
+
+
 	//꼼장어
 	//IMAGEMANAGER->addFrameImage("꼼장어spawn", "resource/꼼장어spawn.bmp", 810, 60, 6, 1);
 	_loading->loadFrameImage("꼼장어move", "resource/이선수/몬스터/꼼장어move2.bmp", 4290, 186, 26, 1);
-
+	_loading->loadFrameImage("꼼장어dead", "resource/이선수/몬스터/꼼장어dead.bmp", 2220, 348, 10, 2);
 
 
 	//아이템
