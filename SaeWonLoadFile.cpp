@@ -16,6 +16,7 @@ void loadingScene::SaeWonImage()
 	_loading->loadFrameImage("JumpAtt", "resource/foxPlayer/jumpAtt.bmp", 2034, 360, 6, 2, true, MAGENTA);
 	_loading->loadFrameImage("JumpAtt2", "resource/foxPlayer/jumpAtt2.bmp", 1704, 426, 8, 2, true, MAGENTA);
 	_loading->loadFrameImage("DownAtt", "resource/foxPlayer/downAtt.bmp", 564, 318, 4, 2, true, MAGENTA);
+	_loading->loadFrameImage("arrow", "resource/foxPlayer/arrow.bmp", 192, 192, 1, 2, true, MAGENTA);
 }
 
 void loadingScene::SaeWonSound()

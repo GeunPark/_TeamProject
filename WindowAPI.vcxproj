@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="animation.h" />
     <ClInclude Include="aniTestScene.h" />
+    <ClInclude Include="arrow.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camel.h" />
     <ClInclude Include="commonMacroFunction.h" />
@@ -192,6 +193,7 @@
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="aniTestScene.cpp" />
+    <ClCompile Include="arrow.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camel.cpp" />
     <ClCompile Include="effect.cpp" />

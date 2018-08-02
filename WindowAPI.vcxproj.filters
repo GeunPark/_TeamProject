@@ -105,6 +105,9 @@
     <Filter Include="MainGame\선수\ItemClass">
       <UniqueIdentifier>{63e1f06e-7780-4660-8163-06b0fe1cd695}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\세원\arrow">
+      <UniqueIdentifier>{24bbc79b-4958-4b53-a981-88115cbf5fc5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonMacroFunction.h">
@@ -229,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="item.h">
       <Filter>MainGame\선수\ItemClass</Filter>
+    </ClInclude>
+    <ClInclude Include="arrow.h">
+      <Filter>MainGame\세원\arrow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -360,6 +366,9 @@
     </ClCompile>
     <ClCompile Include="item.cpp">
       <Filter>MainGame\선수\ItemClass</Filter>
+    </ClCompile>
+    <ClCompile Include="arrow.cpp">
+      <Filter>MainGame\세원\arrow</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

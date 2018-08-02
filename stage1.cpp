@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "stage1.h"
+
 HRESULT stage1::init(void)
 {
 	// ป๓ลย
