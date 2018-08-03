@@ -27,6 +27,11 @@ void dragonFly::init()
 	_x = 0.f;
 	_y = 0.f;
 	_isLeft = false;
+	//코인
+	_gold = 0;
+	_silver = 1;
+	_bronze = 1;
+
 }
 
 void dragonFly::idle()
@@ -194,48 +199,6 @@ void electriceel::dead()
 
 
 
-
-
-
-
-
-enemy * enemyFactory::createEnemy(ENEMY_TYPE type)
-{
-	enemy* _enemy;
-	switch (type)
-	{
-	case DRAGONFLY:
-		_enemy = new dragonFly;
-		break;
-	case VINEMAN:
-		_enemy = new vineMan;
-		break;
-
-	case BUG:
-		_enemy = new bug;
-		break;
-
-	case TREEMAN:
-		_enemy = new treeMan;
-		break;
-
-	case PLANTFROG:
-		_enemy = new plantFrog;
-		break;
-
-	case ELECTRICEEL:
-		_enemy = new electriceel;
-
-
-	default:
-		//누구냐 넌??
-		break;
-	}
-
-	_enemy->init();
-
-	return _enemy;
-}
 
 void enemy::update()
 {

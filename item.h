@@ -1,32 +1,45 @@
 #pragma once
 #include "gameNode.h"
 
+enum ITEM_TYPE
+{
+	HEALTH_LARGE,
+	HEALTH_SMALL,
+	MANA_BIG,
+	MANA_SMALL,
+	GOLD_COIN,
+	SILVER_COIN,
+	BRONZE_COIN
 
-class item : public gameNode
+};
+enum ITEM_STATE
+{
+
+};
+
+class item
 {
 protected:
 
-	image * _image;
+	ITEM_TYPE _type;
+	image* _image;
 	image* _bfx;
 	float _x, _y;
-	float speed;
-	float angle;
-	float gravity;
+	float _speed;
+	float _angle;
+	float _gravity;
 	RECT _rc;
-	int _currentFrameX;
-	int _count;
+	int _count, _index;
+	bool _isActived;
+	float _animationSpeed;
 
 
 public:
 
-	HRESULT init(const char* ImageName, POINT position, int currentFrameX, float _angle = 0);
-	void release(void);
-	void update(void);
-	void render(float FX, float FY);
-
-
-	void animation();
+	virtual void init() = 0;
 	virtual void move() = 0;
+	void update();
+	void animation();
 	void pixelCollision();
 
 
@@ -34,21 +47,27 @@ public:
 	RECT getRect() { return _rc; }
 	image* getItemImage() { return _image; }
 	float getX() { return _x; }
-	float getY() { return _y; }
 	void setX(float x) { _x = x; }
+
+	float getY() { return _y; }
 	void setY(float y) { _y = y; }
 
-	float getSpeed() { return speed; }
-	void setSpeed(float _speed) { speed = _speed; }
+	float getSpeed() { return _speed; }
+	void setSpeed(float speed) { _speed = speed; }
 
-	float getAngle() { return angle; }
-	void setAngle(float _angle) { angle = _angle; }
+	float getAngle() { return _angle; }
+	void setAngle(float angle) {_angle = angle; }
 
-	void setGravity(float _gravity) { gravity = _gravity; }
+	float getGravity() { return _gravity; }
+	void setGravity(float gravity) { _gravity = gravity; }
 
+	bool getIsActive() { return _isActived; }
+	void setIsActive(bool isActive) { _isActived = isActive; }
 
+	ITEM_TYPE getItemType() { return _type; }
+	void setItemType(ITEM_TYPE type) { _type = type; }
 
-
+	void setPosition(float x, float y) { _x = x, _y = y; }
 	item() {}
 	~item() {}
 };
@@ -59,6 +78,7 @@ private:
 
 
 public:
+	void init();
 	void move();
 
 };
@@ -69,7 +89,7 @@ private:
 
 
 public:
-
+	void init();
 	void move();
 };
 
@@ -79,7 +99,7 @@ private:
 
 
 public:
-
+	void init();
 	void move();
 };
 
@@ -89,7 +109,7 @@ private:
 
 
 public:
-
+	void init();
 	void move();
 };
 
@@ -99,7 +119,7 @@ private:
 
 
 public:
-
+	void init();
 	void move();
 };
 class silverCoin : public item
@@ -108,7 +128,7 @@ private:
 
 
 public:
-
+	void init();
 	void move();
 };
 class bronzeCoin : public item
@@ -117,6 +137,6 @@ private:
 
 
 public:
-
+	void init();
 	void move();
 };

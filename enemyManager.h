@@ -2,10 +2,10 @@
 #include "gameNode.h"
 #include "enemy.h"
 #include "foxPlayer.h"
+#include "factory.h"
 
-
-class playerManager;
-class mapData;
+class itemManager;
+class foxPlayer;
 
 struct fPos
 {
@@ -17,7 +17,7 @@ class enemyManager : public gameNode
 {
 private:
 	foxPlayer * _player;
-	//mapData* _mapData;
+	itemManager* _iMG;
 
 	factory* _factory;
 	vector<enemy*> _vEnemy;	// 일반 적
@@ -33,7 +33,8 @@ private:
 	//eBullet* _eBullet;			// 총알 클래스
 public:
 	void setPlayerManager(foxPlayer* player) { _player = player; }
-	//void setMapData(mapData* mapData) { _mapData = mapData; }
+	void setItemManager(itemManager* iMG) { _iMG = iMG; }
+
 
 	HRESULT init(void);
 	void release(void);

@@ -25,7 +25,6 @@ HRESULT stage1::init(void)
 
 	//에너미매니저
 	_eMG = new enemyManager;
-
 	_eMG->init();
 
 	//아이템매니저
@@ -46,6 +45,10 @@ HRESULT stage1::init(void)
 	//_eMG->setItemMGLink(_iMG);
 	// 플레이어매니저 클래스 가져오기
 	_eMG->setPlayerManager(_player);
+	_eMG->setItemManager(_iMG);
+	_iMG->setPlayerLink(_player);
+	_iMG->setEMGLink(_eMG);
+
 
 	return S_OK;
 }
@@ -142,22 +145,22 @@ void stage1::render(void)
 		if (_state == NORMAL)feildpixel->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
 		else if (_state == ICE)feildIcepixel->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
 	}
-	
+
+	//플레이어
+	//_player->render(_cam.rc.left, _cam.rc.top);
+	_player->render();
 	//에너미매니저
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
 	//아이템매니저
+	_iMG->render();
 
 	// 테스트용 상점 구현
-	_iMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	if (KEYMANAGER->isToggleKey('Q'))
 	{
 		_shop->render();
 	}
-	//플레이어
-	//_player->render(_cam.rc.left, _cam.rc.top);
-	
-	_player->render();
+
 	char str[128];
 	sprintf_s(str, "%d    %d ",_ptMouse.x + _player->getPlayerCam().left, _ptMouse.y + _player->getPlayerCam().top);
 	TextOut(getMemDC(), 120 , WINSIZEY /2 , str, strlen(str));
