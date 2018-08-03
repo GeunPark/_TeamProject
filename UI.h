@@ -44,6 +44,7 @@ private:
 	bool _isManaUse;
 	int _num;
 	int a = 0;
+	int _heartNum;
 	bool _isManaWarning;
 public:
 
@@ -54,6 +55,7 @@ public:
 
 	void mana();
 	void heart();
+	void nowHeart();
 	void nowArrow();
 	void nowMagic();
 

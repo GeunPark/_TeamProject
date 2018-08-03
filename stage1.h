@@ -46,7 +46,7 @@ private:
 
 	state _state;
 	tagBoxs _cam;
-	imgInfo _river[8];
+	imgInfo _river[5];
 
 	imgInfo _waterfall[3];
 	imgInfo _waterfalls[3];
