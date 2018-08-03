@@ -44,7 +44,7 @@ public:
 
 
 
-	RECT getRect() { return _rc; }
+	RECT getRc() { return _rc; }
 	image* getItemImage() { return _image; }
 	float getX() { return _x; }
 	void setX(float x) { _x = x; }

@@ -110,6 +110,24 @@ void itemManager::update(void)
 	}
 	
 
+	//플레이어와 아이템 충돌
+	for (int i = 0; i < _vItem.size(); ++i)
+	{
+		RECT _rct;
+
+		if (IntersectRect(&_rct, &_vItem[i]->getRc(), &_player->getCollisionRc()))
+		{
+			//_vEnemy[i]->setState(ENEMY_DEAD);
+			//_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+			_vItem.erase(_vItem.begin() + i);
+
+			//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
+			//			_player->setIsAttack(false);
+			//			_iMG->setCoin(_vPlantFrog[i]->getX(), _vPlantFrog[i]->getY(), _vPlantFrog[i]->getGold(), _vPlantFrog[i]->getSilver(), _vPlantFrog[i]->getBronze());
+			//			_vPlantFrog.erase(_vPlantFrog.begin() + i);
+		}
+	}
+
 }
 
 void itemManager::render()
@@ -117,29 +135,35 @@ void itemManager::render()
 	//필드아이템
 	for (int i = 0; i < _vItem.size(); ++i)
 	{
-		_vItem[i]->getItemImage()->frameRender(getMemDC(), _vItem[i]->getRect().left - _player->getPlayerCam().left, _vItem[i]->getRect().top - _player->getPlayerCam().top, _vItem[i]->getItemImage()->getFrameX(), _vItem[i]->getItemImage()->getFrameY());
+		_vItem[i]->getItemImage()->frameRender(getMemDC(), _vItem[i]->getRc().left - _player->getPlayerCam().left, _vItem[i]->getRc().top - _player->getPlayerCam().top, _vItem[i]->getItemImage()->getFrameX(), _vItem[i]->getItemImage()->getFrameY());
 	}
 
-
+	if (KEYMANAGER->isToggleKey(VK_F1))
+	{
+		for (int i = 0; i < _vItem.size(); ++i)
+		{
+			Rectangle(getMemDC(), _vItem[i]->getRc().left - _player->getPlayerCam().left, _vItem[i]->getRc().top - _player->getPlayerCam().top, _vItem[i]->getRc().right - _player->getPlayerCam().left, _vItem[i]->getRc().bottom - _player->getPlayerCam().top );
+		}
+	}
 
 	// 코인 //
 	
 	//골드
 	for (int i = 0; i < _vCoinGold.size(); ++i)
 	{
-		_vCoinGold[i]->getItemImage()->frameRender(getMemDC(), _vCoinGold[i]->getRect().left - _player->getPlayerCam().left, _vCoinGold[i]->getRect().top - _player->getPlayerCam().top, _vCoinGold[i]->getItemImage()->getFrameX(), _vCoinGold[i]->getItemImage()->getFrameY());
+		_vCoinGold[i]->getItemImage()->frameRender(getMemDC(), _vCoinGold[i]->getRc().left - _player->getPlayerCam().left, _vCoinGold[i]->getRc().top - _player->getPlayerCam().top, _vCoinGold[i]->getItemImage()->getFrameX(), _vCoinGold[i]->getItemImage()->getFrameY());
 	}
 	
 	//실버
 	for (int i = 0; i < _vCoinSilver.size(); ++i)
 	{
-		_vCoinSilver[i]->getItemImage()->frameRender(getMemDC(), _vCoinSilver[i]->getRect().left - _player->getPlayerCam().left, _vCoinSilver[i]->getRect().top - _player->getPlayerCam().top, _vCoinSilver[i]->getItemImage()->getFrameX(), _vCoinSilver[i]->getItemImage()->getFrameY());
+		_vCoinSilver[i]->getItemImage()->frameRender(getMemDC(), _vCoinSilver[i]->getRc().left - _player->getPlayerCam().left, _vCoinSilver[i]->getRc().top - _player->getPlayerCam().top, _vCoinSilver[i]->getItemImage()->getFrameX(), _vCoinSilver[i]->getItemImage()->getFrameY());
 	}
 	
 	//브론즈
 	for (int i = 0; i < _vCoinBronze.size(); ++i)
 	{
-		_vCoinBronze[i]->getItemImage()->frameRender(getMemDC(), _vCoinBronze[i]->getRect().left - _player->getPlayerCam().left, _vCoinBronze[i]->getRect().top - _player->getPlayerCam().top, _vCoinBronze[i]->getItemImage()->getFrameX(), _vCoinBronze[i]->getItemImage()->getFrameY());
+		_vCoinBronze[i]->getItemImage()->frameRender(getMemDC(), _vCoinBronze[i]->getRc().left - _player->getPlayerCam().left, _vCoinBronze[i]->getRc().top - _player->getPlayerCam().top, _vCoinBronze[i]->getItemImage()->getFrameX(), _vCoinBronze[i]->getItemImage()->getFrameY());
 	}
 
 
