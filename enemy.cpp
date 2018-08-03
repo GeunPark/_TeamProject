@@ -195,48 +195,6 @@ void electriceel::dead()
 
 
 
-
-
-
-
-enemy * enemyFactory::createEnemy(ENEMY_TYPE type)
-{
-	enemy* _enemy;
-	switch (type)
-	{
-	case DRAGONFLY:
-		_enemy = new dragonFly;
-		break;
-	case VINEMAN:
-		_enemy = new vineMan;
-		break;
-
-	case BUG:
-		_enemy = new bug;
-		break;
-
-	case TREEMAN:
-		_enemy = new treeMan;
-		break;
-
-	case PLANTFROG:
-		_enemy = new plantFrog;
-		break;
-
-	case ELECTRICEEL:
-		_enemy = new electriceel;
-
-
-	default:
-		//´©±¸³Ä ³Í??
-		break;
-	}
-
-	_enemy->init();
-
-	return _enemy;
-}
-
 void enemy::update()
 {
 	switch (_state)

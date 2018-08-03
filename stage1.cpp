@@ -25,7 +25,6 @@ HRESULT stage1::init(void)
 
 	//에너미매니저
 	_eMG = new enemyManager;
-
 	_eMG->init();
 
 	//아이템매니저
@@ -46,6 +45,8 @@ HRESULT stage1::init(void)
 	//_eMG->setItemMGLink(_iMG);
 	// 플레이어매니저 클래스 가져오기
 	_eMG->setPlayerManager(_player);
+	_eMG->setItemManager(_iMG);
+	_iMG->setPlayerLink(_player);
 
 	return S_OK;
 }
@@ -147,9 +148,9 @@ void stage1::render(void)
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
 	//아이템매니저
+	_iMG->render();
 
 	// 테스트용 상점 구현
-	_iMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	if (KEYMANAGER->isToggleKey('Q'))
 	{
 		_shop->render();

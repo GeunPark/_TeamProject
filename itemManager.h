@@ -1,53 +1,43 @@
 #pragma once
 #include "gameNode.h"
 #include "item.h"
+#include "factory.h"
+#include "item.h"
 
-class player;
+class foxPlayer;
 class enemyManager;
 
-enum ItemKind
+struct itemPos
 {
-	HEALTHLARGE = 0,
-	HEALTHBIG,
-	HEALTHSMALL,
-	MANABIG,
-	MANASMALL,
-	COINCOPPER,
-	COINSILVER,
-	COINGOLD
+	float x;
+	float y;
+
 };
 class itemManager : public gameNode
 {
 private:
-	player * _player;
+	foxPlayer * _player;
 	enemyManager* _eMG;
+	factory2* _itemFactory;
+	//필드아이템
+	vector<item*> _vItem;
 
-	ItemKind _itemKind;
-
-	vector<item*> _vHealthLarge;
-	vector<item*> ::iterator _viHealthLarge;
-
-	vector<item*> _vHealthBig;
-	vector<item*> ::iterator _viHealthBig;
-
-	vector<item*> _vManaBig;
-	vector<item*> ::iterator _viManaBig;
-
-	vector<item*> _vManaSmall;
-	vector<item*> ::iterator _viManaSmall;
-
+	//드랍코인
 	vector<item*> _vCoinGold;
-	vector<item*> ::iterator _viCoinGold;
-
+	vector<item*>::iterator _viCoinGold;
 	vector<item*> _vCoinSilver;
-	vector<item*> ::iterator _viCoinSilver;
-
+	vector<item*>::iterator _viCoinSilver;
 	vector<item*> _vCoinBronze;
-	vector<item*> ::iterator _viCoinBronze;
+	vector<item*>::iterator _viCoinBronze;
 
-	healthLarge* _healthLarge;
 
-	//bronzeCoin* _bronzeCoin;
+
+	itemPos _healthLargePos[1];
+	itemPos _healthSmallPos[1];
+	itemPos _manaBigPos[1];
+	itemPos _manaSmallPos[1];
+
+	
 
 	float enemyX;
 	float enemyY;
@@ -57,11 +47,10 @@ private:
 
 public:
 
-	HRESULT init(void);
-
-	void release(void);
-	void update(void);
-	void render(float FX, float FY);
+	HRESULT init();
+	void release();
+	void update();
+	void render();
 
 
 	void setCoin(float _enemyX, float _enemyY, int _gold, int _silver, int _bronze)
@@ -75,13 +64,13 @@ public:
 
 	void dropCoin();
 
-	void setItem();
+
 
 	//void dropCoin();
 
 	//void pixelCollision(vector<item*> vCoin);
 
-	void setPlayerLink(player* player) { _player = player; }
+	void setPlayerLink(foxPlayer* player) { _player = player; }
 	void setEMGLink(enemyManager* eMG) { _eMG = eMG; }
 
 	itemManager() {}

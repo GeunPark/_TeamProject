@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "enemyManager.h"
 #include "foxPlayer.h"
+#include "itemManager.h"
 
 HRESULT enemyManager::init(void)
 {
@@ -42,14 +43,14 @@ void enemyManager::update(void)
 {
 	for (int i = 0; i < _vEnemy.size(); i++)
 	{
-		if (_vEnemy[i]->getX() > _player->getX())
-		{
-			_vEnemy[i]->setIsLeft(true);
-		}
-		else
-		{
-			_vEnemy[i]->setIsLeft(false);
-		}
+		//if (_vEnemy[i]->getX() > _player->getX())
+		//{
+		//	_vEnemy[i]->setIsLeft(true);
+		//}
+		//else
+		//{
+		//	_vEnemy[i]->setIsLeft(false);
+		//}
 
 		_vEnemy[i]->update();
 	}

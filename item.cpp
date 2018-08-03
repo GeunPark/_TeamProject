@@ -2,107 +2,91 @@
 #include "item.h"
 
 
-HRESULT item::init(const char * ImageName, POINT position, int currentFrameX, float _angle)
-{
-	_image = IMAGEMANAGER->findImage(ImageName);
-	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
 
-	this->_x = position.x;
-	this->_y = position.y;
-	this->speed = 4.0f;
-	this->angle = _angle;
-	this->gravity = 0;
-	this->_currentFrameX = currentFrameX;
-	_count = 0;
-
-	return S_OK;
-
-}
-
-void item::release(void)
-{
-
-
-}
 
 void item::update(void)
 {
-
 	this->_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(), _image->getFrameHeight());
 	this->move();
 	this->animation();
 	this->pixelCollision();
 }
 
-void item::render(float FX, float FY)
-{
-	if (KEYMANAGER->isToggleKey(VK_F1))
-	{
-		Rectangle(getMemDC(), _rc.left - FX, _rc.top - FY, _rc.right - FX, _rc.bottom - FY);
-	}
-	_image->frameRender(getMemDC(), _rc.left - FX, _rc.top - FY, _currentFrameX, 0);
 
-}
 
 void item::animation()
 {
 	_count++;
 	if (_count % 5 == 0)
 	{
-		_currentFrameX++;
-		if (_currentFrameX > _image->getMaxFrameX())
+		_index++;
+		if (_index > _image->getMaxFrameX())
 		{
-			_currentFrameX = 0;
-			//_count = 0;
+			_index = 0;
+			_count = 0;
 		}
 	}
-}
-
-void item::move()
-{
-
 }
 
 void item::pixelCollision()
 {
 
-	//for (int i = _rc.left; i < _rc.right; i += 2)
-	//{
-		for (int j = _rc.bottom - 4; j <_rc.bottom; j += 2)  // _rc.bottom - 10; j < _rc.bottom; j++)
+	for (int j = _rc.bottom - 4; j < _rc.bottom; j += 2)
+	{
+		COLORREF color = GetPixel(_bfx->getMemDC(), _x, j);
+		int r = GetRValue(color);
+		int g = GetGValue(color);
+		int b = GetBValue(color);
+
+		if ((r == 0 && g == 255 && b == 255))
 		{
-			COLORREF color = GetPixel(_bfx->getMemDC(), _x, j);
-			int r = GetRValue(color);
-			int g = GetGValue(color);
-			int b = GetBValue(color);
+			_y = j - _image->getFrameHeight() / 2;
+			_gravity = 0;
 
-			if ((r == 0 && g == 255 && b == 255))
+			if (_speed > 0.5f)
 			{
-				_y = j - _image->getFrameHeight() / 2;
-				gravity = 0;
-
-				if (speed > 0.5f)
-				{
-					speed /= 2.0f;
-				}
-				else
-				{
-					speed = 0;
-				}
-				break;
+				_speed /= 2.0f;
 			}
+			else
+			{
+				_speed = 0;
+			}
+			break;
 		}
-	//}
-
-
+	}
 }
 
 
+
+void healthLarge::init()
+{
+	_image = new image;
+	_image = IMAGEMANAGER->findImage("헬스라지");
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+	_speed = 3.f;
+	_angle = 270.f * 3.14f / 180;
+	_gravity = 0.f;
+	_count = 0, _index = 0;
+	_animationSpeed = 5.f;
+	_isActived = true;
+	_type = HEALTH_LARGE;
+	_x = 0.f;
+	_y = 0.f;
+}
 
 void healthLarge::move()
 {
 }
 
+void healthBig::init()
+{
+}
+
 void healthBig::move()
+{
+}
+
+void manaBig::init()
 {
 }
 
@@ -118,6 +102,10 @@ void manaBig::move()
 	}
 }
 
+void manaSmall::init()
+{
+}
+
 void manaSmall::move()
 {
 	if (_count % 100 < 50)
@@ -130,26 +118,38 @@ void manaSmall::move()
 	}
 }
 
+void goldCoin::init()
+{
+}
+
 void goldCoin::move()
 {
-	if (speed != 0)
-		gravity += 0.08f;
-	_x += cosf(angle)*speed;
-	_y += -sinf(angle)*speed + gravity;
+	if (_speed != 0)
+		_gravity += 0.08f;
+	_x += cosf(_angle)*_speed;
+	_y += -sinf(_angle)*_speed + _gravity;
+}
+
+void silverCoin::init()
+{
 }
 
 void silverCoin::move()
 {
-	if (speed != 0)
-		gravity += 0.08f;
-	_x += cosf(angle)*speed;
-	_y += -sinf(angle)*speed + gravity;
+	if (_speed != 0)
+		_gravity += 0.08f;
+	_x += cosf(_angle)*_speed;
+	_y += -sinf(_angle)*_speed + _gravity;
+}
+
+void bronzeCoin::init()
+{
 }
 
 void bronzeCoin::move()
 {
-	if (speed != 0)
-		gravity += 0.08f;
-	_x += cosf(angle)*speed;
-	_y += -sinf(angle)*speed + gravity;
+	if (_speed != 0)
+		_gravity += 0.08f;
+	_x += cosf(_angle)*_speed;
+	_y += -sinf(_angle)*_speed + _gravity;
 }

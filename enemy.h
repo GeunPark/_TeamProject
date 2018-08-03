@@ -150,17 +150,6 @@ public:
 };
 
 
-class factory
-{
-public:
-	virtual enemy* createEnemy(ENEMY_TYPE) = 0;
-};
-
-class enemyFactory : public factory
-{
-public:
-	enemy * createEnemy(ENEMY_TYPE type);
-};
 
 
 
