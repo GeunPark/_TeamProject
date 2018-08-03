@@ -43,6 +43,11 @@ protected:
 	bool _isLeft;
 	bool _isActived;
 	RECT _rc;
+	//ÄÚÀÎ
+	int _gold;
+	int _silver;
+	int _bronze;
+
 public:
 	virtual void init() = 0;
 	virtual void update();
@@ -72,6 +77,12 @@ public:
 	void setY(float y) { _y = y; }
 	void setPosition(float x, float y) { _x = x, _y = y; }
 	void setIsLeft(bool isLeft) { _isLeft = isLeft; }
+
+
+	int getGold() { return _gold; }
+	int getSilver() { return _silver; }
+	int getBronze() { return _bronze; }
+
 
 };
 

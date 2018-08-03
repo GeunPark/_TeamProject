@@ -58,6 +58,16 @@ item * itemFactory::createItem(ITEM_TYPE type)
 	case MANA_SMALL:
 		_item = new manaSmall;
 		break;
+	case GOLD_COIN:
+		_item = new goldCoin;
+		break;
+	case SILVER_COIN:
+		_item = new silverCoin;
+		break;
+	case BRONZE_COIN:
+		_item = new bronzeCoin;
+		break;
+
 
 	default:
 		//´©±¸³Ä ³Í??

@@ -1,8 +1,8 @@
 #pragma once
 #include "gameNode.h"
-#include "item.h"
 #include "factory.h"
 #include "item.h"
+
 
 class foxPlayer;
 class enemyManager;
@@ -24,11 +24,11 @@ private:
 
 	//드랍코인
 	vector<item*> _vCoinGold;
-	vector<item*>::iterator _viCoinGold;
+	//vector<item*>::iterator _viCoinGold;
 	vector<item*> _vCoinSilver;
-	vector<item*>::iterator _viCoinSilver;
+	//vector<item*>::iterator _viCoinSilver;
 	vector<item*> _vCoinBronze;
-	vector<item*>::iterator _viCoinBronze;
+	//vector<item*>::iterator _viCoinBronze;
 
 
 

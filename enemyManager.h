@@ -4,8 +4,8 @@
 #include "foxPlayer.h"
 #include "factory.h"
 
-class playerManager;
 class itemManager;
+class foxPlayer;
 
 struct fPos
 {

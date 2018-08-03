@@ -59,19 +59,26 @@ void enemyManager::update(void)
 
 	//에너미 충돌처리
 
-	//플레이어 총알과 에너미 충돌
-	//for (int i = 0; i<_player->getPBullet()->getVPlayerBullet().size(); i++)
-	//{
-	//	//if (!_playerManager->getPBullet()->getVPlayerBullet()[i].isActived) continue;
-	//	for (int j = 0; j < _vEnemy.size(); j++)
-	//	{
-	//		//if (COLLISIONMANAGER->rectCollision(_playerManager->getPBullet()->getVPlayerBullet()[i].rc, _vEnemy[j]->getBoundingBox()))
-	//		//{
-	//		//	_vEnemy[j]->setState(ENEMY_DEAD);
-	//		//}
-	//		//충돌처리넣기
-	//	}
-	//}
+	//플레이어와 에너미 충돌
+	for (int i = 0; i < _vEnemy.size(); ++i)
+	{
+		RECT _rct;
+
+		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc()))
+		{
+			//_vEnemy[i]->setState(ENEMY_DEAD);
+			_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+			_vEnemy.erase(_vEnemy.begin() + i);
+
+			//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
+			//			_player->setIsAttack(false);
+			//			_iMG->setCoin(_vPlantFrog[i]->getX(), _vPlantFrog[i]->getY(), _vPlantFrog[i]->getGold(), _vPlantFrog[i]->getSilver(), _vPlantFrog[i]->getBronze());
+			//			_vPlantFrog.erase(_vPlantFrog.begin() + i);
+
+
+		}
+
+	}
 	//아직 총알이 없음 attRc랑 충돌이나 만들어놓자!
 
 

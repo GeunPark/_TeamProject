@@ -27,6 +27,11 @@ void dragonFly::init()
 	_x = 0.f;
 	_y = 0.f;
 	_isLeft = false;
+	//ÄÚÀÎ
+	_gold = 0;
+	_silver = 1;
+	_bronze = 1;
+
 }
 
 void dragonFly::idle()

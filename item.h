@@ -6,7 +6,10 @@ enum ITEM_TYPE
 	HEALTH_LARGE,
 	HEALTH_SMALL,
 	MANA_BIG,
-	MANA_SMALL
+	MANA_SMALL,
+	GOLD_COIN,
+	SILVER_COIN,
+	BRONZE_COIN
 
 };
 enum ITEM_STATE
@@ -35,8 +38,7 @@ public:
 
 	virtual void init() = 0;
 	virtual void move() = 0;
-	virtual void update();
-
+	void update();
 	void animation();
 	void pixelCollision();
 

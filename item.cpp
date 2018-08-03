@@ -26,6 +26,8 @@ void item::animation()
 			_count = 0;
 		}
 	}
+	_image->setFrameX(_index);
+	_image->setFrameY(0);
 }
 
 void item::pixelCollision()
@@ -120,6 +122,18 @@ void manaSmall::move()
 
 void goldCoin::init()
 {
+	_image = new image;
+	_image = IMAGEMANAGER->findImage("금화");
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+	_speed = 5.f;
+	_angle = PI/2;
+	_gravity = 0.f;
+	_count = 0, _index = 0;
+	_animationSpeed = 5.f;
+	_isActived = true;
+	_type = GOLD_COIN;
+	_x = 0.f;
+	_y = 0.f;
 }
 
 void goldCoin::move()
@@ -132,6 +146,18 @@ void goldCoin::move()
 
 void silverCoin::init()
 {
+	_image = new image;
+	_image = IMAGEMANAGER->findImage("은화");
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+	_speed = 5.f;
+	_angle = PI * 73 /150;
+	_gravity = 0.f;
+	_count = 0, _index = 0;
+	_animationSpeed = 5.f;
+	_isActived = true;
+	_type = SILVER_COIN;
+	_x = 0.f;
+	_y = 0.f;
 }
 
 void silverCoin::move()
@@ -144,6 +170,18 @@ void silverCoin::move()
 
 void bronzeCoin::init()
 {
+	_image = new image;
+	_image = IMAGEMANAGER->findImage("동화");
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+	_speed = 5.f;
+	_angle = PI * 77 / 150;
+	_gravity = 0.f;
+	_count = 0, _index = 0;
+	_animationSpeed = 5.f;
+	_isActived = true;
+	_type =	BRONZE_COIN;
+	_x = 0.f;
+	_y = 0.f;
 }
 
 void bronzeCoin::move()
