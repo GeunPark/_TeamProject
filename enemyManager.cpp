@@ -12,19 +12,95 @@ HRESULT enemyManager::init(void)
 	_factory = new enemyFactory;
 
 	//INIDATA로 바꿀것
-	_dragonFlyPos[0].x = 500.f, _dragonFlyPos[0].y = 2400.f;
-	_dragonFlyPos[1].x = 700.f, _dragonFlyPos[1].y = 2400.f;
-	_dragonFlyPos[2].x = 300.f, _dragonFlyPos[2].y = 2400.f;
-	_dragonFlyPos[3].x = 900.f, _dragonFlyPos[3].y = 2400.f;
+	//일단은
 
-	for (int i = 0; i < 4; i++)
+	//잠자리
+	_dragonFlyPos[0].x = 800.f, _dragonFlyPos[0].y = 2300.f;
+	_dragonFlyPos[1].x = 900.f, _dragonFlyPos[1].y = 2250.f;
+	_dragonFlyPos[2].x = 1950.f, _dragonFlyPos[2].y = 2250.f;
+	_dragonFlyPos[3].x = 2050.f, _dragonFlyPos[3].y = 2300.f;
+	_dragonFlyPos[4].x = 2900.f, _dragonFlyPos[4].y = 2300.f;
+	_dragonFlyPos[5].x = 5050.f, _dragonFlyPos[5].y = 1950.f;
+	_dragonFlyPos[6].x = 6475.f, _dragonFlyPos[6].y = 1875.f;
+
+
+	//나무인간
+	_vineManPos[0].x = 1600.f; _vineManPos[0].y = 2240.f;
+	_vineManPos[1].x = 3600.f; _vineManPos[1].y = 2350.f;
+	_vineManPos[2].x = 3900.f; _vineManPos[2].y = 2350.f;
+	_vineManPos[3].x = 5900.f; _vineManPos[3].y = 2350.f;
+	_vineManPos[4].x = 6800.f; _vineManPos[4].y = 2350.f;
+
+
+	//통나무
+	_treeManPos[0].x = 7000.f; _treeManPos[0].y = 1785.f;
+	_treeManPos[1].x = 7000.f; _treeManPos[1].y = 1400.f;
+	//_treeManPos[2].x = 300.f; _treeManPos[2].y = 2200.f;
+	//_treeManPos[3].x = 900.f; _treeManPos[3].y = 2200.f;
+
+	//버그
+	_bugPos[0].x = 7300.f; _bugPos[0].y = 1770.f;
+	_bugPos[1].x = 7400.f; _bugPos[1].y = 1770.f;
+	_bugPos[2].x = 9450.f; _bugPos[2].y = 1960.f;
+	_bugPos[3].x = 9550.f; _bugPos[3].y = 1960.f;
+
+
+	//두꺼비
+	_plantFrogPos[0].x = 7100.f; _plantFrogPos[0].y = 2350.f;
+	_plantFrogPos[1].x = 7200.f; _plantFrogPos[1].y = 2350.f;
+	//_plantFrogPos[2].x = 130.f; _plantFrogPos[2].y = 2400.f;
+	//_plantFrogPos[3].x = 190.f; _plantFrogPos[3].y = 2400.f;
+
+	//꼼장어
+	_electriceelPos[0].x = 3240.f; _electriceelPos[0].y = 2410.f;
+	_electriceelPos[1].x = 6230.f; _electriceelPos[1].y = 2410.f;
+	//_electriceelPos[2].x = 130.f; _electriceelPos[2].y = 2300.f;
+	//_electriceelPos[3].x = 190.f; _electriceelPos[3].y = 2300.f;
+
+
+
+	for (int i = 0; i < MAX_DRAGONFLY; i++)
 	{
 		enemy* _enemy = _factory->createEnemy(DRAGONFLY);
 		_enemy->setPosition(_dragonFlyPos[i].x, _dragonFlyPos[i].y);
 
 		_vEnemy.push_back(_enemy);
 	}
+	for (int i = 0; i < MAX_VINEMAN; i++)
+	{
+		enemy* _enemy = _factory->createEnemy(VINEMAN);
+		_enemy->setPosition(_vineManPos[i].x, _vineManPos[i].y);
 
+		_vEnemy.push_back(_enemy);
+	}
+	for (int i = 0; i < MAX_TREEMAN; i++)
+	{
+		enemy* _enemy = _factory->createEnemy(TREEMAN);
+		_enemy->setPosition(_treeManPos[i].x, _treeManPos[i].y);
+
+		_vEnemy.push_back(_enemy);
+	}
+	for (int i = 0; i < MAX_BUG; i++)
+	{
+		enemy* _enemy = _factory->createEnemy(BUG);
+		_enemy->setPosition(_bugPos[i].x, _bugPos[i].y);
+
+		_vEnemy.push_back(_enemy);
+	}
+	for (int i = 0; i < MAX_PLANTFROG; i++)
+	{
+		enemy* _enemy = _factory->createEnemy(PLANTFROG);
+		_enemy->setPosition(_plantFrogPos[i].x, _plantFrogPos[i].y);
+
+		_vEnemy.push_back(_enemy);
+	}
+	for (int i = 0; i < MAX_ELECTRICEEL; i++)
+	{
+		enemy* _enemy = _factory->createEnemy(ELECTRICEEL);
+		_enemy->setPosition(_electriceelPos[i].x, _electriceelPos[i].y);
+
+		_vEnemy.push_back(_enemy);
+	}
 	//for (int i = 0; i < 1; i++)
 	//{
 	//	enemy* _enemy = _factory->createEnemy(BROVIL);
@@ -68,7 +144,7 @@ void enemyManager::update(void)
 			_vEnemy[i]->setIsLeft(false);
 		}
 
-		_vEnemy[i]->update();
+		//_vEnemy[i]->update();
 	}
 
 	//에너미 충돌처리
@@ -88,12 +164,30 @@ void enemyManager::update(void)
 			//			_player->setIsAttack(false);
 			//			_iMG->setCoin(_vPlantFrog[i]->getX(), _vPlantFrog[i]->getY(), _vPlantFrog[i]->getGold(), _vPlantFrog[i]->getSilver(), _vPlantFrog[i]->getBronze());
 			//			_vPlantFrog.erase(_vPlantFrog.begin() + i);
-
-
 		}
-
 	}
 	//아직 총알이 없음 attRc랑 충돌이나 만들어놓자!
+	//플레이어의 총알과 에너미 충돌
+	for (int i = 0; i < _vEnemy.size(); ++i)
+	{
+		for (int j = 0; j < _player->getArrow()->getArrow().size(); ++j)
+		{
+			RECT _rct;
+
+			if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getArrow()->getArrow()[j].rc))
+			{
+				//_vEnemy[i]->setState(ENEMY_DEAD);
+				_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+				_vEnemy.erase(_vEnemy.begin() + i);
+
+				//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
+				//			_player->setIsAttack(false);
+				//			_iMG->setCoin(_vPlantFrog[i]->getX(), _vPlantFrog[i]->getY(), _vPlantFrog[i]->getGold(), _vPlantFrog[i]->getSilver(), _vPlantFrog[i]->getBronze());
+				//			_vPlantFrog.erase(_vPlantFrog.begin() + i);
+			}
+		}
+		
+	}
 
 
 }

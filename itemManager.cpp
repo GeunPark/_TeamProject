@@ -104,6 +104,7 @@ void itemManager::dropCoin()
 	{
 		item* _goldCoin = _itemFactory->createItem(GOLD_COIN);
 		_goldCoin->setPosition(enemyX, enemyY);
+		_goldCoin->setAngle(_goldCoin->getAngle() + PI / 150);
 		_vCoinGold.push_back(_goldCoin);
 	}
 	//ÀºÈ­

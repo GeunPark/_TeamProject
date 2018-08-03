@@ -13,6 +13,12 @@ struct fPos
 	float y;
 };
 
+#define MAX_DRAGONFLY 6
+#define MAX_VINEMAN 5
+#define MAX_BUG 4
+#define MAX_TREEMAN 2
+#define MAX_PLANTFROG 2
+#define MAX_ELECTRICEEL 2
 class enemyManager : public gameNode
 {
 private:
@@ -22,12 +28,12 @@ private:
 	factory* _factory;
 	vector<enemy*> _vEnemy;	// 일반 적
 
-	fPos _dragonFlyPos[4];
-	fPos _vineManPos[4];
-	fPos _bugPos[4];
-	fPos _treeManPos[4];
-	fPos _plantFrogPos[4];
-	fPos _electriceelPos[4];
+	fPos _dragonFlyPos[MAX_DRAGONFLY];
+	fPos _vineManPos[MAX_VINEMAN];
+	fPos _bugPos[MAX_BUG];
+	fPos _treeManPos[MAX_TREEMAN];
+	fPos _plantFrogPos[MAX_PLANTFROG];
+	fPos _electriceelPos[MAX_ELECTRICEEL];
 
 
 	//eBullet* _eBullet;			// 총알 클래스

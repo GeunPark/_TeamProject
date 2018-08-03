@@ -103,6 +103,7 @@ public:
 
 	//세원쓰^^~ 나 형구쓰 이거 내가 추가했스스 ^^~ ♡
 	void setIsAttack(bool _isAttack) { _player.isAtt = _isAttack; }
+	arrow* getArrow() { return _arrow; }
 
 	//tagCam getCamera(tagCam camera) { return _camera; }
 

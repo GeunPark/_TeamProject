@@ -68,6 +68,8 @@ public:
 	void setItemType(ITEM_TYPE type) { _type = type; }
 
 	void setPosition(float x, float y) { _x = x, _y = y; }
+
+
 	item() {}
 	~item() {}
 };
