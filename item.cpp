@@ -23,7 +23,7 @@ void item::animation()
 		if (_index > _image->getMaxFrameX())
 		{
 			_index = 0;
-			_count = 0;
+			//_count = 0;
 		}
 	}
 	_image->setFrameX(_index);
@@ -78,18 +78,46 @@ void healthLarge::init()
 
 void healthLarge::move()
 {
+	
 }
 
 void healthBig::init()
 {
+	_image = new image;
+	_image = IMAGEMANAGER->findImage("Çï½ººò");
+	_bfx = IMAGEMANAGER->findImage("½ºÅ×ÀÌÁö1 ÇÈ¼¿");
+	_speed = 3.f;
+	_angle = 0;
+	_gravity = 0.f;
+	_count = 0, _index = 0;
+	_animationSpeed = 5.f;
+	_isActived = true;
+	_type = HEALTH_SMALL;
+	_x = 0.f;
+	_y = 0.f;
 }
 
 void healthBig::move()
 {
+	//_angle += 0.1f;
+	//_x += cosf(_angle)*_speed;
+	//_y += -sinf(_angle)*_speed;
 }
 
 void manaBig::init()
 {
+	_image = new image;
+	_image = IMAGEMANAGER->findImage("¸¶³ªºò");
+	_bfx = IMAGEMANAGER->findImage("½ºÅ×ÀÌÁö1 ÇÈ¼¿");
+	_speed = 3.f;
+	_angle = 0;
+	_gravity = 0.f;
+	_count = 0, _index = 0;
+	_animationSpeed = 5.f;
+	_isActived = true;
+	_type = MANA_BIG;
+	_x = 0.f;
+	_y = 0.f;
 }
 
 void manaBig::move()
@@ -106,6 +134,18 @@ void manaBig::move()
 
 void manaSmall::init()
 {
+	_image = new image;
+	_image = IMAGEMANAGER->findImage("¸¶³ª½º¸ô");
+	_bfx = IMAGEMANAGER->findImage("½ºÅ×ÀÌÁö1 ÇÈ¼¿");
+	_speed = 3.f;
+	_angle = 270.f * 3.14f / 180;
+	_gravity = 0.f;
+	_count = 0, _index = 0;
+	_animationSpeed = 5.f;
+	_isActived = true;
+	_type = MANA_SMALL;
+	_x = 0.f;
+	_y = 0.f;
 }
 
 void manaSmall::move()

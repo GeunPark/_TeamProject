@@ -179,7 +179,6 @@ void enemyManager::update(void)
 				//_vEnemy[i]->setState(ENEMY_DEAD);
 				_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 				_vEnemy.erase(_vEnemy.begin() + i);
-
 				//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
 				//			_player->setIsAttack(false);
 				//			_iMG->setCoin(_vPlantFrog[i]->getX(), _vPlantFrog[i]->getY(), _vPlantFrog[i]->getGold(), _vPlantFrog[i]->getSilver(), _vPlantFrog[i]->getBronze());

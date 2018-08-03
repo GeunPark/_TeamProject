@@ -8,14 +8,62 @@ HRESULT itemManager::init(void)
 {
 	_itemFactory = new itemFactory;
 
-	_healthLargePos[0].x = 500.f, _healthLargePos[0].y = 2600.f;
+	_healthLargePos[0].x = 2475.f, _healthLargePos[0].y = 2200.f;
+	_healthLargePos[1].x = 5500.f, _healthLargePos[1].y = 2050.f;
+	_healthLargePos[2].x = 5600.f, _healthLargePos[2].y = 2100.f;
+	_healthLargePos[3].x = 9450.f, _healthLargePos[3].y = 2115.f;
+	_healthLargePos[4].x = 9550.f, _healthLargePos[4].y = 2115.f;
 
-	for (int i = 0; i < 1; ++i)
+
+
+	_healthSmallPos[0].x = 2375.f, _healthSmallPos[0].y = 2250.f;
+	_healthSmallPos[1].x = 2575.f, _healthSmallPos[1].y = 2250.f;
+	_healthSmallPos[2].x = 6990.f, _healthSmallPos[2].y = 1220.f;
+	_healthSmallPos[3].x = 6940.f, _healthSmallPos[3].y = 1150.f;
+	_healthSmallPos[4].x = 7040.f, _healthSmallPos[4].y = 1150.f;
+
+
+	_manaBigPos[0].x = 2900.f, _manaBigPos[0].y = 2150.f;
+	_manaBigPos[1].x = 3550.f, _manaBigPos[1].y = 2000.f;
+	_manaBigPos[2].x = 8150.f, _manaBigPos[2].y = 1675.f;
+	_manaBigPos[3].x = 8150.f, _manaBigPos[3].y = 1575.f;
+	_manaBigPos[4].x = 8150.f, _manaBigPos[4].y = 1475.f;
+
+
+
+	_manaSmallPos[0].x = 6965.f, _manaSmallPos[0].y = 2050.f;
+	_manaSmallPos[1].x = 6965.f, _manaSmallPos[1].y = 2120.f;
+	_manaSmallPos[2].x = 9950.f, _manaSmallPos[2].y = 1720.f;
+	_manaSmallPos[3].x = 9715.f, _manaSmallPos[3].y = 1630.f;
+	_manaSmallPos[4].x = 9520.f, _manaSmallPos[4].y = 1475.f;
+
+
+
+	for (int i = 0; i < MAX_HEALTHLARGE; ++i)
 	{
 		item* _item = _itemFactory->createItem(HEALTH_LARGE);
-		_item->setPosition(_healthLargePos[0].x, _healthLargePos[0].y);
+		_item->setPosition(_healthLargePos[i].x, _healthLargePos[i].y);
 		_vItem.push_back(_item);
 	}
+	for (int i = 0; i < MAX_HEALTHSMALL; ++i)
+	{
+		item* _item = _itemFactory->createItem(HEALTH_SMALL);
+		_item->setPosition(_healthSmallPos[i].x, _healthSmallPos[i].y);
+		_vItem.push_back(_item);
+	}
+	for (int i = 0; i < MAX_MANABIG; ++i)
+	{
+		item* _item = _itemFactory->createItem(MANA_BIG);
+		_item->setPosition(_manaBigPos[i].x, _manaBigPos[i].y);
+		_vItem.push_back(_item);
+	}
+	for (int i = 0; i < MAX_MANASMALL; ++i)
+	{
+		item* _item = _itemFactory->createItem(MANA_SMALL);
+		_item->setPosition(_manaSmallPos[i].x, _manaSmallPos[i].y);
+		_vItem.push_back(_item);
+	}
+
 	enemyX = 0;
 	enemyY = 0;
 	gold = 0;
@@ -104,7 +152,7 @@ void itemManager::dropCoin()
 	{
 		item* _goldCoin = _itemFactory->createItem(GOLD_COIN);
 		_goldCoin->setPosition(enemyX, enemyY);
-		_goldCoin->setAngle(_goldCoin->getAngle() + PI / 150);
+		_goldCoin->setAngle(_goldCoin->getAngle() + PI / 150 * i);
 		_vCoinGold.push_back(_goldCoin);
 	}
 	//ÀºÈ­
