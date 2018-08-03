@@ -16,8 +16,6 @@ struct tagArrow
 };
 
 
-
-
 class arrow : public gameNode
 {
 private:
@@ -42,7 +40,8 @@ public:
 	
 	void removeArrow(int index);
 
-
+	vector<tagArrow> getArrow() { return _vArrow; }
+	
 
 	arrow() {}
 	~arrow() {}

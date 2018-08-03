@@ -93,9 +93,6 @@
     <Filter Include="MainGame\선수">
       <UniqueIdentifier>{e324e35d-9851-4422-99f8-6bcbcef7b469}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\선수\Stage_1_Enemy">
-      <UniqueIdentifier>{10ecaa9c-5b87-4060-bf14-5dbf8632eec6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainGame\선수\EnemyClass">
       <UniqueIdentifier>{916a354f-293a-4dc8-977a-8d5f6584b5ca}</UniqueIdentifier>
     </Filter>
@@ -107,6 +104,9 @@
     </Filter>
     <Filter Include="MainGame\세원\arrow">
       <UniqueIdentifier>{24bbc79b-4958-4b53-a981-88115cbf5fc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\선수\Stage_1_Enemy">
+      <UniqueIdentifier>{10ecaa9c-5b87-4060-bf14-5dbf8632eec6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

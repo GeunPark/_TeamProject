@@ -5,6 +5,7 @@
 #include "itemManager.h"
 #include "shop.h"
 
+
 struct imgInfo
 {
 	float _x, _y;

@@ -90,7 +90,7 @@ void stage1::update(void)
 	{
 		this->init();
 	}
-	if (KEYMANAGER->isOnceKeyDown('A'))
+	if (KEYMANAGER->isOnceKeyDown('Z'))		//공격키하고 겹쳐가지고 계속 없는 이미지라고 터져서 Z로 바꿔놨엉 -세원-
 	{
 		if (_state == ICE)_state = NORMAL;
 		else if (_state == NORMAL)_state = ICE;

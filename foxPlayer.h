@@ -5,7 +5,7 @@
 
 #define MAX_HEIGHT 2750
 #define MAX_WIDTH 20000
-#define MAX_STATE 12
+#define MAX_STATE 14
 
 enum tagState
 {
@@ -15,6 +15,7 @@ enum tagState
 	JUMP,
 	DOUBLEJUMP,
 	FALL,
+	FALL2,
 	//WEATHER1,
 	//WEATHER2,
 	FIRE,
@@ -22,7 +23,8 @@ enum tagState
 	SITATT,
 	JUMPATT,
 	JUMPATT2,
-	DOWNATT
+	DOWNATT,
+	HIT
 };
 
 struct tagPlayer
@@ -33,7 +35,7 @@ struct tagPlayer
 	float speed;
 	float gravity;
 	float angle;
-	float bulletAngle;
+	float arrowAngle;
 	float radian;
 	bool isJump;
 	bool isLeft;
@@ -81,10 +83,12 @@ public:
 	//함수들
 	void imageSetting();
 	void frameMove();
+	void collisionRcChange();
 	void foxState();
 	void keySetting();
 	void camera();
 	void pixelCollision();
+	void removeArrow(int index);
 
 	// get, set함수들
 	float getX() { return _player.x; }

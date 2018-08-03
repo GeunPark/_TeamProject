@@ -37,9 +37,9 @@ void arrow::fire(float x, float y, float angle)
 	if (_arrowMax < _vArrow.size() + 1)return;
 	tagArrow arrow;
 	ZeroMemory(&arrow, sizeof(tagArrow));
-	arrow.arrowImage = new image;
+	arrow.arrowImage = IMAGEMANAGER->findImage("arrow");
 
-	arrow.arrowImage->init("resource/foxPlayer/arrow.bmp", 192, 192, 1, 2, true, MAGENTA);
+	//arrow.arrowImage->init("resource/foxPlayer/arrow.bmp", 192, 192, 1, 2, true, MAGENTA);
 
 	arrow.angle = angle;
 	arrow.x = arrow.fireX = x;
@@ -63,8 +63,8 @@ void arrow::move()
 
 		if (_range < distance)
 		{
-			_viArrow->arrowImage->release();
-			SAFE_DELETE(_viArrow->arrowImage);
+			//_viArrow->arrowImage->release();
+			//SAFE_DELETE(_viArrow->arrowImage);
 			_viArrow = _vArrow.erase(_viArrow);
 		}
 		else
@@ -92,7 +92,7 @@ void arrow::animation()
 
 void arrow::removeArrow(int index)
 {
-	_vArrow[index].arrowImage->release();
-	SAFE_DELETE(_vArrow[index].arrowImage);
+	//_vArrow[index].arrowImage->release();
+	//SAFE_DELETE(_vArrow[index].arrowImage);
 	_vArrow.erase(_vArrow.begin() + index);
 }

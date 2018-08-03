@@ -9,6 +9,7 @@ void loadingScene::SaeWonImage()
 	_loading->loadFrameImage("Jump", "resource/foxPlayer/jump.bmp", 360, 360, 2, 2, true, MAGENTA);
 	_loading->loadFrameImage("Jump2", "resource/foxPlayer/jump.bmp", 360, 360, 2, 2, true, MAGENTA);
 	_loading->loadFrameImage("Fall", "resource/foxPlayer/fall.bmp", 720, 360, 4, 2, true, MAGENTA);
+	_loading->loadFrameImage("Fall2", "resource/foxPlayer/fall.bmp", 720, 360, 4, 2, true, MAGENTA);
 	_loading->loadFrameImage("Fire", "resource/foxPlayer/bowFire.bmp", 1440, 360, 8, 2, true, MAGENTA);
 	_loading->loadFrameImage("UpAtt", "resource/foxPlayer/upAtt.bmp", 870, 348, 5, 2, true, MAGENTA);
 	_loading->loadFrameImage("SitAtt", "resource/foxPlayer/sitAtt.bmp", 540, 360, 3, 2, true, MAGENTA);
