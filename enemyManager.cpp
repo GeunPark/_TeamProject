@@ -47,7 +47,7 @@ void enemyManager::update(void)
 		//{
 		//	_vEnemy[i]->setIsLeft(true);
 		//}
-		//else
+		//else if(_vEnemy[i]->getX() < _player->getX())
 		//{
 		//	_vEnemy[i]->setIsLeft(false);
 		//}
@@ -56,6 +56,20 @@ void enemyManager::update(void)
 	}
 
 
+
+	for (int i = 0; i < _vEnemy.size(); i++)
+	{
+		if (_vEnemy[i]->getX() > _player->getX())
+		{
+			_vEnemy[i]->setIsLeft(true);
+		}
+		else
+		{
+			_vEnemy[i]->setIsLeft(false);
+		}
+
+		_vEnemy[i]->update();
+	}
 
 	//에너미 충돌처리
 

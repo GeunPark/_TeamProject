@@ -50,7 +50,7 @@ void dragonFly::attack()
 
 void dragonFly::move()
 {
-
+	
 }
 
 void dragonFly::dead()
@@ -202,6 +202,9 @@ void electriceel::dead()
 
 void enemy::update()
 {
+	_count++;
+
+
 	switch (_state)
 	{
 	case ENEMY_IDLE:
@@ -232,7 +235,6 @@ void enemy::update()
 	//
 	//_y += _gravity;
 
-	_count++;
 
 	if (_count % _animationSpeed == 0)
 	{
