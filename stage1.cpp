@@ -149,9 +149,11 @@ void stage1::render(void)
 	//플레이어
 	//_player->render(_cam.rc.left, _cam.rc.top);
 	_player->render();
+
 	//에너미매니저
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
+
 	//아이템매니저
 	_iMG->render();
 

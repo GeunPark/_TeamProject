@@ -2,6 +2,9 @@
 #include "gameNode.h"
 #include "arrow.h"
 #include "UI.h"
+#include "enemyManager.h"
+
+class enemyManager;
 
 #define MAX_HEIGHT 2750
 #define MAX_WIDTH 20000
@@ -16,8 +19,6 @@ enum tagState
 	DOUBLEJUMP,
 	FALL,
 	FALL2,
-	//WEATHER1,
-	//WEATHER2,
 	FIRE,
 	UPATT,
 	SITATT,
@@ -67,7 +68,7 @@ private:
 	image* nick[MAX_STATE];
 	image* _bfx;
 	
-	RECT attRc;	//임시 공격렉트(잘 되면 주로 사용)
+	RECT attRc, attRc2, attRc3, attRc4;	//임시 공격렉트(잘 되면 주로 사용)
 	image* _bpx;
 	int count, index, actionCount, actionIndex;
 	int jumpCount;
