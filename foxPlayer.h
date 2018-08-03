@@ -1,6 +1,8 @@
 #pragma once
 #include "gameNode.h"
 #include "arrow.h"
+#include "UI.h"
+
 #define MAX_HEIGHT 2750
 #define MAX_WIDTH 20000
 #define MAX_STATE 12
@@ -59,7 +61,7 @@ private:
 	tagState _state;
 
 	arrow* _arrow;
-
+	UI * _ui;
 	image* nick[MAX_STATE];
 	image* _bfx;
 	

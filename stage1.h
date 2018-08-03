@@ -3,6 +3,7 @@
 #include "enemyManager.h"
 #include "foxPlayer.h"
 #include "itemManager.h"
+#include "shop.h"
 
 struct imgInfo
 {
@@ -38,6 +39,9 @@ private:
 
 	//플레이어 할당
 	foxPlayer* _player;
+
+	// 상점 할당
+	shop * _shop;
 
 	state _state;
 	tagBoxs _cam;

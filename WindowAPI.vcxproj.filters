@@ -236,6 +236,12 @@
     <ClInclude Include="arrow.h">
       <Filter>MainGame\세원\arrow</Filter>
     </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>MainGame\기훈</Filter>
+    </ClInclude>
+    <ClInclude Include="shop.h">
+      <Filter>MainGame\기훈</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -369,6 +375,12 @@
     </ClCompile>
     <ClCompile Include="arrow.cpp">
       <Filter>MainGame\세원\arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>MainGame\기훈</Filter>
+    </ClCompile>
+    <ClCompile Include="shop.cpp">
+      <Filter>MainGame\기훈</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

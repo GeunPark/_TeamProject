@@ -15,7 +15,8 @@ HRESULT stage1::init(void)
 	images();
 	
 
-
+	_shop = new shop;
+	_shop->init();
 
 
 	//플레이어 동적할당
@@ -78,6 +79,7 @@ void stage1::update(void)
 	//아이템매니저
 	_iMG->update();
 
+	_shop->update();
 	if (KEYMANAGER->isToggleKey(VK_F2))
 	{
 		cameraMove();
@@ -145,8 +147,13 @@ void stage1::render(void)
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
 	//아이템매니저
-	_iMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 
+	// 테스트용 상점 구현
+	_iMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
+	if (KEYMANAGER->isToggleKey('Q'))
+	{
+		_shop->render();
+	}
 	//플레이어
 	//_player->render(_cam.rc.left, _cam.rc.top);
 	

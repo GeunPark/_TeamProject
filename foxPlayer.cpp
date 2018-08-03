@@ -7,6 +7,10 @@ HRESULT foxPlayer::init(void)
 {
 	imageSetting();
 
+	// 형 UI 설정좀 하께
+	_ui = new UI;
+	_ui->init();
+
 	_state = IDLE;
 	_player.x = 100;
 	_player.y = MAX_HEIGHT - 200;
@@ -77,6 +81,8 @@ void foxPlayer::update(void)
 		attRc = RectMakeCenter(-10000,-10000 , 50, 50);
 	}
 	//_arrow->update();
+	_ui->update();
+
 	_camera.rc = RectMakeCenter(_camera.x, _camera.y, WINSIZEX, WINSIZEY);
 }
 
@@ -98,6 +104,8 @@ void foxPlayer::render()
 		Rectangle(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, _player.rc.right - _camera.rc.left, _player.rc.bottom - _camera.rc.top);
 		//Rectangle(getMemDC(), _player.collisionRc.left - _camera.rc.left, _player.collisionRc.top - _camera.rc.top, _player.collisionRc.right - _camera.rc.left, _player.collisionRc.bottom - _camera.rc.top);
 	}
+	_ui->render();
+
 	//_arrow->render();
 	char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d", _player.gravity, jumpCount, _state);
