@@ -8,7 +8,9 @@ struct tagShopBox
 	image * _img;
 	int _count;
 	int _index;
+	int price;
 };
+
 
 class shop : public gameNode
 {
@@ -16,11 +18,15 @@ private:
 
 	tagShopBox _backImage;
 	tagShopBox _Item[3];
+	tagShopBox _ItemInfo[3];
 	tagShopBox _selectOj;
+	tagShopBox _priceNum[4];
+	int num[4];
 	bool _kindShop;
 	bool _isSelect;
 	int _selectCount;
 	int _selectNumber;
+	float _x, _y;
 public:
 	HRESULT init(void);
 	void release(void);

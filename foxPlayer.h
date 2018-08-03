@@ -2,10 +2,13 @@
 #include "gameNode.h"
 #include "arrow.h"
 #include "UI.h"
+#include "enemyManager.h"
 
-#define MAX_HEIGHT 2750
-#define MAX_WIDTH 20000
-#define MAX_STATE 12
+class enemyManager;
+
+#define MAX_HEIGHT 2500
+#define MAX_WIDTH 10000
+#define MAX_STATE 14
 
 enum tagState
 {
@@ -15,14 +18,14 @@ enum tagState
 	JUMP,
 	DOUBLEJUMP,
 	FALL,
-	//WEATHER1,
-	//WEATHER2,
+	FALL2,
 	FIRE,
 	UPATT,
 	SITATT,
 	JUMPATT,
 	JUMPATT2,
-	DOWNATT
+	DOWNATT,
+	HIT
 };
 
 struct tagPlayer
@@ -33,7 +36,7 @@ struct tagPlayer
 	float speed;
 	float gravity;
 	float angle;
-	float bulletAngle;
+	float arrowAngle;
 	float radian;
 	bool isJump;
 	bool isLeft;
@@ -65,7 +68,7 @@ private:
 	image* nick[MAX_STATE];
 	image* _bfx;
 	
-	RECT attRc;	//임시 공격렉트(잘 되면 주로 사용)
+	RECT attRc, attRc2, attRc3, attRc4;	//임시 공격렉트(잘 되면 주로 사용)
 	image* _bpx;
 	int count, index, actionCount, actionIndex;
 	int jumpCount;
@@ -81,10 +84,12 @@ public:
 	//함수들
 	void imageSetting();
 	void frameMove();
+	void collisionRcChange();
 	void foxState();
 	void keySetting();
 	void camera();
 	void pixelCollision();
+	void removeArrow(int index);
 
 	// get, set함수들
 	float getX() { return _player.x; }

@@ -33,11 +33,11 @@ HRESULT stage1::init(void)
 
 	_normalBack1._x = 0;
 	_normalBack1._y = 0;
-	_normalBack1._img = IMAGEMANAGER->findImage("레이어1배경");
+	_normalBack1._img = IMAGEMANAGER->findImage("레이어1");
 
 	_normalBack2._x = 0;
 	_normalBack2._y = 0;
-	_normalBack2._img = IMAGEMANAGER->findImage("레이어2배경");
+	_normalBack2._img = IMAGEMANAGER->findImage("레이어2");
 
 
 	//상호참조
@@ -93,7 +93,7 @@ void stage1::update(void)
 	{
 		this->init();
 	}
-	if (KEYMANAGER->isOnceKeyDown('A'))
+	if (KEYMANAGER->isOnceKeyDown('S'))		//공격키하고 겹쳐가지고 계속 없는 이미지라고 터져서 Z로 바꿔놨엉 -세원-
 	{
 		if (_state == ICE)_state = NORMAL;
 		else if (_state == NORMAL)_state = ICE;
@@ -109,6 +109,8 @@ void stage1::update(void)
 void stage1::render(void)
 {
 	_normalBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _player->getPlayerCam().top, WINSIZEX, 2550), _normalBack1._x, _normalBack1._y);
+	_normalBack2._img->loopRender(getMemDC(), &RectMake(0,2400 -_player->getPlayerCam().top, WINSIZEX, 2550), _normalBack2._x, _normalBack2._y);
+
 	if (_state == NORMAL)
 	{
 		//  풀 이미지 출력
@@ -149,9 +151,11 @@ void stage1::render(void)
 	//플레이어
 	//_player->render(_cam.rc.left, _cam.rc.top);
 	_player->render();
+
 	//에너미매니저
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
+
 	//아이템매니저
 	_iMG->render();
 
@@ -265,14 +269,12 @@ void stage1::imagePosition()
 	_bush[9].y = 2600;
 
 	// 물가 x좌표
-	_river[0]._x = 2467;
+	_river[0]._x = 2260;
 	_river[1]._x = 5700;
 	_river[2]._x = 11700;
 	_river[3]._x = 14100;
 	_river[4]._x = 16100;
-	_river[5]._x = 17600;
-	_river[6]._x = 9000;
-	_river[7]._x = 10646;
+
 	// 폭포 좌표
 	_waterfall[0]._x = 8692;
 	_waterfall[1]._x = 10288;
@@ -292,7 +294,7 @@ void stage1::imagePosition()
 
 	for (int i = 0; i < 8; i++)
 	{
-		_river[i]._y = 2630;
+		_river[i]._y = 2420;
 	}
 
 
@@ -335,9 +337,11 @@ void stage1::bgMove()
 	if (_player->getLeft())
 	{
 		_normalBack1._x -= 1;
+		_normalBack2._x -= 1;
 	}
 	if(_player->getRight())
 	{
 		_normalBack1._x += 1;
+		_normalBack2._x += 1;
 	}
 }

@@ -5,9 +5,11 @@ void loadingScene::GiHunImage()
 {
 
 	// 스테이지 1 이미지
-	_loading->loadImage("스테이지1", "resource/스테이지1/스테이지1.bmp", 20000, 2750, true, MAGENTA);
+	_loading->loadImage("스테이지1", "resource/스테이지1/스테이지1 합본.bmp", 10000, 2500, true, MAGENTA);
+	_loading->loadImage("레이어1", "resource/스테이지1/레이어1.bmp", 1280, 2340, true, MAGENTA);
+	_loading->loadImage("레이어2", "resource/스테이지1/레이어2.bmp", 1280, 256, true, MAGENTA);
 	//_loading->loadImage("스테이지1 얼음", "resource/스테이지1/스테이지1 얼음.bmp", 20000, 2750, true, MAGENTA);
-	_loading->loadImage("스테이지1 픽셀", "resource/스테이지1/스테이지1 픽셀.bmp", 20000, 2750, true, RGB(255, 0, 255));
+	_loading->loadImage("스테이지1 픽셀", "resource/스테이지1/스테이지1 픽셀1.bmp", 10000, 2500, true, RGB(255, 0, 255));
 	//_loading->loadImage("스테이지1 얼음 픽셀", "resource/스테이지1/스테이지1 얼음 픽셀.bmp", 20000, 2750, true, RGB(255, 0, 255));
 	// 기타 이미지
 	_loading->loadImage("큰풀", "resource/스테이지1/큰풀.bmp", 100, 100, true, RGB(255, 0, 255));
@@ -33,6 +35,7 @@ void loadingScene::GiHunImage()
 	_loading->loadImage("업그레이드상점", "resource/상점/업그레이드상점.bmp", 318, 64, true, RGB(255, 0, 255));
 	_loading->loadImage("총알 추가", "resource/상점/총알 업그레이드.bmp", 120, 120);
 	_loading->loadFrameImage("HP증가", "resource/상점/HP증가.bmp", 1200, 120, 10, 1);
+	_loading->loadImage("하트", "resource/상점/하트.bmp", 120, 120);
 
 	_loading->loadImage("번개 마법 정보", "resource/상점/1234.bmp", 400, 400, true, MAGENTA);
 	_loading->loadImage("불 마법 정보", "resource/상점/불 마법 정보.bmp", 400, 400, true, MAGENTA);
