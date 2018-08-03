@@ -7,7 +7,7 @@ HRESULT foxPlayer::init(void)
 {
 	imageSetting();
 
-	// 형 UI 설정좀 하께
+	// 형 UI 설정좀 하께  웅웅
 	_ui = new UI;
 	_ui->init();
 
@@ -104,9 +104,11 @@ void foxPlayer::render()
 		Rectangle(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, _player.rc.right - _camera.rc.left, _player.rc.bottom - _camera.rc.top);
 		//Rectangle(getMemDC(), _player.collisionRc.left - _camera.rc.left, _player.collisionRc.top - _camera.rc.top, _player.collisionRc.right - _camera.rc.left, _player.collisionRc.bottom - _camera.rc.top);
 	}
+
 	_ui->render();
 
 	//_arrow->render();
+
 	char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d", _player.gravity, jumpCount, _state);
 	TextOut(getMemDC(), 100, 600, str,strlen(str));
@@ -338,7 +340,7 @@ void foxPlayer::keySetting()
 	{
 		_player.isRight = true;
 		_player.isLeft = false;
-		_player.angle = 0;
+		_player.bulletAngle = 0;
 		_state = RUN;
 	}
 	if (_player.isJump == false && KEYMANAGER->isOnceKeyUp(VK_RIGHT))
@@ -349,7 +351,7 @@ void foxPlayer::keySetting()
 	if (_state == IDLE && KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		_player.isLeft = true;
-		_player.angle = PI;
+		_player.bulletAngle = PI;
 		_state = RUN;
 	}
 	if (_player.isJump == false && KEYMANAGER->isOnceKeyUp(VK_LEFT))
@@ -411,7 +413,7 @@ void foxPlayer::keySetting()
 		else if (_state == IDLE)
 		{
 			_state = FIRE;
-			_arrow->fire(_player.x, _player.y + 65, _player.angle);
+			//_arrow->fire(_player.x, _player.y + 65, _player.angle);
 		}
 		
 	}
@@ -497,7 +499,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 
 	}
 
-	//플레이어 렉트 left 픽셀 충돌
+	//플레이어 렉트 left 픽셀 충돌  문제있음ㅜ
 	for (int i = _player.rc.left + _player.speed; i > _player.rc.left; --i)
 	{
 		COLORREF color = GetPixel(_bfx->getMemDC(), i, _player.y);
@@ -509,7 +511,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 		if (r == 0 && g == 255 && b == 255)
 		{
 			_player.x = i + nick[_state]->getFrameWidth() / 2;
-			_player.isLeft = false;         //여기 문제있음
+			_player.isLeft = false;			//여기 문제있음
 			break;
 		}
 	}
@@ -553,3 +555,4 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 	//	}
 	//}
 }
+
