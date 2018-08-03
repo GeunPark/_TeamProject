@@ -3,8 +3,8 @@
 #include "arrow.h"
 #include "UI.h"
 
-#define MAX_HEIGHT 2750
-#define MAX_WIDTH 20000
+#define MAX_HEIGHT 2500
+#define MAX_WIDTH 10000
 #define MAX_STATE 14
 
 enum tagState

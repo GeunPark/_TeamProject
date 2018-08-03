@@ -35,6 +35,7 @@ void UI::release(void)
 void UI::update(void)
 {
 	nowGold();
+	nowHeart();
 	// 하트 갯수만큼 표시
 	for (int i = 0; i < maxHeart; i++)
 	{
@@ -43,7 +44,7 @@ void UI::update(void)
 	// 현재 마나가 일정수치 도달하면 경고표시
 	if (_mana._now  > 30  || _mana._now <= 0) _isManaWarning = false;
 	else _isManaWarning = true;
-
+	
 	if (!_isManaUse  && _mana._now < _mana._MaxNum)_mana._now += 0.1f;
 	if (_isManaUse)
 	{
@@ -56,6 +57,16 @@ void UI::update(void)
 		else _isManaUse = false;
 	}
 
+	if (KEYMANAGER->isOnceKeyDown('T') && _heartNum < maxHeart * 10)
+	{
+		_heartNum+= 5;
+	}
+	if (KEYMANAGER->isOnceKeyDown('Y') && _heartNum > 0)
+	{
+		_heartNum-= 5;
+	}
+
+
 }
 
 void UI::render()
@@ -63,8 +74,8 @@ void UI::render()
 	// 하트 이미지
 	for (int i = 0; i < maxHeart; i++)
 	{
-		_heart[i]._img ->render(getMemDC(), _heart[i]._x , _heart[i]._y);
-		if(KEYMANAGER->isToggleKey(VK_F4))Rectangle(getMemDC(), _heart[i]._rc);
+		_heart[i]._img->render(getMemDC(), _heart[i]._x, _heart[i]._y);
+		if (KEYMANAGER->isToggleKey(VK_F4))Rectangle(getMemDC(), _heart[i]._rc);
 	}
 	// 마나 이미지
 	_manaBar._img->render(getMemDC(), _manaBar._x, _manaBar._y);
@@ -89,18 +100,17 @@ void UI::render()
 
 }
 
-
 // 하트(체력)
 void UI::heart()
 {
-	if (MAXHEART < maxHeart)maxHeart = MAXHEART;
-	maxHeart = 10;
+	
+	maxHeart = 7;
 	for (int i = 0; i < maxHeart; i++)
 	{
-		_heart[i]._numChk = 1;												// 이 변수값에 따라서 하트모양이 달라림, 풀 하트, 반 하트, 빈 하트
+		_heart[i]._numChk = 0;												// 이 변수값에 따라서 하트모양이 달라림, 풀 하트, 반 하트, 빈 하트
 		if (i < 5)
 		{
-			_heart[i]._x =25 + 40 * i;
+			_heart[i]._x = 25 + 40 * i;
 			_heart[i]._y = 20;
 		}
 		else if (i > 4)
@@ -108,7 +118,17 @@ void UI::heart()
 			_heart[i]._x = 25 + 40 * i - 200;
 			_heart[i]._y = 68;
 		}
-
+		
+		_heart[i]._img = IMAGEMANAGER->findImage("fullHP");
+		
+		_heart[i]._rc = RectMakeCenter(_heart[i]._x, _heart[i]._y, 48, 48);
+	}
+	_heartNum = 0;
+}
+void UI::nowHeart()
+{
+	for (int i = 0; i < maxHeart; i++)
+	{
 		if (_heart[i]._numChk == 2)											// 이 변수값에 따라서 하트모양이 달라림, 풀 하트, 반 하트, 빈 하트
 		{
 			_heart[i]._img = IMAGEMANAGER->findImage("fullHP");
@@ -122,12 +142,17 @@ void UI::heart()
 			_heart[i]._img = IMAGEMANAGER->findImage("zeroHP");
 		}
 		_heart[i]._rc = RectMakeCenter(_heart[i]._x, _heart[i]._y, 48, 48);
-		_heart[i]._now = 50;
+	}
+	for (int i = 0; i < maxHeart; i++)
+	{
+		// _heartNum / 10 + i * 10;
+		if (_heartNum / 10 > i )_heart[i]._numChk = 2;
+		if (_heartNum / 10 == i && _heartNum % 10 == 5)_heart[i]._numChk = 1;
+		if (_heartNum / 10 == i  && _heartNum % 10 == 0 || _heartNum == 0)_heart[i]._numChk = 0;
+		
 
 	}
-	
 }
-
 // 마나관련 초기화 함수
 void UI::mana()
 {
@@ -182,7 +207,7 @@ void UI::nowGold()
 	{
 		_num++;
 	}
-	if (KEYMANAGER->isStayKeyDown('}') && _num > 0)
+	if (KEYMANAGER->isStayKeyDown('P') && _num > 0)
 	{
 		_num--;
 	}
