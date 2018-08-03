@@ -101,8 +101,9 @@ public:
 
 	tagPlayer getTag() { return _player; }
 
-	//세원쓰^^~ 나 형구쓰 이거 내가 추가했스스 ^^~ ♡
+	
 	void setIsAttack(bool _isAttack) { _player.isAtt = _isAttack; }
+	//세원쓰^^~ 불금인데 못놀아서 아쉽지 ~~ 월요일날 보니깐 힘내 내가 아래 겟함수 하나 만들었는데~~ 미안쓰 -HG-
 	arrow* getArrow() { return _arrow; }
 
 	//tagCam getCamera(tagCam camera) { return _camera; }
