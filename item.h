@@ -44,7 +44,7 @@ public:
 
 
 
-	RECT getRect() { return _rc; }
+	RECT getRc() { return _rc; }
 	image* getItemImage() { return _image; }
 	float getX() { return _x; }
 	void setX(float x) { _x = x; }
@@ -68,6 +68,8 @@ public:
 	void setItemType(ITEM_TYPE type) { _type = type; }
 
 	void setPosition(float x, float y) { _x = x, _y = y; }
+
+
 	item() {}
 	~item() {}
 };

@@ -50,7 +50,7 @@ void dragonFly::attack()
 
 void dragonFly::move()
 {
-
+	
 }
 
 void dragonFly::dead()
@@ -60,7 +60,7 @@ void dragonFly::dead()
 
 void vineMan::init()
 {
-	_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("나무인간spawn");
+	_bodyImage[ENEMY_SPAWN] = IMAGEMANAGER->findImage("나무인간spawn");
 	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("나무인간move");
 	_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("나무인간dead");
 	_speed = 3.f;
@@ -69,11 +69,14 @@ void vineMan::init()
 	_count = 0, _index = 0;
 	_animationSpeed = 3.f;
 	_isActived = true;
-	_state = ENEMY_IDLE;
+	_state = ENEMY_SPAWN;
 	_type = VINEMAN;
 	_x = 3480.f;
 	_y = 900.f;
 	_isLeft = false;
+	_gold = 0;
+	_silver = 1;
+	_bronze = 1;
 }
 
 void vineMan::idle()
@@ -100,6 +103,23 @@ void vineMan::dead()
 
 void bug::init()
 {
+	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("버그spawn");
+	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("버그move");
+	_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("버그dead");
+	_speed = 3.f;
+	_angle = 270.f * 3.14f / 180;
+	_gravity = 0.f;
+	_count = 0, _index = 0;
+	_animationSpeed = 3.f;
+	_isActived = true;
+	_state = ENEMY_WALK;
+	_type = BUG;
+	_x = 3480.f;
+	_y = 900.f;
+	_isLeft = false;
+	_gold = 0;
+	_silver = 1;
+	_bronze = 1;
 }
 
 void bug::idle()
@@ -124,6 +144,23 @@ void bug::dead()
 
 void treeMan::init()
 {
+	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("버그spawn");
+	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("통나무move");
+	_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("통나무dead");
+	_speed = 3.f;
+	_angle = 270.f * 3.14f / 180;
+	_gravity = 0.f;
+	_count = 0, _index = 0;
+	_animationSpeed = 3.f;
+	_isActived = true;
+	_state = ENEMY_WALK;
+	_type = TREEMAN;
+	_x = 3480.f;
+	_y = 900.f;
+	_isLeft = false;
+	_gold = 3;
+	_silver = 0;
+	_bronze = 0;
 }
 
 void treeMan::idle()
@@ -148,6 +185,24 @@ void treeMan::dead()
 
 void plantFrog::init()
 {
+	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("버그spawn");
+	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("두꺼비move");
+	_bodyImage[ENEMY_FIRE] = IMAGEMANAGER->findImage("두꺼비attack");
+	_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("두꺼비dead");
+	_speed = 3.f;
+	_angle = PI/2;
+	_gravity = 0.f;
+	_count = 0, _index = 0;
+	_animationSpeed = 3.f;
+	_isActived = true;
+	_state = ENEMY_WALK;
+	_type = PLANTFROG;
+	_x = 3480.f;
+	_y = 900.f;
+	_isLeft = false;
+	_gold = 1;
+	_silver = 1;
+	_bronze = 0;
 }
 
 void plantFrog::idle()
@@ -172,6 +227,24 @@ void plantFrog::dead()
 
 void electriceel::init()
 {
+	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("버그spawn");
+	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("꼼장어move");
+	//_bodyImage[ENEMY_FIRE] = IMAGEMANAGER->findImage("두꺼비attack");
+	_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("꼼장어dead");
+	_speed = 3.f;
+	_angle = PI / 2;
+	_gravity = 0.f;
+	_count = 0, _index = 0;
+	_animationSpeed = 3.f;
+	_isActived = true;
+	_state = ENEMY_WALK;
+	_type = ELECTRICEEL;
+	_x = 3480.f;
+	_y = 900.f;
+	_isLeft = false;
+	_gold = 0;
+	_silver = 1;
+	_bronze = 1;
 }
 
 void electriceel::idle()
@@ -202,6 +275,9 @@ void electriceel::dead()
 
 void enemy::update()
 {
+	_count++;
+
+
 	switch (_state)
 	{
 	case ENEMY_IDLE:
@@ -232,7 +308,6 @@ void enemy::update()
 	//
 	//_y += _gravity;
 
-	_count++;
 
 	if (_count % _animationSpeed == 0)
 	{

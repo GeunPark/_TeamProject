@@ -2,6 +2,9 @@
 #include "gameNode.h"
 #include "arrow.h"
 #include "UI.h"
+#include "enemyManager.h"
+
+class enemyManager;
 
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
@@ -16,8 +19,6 @@ enum tagState
 	DOUBLEJUMP,
 	FALL,
 	FALL2,
-	//WEATHER1,
-	//WEATHER2,
 	FIRE,
 	UPATT,
 	SITATT,
@@ -67,7 +68,7 @@ private:
 	image* nick[MAX_STATE];
 	image* _bfx;
 	
-	RECT attRc;	//임시 공격렉트(잘 되면 주로 사용)
+	RECT attRc, attRc2, attRc3, attRc4;	//임시 공격렉트(잘 되면 주로 사용)
 	image* _bpx;
 	int count, index, actionCount, actionIndex;
 	int jumpCount;
@@ -100,9 +101,11 @@ public:
 
 	tagPlayer getTag() { return _player; }
 
-	//세원쓰^^~ 나 형구쓰 이거 내가 추가했스스 ^^~ ♡
+	
 	void setIsAttack(bool _isAttack) { _player.isAtt = _isAttack; }
-
+	//세원쓰^^~ 불금인데 못놀아서 아쉽지 ~~ 월요일날 보니깐 힘내 내가 아래 겟함수 하나 만들었는데~~ 미안쓰 -HG-
+	arrow* getArrow() { return _arrow; }
+	RECT getCollisionRc() { return _player.collisionRc; }
 	//tagCam getCamera(tagCam camera) { return _camera; }
 
 	foxPlayer() {}

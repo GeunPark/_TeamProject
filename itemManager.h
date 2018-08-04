@@ -13,6 +13,12 @@ struct itemPos
 	float y;
 
 };
+
+#define MAX_HEALTHLARGE 5
+#define MAX_HEALTHSMALL 5
+#define MAX_MANABIG 5
+#define MAX_MANASMALL 5
+
 class itemManager : public gameNode
 {
 private:
@@ -32,10 +38,10 @@ private:
 
 
 
-	itemPos _healthLargePos[1];
-	itemPos _healthSmallPos[1];
-	itemPos _manaBigPos[1];
-	itemPos _manaSmallPos[1];
+	itemPos _healthLargePos[MAX_HEALTHLARGE];
+	itemPos _healthSmallPos[MAX_HEALTHSMALL];
+	itemPos _manaBigPos[MAX_MANABIG];
+	itemPos _manaSmallPos[MAX_MANASMALL];
 
 	
 

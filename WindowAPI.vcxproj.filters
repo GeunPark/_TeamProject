@@ -108,6 +108,9 @@
     <Filter Include="MainGame\선수\Stage_1_Enemy">
       <UniqueIdentifier>{10ecaa9c-5b87-4060-bf14-5dbf8632eec6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\선수\factoryClass">
+      <UniqueIdentifier>{b7a932da-84ef-4ecb-89a8-ea5d314436a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonMacroFunction.h">
@@ -243,7 +246,7 @@
       <Filter>MainGame\기훈</Filter>
     </ClInclude>
     <ClInclude Include="factory.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>MainGame\선수\factoryClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -386,7 +389,7 @@
       <Filter>MainGame\기훈</Filter>
     </ClCompile>
     <ClCompile Include="factory.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>MainGame\선수\factoryClass</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

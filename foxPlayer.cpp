@@ -59,17 +59,19 @@ void foxPlayer::update(void)
 	//_player.collisionRc = RectMakeCenter(_player.x , _player.y , _player.radian, 110);
 	this->pixelCollision();		//픽셀충돌 함수 호출
 
-	if (_player.isAtt && _player.isLeft == false)
+	//공격렉트 생성
+	if (_player.isAtt && _state == JUMPATT)
 	{
-		attRc = RectMakeCenter(_player.x + _player.radian + 50, _player.y, 50, 50);
+		attRc = RectMakeCenter(_player.x, _player.y, 200, 30);
+		//attRc2 = RectMakeCenter(_player.x - _player.radian - 50, _player.y, 50, 50);
 	}
-	else if (_player.isAtt && _player.isLeft)
+	else if (_player.isAtt && _state == JUMPATT2)
 	{
-		attRc = RectMakeCenter(_player.x - _player.radian - 50, _player.y, 50, 50);
+		EllipseMakeCenter(getMemDC(), _player.x, _player.y, 300, 300);
 	}
 	else
 	{
-		attRc = RectMakeCenter(-10000,-10000 , 50, 50);
+		attRc = RectMakeCenter(-10000,-10000 , 300, 300);
 	}
 
 	_arrow->update();
@@ -91,6 +93,7 @@ void foxPlayer::render()
 	nick[_state]->frameRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, nick[_state]->getFrameX(), nick[_state]->getFrameY());
 	
 	Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
+	//Rectangle(getMemDC(), attRc2.left - _camera.rc.left, attRc2.top - _camera.rc.top, attRc2.right - _camera.rc.left, attRc2.bottom - _camera.rc.top);
 
 	if (KEYMANAGER->isToggleKey('O'))
 	{
@@ -286,7 +289,6 @@ void foxPlayer::foxState()
 			_player.isLeft = false;
 			_player.x += _player.speed / 3;
 		}
-
 	}
 	
 	if (_state == FIRE)
