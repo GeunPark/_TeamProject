@@ -40,7 +40,11 @@ private:
 public:
 	void setPlayerManager(foxPlayer* player) { _player = player; }
 	void setItemManager(itemManager* iMG) { _iMG = iMG; }
+	// 형구씨 앞으로 멋대로 get set 만들지마세요 짜증나니깐 띠바 -sw- ㅋㅋㅋㅋㅋ
+	// 우리 선수 괴롭히지마요
 
+
+	vector<enemy*> getEnemy() { return _vEnemy; }
 
 	HRESULT init(void);
 	void release(void);

@@ -2,7 +2,6 @@
 #include "gameNode.h"
 #include "arrow.h"
 #include "UI.h"
-#include "enemyManager.h"
 
 class enemyManager;
 
@@ -59,6 +58,8 @@ struct tagCam
 class foxPlayer : public gameNode
 {
 private:
+	enemyManager * _enemyManger;
+
 	tagPlayer _player;
 	tagCam _camera;
 	tagState _state;
@@ -89,6 +90,7 @@ public:
 	void keySetting();
 	void camera();
 	void pixelCollision();
+	void enemyCollision();
 	void removeArrow(int index);
 
 	// get, set함수들
@@ -99,11 +101,14 @@ public:
 	RECT getPlayerCam() { return _camera.rc; }
 	RECT getAttRc() { return attRc; }
 
+	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
+
 	tagPlayer getTag() { return _player; }
 
 	
 	void setIsAttack(bool _isAttack) { _player.isAtt = _isAttack; }
 	//세원쓰^^~ 불금인데 못놀아서 아쉽지 ~~ 월요일날 보니깐 힘내 내가 아래 겟함수 하나 만들었는데~~ 미안쓰 -HG-
+	
 	arrow* getArrow() { return _arrow; }
 	RECT getCollisionRc() { return _player.collisionRc; }
 	//tagCam getCamera(tagCam camera) { return _camera; }

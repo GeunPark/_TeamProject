@@ -43,11 +43,14 @@ HRESULT stage1::init(void)
 	//상호참조
 	//_eMG->setPlayerLink(_player);
 	//_eMG->setItemMGLink(_iMG);
+
 	// 플레이어매니저 클래스 가져오기
 	_eMG->setPlayerManager(_player);
 	_eMG->setItemManager(_iMG);
 	_iMG->setPlayerLink(_player);
 	_iMG->setEMGLink(_eMG);
+	_player->setEnemyManager(_eMG);
+	
 
 
 	return S_OK;
