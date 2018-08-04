@@ -119,11 +119,14 @@ void stage1::render(void)
 			if (!_vBush[i].isActive) continue;
 			_vBush[i]._img->render(getMemDC(), _vBush[i].rc.left - _player->getPlayerCam().left, _vBush[i].rc.top - _player->getPlayerCam().top);
 		}
+		_waterfall[0]._img->frameRender(getMemDC(), _waterfall[0]._x - _player->getPlayerCam().left, 2180 -   _player->getPlayerCam().top);
+		_waterfall[1]._img->frameRender(getMemDC(), _waterfall[1]._x - _player->getPlayerCam().left, 2121 - _player->getPlayerCam().top);
+		_waterfall[2]._img->frameRender(getMemDC(), _waterfall[2]._x - _player->getPlayerCam().left, 1925 - _player->getPlayerCam().top);
 
 		// 폭포 이미지 출력
 		for (int i = 0; i < 3; i++)
 		{
-			_waterfall[i]._img->frameRender(getMemDC(), _waterfall[i]._x - _player->getPlayerCam().left, _waterfall[i]._y - _player->getPlayerCam().top);
+			
 			_waterfalls[i]._img->frameRender(getMemDC(), _waterfalls[i]._x - _player->getPlayerCam().left, _waterfalls[i]._y - _player->getPlayerCam().top);
 		}
 		// 강 이미지 출력
@@ -131,11 +134,11 @@ void stage1::render(void)
 		{
 			_river[i]._img->frameRender(getMemDC(), _river[i]._x - _player->getPlayerCam().left, _river[i]._y - _player->getPlayerCam().top);
 		}
-		_waterfall[1]._img->frameRender(getMemDC(), _waterfall[1]._x - _player->getPlayerCam().left, _waterfall[1]._y - _player->getPlayerCam().top);
-		_waterfalls[1]._img->frameRender(getMemDC(), _waterfalls[1]._x - _player->getPlayerCam().left, _waterfalls[1]._y - _player->getPlayerCam().top);
-		_waterWheel->frameRender(getMemDC(), 14473 - _player->getPlayerCam().left, 2213 - _player->getPlayerCam().top);
+
+		
 		// 필드 이미지 출력
 		feild->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
+		_waterWheel->frameRender(getMemDC(), 8582 - _player->getPlayerCam().left, 2000 - _player->getPlayerCam().top);
 	}
 	else if (_state == ICE)
 	{
@@ -269,26 +272,24 @@ void stage1::imagePosition()
 	// 물가 x좌표
 	_river[0]._x = 2260;
 	_river[1]._x = 5700;
-	_river[2]._x = 11700;
-	_river[3]._x = 14100;
+	_river[2]._x = 8220;
+	_river[3]._x = 9000;
 	_river[4]._x = 16100;
 
 	// 폭포 좌표
-	_waterfall[0]._x = 8692;
-	_waterfall[1]._x = 10288;
-	_waterfall[2]._x = 14908;
+	_waterfall[0]._x = 4925;
+	_waterfall[1]._x = 7900;
+	_waterfall[2]._x = 9016;
 
-	_waterfall[0]._y = 2196;
-	_waterfall[1]._y = 1896;
-	_waterfall[2]._y = 2070;
 
-	_waterfalls[0]._x = 8692;
-	_waterfalls[1]._x = 10288;
-	_waterfalls[2]._x = 14908;
 
-	_waterfalls[0]._y = 2148;
-	_waterfalls[1]._y = 1848;
-	_waterfalls[2]._y = 2022;
+	_waterfalls[0]._x = 4925;
+	_waterfalls[1]._x = 7900;
+	_waterfalls[2]._x = 9016;
+
+	_waterfalls[0]._y = 2135;
+	_waterfalls[1]._y = 2075;
+	_waterfalls[2]._y = 1880;
 
 	for (int i = 0; i < 8; i++)
 	{

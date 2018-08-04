@@ -36,6 +36,7 @@ void UI::update(void)
 {
 	nowGold();
 	nowHeart();
+	nowArrow();
 	// 하트 갯수만큼 표시
 	for (int i = 0; i < maxHeart; i++)
 	{
@@ -65,7 +66,16 @@ void UI::update(void)
 	{
 		_heartNum-= 5;
 	}
-
+	if (KEYMANAGER->isOnceKeyDown('U'))
+	{
+		a++;
+		if (a > _arrowNum-1)a = 0;
+	}
+	if (KEYMANAGER->isOnceKeyDown('I'))
+	{
+		b++;
+		if (b > _magicNum - 1)b = 0;
+	}
 
 }
 
@@ -84,11 +94,17 @@ void UI::render()
 	else if(_isManaWarning)_manaWa->render(getMemDC(), _mana._x, _mana._y, 0, 0, _mana._now, 24);
 	_warningLine->render(getMemDC(), 527, 39);
 	// 현재 화살 이미지
-	_nowState[0]->render(getMemDC(), 350, 20);
-	_nowArrow._img->render(getMemDC(), 360,30);
+	_nowState[0]->render(getMemDC(), 330, 20);
+	_nowArrow._img->render(getMemDC(), 340,30);
 	for (int i = 0; i < _arrowNum; i++)
 	{
 		_ArrowChoice[i]._img->render(getMemDC(), _ArrowChoice[i]._x, _ArrowChoice[i]._y);
+	}
+	// 마법 이미지
+	_nowState[1]->render(getMemDC(), 800, 20);
+	for (int i = 0; i < _magicNum; i++)
+	{
+		_MagicChoice[i]._img->render(getMemDC(), _MagicChoice[i]._x, _MagicChoice[i]._y);
 	}
 	// 현재 골드 이미지
 	_goldImage->render(getMemDC(), 1124, 20);
@@ -96,7 +112,9 @@ void UI::render()
 	{
 		if(frameNumChk[i] == true)_number[i]->frameRender(getMemDC(),1100 + (24 * i) , 50, _frameNum[i],0);
 	}
-	//	
+	char str[128];
+	sprintf_s(str, "%04d     %d",a, b);
+	TextOut(getMemDC(), 300, 200, str, strlen(str));
 
 }
 
@@ -183,22 +201,44 @@ void UI::mana()
 
 void UI::nowArrow()
 {
+	// a는 몇번째 화살을 선택했다는 값? 입니다
 	_arrowNum = 2;
-	_nowArrow._img = IMAGEMANAGER->findImage("일반화살");
-	_nowArrow._numChk = 0;
 	_nowState[0] = IMAGEMANAGER->findImage("현재상태");
 	for (int i = 0; i < _arrowNum; i++)
 	{
-		_ArrowChoice[0]._img = IMAGEMANAGER->findImage("선택L");
-		_ArrowChoice[1]._img = IMAGEMANAGER->findImage("노선택L");
-		_ArrowChoice[i]._x = 320;
+		if (a == i)
+		{
+			_ArrowChoice[i]._img = IMAGEMANAGER->findImage("선택L");
+
+		}
+		else if (a != i)_ArrowChoice[i]._img = IMAGEMANAGER->findImage("노선택L");
+
+//		_ArrowChoice[0]._img = IMAGEMANAGER->findImage("선택L");
+//		_ArrowChoice[1]._img = IMAGEMANAGER->findImage("노선택L");
+		_ArrowChoice[i]._x = 300;
 		_ArrowChoice[i]._y = 20 + i * 24;
 	}
+	if(a == 0)_nowArrow._img = IMAGEMANAGER->findImage("일반화살");
+	else if(a==1)_nowArrow._img = IMAGEMANAGER->findImage("초록화살");
 }
 
 void UI::nowMagic()
 {
+	_magicNum = 3;
 	_nowState[1] = IMAGEMANAGER->findImage("현재상태");
+	for (int i = 0; i < _magicNum; i++)
+	{
+		if (b == i)
+		{
+
+			_MagicChoice[i]._img = IMAGEMANAGER->findImage("선택R");
+
+		}
+		else if (b != i)_MagicChoice[i]._img = IMAGEMANAGER->findImage("노선택R");
+
+		_MagicChoice[i]._x = 920;
+		_MagicChoice[i]._y = 20 + i * 24;
+	}
 }
 
 void UI::nowGold()

@@ -24,6 +24,7 @@ private:
 	tagBox _manaUp;
 
 	tagBox _ArrowChoice[5];
+	tagBox _MagicChoice[5];
 	tagBox _nowArrow;
 	tagBox _nowMagic;	
 
@@ -39,11 +40,13 @@ private:
 	int manaWarning;
 	int MaxMana;
 	int _arrowNum;
+	int _magicNum;
 	int _frameNum[4];
 	bool frameNumChk[4];
 	bool _isManaUse;
 	int _num;
 	int a = 0;
+	int b = 0;
 	int _heartNum;
 	bool _isManaWarning;
 public:
