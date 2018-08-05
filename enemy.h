@@ -38,7 +38,7 @@ protected:
 	float _speed;
 	float _angle;
 	float _gravity;
-	int _count, _index;
+	int _count, _indexX, _indexY;
 	int _animationSpeed;
 	bool _isLeft;
 	bool _isActived;
@@ -68,7 +68,8 @@ public:
 	float getAngle() { return _angle; }
 	float getGravity() { return _gravity; }
 	int getCount() { return _count; }
-	int getIndex() { return _index; }
+	int getIndexX() { return _indexX; }
+	int getIndexY() { return _indexY; }
 	bool getIsLeft() { return _isLeft; }
 	bool getIsActived() { return _isActived; }
 
