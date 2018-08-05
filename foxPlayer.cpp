@@ -25,13 +25,13 @@ HRESULT foxPlayer::init(void)
 	_player.arrowAngle = 0;
 	_player.radian = 90;
 	_player.isJump = _player.isLeft = _player.isUp = _player.isDown = _player.isRight = _player.isAtt = false;
-<<<<<<< HEAD
+
 	
 	index = count = actionCount = actionIndex = jumpCount = hitCount = unDamage = 0;
-=======
+
 	_player.maxMana = _player.mana  =  100;
 	index = count = actionCount = actionIndex = jumpCount = 0;
->>>>>>> 37cafe78873ac5b429ac3576a46de78f8e41a117
+
 
 	_arrow = new arrow;
 	_arrow->init(3, 600);
