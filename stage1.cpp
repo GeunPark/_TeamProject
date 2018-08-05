@@ -4,7 +4,7 @@
 HRESULT stage1::init(void)
 {
 	// 상태
-	_state = NORMAL;
+	_state = SUMMER;
 	// 카메라 관련 초기화
 	_cam.x = WINSIZEX / 2;
 	_cam.y = 2750 - (WINSIZEY / 2);
@@ -19,6 +19,7 @@ HRESULT stage1::init(void)
 	_shop->init();
 
 
+
 	//플레이어 동적할당
 	_player = new foxPlayer;
 	_player->init();
@@ -30,6 +31,7 @@ HRESULT stage1::init(void)
 	//아이템매니저
 	_iMG = new itemManager;
 	_iMG->init();
+
 
 	_normalBack1._x = 0;
 	_normalBack1._y = 0;
@@ -43,11 +45,14 @@ HRESULT stage1::init(void)
 	//상호참조
 	//_eMG->setPlayerLink(_player);
 	//_eMG->setItemMGLink(_iMG);
+
 	// 플레이어매니저 클래스 가져오기
 	_eMG->setPlayerManager(_player);
 	_eMG->setItemManager(_iMG);
 	_iMG->setPlayerLink(_player);
 	_iMG->setEMGLink(_eMG);
+	_player->setEnemyManager(_eMG);
+
 
 
 	return S_OK;
@@ -58,21 +63,19 @@ void stage1::release(void)
 	SAFE_DELETE(_eMG);
 	SAFE_DELETE(_iMG);
 
+
 }
 
 void stage1::update(void)
 {
-
+	if (_player->getAng() == false)_state = SUMMER;
+	else if (_player->getAng() == true)_state = WINTER;
 	//imageMove();
 	// 기훈아 두개라서 이거 주석처리했다 니가 나중에 알아서 정리해 -근화-########################################################################
 	cameraMove();
 
 	//To Do : 기훈아 내일 이거 건들지말아바 -근화- ##############################################################################################
 	imageMove();
-
-	
-
-
 
 	//플레이어
 	_player->update();
@@ -83,6 +86,7 @@ void stage1::update(void)
 	_iMG->update();
 
 	_shop->update();
+
 	if (KEYMANAGER->isToggleKey(VK_F2))
 	{
 		cameraMove();
@@ -93,13 +97,14 @@ void stage1::update(void)
 	{
 		this->init();
 	}
-	if (KEYMANAGER->isOnceKeyDown('S'))		//공격키하고 겹쳐가지고 계속 없는 이미지라고 터져서 Z로 바꿔놨엉 -세원-
+	if (KEYMANAGER->isOnceKeyDown('Z'))		//공격키하고 겹쳐가지고 계속 없는 이미지라고 터져서 Z로 바꿔놨엉 -세원-
 	{
-		if (_state == ICE)_state = NORMAL;
-		else if (_state == NORMAL)_state = ICE;
+		if (_state == WINTER)_state = SUMMER;
+		else if (_state == SUMMER)_state = WINTER;
 	}
 
-
+	if (_state == WINTER && _a < WINSIZEX)_a+= 5;
+	if (_state == SUMMER)_a = 0;
 	this->bgMove();
 
 	//_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
@@ -111,7 +116,7 @@ void stage1::render(void)
 	_normalBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _player->getPlayerCam().top, WINSIZEX, 2550), _normalBack1._x, _normalBack1._y);
 	_normalBack2._img->loopRender(getMemDC(), &RectMake(0,2400 -_player->getPlayerCam().top, WINSIZEX, 2550), _normalBack2._x, _normalBack2._y);
 
-	if (_state == NORMAL)
+	if (_state == SUMMER)
 	{
 		//  풀 이미지 출력
 		for (int i = 0; i < _vBush.size(); ++i)
@@ -119,11 +124,14 @@ void stage1::render(void)
 			if (!_vBush[i].isActive) continue;
 			_vBush[i]._img->render(getMemDC(), _vBush[i].rc.left - _player->getPlayerCam().left, _vBush[i].rc.top - _player->getPlayerCam().top);
 		}
+		_waterfall[0]._img->frameRender(getMemDC(), _waterfall[0]._x - _player->getPlayerCam().left, 2180 -   _player->getPlayerCam().top);
+		_waterfall[1]._img->frameRender(getMemDC(), _waterfall[1]._x - _player->getPlayerCam().left, 2121 - _player->getPlayerCam().top);
+		_waterfall[2]._img->frameRender(getMemDC(), _waterfall[2]._x - _player->getPlayerCam().left, 1925 - _player->getPlayerCam().top);
 
 		// 폭포 이미지 출력
 		for (int i = 0; i < 3; i++)
 		{
-			_waterfall[i]._img->frameRender(getMemDC(), _waterfall[i]._x - _player->getPlayerCam().left, _waterfall[i]._y - _player->getPlayerCam().top);
+			
 			_waterfalls[i]._img->frameRender(getMemDC(), _waterfalls[i]._x - _player->getPlayerCam().left, _waterfalls[i]._y - _player->getPlayerCam().top);
 		}
 		// 강 이미지 출력
@@ -131,21 +139,21 @@ void stage1::render(void)
 		{
 			_river[i]._img->frameRender(getMemDC(), _river[i]._x - _player->getPlayerCam().left, _river[i]._y - _player->getPlayerCam().top);
 		}
-		_waterfall[1]._img->frameRender(getMemDC(), _waterfall[1]._x - _player->getPlayerCam().left, _waterfall[1]._y - _player->getPlayerCam().top);
-		_waterfalls[1]._img->frameRender(getMemDC(), _waterfalls[1]._x - _player->getPlayerCam().left, _waterfalls[1]._y - _player->getPlayerCam().top);
-		_waterWheel->frameRender(getMemDC(), 14473 - _player->getPlayerCam().left, 2213 - _player->getPlayerCam().top);
+
+		
 		// 필드 이미지 출력
 		feild->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
+		_waterWheel->frameRender(getMemDC(), 8582 - _player->getPlayerCam().left, 2000 - _player->getPlayerCam().top);
 	}
-	else if (_state == ICE)
+	if (_state == WINTER)
 	{
-		feildIce->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
+		feild->render(getMemDC(), 0 + _a, 0, _player->getPlayerCam().left +_a, _player->getPlayerCam().top, WINSIZEX - _a , WINSIZEY);
+		feildIce->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, 0 + _a, WINSIZEY);
 	}
 	// 픽셀 이미지 출력
 	if (KEYMANAGER->isToggleKey(VK_F4))
 	{
-		if (_state == NORMAL)feildpixel->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
-		else if (_state == ICE)feildIcepixel->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
+		feildpixel->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
 	}
 
 	//아이템매니저
@@ -166,8 +174,9 @@ void stage1::render(void)
 		_shop->render();
 	}
 
+
 	char str[128];
-	sprintf_s(str, "%d    %d ",_ptMouse.x + _player->getPlayerCam().left, _ptMouse.y + _player->getPlayerCam().top);
+	sprintf_s(str, "%d    %d ",_state,_a);
 	TextOut(getMemDC(), 120 , WINSIZEY /2 , str, strlen(str));
 	
 }
@@ -272,26 +281,24 @@ void stage1::imagePosition()
 	// 물가 x좌표
 	_river[0]._x = 2260;
 	_river[1]._x = 5700;
-	_river[2]._x = 11700;
-	_river[3]._x = 14100;
+	_river[2]._x = 8220;
+	_river[3]._x = 9000;
 	_river[4]._x = 16100;
 
 	// 폭포 좌표
-	_waterfall[0]._x = 8692;
-	_waterfall[1]._x = 10288;
-	_waterfall[2]._x = 14908;
+	_waterfall[0]._x = 4925;
+	_waterfall[1]._x = 7900;
+	_waterfall[2]._x = 9016;
 
-	_waterfall[0]._y = 2196;
-	_waterfall[1]._y = 1896;
-	_waterfall[2]._y = 2070;
 
-	_waterfalls[0]._x = 8692;
-	_waterfalls[1]._x = 10288;
-	_waterfalls[2]._x = 14908;
 
-	_waterfalls[0]._y = 2148;
-	_waterfalls[1]._y = 1848;
-	_waterfalls[2]._y = 2022;
+	_waterfalls[0]._x = 4925;
+	_waterfalls[1]._x = 7900;
+	_waterfalls[2]._x = 9016;
+
+	_waterfalls[0]._y = 2135;
+	_waterfalls[1]._y = 2075;
+	_waterfalls[2]._y = 1880;
 
 	for (int i = 0; i < 8; i++)
 	{
@@ -304,9 +311,8 @@ void stage1::imagePosition()
 void stage1::images()
 {
 	feild = IMAGEMANAGER->findImage("스테이지1");
-	feildIce = IMAGEMANAGER->findImage("스테이지1 얼음");
+	feildIce = IMAGEMANAGER->findImage("스테이지 1 겨울");
 	feildpixel = IMAGEMANAGER->findImage("스테이지1 픽셀");
-	feildIcepixel = IMAGEMANAGER->findImage("스테이지1 얼음 픽셀");
 	_waterWheel = IMAGEMANAGER->findImage("물레방아");
 	for (int i = 0; i < 10; i++)
 	{

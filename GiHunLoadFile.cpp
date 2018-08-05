@@ -6,6 +6,7 @@ void loadingScene::GiHunImage()
 
 	// 스테이지 1 이미지
 	_loading->loadImage("스테이지1", "resource/스테이지1/스테이지1 합본.bmp", 10000, 2500, true, MAGENTA);
+	_loading->loadImage("스테이지 1 겨울", "resource/스테이지1/스테이지 1 겨울.bmp", 10000, 2500, true, MAGENTA);
 	_loading->loadImage("레이어1", "resource/스테이지1/레이어1.bmp", 1280, 2340, true, MAGENTA);
 	_loading->loadImage("레이어2", "resource/스테이지1/레이어2.bmp", 1280, 256, true, MAGENTA);
 	//_loading->loadImage("스테이지1 얼음", "resource/스테이지1/스테이지1 얼음.bmp", 20000, 2750, true, MAGENTA);
@@ -13,7 +14,7 @@ void loadingScene::GiHunImage()
 	//_loading->loadImage("스테이지1 얼음 픽셀", "resource/스테이지1/스테이지1 얼음 픽셀.bmp", 20000, 2750, true, RGB(255, 0, 255));
 	// 기타 이미지
 	_loading->loadImage("큰풀", "resource/스테이지1/큰풀.bmp", 100, 100, true, RGB(255, 0, 255));
-	_loading->loadFrameImage("폭포", "resource/스테이지1/폭포2 프레임.bmp", 4608, 1000, 16, 1);
+	_loading->loadFrameImage("폭포", "resource/스테이지1/폭포1 프레임.bmp", 4608, 575, 16, 1);
 	_loading->loadFrameImage("폭포물", "resource/스테이지1/폭포물.bmp", 4320, 48, 15, 1);
 	_loading->loadFrameImage("물레방아", "resource/스테이지1/물레방아.bmp", 3480, 435, 8, 1);
 	_loading->loadFrameImage("물가", "resource/스테이지1/물 찰랑.bmp", 11520, 120, 8, 1);
@@ -41,6 +42,9 @@ void loadingScene::GiHunImage()
 	_loading->loadImage("불 마법 정보", "resource/상점/불 마법 정보.bmp", 400, 400, true, MAGENTA);
 	_loading->loadImage("얼음 마법 정보", "resource/상점/얼음 마법 정보.bmp", 400, 400, true, MAGENTA);
 
+	_loading->loadImage("초록화살 설명", "resource/상점/초록화살 설명.bmp", 400, 400, true, MAGENTA);
+	_loading->loadImage("마나 업그레이드 설명", "resource/상점/마나 업그레이드 설명.bmp", 400, 400, true, MAGENTA);
+	_loading->loadImage("하트 설명", "resource/상점/하트 설명.bmp", 400, 400, true, MAGENTA);
 
 	// UI
 	_loading->loadImage("fullHP", "resource/UI/fullHP.bmp", 48, 48, true, MAGENTA);

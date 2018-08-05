@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "foxPlayer.h"
+#include "enemyManager.h"
+
+#include "UI.h"
 
 
 //ToDo : init
@@ -11,7 +14,9 @@ HRESULT foxPlayer::init(void)
 	_ui = new UI;
 	_ui->init();
 
+
 	_state = IDLE;
+	
 	_player.x = 100;
 	_player.y = MAX_HEIGHT - 200;
 	_player.speed = 30.f;
@@ -20,7 +25,7 @@ HRESULT foxPlayer::init(void)
 	_player.arrowAngle = 0;
 	_player.radian = 90;
 	_player.isJump = _player.isLeft = _player.isUp = _player.isDown = _player.isRight = _player.isAtt = false;
-	
+	_player.maxMana = _player.mana  =  100;
 	index = count = actionCount = actionIndex = jumpCount = 0;
 
 	_arrow = new arrow;
@@ -30,7 +35,6 @@ HRESULT foxPlayer::init(void)
 	_camera.y = _player.y;
 
 	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
-	
 	return S_OK;
 }
 
@@ -43,6 +47,22 @@ void foxPlayer::release(void)
 //ToDo : update
 void foxPlayer::update(void)
 {
+	if (KEYMANAGER->isOnceKeyDown('S'))
+	{
+		if (!ang)ang = true;
+		else ang = false;
+
+	}
+
+	if (ang)
+	{
+		_player.mana -= 0.1f;
+		if (_player.mana <= 0)ang = false;
+	}
+	else
+	{
+		if (_player.maxMana > _player.mana)_player.mana += 0.3f;
+	}
 	this->keySetting();	  //키셋팅 함수 호출
 
 	this->foxState();		//플레이어 상태 함수 호출
@@ -56,6 +76,9 @@ void foxPlayer::update(void)
 	//충돌렉트 위치 보정   완벽하지않아ㅜㅜ 일단 다른것들 진도좀 빼두고 수정할께!ㅎㅎ
 	this->collisionRcChange();
 
+	//적과 충돌
+	this->enemyCollision();
+
 	//_player.collisionRc = RectMakeCenter(_player.x , _player.y , _player.radian, 110);
 	this->pixelCollision();		//픽셀충돌 함수 호출
 
@@ -67,7 +90,20 @@ void foxPlayer::update(void)
 	}
 	else if (_player.isAtt && _state == JUMPATT2)
 	{
-		EllipseMakeCenter(getMemDC(), _player.x, _player.y, 300, 300);
+		//EllipseMakeCenter(getMemDC(), _player.x - _camera.rc.left, _player.y-_camera.rc.top, 300-_camera.rc.left, 300-_camera.rc.top);
+		attRc = RectMakeCenter(_player.x, _player.y, 200, 200);
+	}
+	else if (_player.isAtt && _state == SITATT)
+	{ 
+		if (_player.isLeft)
+		{
+			attRc = RectMakeCenter(_player.x - 100, _player.y + 50, 100, 30);
+		}
+		else
+		{
+			attRc = RectMakeCenter(_player.x + 100, _player.y + 50, 100, 30);
+		}
+		
 	}
 	else
 	{
@@ -77,6 +113,8 @@ void foxPlayer::update(void)
 	_arrow->update();
 
 	_ui->update();
+
+	
 
 	_camera.rc = RectMakeCenter(_camera.x, _camera.y, WINSIZEX, WINSIZEY);
 }
@@ -90,9 +128,10 @@ void foxPlayer::update(void)
 void foxPlayer::render()
 {
 	Rectangle(getMemDC(), _player.collisionRc.left - _camera.rc.left, _player.collisionRc.top - _camera.rc.top, _player.collisionRc.right - _camera.rc.left, _player.collisionRc.bottom - _camera.rc.top);
+	Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
 	nick[_state]->frameRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, nick[_state]->getFrameX(), nick[_state]->getFrameY());
 	
-	Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
+	//Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
 	//Rectangle(getMemDC(), attRc2.left - _camera.rc.left, attRc2.top - _camera.rc.top, attRc2.right - _camera.rc.left, attRc2.bottom - _camera.rc.top);
 
 	if (KEYMANAGER->isToggleKey('O'))
@@ -104,16 +143,26 @@ void foxPlayer::render()
 	_ui->render();
 
 	//_arrow->render();
+	int temp;
+
+	if (_player.isLeft)
+	{
+		temp = 1;
+	}
+	else 
+	{
+		temp = 0;
+	}
 
 	for (int i = 0; i < _arrow->getArrow().size(); i++)
 	{
 		//Rectangle(getMemDC(), _arrow->getArrow()[i].rc.left - _camera.rc.left, _arrow->getArrow()[i].rc.top - _camera.rc.top, _arrow->getArrow()[i].rc.right - _camera.rc.left, _arrow->getArrow()[i].rc.bottom - _camera.rc.top);
-		_arrow->getArrow()[i].arrowImage->frameRender(getMemDC(), _arrow->getArrow()[i].rc.left - _camera.rc.left, _arrow->getArrow()[i].rc.top - _camera.rc.top);
+		_arrow->getArrow()[i].arrowImage->frameRender(getMemDC(), _arrow->getArrow()[i].rc.left - _camera.rc.left, _arrow->getArrow()[i].rc.top - _camera.rc.top, 0, temp);
 	}
 	
 
 	char str[128];
-	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d", _player.gravity, jumpCount, _state);
+	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d", _player.gravity, jumpCount,0);
 	TextOut(getMemDC(), 100, 600, str,strlen(str));
 }
 
@@ -133,6 +182,7 @@ void foxPlayer::imageSetting()
 	nick[JUMPATT] = IMAGEMANAGER->findImage("JumpAtt");	//점프공격
 	nick[JUMPATT2] = IMAGEMANAGER->findImage("JumpAtt2");	//점프공격2 회전회오리~!
 	nick[DOWNATT] = IMAGEMANAGER->findImage("DownAtt");	//내려찍기
+	nick[HIT] = IMAGEMANAGER->findImage("Hurt");		//맞는이미지
 }
 //ToDo : 프레임 움직임
 void foxPlayer::frameMove()
@@ -167,7 +217,7 @@ void foxPlayer::frameMove()
 			}
 		}
 	}
-	else
+	else              
 	{
 		++count;
 		if (_player.isLeft)
@@ -199,6 +249,7 @@ void foxPlayer::frameMove()
 	}
 	
 }
+//충돌 렉트!
 void foxPlayer::collisionRcChange()
 {
 	if (_player.isRight && !_player.isLeft)
@@ -349,23 +400,7 @@ void foxPlayer::foxState()
 			}
 		}
 	}
-	/*if (_state == JUMPATT2)
-	{
-		if (_player.isLeft)
-		{
-			if (actionIndex <= 0)
-			{
-				_state = FALL;
-			}
-		}
-		else
-		{
-			if (actionIndex >= nick[JUMPATT2]->getMaxFrameX())
-			{
-				_state = FALL;
-			}
-		}
-	}*/
+	
 	if (_state == DOWNATT)
 	{
 
@@ -593,6 +628,22 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 	//		//			_player.y += 0.2f;
 	//	}
 	//}
+}
+
+void foxPlayer::enemyCollision()
+{
+	for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
+	{
+		RECT tempRc;
+
+		if(IntersectRect(&tempRc, &_player.rc, &_enemyManger->getEnemy()[i]->getRc()))
+		{
+			_state = HIT;
+		}
+	}
+
+
+
 }
 
 void foxPlayer::removeArrow(int index)

@@ -61,9 +61,7 @@ void shop::render()
 	else if(_isSelect)_selectOj._img->frameRender(getMemDC(), _selectOj._x, _selectOj._y);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-	char str[128];
-	sprintf_s(str, "%04d     %d", _Item[_selectNumber].price / 1000, _Item[_selectNumber].price);
-	TextOut(getMemDC(), 300, 200, str, strlen(str));
+	
 }
 
 
@@ -88,6 +86,10 @@ void shop::ItemList()
 		_Item[0].price = 1000;
 		_Item[1].price = 1500;
 		_Item[2].price = 2000;
+
+		_ItemInfo[0]._img = IMAGEMANAGER->findImage("초록화살 설명");
+		_ItemInfo[1]._img = IMAGEMANAGER->findImage("마나 업그레이드 설명");
+		_ItemInfo[2]._img = IMAGEMANAGER->findImage("하트 설명");
 	}
 	else if (_kindShop)
 	{

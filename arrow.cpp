@@ -77,6 +77,7 @@ void arrow::move()
 
 void arrow::animation()
 {
+	
 	for (int i = 0; i < _vArrow.size(); ++i)
 	{
 		if (_vArrow[i].angle == PI)

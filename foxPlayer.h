@@ -2,13 +2,12 @@
 #include "gameNode.h"
 #include "arrow.h"
 #include "UI.h"
-#include "enemyManager.h"
-
-class enemyManager;
 
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
 #define MAX_STATE 14
+
+class enemyManager;
 
 enum tagState
 {
@@ -46,6 +45,9 @@ struct tagPlayer
 	bool isUp;
 	bool isDown;
 	bool isAtt;
+
+	float mana;
+	float maxMana;
 };
 
 struct tagCam
@@ -59,12 +61,17 @@ struct tagCam
 class foxPlayer : public gameNode
 {
 private:
+	enemyManager * _enemyManger;
+
 	tagPlayer _player;
 	tagCam _camera;
 	tagState _state;
 
 	arrow* _arrow;
 	UI * _ui;
+
+
+
 	image* nick[MAX_STATE];
 	image* _bfx;
 	
@@ -72,6 +79,7 @@ private:
 	image* _bpx;
 	int count, index, actionCount, actionIndex;
 	int jumpCount;
+	bool ang = false;
 	//image* _bpx2;
 
 public:
@@ -89,6 +97,7 @@ public:
 	void keySetting();
 	void camera();
 	void pixelCollision();
+	void enemyCollision();
 	void removeArrow(int index);
 
 	// get, set함수들
@@ -99,14 +108,22 @@ public:
 	RECT getPlayerCam() { return _camera.rc; }
 	RECT getAttRc() { return attRc; }
 
-	tagPlayer getTag() { return _player; }
+	float getMana() { return _player.mana; }
 
+
+	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
+	tagPlayer getTag() { return _player; }
+	// 계절을 변화시켰는지 아닌지 판별 Ang~♡
+	bool getAng() { return ang; }
 	
 	void setIsAttack(bool _isAttack) { _player.isAtt = _isAttack; }
 	//세원쓰^^~ 불금인데 못놀아서 아쉽지 ~~ 월요일날 보니깐 힘내 내가 아래 겟함수 하나 만들었는데~~ 미안쓰 -HG-
+	
 	arrow* getArrow() { return _arrow; }
 	RECT getCollisionRc() { return _player.collisionRc; }
 	//tagCam getCamera(tagCam camera) { return _camera; }
+
+	void setUIManager(UI* ui) { _ui = ui; }
 
 	foxPlayer() {}
 	~foxPlayer() {}
