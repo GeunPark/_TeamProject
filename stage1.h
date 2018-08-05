@@ -1,11 +1,10 @@
 #pragma once
 #include "gameNode.h"
 #include "enemyManager.h"
-#include "foxPlayer.h"
 #include "itemManager.h"
 #include "shop.h"
-
-
+#include "foxPlayer.h"
+#include "UI.h"
 struct imgInfo
 {
 	float _x, _y;
@@ -16,8 +15,8 @@ struct imgInfo
 
 enum state
 {
-	NORMAL,
-	ICE
+	SUMMER,
+	WINTER
 };
 
 struct tagBoxs
@@ -44,6 +43,8 @@ private:
 	// 상점 할당
 	shop * _shop;
 
+	UI * _Ui;
+
 	state _state;
 	tagBoxs _cam;
 	imgInfo _river[5];
@@ -68,7 +69,7 @@ private:
 	imgInfo _normalBack2;
 	imgInfo _iceBack1;
 	
-	
+	int _a = 0;
 	int _count1;
 	int _index1;
 
@@ -84,8 +85,10 @@ public:
 	void cameraMove();
 	void imagePosition();
 	void images();
-
+	void setState(state ste) { _state = ste; }
+	state getState() { return _state; }
 	//배경 움직이는 함수
+
 	void bgMove();
 
 	stage1() {}

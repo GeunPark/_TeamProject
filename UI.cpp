@@ -5,7 +5,6 @@
 HRESULT UI::init(void)
 {
 	// 현재 HP 
-	
 	_arrowNum = 2;
 	_isManaWarning = false;
 	_isManaUse = false;
@@ -38,6 +37,7 @@ void UI::update(void)
 	nowHeart();
 	nowArrow();
 	// 하트 갯수만큼 표시
+
 	for (int i = 0; i < maxHeart; i++)
 	{
 		_heart[i]._rc = RectMakeCenter(_heart[i]._x, _heart[i]._y, 48, 48);
@@ -46,18 +46,6 @@ void UI::update(void)
 	if (_mana._now  > 30  || _mana._now <= 0) _isManaWarning = false;
 	else _isManaWarning = true;
 	
-	if (!_isManaUse  && _mana._now < _mana._MaxNum)_mana._now += 0.1f;
-	if (_isManaUse)
-	{
-		_mana._now -= 0.1f;
-		if (_mana._now <= 0)_isManaUse = false;
-	}
-	if (KEYMANAGER->isOnceKeyDown('S'))
-	{
-		if(!_isManaUse)_isManaUse = true;
-		else _isManaUse = false;
-	}
-
 	if (KEYMANAGER->isOnceKeyDown('T') && _heartNum < maxHeart * 10)
 	{
 		_heartNum+= 5;
