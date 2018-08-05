@@ -255,15 +255,15 @@ void itemBox::init()
 
 void itemBox::move()
 {
-	//if (!_isActived)
-	//{
-	//	_index = 0;
-	//}
-	//else
-	//{
-	//	_index = 1;
-	//}
-	//
-	_image->setFrameX(_index);
-	_image->setFrameY(0);
+	if (!_isActived)
+	{
+		_index = 0;
+	}
+	else
+	{
+		_index = 1;
+	}
+	
+	//_image->setFrameX(_index);
+	//_image->setFrameY(0);
 }

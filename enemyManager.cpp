@@ -119,22 +119,6 @@ void enemyManager::update(void)
 {
 	for (int i = 0; i < _vEnemy.size(); i++)
 	{
-		//if (_vEnemy[i]->getX() > _player->getX())
-		//{
-		//	_vEnemy[i]->setIsLeft(true);
-		//}
-		//else if(_vEnemy[i]->getX() < _player->getX())
-		//{
-		//	_vEnemy[i]->setIsLeft(false);
-		//}
-
-		_vEnemy[i]->update();
-	}
-
-
-
-	for (int i = 0; i < _vEnemy.size(); i++)
-	{
 		if (_vEnemy[i]->getX() > _player->getX())
 		{
 			_vEnemy[i]->setIsLeft(true);
@@ -144,8 +128,9 @@ void enemyManager::update(void)
 			_vEnemy[i]->setIsLeft(false);
 		}
 
-		//_vEnemy[i]->update();
+		_vEnemy[i]->update();
 	}
+
 
 	//에너미 충돌처리
 
@@ -201,7 +186,7 @@ void enemyManager::render(void)
 	{
 		if (!_vEnemy[i]->getIsActived()) continue;
 
-		_vEnemy[i]->getBodyImage()->frameRender(getMemDC(), _vEnemy[i]->getRc().left - _player->getPlayerCam().left, _vEnemy[i]->getRc().top - _player->getPlayerCam().top, _vEnemy[i]->getBodyImage()->getFrameX(), _vEnemy[i]->getBodyImage()->getFrameY());
+		_vEnemy[i]->getBodyImage()->frameRender(getMemDC(), _vEnemy[i]->getRc().left - _player->getPlayerCam().left, _vEnemy[i]->getRc().top - _player->getPlayerCam().top, _vEnemy[i]->getIndexX(), _vEnemy[i]->getIndexY());
 		//카메라 메니져 대신 렌더넣기 
 
 

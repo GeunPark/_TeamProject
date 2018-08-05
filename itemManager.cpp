@@ -181,16 +181,9 @@ void itemManager::render()
 	// 아이템박스 //
 	for (int i = 0; i < _vItemBox.size(); ++i)
 	{
-		if (!_vItemBox[i]->getIsActive())
-		{
-			_vItemBox[i]->getItemImage()->frameRender(getMemDC(), _vItemBox[i]->getRc().left - _player->getPlayerCam().left, _vItemBox[i]->getRc().top - _player->getPlayerCam().top,0, _vItemBox[i]->getItemImage()->getFrameY());
 
-		}
-		else
-		{
-			_vItemBox[i]->getItemImage()->frameRender(getMemDC(), _vItemBox[i]->getRc().left - _player->getPlayerCam().left, _vItemBox[i]->getRc().top - _player->getPlayerCam().top,1, _vItemBox[i]->getItemImage()->getFrameY());
+		_vItemBox[i]->getItemImage()->frameRender(getMemDC(), _vItemBox[i]->getRc().left - _player->getPlayerCam().left, _vItemBox[i]->getRc().top - _player->getPlayerCam().top,_vItemBox[i]->getIndex(), _vItemBox[i]->getItemImage()->getFrameY());
 
-		}
 	}
 
 	if (KEYMANAGER->isToggleKey(VK_F1))
