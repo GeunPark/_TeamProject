@@ -46,6 +46,7 @@ struct tagPlayer
 	bool isUp;
 	bool isDown;
 	bool isAtt;
+	bool isChange;
 
 	float mana;
 	float maxMana;
@@ -75,9 +76,10 @@ private:
 
 	image* nick[MAX_STATE];
 	image* _bfx;
-	
+	image* _twinkle;
 	RECT attRc, attRc2, attRc3, attRc4;	//임시 공격렉트(잘 되면 주로 사용)
-	image* _bpx;
+	RECT twinkleRc;
+	//image* _bpx;
 	int count, index, actionCount, actionIndex;
 	int jumpCount;
 	bool ang = false;

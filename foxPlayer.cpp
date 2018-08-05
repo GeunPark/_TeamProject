@@ -24,7 +24,7 @@ HRESULT foxPlayer::init(void)
 	_player.angle = PI / 2;
 	_player.arrowAngle = 0;
 	_player.radian = 90;
-	_player.isJump = _player.isLeft = _player.isUp = _player.isDown = _player.isRight = _player.isAtt = false;
+	_player.isJump = _player.isLeft = _player.isUp = _player.isDown = _player.isRight = _player.isAtt = _player.isChange = false;
 
 	
 	index = count = actionCount = actionIndex = jumpCount = hitCount = unDamage = 0;
@@ -52,20 +52,7 @@ void foxPlayer::release(void)
 //ToDo : update
 void foxPlayer::update(void)
 {
-	if (KEYMANAGER->isOnceKeyDown('S'))
-	{
-		if (!ang)
-		{
-			ang = true;
-		}
-		else
-		{
-			ang = false;
-		}
-		_state = WEATHER;
-
-	}
-
+	
 	if (ang)
 	{
 		_player.mana -= 0.1f;
@@ -84,6 +71,7 @@ void foxPlayer::update(void)
 	this->camera();			//카메라 움직이는 함수 호출
 
 	_player.rc = RectMakeCenter(_player.x, _player.y, nick[_state]->getFrameWidth(), nick[_state]->getFrameHeight());
+	twinkleRc = RectMakeCenter(_player.x, _player.y, _twinkle->getFrameWidth(), _twinkle->getFrameHeight());
 
 	//충돌렉트 위치 보정   완벽하지않아ㅜㅜ 일단 다른것들 진도좀 빼두고 수정할께!ㅎㅎ
 	this->collisionRcChange();
@@ -146,7 +134,7 @@ void foxPlayer::render()
 	Rectangle(getMemDC(), _player.collisionRc.left - _camera.rc.left, _player.collisionRc.top - _camera.rc.top, _player.collisionRc.right - _camera.rc.left, _player.collisionRc.bottom - _camera.rc.top);
 	Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
 	nick[_state]->frameRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, nick[_state]->getFrameX(), nick[_state]->getFrameY());
-	
+	_twinkle->frameRender(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, _twinkle->getFrameX(), _twinkle->getFrameY());
 	//Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
 	//Rectangle(getMemDC(), attRc2.left - _camera.rc.left, attRc2.top - _camera.rc.top, attRc2.right - _camera.rc.left, attRc2.bottom - _camera.rc.top);
 
@@ -203,6 +191,7 @@ void foxPlayer::imageSetting()
 	nick[DOWNATT] = IMAGEMANAGER->findImage("DownAtt");	//내려찍기
 	nick[HIT] = IMAGEMANAGER->findImage("Hurt");		//맞는이미지
 	nick[WEATHER] = IMAGEMANAGER->findImage("Weather");		//날씨 바꾸는 모션
+	_twinkle = IMAGEMANAGER->findImage("Twinkle");			//반짝이
 }
 //ToDo : 프레임 움직임
 void foxPlayer::frameMove()
@@ -296,6 +285,10 @@ void foxPlayer::frameMove()
 				nick[_state]->setFrameX(index);
 			}
 		}
+	}
+	if (_player.isChange)
+	{
+
 	}
 	
 }
@@ -598,6 +591,22 @@ void foxPlayer::keySetting()
 	{
 		_player.isAtt = false;
 	}
+
+	if (KEYMANAGER->isOnceKeyDown('S'))
+	{
+		if (!ang)
+		{
+			ang = true;
+		}
+		else
+		{
+			ang = false;
+		}
+		_player.isChange = true;
+		_state = WEATHER;
+
+	}
+
 	/*if (KEYMANAGER->isOnceKeyDown('S'))
 	{
 		_state = WEATHER1;
