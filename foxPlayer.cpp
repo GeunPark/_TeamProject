@@ -55,9 +55,6 @@ void foxPlayer::release(void)
 //ToDo : update
 void foxPlayer::update(void)
 {
-<<<<<<< HEAD
-	
-=======
 	if (KEYMANAGER->isOnceKeyDown('S'))
 	{
 		if (!ang)
@@ -71,7 +68,6 @@ void foxPlayer::update(void)
 		_state = WEATHER;
 
 	}
->>>>>>> 7f084bbfacc72d6db0593def27196127d9ea3108
 	if (ang)
 	{
 		_player.mana -= 0.1f;
