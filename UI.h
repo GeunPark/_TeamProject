@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+
 #define MAXHEART 10
 //class foxPlayer;
 
@@ -64,7 +65,6 @@ public:
 
 	void nowGold();
 	//void setPLink(foxPlayer* py) { _players = py; }
-
 	UI() {}
 	~UI() {}
 };

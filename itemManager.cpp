@@ -14,14 +14,11 @@ HRESULT itemManager::init(void)
 	_healthLargePos[3].x = 9450.f, _healthLargePos[3].y = 2115.f;
 	_healthLargePos[4].x = 9550.f, _healthLargePos[4].y = 2115.f;
 
-
-
 	_healthSmallPos[0].x = 2375.f, _healthSmallPos[0].y = 2250.f;
 	_healthSmallPos[1].x = 2575.f, _healthSmallPos[1].y = 2250.f;
 	_healthSmallPos[2].x = 6990.f, _healthSmallPos[2].y = 1220.f;
 	_healthSmallPos[3].x = 6940.f, _healthSmallPos[3].y = 1150.f;
 	_healthSmallPos[4].x = 7040.f, _healthSmallPos[4].y = 1150.f;
-
 
 	_manaBigPos[0].x = 2900.f, _manaBigPos[0].y = 2150.f;
 	_manaBigPos[1].x = 3550.f, _manaBigPos[1].y = 2000.f;
@@ -29,13 +26,18 @@ HRESULT itemManager::init(void)
 	_manaBigPos[3].x = 8150.f, _manaBigPos[3].y = 1575.f;
 	_manaBigPos[4].x = 8150.f, _manaBigPos[4].y = 1475.f;
 
-
-
 	_manaSmallPos[0].x = 6965.f, _manaSmallPos[0].y = 2050.f;
 	_manaSmallPos[1].x = 6965.f, _manaSmallPos[1].y = 2120.f;
 	_manaSmallPos[2].x = 9950.f, _manaSmallPos[2].y = 1720.f;
 	_manaSmallPos[3].x = 9715.f, _manaSmallPos[3].y = 1630.f;
 	_manaSmallPos[4].x = 9520.f, _manaSmallPos[4].y = 1475.f;
+
+	_itemBoxPos[0].x = 3550.f; _itemBoxPos[0].y = 2155.f;
+	_itemBoxPos[1].x = 7750.f; _itemBoxPos[1].y = 2195.f;
+	_itemBoxPos[2].x = 7350.f; _itemBoxPos[2].y = 1415.f;
+	_itemBoxPos[3].x = 8440.f; _itemBoxPos[3].y = 2395.f;
+
+
 
 
 
@@ -64,6 +66,13 @@ HRESULT itemManager::init(void)
 		_vItem.push_back(_item);
 	}
 
+	for (int i = 0; i < MAX_ITEMBOX; ++i)
+	{
+		item* _item = _itemFactory->createItem(ITEM_BOX);
+		_item->setPosition(_itemBoxPos[i].x, _itemBoxPos[i].y);
+		_vItemBox.push_back(_item);
+	}
+
 	enemyX = 0;
 	enemyY = 0;
 	gold = 0;
@@ -88,7 +97,6 @@ void itemManager::update(void)
 	for (int i = 0; i < _vItem.size(); ++i)
 	{
 		_vItem[i]->update();
-
 	}
 
 	//골드
@@ -107,6 +115,13 @@ void itemManager::update(void)
 	for (int i = 0; i < _vCoinBronze.size(); ++i)
 	{
 		_vCoinBronze[i]->update();
+	}
+
+	// 아이템박스 //
+	for (int i = 0; i < _vItemBox.size(); ++i)
+	{
+		_vItemBox[i]->update();
+
 	}
 	
 
@@ -128,6 +143,31 @@ void itemManager::update(void)
 		}
 	}
 
+	
+	//플레이어총알과 아이템상자 충돌
+	
+		for (int i = 0; i < _vItemBox.size(); ++i)
+		{
+			RECT _rct;
+			//if (!_vItemBox[i]->getIsActive())
+			//{
+				if (IntersectRect(&_rct, &_vItemBox[i]->getRc(), &_player->getAttRc()))
+				{
+					//_vEnemy[i]->setState(ENEMY_DEAD);
+					//_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+
+					_vItemBox[i]->setIsActive(true);
+					//break;
+
+					//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
+					//			_player->setIsAttack(false);
+					//			_iMG->setCoin(_vPlantFrog[i]->getX(), _vPlantFrog[i]->getY(), _vPlantFrog[i]->getGold(), _vPlantFrog[i]->getSilver(), _vPlantFrog[i]->getBronze());
+					//			_vPlantFrog.erase(_vPlantFrog.begin() + i);
+				}
+			//}
+		}
+	
+
 }
 
 void itemManager::render()
@@ -138,11 +178,31 @@ void itemManager::render()
 		_vItem[i]->getItemImage()->frameRender(getMemDC(), _vItem[i]->getRc().left - _player->getPlayerCam().left, _vItem[i]->getRc().top - _player->getPlayerCam().top, _vItem[i]->getItemImage()->getFrameX(), _vItem[i]->getItemImage()->getFrameY());
 	}
 
+	// 아이템박스 //
+	for (int i = 0; i < _vItemBox.size(); ++i)
+	{
+		if (!_vItemBox[i]->getIsActive())
+		{
+			_vItemBox[i]->getItemImage()->frameRender(getMemDC(), _vItemBox[i]->getRc().left - _player->getPlayerCam().left, _vItemBox[i]->getRc().top - _player->getPlayerCam().top,0, _vItemBox[i]->getItemImage()->getFrameY());
+
+		}
+		else
+		{
+			_vItemBox[i]->getItemImage()->frameRender(getMemDC(), _vItemBox[i]->getRc().left - _player->getPlayerCam().left, _vItemBox[i]->getRc().top - _player->getPlayerCam().top,1, _vItemBox[i]->getItemImage()->getFrameY());
+
+		}
+	}
+
 	if (KEYMANAGER->isToggleKey(VK_F1))
 	{
 		for (int i = 0; i < _vItem.size(); ++i)
 		{
 			Rectangle(getMemDC(), _vItem[i]->getRc().left - _player->getPlayerCam().left, _vItem[i]->getRc().top - _player->getPlayerCam().top, _vItem[i]->getRc().right - _player->getPlayerCam().left, _vItem[i]->getRc().bottom - _player->getPlayerCam().top );
+
+		}
+		for (int i = 0; i < _vItemBox.size(); ++i)
+		{
+			Rectangle(getMemDC(), _vItemBox[i]->getRc().left - _player->getPlayerCam().left, _vItemBox[i]->getRc().top - _player->getPlayerCam().top, _vItemBox[i]->getRc().right - _player->getPlayerCam().left, _vItemBox[i]->getRc().bottom - _player->getPlayerCam().top);
 		}
 	}
 

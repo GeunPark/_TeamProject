@@ -40,7 +40,7 @@ public:
 	
 	void removeArrow(int index);
 
-	vector<tagArrow> getArrow() { return _vArrow; }
+	vector<tagArrow> getVArrow() { return _vArrow; }
 	
 
 	arrow() {}

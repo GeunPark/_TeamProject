@@ -7,9 +7,13 @@
 void item::update(void)
 {
 	this->_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(), _image->getFrameHeight());
-	this->move();
-	this->animation();
+	if (_type != ITEM_BOX)
+	{
+		this->animation();
+	}
 	this->pixelCollision();
+	this->move();
+
 }
 
 
@@ -230,4 +234,36 @@ void bronzeCoin::move()
 		_gravity += 0.08f;
 	_x += cosf(_angle)*_speed;
 	_y += -sinf(_angle)*_speed + _gravity;
+}
+
+void itemBox::init()
+{
+	//_image = new image;
+	_image = IMAGEMANAGER->findImage("상자");
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+	_speed = 5.f;
+	_angle = PI * 77 / 150;
+	_gravity = 0.f;
+	_count = 0, _index = 0;
+	_image->setFrameX(_index);
+	_animationSpeed = 5.f;
+	_isActived = false;
+	_type = ITEM_BOX;
+	_x = 0.f;
+	_y = 0.f;
+}
+
+void itemBox::move()
+{
+	//if (!_isActived)
+	//{
+	//	_index = 0;
+	//}
+	//else
+	//{
+	//	_index = 1;
+	//}
+	//
+	_image->setFrameX(_index);
+	_image->setFrameY(0);
 }
