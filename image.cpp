@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "image.h"
 #pragma comment (lib, "msimg32.lib")
-image::image() : _imageInfo(NULL), _fileName(NULL), _isTrans(FALSE), _blendImage(NULL), _rotateImage(NULL), _transColor(RGB(0, 0, 0))
+image::image() : _imageInfo(NULL), _fileName(NULL), _isTrans(FALSE), _blendImage(NULL), _transColor(RGB(0, 0, 0))
 {
 }
 image::~image()
@@ -19,7 +19,7 @@ HRESULT image::init(int width, int height)
 	//이미지 정보 구조체 새로 생성후 초기화 하기
 	_imageInfo = new IMAGE_INFO;
 	_imageInfo->loadType = LOAD_EMPTY;
-	_imageInfo->resID = 0;
+	_imageInfo->redID = 0;
 	_imageInfo->hMemDC = CreateCompatibleDC(hdc);
 	_imageInfo->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, width, height);
 	_imageInfo->hOBit = (HBITMAP)SelectObject(_imageInfo->hMemDC, _imageInfo->hBit);
@@ -57,9 +57,9 @@ HRESULT image::init(DWORD resID, int width, int height, bool isTrans, COLORREF t
 	//이미지 정보 구조체 새로 생성후 초기화 하기
 	_imageInfo = new IMAGE_INFO;
 	_imageInfo->loadType = LOAD_RESOURCE;
-	_imageInfo->resID = resID;
+	_imageInfo->redID = resID;
 	_imageInfo->hMemDC = CreateCompatibleDC(hdc);
-	_imageInfo->hBit = (HBITMAP)LoadBitmap(_hInstance, MAKEINTRESOURCE(_imageInfo->resID));
+	_imageInfo->hBit = (HBITMAP)LoadBitmap(_hInstance, MAKEINTRESOURCE(_imageInfo->redID));
 	_imageInfo->hOBit = (HBITMAP)SelectObject(_imageInfo->hMemDC, _imageInfo->hBit);
 	_imageInfo->width = width;
 	_imageInfo->height = height;
@@ -95,24 +95,12 @@ HRESULT image::init(const char * fileName, int width, int height, bool isTrans, 
 	//이미지 정보 구조체 새로 생성후 초기화 하기
 	_imageInfo = new IMAGE_INFO;
 	_imageInfo->loadType = LOAD_FILE;
-	_imageInfo->resID = 0;
+	_imageInfo->redID = 0;
 	_imageInfo->hMemDC = CreateCompatibleDC(hdc);
 	_imageInfo->hBit = (HBITMAP)LoadImage(_hInstance, fileName, IMAGE_BITMAP, width, height, LR_LOADFROMFILE);
 	_imageInfo->hOBit = (HBITMAP)SelectObject(_imageInfo->hMemDC, _imageInfo->hBit);
 	_imageInfo->width = width;
 	_imageInfo->height = height;
-
-	//로테이트 이미지 초기화
-	int size;
-	(width > height ? size = width : size = height);
-	_rotateImage = new IMAGE_INFO;
-	_rotateImage->loadType = LOAD_EMPTY;
-	_rotateImage->resID = 0;
-	_rotateImage->hMemDC = CreateCompatibleDC(hdc);
-	_rotateImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, size, size);
-	_rotateImage->hOBit = (HBITMAP)SelectObject(_rotateImage->hMemDC, _rotateImage->hBit);
-	_rotateImage->width = size;
-	_rotateImage->height = size;
 
 	//파일이름
 	int len = strlen(fileName);
@@ -133,7 +121,7 @@ HRESULT image::init(const char * fileName, int width, int height, bool isTrans, 
 	//스트레치 이미지 초기화
 	_stretchImage = new IMAGE_INFO;
 	_stretchImage->loadType = LOAD_EMPTY;
-	_stretchImage->resID = 0;
+	_stretchImage->redID = 0;
 	_stretchImage->hMemDC = CreateCompatibleDC(hdc);
 	_stretchImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
 	_stretchImage->hOBit = (HBITMAP)SelectObject(_stretchImage->hMemDC, _stretchImage->hBit);
@@ -157,7 +145,7 @@ HRESULT image::init(const char * fileName, float x, float y, int width, int heig
 	//이미지 정보 구조체 새로 생성후 초기화 하기
 	_imageInfo = new IMAGE_INFO;
 	_imageInfo->loadType = LOAD_FILE;
-	_imageInfo->resID = 0;
+	_imageInfo->redID = 0;
 	_imageInfo->hMemDC = CreateCompatibleDC(hdc);
 	_imageInfo->hBit = (HBITMAP)LoadImage(_hInstance, fileName, IMAGE_BITMAP, width, height, LR_LOADFROMFILE);
 	_imageInfo->hOBit = (HBITMAP)SelectObject(_imageInfo->hMemDC, _imageInfo->hBit);
@@ -165,18 +153,6 @@ HRESULT image::init(const char * fileName, float x, float y, int width, int heig
 	_imageInfo->y = y;
 	_imageInfo->width = width;
 	_imageInfo->height = height;
-
-	//로테이트 이미지 초기화
-	int size;
-	(width > height ? size = width : size = height);
-	_rotateImage = new IMAGE_INFO;
-	_rotateImage->loadType = LOAD_EMPTY;
-	_rotateImage->resID = 0;
-	_rotateImage->hMemDC = CreateCompatibleDC(hdc);
-	_rotateImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, size, size);
-	_rotateImage->hOBit = (HBITMAP)SelectObject(_rotateImage->hMemDC, _rotateImage->hBit);
-	_rotateImage->width = size;
-	_rotateImage->height = size;
 
 	//파일이름
 	int len = strlen(fileName);
@@ -197,7 +173,7 @@ HRESULT image::init(const char * fileName, float x, float y, int width, int heig
 	//스트레치 이미지 초기화
 	_stretchImage = new IMAGE_INFO;
 	_stretchImage->loadType = LOAD_EMPTY;
-	_stretchImage->resID = 0;
+	_stretchImage->redID = 0;
 	_stretchImage->hMemDC = CreateCompatibleDC(hdc);
 	_stretchImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
 	_stretchImage->hOBit = (HBITMAP)SelectObject(_stretchImage->hMemDC, _stretchImage->hBit);
@@ -221,7 +197,7 @@ HRESULT image::init(const char * fileName, int width, int height, int frameX, in
 	//이미지 정보 구조체 새로 생성후 초기화 하기
 	_imageInfo = new IMAGE_INFO;
 	_imageInfo->loadType = LOAD_FILE;
-	_imageInfo->resID = 0;
+	_imageInfo->redID = 0;
 	_imageInfo->hMemDC = CreateCompatibleDC(hdc);
 	_imageInfo->hBit = (HBITMAP)LoadImage(_hInstance, fileName, IMAGE_BITMAP, width, height, LR_LOADFROMFILE);
 	_imageInfo->hOBit = (HBITMAP)SelectObject(_imageInfo->hMemDC, _imageInfo->hBit);
@@ -233,18 +209,6 @@ HRESULT image::init(const char * fileName, int width, int height, int frameX, in
 	_imageInfo->maxFrameY = frameY - 1;
 	_imageInfo->frameWidth = width / frameX;
 	_imageInfo->frameHeight = height / frameY;
-
-	//로테이트 이미지 초기화
-	int size;
-	(_imageInfo->frameWidth > _imageInfo->frameHeight ? size = _imageInfo->frameWidth : size = _imageInfo->frameHeight);
-	_rotateImage = new IMAGE_INFO;
-	_rotateImage->loadType = LOAD_EMPTY;
-	_rotateImage->resID = 0;
-	_rotateImage->hMemDC = CreateCompatibleDC(hdc);
-	_rotateImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, size, size);
-	_rotateImage->hOBit = (HBITMAP)SelectObject(_rotateImage->hMemDC, _rotateImage->hBit);
-	_rotateImage->width = size;
-	_rotateImage->height = size;
 
 	//파일이름
 	int len = strlen(fileName);
@@ -265,7 +229,7 @@ HRESULT image::init(const char * fileName, int width, int height, int frameX, in
 	//스트레치 이미지 초기화
 	_stretchImage = new IMAGE_INFO;
 	_stretchImage->loadType = LOAD_EMPTY;
-	_stretchImage->resID = 0;
+	_stretchImage->redID = 0;
 	_stretchImage->hMemDC = CreateCompatibleDC(hdc);
 	_stretchImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
 	_stretchImage->hOBit = (HBITMAP)SelectObject(_stretchImage->hMemDC, _stretchImage->hBit);
@@ -289,7 +253,7 @@ HRESULT image::init(const char * fileName, float x, float y, int width, int heig
 	//이미지 정보 구조체 새로 생성후 초기화 하기
 	_imageInfo = new IMAGE_INFO;
 	_imageInfo->loadType = LOAD_FILE;
-	_imageInfo->resID = 0;
+	_imageInfo->redID = 0;
 	_imageInfo->hMemDC = CreateCompatibleDC(hdc);
 	_imageInfo->hBit = (HBITMAP)LoadImage(_hInstance, fileName, IMAGE_BITMAP, width, height, LR_LOADFROMFILE);
 	_imageInfo->hOBit = (HBITMAP)SelectObject(_imageInfo->hMemDC, _imageInfo->hBit);
@@ -303,18 +267,6 @@ HRESULT image::init(const char * fileName, float x, float y, int width, int heig
 	_imageInfo->maxFrameY = frameY - 1;
 	_imageInfo->frameWidth = width / frameX;
 	_imageInfo->frameHeight = height / frameY;
-
-	//로테이트 이미지 초기화
-	int size;
-	(_imageInfo->frameWidth > _imageInfo->frameHeight ? size = _imageInfo->frameWidth : size = _imageInfo->frameHeight);
-	_rotateImage = new IMAGE_INFO;
-	_rotateImage->loadType = LOAD_EMPTY;
-	_rotateImage->resID = 0;
-	_rotateImage->hMemDC = CreateCompatibleDC(hdc);
-	_rotateImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, size, size);
-	_rotateImage->hOBit = (HBITMAP)SelectObject(_rotateImage->hMemDC, _rotateImage->hBit);
-	_rotateImage->width = size;
-	_rotateImage->height = size;
 
 	//파일이름
 	int len = strlen(fileName);
@@ -335,7 +287,7 @@ HRESULT image::init(const char * fileName, float x, float y, int width, int heig
 	//스트레치 이미지 초기화
 	_stretchImage = new IMAGE_INFO;
 	_stretchImage->loadType = LOAD_EMPTY;
-	_stretchImage->resID = 0;
+	_stretchImage->redID = 0;
 	_stretchImage->hMemDC = CreateCompatibleDC(hdc);
 	_stretchImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
 	_stretchImage->hOBit = (HBITMAP)SelectObject(_stretchImage->hMemDC, _stretchImage->hBit);
@@ -361,7 +313,7 @@ HRESULT image::initForAlphaBlend(void)
 	//이미지 정보 구조체 새로 생성후 초기화 하기
 	_blendImage = new IMAGE_INFO;
 	_blendImage->loadType = LOAD_FILE;
-	_blendImage->resID = 0;
+	_blendImage->redID = 0;
 	_blendImage->hMemDC = CreateCompatibleDC(hdc);
 	_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, _imageInfo->width, _imageInfo->height);
 	_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
@@ -403,18 +355,6 @@ void image::release(void)
 
 		//포인터 삭제
 		SAFE_DELETE(_blendImage);
-	}
-
-	//로테이션 이미지 정보가 있다면
-	if (_rotateImage)
-	{
-		//이미지 삭제
-		SelectObject(_rotateImage->hMemDC, _rotateImage->hOBit);
-		DeleteObject(_rotateImage->hBit);
-		DeleteDC(_rotateImage->hMemDC);
-
-		//포인터 삭제
-		SAFE_DELETE(_rotateImage);
 	}
 }
 
@@ -555,7 +495,86 @@ void image::alphaRender(HDC hdc, int destX, int destY, BYTE alpha)
 }
 
 void image::alphaRender(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha)
+{   //알파블렌드를 처음사용하니?
+	//알파블렌드를 사용할 수 있도록 초기화해
+	if (!_blendImage) this->initForAlphaBlend();
+
+	//알파값 초기화
+	_blendFunc.SourceConstantAlpha = alpha;
+
+	if (_isTrans) //배경색 없앤후 알파블렌딩 하니?
+	{
+		//1. 출력해야 될 화면DC에 그려져 있는 내용을 블렌드이미지에 그린다
+		BitBlt(_blendImage->hMemDC, 0, 0, sourWidth, sourHeight,
+			hdc, destX, destY, SRCCOPY);
+
+		//2. 메모리DC 이미지의 배경을 없앤후 다시 블렌드이미지에 그린다
+		//GdiTransparentBlt : 비트맵의 특정색상을 제외하고 고속복사 해주는 함수
+		GdiTransparentBlt(
+			_blendImage->hMemDC,   //복사할 장소의 DC
+			0,               //복사될 좌표 시작점 X
+			0,               //복사될 좌표 시작점 Y
+			sourWidth,            //복사될 이미지 가로크기
+			sourHeight,            //복사될 이미지 세로크기
+			_imageInfo->hMemDC,      //복사될 대상 DC
+			sourX, sourY,         //복사 시작지점
+			sourWidth,            //복사 영역 가로크기
+			sourHeight,            //복사 영역 세로크기
+			_transColor);         //복사할때 제외할 색상 (마젠타)
+
+								  //3. 블렌드이미지를 화면에 그린다
+								  //알파블렌드
+		AlphaBlend(hdc, destX, destY, sourWidth, sourHeight,
+			_blendImage->hMemDC, 0, 0, sourWidth, sourHeight, _blendFunc);
+	}
+	else //원본 이미지 그대로 알파블렌딩 할꺼냐?
+	{
+		//알파블렌드
+		AlphaBlend(hdc, destX, destY, sourWidth, sourHeight,
+			_imageInfo->hMemDC, sourX, sourY, sourWidth, sourHeight, _blendFunc);
+	}
+}
+
+void image::frameAlphaRender(HDC hdc, int destX, int destY, BYTE alpha)
 {
+	//알파블렌드를 처음사용하냐?
+	//알파블렌드를 사용할 수 있도록 초기화 해라
+	if (!_blendImage) this->initForAlphaBlend();
+
+	//알파값 초기화
+	_blendFunc.SourceConstantAlpha = alpha;
+
+	if (_isTrans) //배경색 없앨꺼냐?
+	{
+
+		BitBlt(_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height,
+			hdc, destX, destY, SRCCOPY);
+
+		//GdiTransparentBlt : 비트맵의 특정색상을 제외하고 고속복사 해주는 함수
+		GdiTransparentBlt(
+			_blendImage->hMemDC,						//복사할 장소의 DC
+			0,						//복사될 좌표 시작점 X
+			0,						//복사될 좌표 시작점 Y
+			_imageInfo->frameWidth,		//복사될 이미지 가로크기
+			_imageInfo->frameHeight,	//복사될 이미지 세로크기
+			_imageInfo->hMemDC,			//복사될 대상 DC
+			_imageInfo->currentFrameX * _imageInfo->frameWidth,		//복사 시작지점
+			_imageInfo->currentFrameY * _imageInfo->frameHeight,	//복사 시작지점
+			_imageInfo->frameWidth,		//복사 영역 가로크기
+			_imageInfo->frameHeight,	//복사 영역 세로크기
+			_transColor);				//복사할때 제외할 색상 (마젠타)
+
+		AlphaBlend(hdc, destX, destY, _imageInfo->frameWidth, _imageInfo->frameHeight,
+			_blendImage->hMemDC, 0, 0, _imageInfo->frameWidth, _imageInfo->frameHeight, _blendFunc);
+	}
+	else //원본 이미지 그래도 출력할꺼냐?
+	{
+		//BitBlt : DC간의 영역끼리 서로 고속복사를 해주는 함수
+		BitBlt(hdc, destX, destY, _imageInfo->frameWidth, _imageInfo->frameHeight,
+			_imageInfo->hMemDC,
+			_imageInfo->currentFrameX * _imageInfo->frameWidth,
+			_imageInfo->currentFrameY * _imageInfo->frameHeight, SRCCOPY);
+	}
 }
 
 void image::frameRender(HDC hdc, int destX, int destY)
@@ -835,102 +854,6 @@ void image::stretchFrameRender(HDC hdc, int destX, int destY, int currentFrameX,
 			currentFrameY * _imageInfo->frameHeight,
 			_imageInfo->frameWidth,
 			_imageInfo->frameHeight, SRCCOPY);
-	}
-}
-
-void image::rotateRender(HDC hdc, float centerX, float centerY, float angle)
-{
-	POINT rPoint[3];
-	int dist = sqrt((_imageInfo->width / 2) * (_imageInfo->width / 2) + (_imageInfo->height / 2) * (_imageInfo->height / 2));
-	float baseAngle[3];
-	baseAngle[0] = PI - atanf(((float)_imageInfo->height / 2) / ((float)_imageInfo->width / 2));
-	baseAngle[1] = atanf(((float)_imageInfo->height / 2) / ((float)_imageInfo->width / 2));
-	baseAngle[2] = PI + atanf(((float)_imageInfo->height / 2) / ((float)_imageInfo->width / 2));
-
-	for (int i = 0; i < 3; ++i)
-	{
-		rPoint[i].x = (_rotateImage->width / 2 + cosf(baseAngle[i] + angle) * dist);
-		rPoint[i].y = (_rotateImage->height / 2 + -sinf(baseAngle[i] + angle)* dist);
-	}
-
-	if (_isTrans)
-	{
-		BitBlt(_rotateImage->hMemDC, 0, 0,
-			_rotateImage->width, _rotateImage->height,
-			hdc, 0, 0, BLACKNESS);
-
-		HBRUSH hBrush = CreateSolidBrush(_transColor);
-		HBRUSH oBrush = (HBRUSH)SelectObject(_rotateImage->hMemDC, hBrush);
-		ExtFloodFill(_rotateImage->hMemDC, 1, 1, RGB(0, 0, 0), FLOODFILLSURFACE);
-		DeleteObject(hBrush);
-
-		PlgBlt(_rotateImage->hMemDC, rPoint, _imageInfo->hMemDC,
-			0, 0, _imageInfo->width, _imageInfo->height, NULL, 0, 0);
-		
-		GdiTransparentBlt(hdc,
-			centerX - _rotateImage->width / 2,
-			centerY - _rotateImage->height / 2,
-			_rotateImage->width,
-			_rotateImage->height,
-			_rotateImage->hMemDC,
-			0,
-			0,
-			_rotateImage->width,
-			_rotateImage->height,
-			_transColor);
-	}
-	else
-	{
-		PlgBlt(hdc, rPoint, _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, NULL, 0, 0);
-	}
-}
-
-void image::rotateFrameRender(HDC hdc, float centerX, float centerY, float angle)
-{
-	POINT rPoint[3];
-	int dist = sqrt((_imageInfo->frameWidth / 2) * (_imageInfo->frameWidth / 2) + (_imageInfo->frameHeight / 2) * (_imageInfo->frameHeight / 2));
-	float baseAngle[3];
-	baseAngle[0] = PI - atanf(((float)_imageInfo->frameHeight / 2) / ((float)_imageInfo->frameWidth / 2));
-	baseAngle[1] = atanf(((float)_imageInfo->frameHeight / 2) / ((float)_imageInfo->frameWidth / 2));
-	baseAngle[2] = PI + atanf(((float)_imageInfo->frameHeight / 2) / ((float)_imageInfo->frameWidth / 2));
-
-	for (int i = 0; i < 3; ++i)
-	{
-		rPoint[i].x = (_rotateImage->width / 2 + cosf(baseAngle[i] + angle) * dist);
-		rPoint[i].y = (_rotateImage->height / 2 + -sinf(baseAngle[i] + angle)* dist);
-	}
-
-	if (_isTrans)
-	{
-		BitBlt(_rotateImage->hMemDC, 0, 0,
-			_rotateImage->width, _rotateImage->height,
-			hdc, 0, 0, BLACKNESS);
-
-		HBRUSH hBrush = CreateSolidBrush(_transColor);
-		HBRUSH oBrush = (HBRUSH)SelectObject(_rotateImage->hMemDC, hBrush);
-		ExtFloodFill(_rotateImage->hMemDC, 1, 1, RGB(0, 0, 0), FLOODFILLSURFACE);
-		DeleteObject(hBrush);
-
-		PlgBlt(_rotateImage->hMemDC, rPoint, _imageInfo->hMemDC,
-			_imageInfo->currentFrameX * _imageInfo->frameWidth,
-			_imageInfo->currentFrameY * _imageInfo->frameHeight,
-			_imageInfo->frameWidth, _imageInfo->frameHeight, NULL, 0, 0);
-
-		GdiTransparentBlt(hdc,
-			centerX - _rotateImage->width / 2,
-			centerY - _rotateImage->height / 2,
-			_rotateImage->width,
-			_rotateImage->height,
-			_rotateImage->hMemDC,
-			0,
-			0,
-			_rotateImage->width,
-			_rotateImage->height,
-			_transColor);
-	}
-	else
-	{
-		PlgBlt(hdc, rPoint, _imageInfo->hMemDC, _imageInfo->currentFrameX, _imageInfo->currentFrameY, _imageInfo->frameWidth, _imageInfo->frameHeight, NULL, 0, 0);
 	}
 }
 
