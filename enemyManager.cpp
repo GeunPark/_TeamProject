@@ -170,15 +170,19 @@ void enemyManager::update(void)
 	//플레이어의 총알과 에너미 충돌
 	for (int i = 0; i < _vEnemy.size(); ++i)
 	{
-		for (int j = 0; j < _player->getArrow()->getArrow().size(); ++j)
+		for (int j = 0; j < _player->getArrow()->getVArrow().size(); ++j)
 		{
 			RECT _rct;
 
-			if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getArrow()->getArrow()[j].rc))
+			if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getArrow()->getVArrow()[j].rc))
 			{
 				//_vEnemy[i]->setState(ENEMY_DEAD);
 				_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 				_vEnemy.erase(_vEnemy.begin() + i);
+				//선수씨~ 여기다가 저의 흔적을 남기고가요~ㅎㅎ
+				_player->removeArrow(j);	//적과 화살 충돌시 화살 지워줌
+				
+				//j--;
 				//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
 				//			_player->setIsAttack(false);
 				//			_iMG->setCoin(_vPlantFrog[i]->getX(), _vPlantFrog[i]->getY(), _vPlantFrog[i]->getGold(), _vPlantFrog[i]->getSilver(), _vPlantFrog[i]->getBronze());

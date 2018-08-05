@@ -74,6 +74,8 @@ private:
 	int count, index, actionCount, actionIndex;
 	int jumpCount;
 	//image* _bpx2;
+	int hitCount;
+	int unDamage;
 
 public:
 	HRESULT init(void);
