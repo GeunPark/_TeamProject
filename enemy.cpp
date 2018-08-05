@@ -268,6 +268,47 @@ void electriceel::dead()
 }
 
 
+void ghost::init()
+{
+	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("버그spawn");
+	_bodyImage[ENEMY_SPAWN] = IMAGEMANAGER->findImage("유령spawn");
+	//_bodyImage[ENEMY_FIRE] = IMAGEMANAGER->findImage("두꺼비attack");
+	_bodyImage[ENEMY_ATTACK] = IMAGEMANAGER->findImage("유령attack");
+	_speed = 3.f;
+	_angle = PI / 2;
+	_gravity = 0.f;
+	_count = 0, _indexX = 0;
+	_animationSpeed = 3.f;
+	_isActived = true;
+	_state = ENEMY_SPAWN;
+	_type = GHOST;
+	_x = 0.f;
+	_y = 0.f;
+	_isLeft = false;
+	_gold = 0;
+	_silver = 0;
+	_bronze = 0;
+}
+
+void ghost::idle()
+{
+}
+
+void ghost::spawn()
+{
+}
+
+void ghost::attack()
+{
+}
+
+void ghost::move()
+{
+}
+
+void ghost::dead()
+{
+}
 
 
 
@@ -875,3 +916,4 @@ void enemy::update()
 //
 //}
 //
+

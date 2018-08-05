@@ -36,6 +36,12 @@ void loadingScene::SunSooImage()
 	_loading->loadFrameImage("꼼장어move", "resource/이선수/몬스터/꼼장어move2.bmp", 4290, 186, 26, 1);
 	_loading->loadFrameImage("꼼장어dead", "resource/이선수/몬스터/꼼장어dead.bmp", 2220, 348, 10, 2);
 
+	//상자유령
+	_loading->loadFrameImage("유령spawn", "resource/이선수/몬스터/상자유령/상자유령spawn.bmp", 300,100, 6, 2);
+	_loading->loadFrameImage("유령attack", "resource/이선수/몬스터/상자유령/상자유령attack.bmp", 300, 100, 6, 2);
+
+
+
 
 	//아이템
 	_loading->loadFrameImage("헬스라지", "resource/이선수/아이템/하트L2.bmp", 665, 30, 19, 1);

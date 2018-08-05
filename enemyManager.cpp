@@ -57,7 +57,7 @@ HRESULT enemyManager::init(void)
 	//_electriceelPos[2].x = 130.f; _electriceelPos[2].y = 2300.f;
 	//_electriceelPos[3].x = 190.f; _electriceelPos[3].y = 2300.f;
 
-
+	_itemX, _itemY = 0;
 
 	for (int i = 0; i < MAX_DRAGONFLY; i++)
 	{
@@ -101,11 +101,10 @@ HRESULT enemyManager::init(void)
 
 		_vEnemy.push_back(_enemy);
 	}
-	//for (int i = 0; i < 1; i++)
-	//{
-	//	enemy* _enemy = _factory->createEnemy(BROVIL);
-	//	_vEnemy.push_back(_enemy);
-	//}
+
+	enemy* _ghost = _factory->createEnemy(GHOST);
+	_ghost->setPosition(_itemX, _itemY);
+	_vGhost.push_back(_ghost);
 
 	return S_OK;
 }
@@ -129,6 +128,21 @@ void enemyManager::update(void)
 		}
 
 		_vEnemy[i]->update();
+	}
+
+
+	for (int i = 0; i < _vGhost.size(); i++)
+	{
+		if (_vGhost[i]->getX() > _player->getX())
+		{
+			_vGhost[i]->setIsLeft(true);
+		}
+		else
+		{
+			_vGhost[i]->setIsLeft(false);
+		}
+
+		_vGhost[i]->update();
 	}
 
 
@@ -203,7 +217,13 @@ void enemyManager::render(void)
 		//	break;
 		//}
 	}
+	for (int i = 0; i < _vGhost.size(); i++)
+	{
+	
 
+		_vGhost[i]->getBodyImage()->frameRender(getMemDC(), _vGhost[i]->getRc().left - _player->getPlayerCam().left, _vGhost[i]->getRc().top - _player->getPlayerCam().top, _vGhost[i]->getIndexX(), _vGhost[i]->getIndexY());
+
+	}
 	//char str[64];
 	//for (int i = 0; i < _vEnemy.size(); i++)
 	//{

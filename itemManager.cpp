@@ -155,8 +155,12 @@ void itemManager::update(void)
 				{
 					//_vEnemy[i]->setState(ENEMY_DEAD);
 					//_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
-
 					_vItemBox[i]->setIsActive(true);
+
+					if (i == 3)
+					{
+						_eMG->setGhost(_vItemBox[i]->getX(), _vItemBox[i]->getY());
+					}
 					//break;
 
 					//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
