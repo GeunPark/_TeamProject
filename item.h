@@ -9,12 +9,14 @@ enum ITEM_TYPE
 	MANA_SMALL,
 	GOLD_COIN,
 	SILVER_COIN,
-	BRONZE_COIN
+	BRONZE_COIN,
+	ITEM_BOX
 
 };
 enum ITEM_STATE
 {
-
+	CLOSE,
+	OPEN
 };
 
 class item
@@ -22,6 +24,7 @@ class item
 protected:
 
 	ITEM_TYPE _type;
+	ITEM_STATE _state;
 	image* _image;
 	image* _bfx;
 	float _x, _y;
@@ -52,6 +55,9 @@ public:
 	float getY() { return _y; }
 	void setY(float y) { _y = y; }
 
+	int getIndex() { return _index; }	
+	void setIndex(int index) { _index = index; }
+
 	float getSpeed() { return _speed; }
 	void setSpeed(float speed) { _speed = speed; }
 
@@ -66,6 +72,9 @@ public:
 
 	ITEM_TYPE getItemType() { return _type; }
 	void setItemType(ITEM_TYPE type) { _type = type; }
+
+	ITEM_STATE getItemState() { return _state; }
+	void setItemState(ITEM_STATE state) { _state = state; }
 
 	void setPosition(float x, float y) { _x = x, _y = y; }
 
@@ -134,6 +143,15 @@ public:
 	void move();
 };
 class bronzeCoin : public item
+{
+private:
+
+
+public:
+	void init();
+	void move();
+};
+class itemBox : public item
 {
 private:
 

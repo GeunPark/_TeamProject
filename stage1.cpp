@@ -148,6 +148,8 @@ void stage1::render(void)
 		else if (_state == ICE)feildIcepixel->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
 	}
 
+	//아이템매니저
+	_iMG->render();
 	//플레이어
 	//_player->render(_cam.rc.left, _cam.rc.top);
 	_player->render();
@@ -156,8 +158,7 @@ void stage1::render(void)
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
 
-	//아이템매니저
-	_iMG->render();
+
 
 	// 테스트용 상점 구현
 	if (KEYMANAGER->isToggleKey('Q'))

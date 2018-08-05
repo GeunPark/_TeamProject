@@ -18,6 +18,7 @@ struct itemPos
 #define MAX_HEALTHSMALL 5
 #define MAX_MANABIG 5
 #define MAX_MANASMALL 5
+#define MAX_ITEMBOX 4
 
 class itemManager : public gameNode
 {
@@ -36,13 +37,13 @@ private:
 	vector<item*> _vCoinBronze;
 	//vector<item*>::iterator _viCoinBronze;
 
-
+	vector<item*> _vItemBox;
 
 	itemPos _healthLargePos[MAX_HEALTHLARGE];
 	itemPos _healthSmallPos[MAX_HEALTHSMALL];
 	itemPos _manaBigPos[MAX_MANABIG];
 	itemPos _manaSmallPos[MAX_MANASMALL];
-
+	itemPos _itemBoxPos[MAX_ITEMBOX];
 	
 
 	float enemyX;
@@ -50,6 +51,8 @@ private:
 	int gold;
 	int silver;
 	int bronze;
+
+	//int boxNum;
 
 public:
 

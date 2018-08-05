@@ -47,7 +47,8 @@ void loadingScene::SunSooImage()
 	_loading->loadFrameImage("은화", "resource/이선수/아이템/은화2.bmp", 256, 32, 8, 1);
 	_loading->loadFrameImage("동화", "resource/이선수/아이템/동화2.bmp", 256, 32, 8, 1);
 
-
+	//상자
+	_loading->loadFrameImage("상자", "resource/이선수/아이템/아이템상자.bmp", 200, 100, 2, 1);
 
 }
 

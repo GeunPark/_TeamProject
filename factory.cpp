@@ -68,6 +68,10 @@ item * itemFactory::createItem(ITEM_TYPE type)
 		_item = new bronzeCoin;
 		break;
 
+	case ITEM_BOX:
+		_item = new itemBox;
+		break;
+
 
 	default:
 		//´©±¸³Ä ³Í??
