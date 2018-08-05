@@ -272,12 +272,12 @@ void ghost::init()
 {
 	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("버그spawn");
 	_bodyImage[ENEMY_SPAWN] = IMAGEMANAGER->findImage("유령spawn");
-	//_bodyImage[ENEMY_FIRE] = IMAGEMANAGER->findImage("두꺼비attack");
+	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("유령spawn");
 	_bodyImage[ENEMY_ATTACK] = IMAGEMANAGER->findImage("유령attack");
 	_speed = 3.f;
 	_angle = PI / 2;
 	_gravity = 0.f;
-	_count = 0, _indexX = 0;
+	_count = 0, _indexX = 0, _indexY = 0;
 	_animationSpeed = 3.f;
 	_isActived = true;
 	_state = ENEMY_SPAWN;

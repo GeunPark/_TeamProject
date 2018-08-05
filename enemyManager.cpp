@@ -102,9 +102,13 @@ HRESULT enemyManager::init(void)
 		_vEnemy.push_back(_enemy);
 	}
 
-	enemy* _ghost = _factory->createEnemy(GHOST);
-	_ghost->setPosition(_itemX, _itemY);
-	_vGhost.push_back(_ghost);
+	for (int i = 0; i < 1; ++i)
+	{
+		enemy* _ghost = _factory->createEnemy(GHOST);
+		_ghost->setPosition(_itemX, _itemY);
+		_vGhost.push_back(_ghost);
+	}
+
 
 	return S_OK;
 }
