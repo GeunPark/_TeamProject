@@ -1,9 +1,9 @@
 #pragma once
 #include "animation.h"
+
 //=============================================================
 //	## image ## (앞으로 계속 업데이트 된다)
 //=============================================================
-#define MAGENTA (RGB (255,0,255))
 
 class image
 {
@@ -18,7 +18,7 @@ public:
 
 	typedef struct tagImage
 	{
-		DWORD		resID;				//리소스 ID
+		DWORD		redID;				//리소스 ID
 		HDC			hMemDC;				//메모리 DC
 		HBITMAP		hBit;				//비트맵
 		HBITMAP		hOBit;				//올드비트맵
@@ -36,7 +36,7 @@ public:
 
 		tagImage()	//생성자 = 초기화
 		{
-			resID = 0;
+			redID = 0;
 			hMemDC = NULL;
 			hBit = NULL;
 			hOBit = NULL;
@@ -64,7 +64,6 @@ private:
 	BLENDFUNCTION		_blendFunc;		//알파블렌드 기능
 
 	LPIMAGE_INFO		_stretchImage;	//스트레치이미지
-	LPIMAGE_INFO		_rotateImage;	//로테이트이미지
 
 public:
 	image();
@@ -80,6 +79,7 @@ public:
 	//프레임 이미지 파일로 초기화 (주사용)
 	HRESULT init(const char* fileName, int width, int height, int frameX, int frameY, bool isTrans = TRUE, COLORREF transColor = RGB(255, 0, 255));
 	HRESULT init(const char* fileName, float x, float y, int width, int height, int frameX, int frameY, bool isTrans = TRUE, COLORREF transColor = RGB(255, 0, 255));
+
 
 	//알파블렌드 초기화
 	HRESULT initForAlphaBlend(void);
@@ -99,7 +99,7 @@ public:
 	void alphaRender(HDC hdc, BYTE alpha);
 	void alphaRender(HDC hdc, int destX, int destY, BYTE alpha);
 	void alphaRender(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha);
-
+	void frameAlphaRender(HDC hdc, int dextX, int dextY, BYTE alpha);
 //=============================================================
 //	## 프레임렌더 ##
 //=============================================================
@@ -119,17 +119,10 @@ public:
 	void stretchFrameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, float scale = 1.0f);
 
 //=============================================================
-//	## 로테이트렌더 ## (이미지 회전)
-//=============================================================
-	void rotateRender(HDC hdc, float centerX, float centerY, float angle);
-	void rotateFrameRender(HDC hdc, float centerX, float centerY, float angle);
-
-//=============================================================
 //	## 애니렌더 ## 
 //=============================================================
 	void aniRender(HDC hdc, int destX, int destY, animation* ani);
 	void aniAlphaRender(HDC hdc, int destX, int destY, animation* ani, BYTE alpha);
-
 
 //=============================================================
 //	## inline ## (인라인 함수들 - 겟터, 셋터)
@@ -153,7 +146,7 @@ public:
 	inline int getWidth(void) { return _imageInfo->width; }
 	inline int getHeight(void) { return _imageInfo->height; }
 	//바운딩 박스(충돌용 렉트)
-	inline RECT boundingBox(void)
+	inline RECT boudingBox(void)
 	{
 		RECT rc = { (int)_imageInfo->x, (int)_imageInfo->y,
 			(int)_imageInfo->x + _imageInfo->width,
@@ -161,7 +154,7 @@ public:
 
 		return rc;
 	}
-	inline RECT boundingBoxWithFrame(void)
+	inline RECT boudingBoxWithFrame(void)
 	{
 		RECT rc = { (int)_imageInfo->x, (int)_imageInfo->y,
 			(int)_imageInfo->x + _imageInfo->frameWidth,
