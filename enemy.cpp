@@ -19,7 +19,7 @@ void dragonFly::init()
 	_speed = 3.f;
 	_angle = 270.f * 3.14f / 180;
 	_gravity = 0.f;
-	_count = 0, _index = 0;
+	_count = 0, _indexX = 0;
 	_animationSpeed = 5.f;
 	_isActived = true;
 	_state = ENEMY_SPAWN;
@@ -66,7 +66,7 @@ void vineMan::init()
 	_speed = 3.f;
 	_angle = 270.f * 3.14f / 180;
 	_gravity = 0.f;
-	_count = 0, _index = 0;
+	_count = 0, _indexX = 0;
 	_animationSpeed = 3.f;
 	_isActived = true;
 	_state = ENEMY_SPAWN;
@@ -109,7 +109,7 @@ void bug::init()
 	_speed = 3.f;
 	_angle = 270.f * 3.14f / 180;
 	_gravity = 0.f;
-	_count = 0, _index = 0;
+	_count = 0, _indexX = 0;
 	_animationSpeed = 3.f;
 	_isActived = true;
 	_state = ENEMY_WALK;
@@ -150,7 +150,7 @@ void treeMan::init()
 	_speed = 3.f;
 	_angle = 270.f * 3.14f / 180;
 	_gravity = 0.f;
-	_count = 0, _index = 0;
+	_count = 0, _indexX = 0;
 	_animationSpeed = 3.f;
 	_isActived = true;
 	_state = ENEMY_WALK;
@@ -192,7 +192,7 @@ void plantFrog::init()
 	_speed = 3.f;
 	_angle = PI/2;
 	_gravity = 0.f;
-	_count = 0, _index = 0;
+	_count = 0, _indexX = 0;
 	_animationSpeed = 3.f;
 	_isActived = true;
 	_state = ENEMY_WALK;
@@ -234,7 +234,7 @@ void electriceel::init()
 	_speed = 3.f;
 	_angle = PI / 2;
 	_gravity = 0.f;
-	_count = 0, _index = 0;
+	_count = 0, _indexX = 0;
 	_animationSpeed = 3.f;
 	_isActived = true;
 	_state = ENEMY_WALK;
@@ -311,25 +311,25 @@ void enemy::update()
 
 	if (_count % _animationSpeed == 0)
 	{
-		_index++;
-		if (_index > _bodyImage[_state]->getMaxFrameX())
+		_indexX++;
+		if (_indexX > _bodyImage[_state]->getMaxFrameX())
 		{
 			if (_state != ENEMY_DEAD)
 				_state = ENEMY_WALK;
-			_index = 0;
+			_indexX = 0;
 		}
-		_bodyImage[_state]->setFrameX(_index);
+		_bodyImage[_state]->setFrameX(_indexX);
 
 		
 	}
 
 	if (_isLeft)
 	{
-		_bodyImage[_state]->setFrameY(0);
+		_indexY = 0;
 	}
 	else
 	{
-		_bodyImage[_state]->setFrameY(1);
+		_indexY = 1;
 	}
 
 	_rc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth(), _bodyImage[_state]->getFrameHeight());

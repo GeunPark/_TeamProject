@@ -19,7 +19,7 @@ void loadingScene::SaeWonImage()
 	_loading->loadFrameImage("DownAtt", "resource/foxPlayer/downAtt.bmp", 564, 318, 4, 2, true, MAGENTA);
 	_loading->loadFrameImage("Hurt", "resource/foxPlayer/hurt.bmp", 180, 360, 1,2,true, MAGENTA);
 	_loading->loadFrameImage("arrow", "resource/foxPlayer/arrow.bmp", 66, 46, 1, 2, true, MAGENTA);
-	_loading->loadFrameImage("Weather", "resource/foxPlayer/weatherMotion.bmp", 720, 360, 4, 2, true, MAGENTA);
+	_loading->loadFrameImage("Weather", "resource/foxPlayer/weather.bmp", 1620, 360, 9, 2, true, MAGENTA);
 }
 
 void loadingScene::SaeWonSound()
