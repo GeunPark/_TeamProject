@@ -164,6 +164,7 @@ void enemyManager::update(void)
 				//_vEnemy[i]->setState(ENEMY_DEAD);
 				_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 				_vEnemy.erase(_vEnemy.begin() + i);
+
 				//선수씨~ 여기다가 저의 흔적을 남기고가요~ㅎㅎ
 				_player->removeArrow(j);	//적과 화살 충돌시 화살 지워줌
 				
