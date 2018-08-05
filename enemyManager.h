@@ -27,6 +27,7 @@ private:
 
 	factory* _factory;
 	vector<enemy*> _vEnemy;	// 일반 적
+	vector<enemy*> _vGhost;
 
 	fPos _dragonFlyPos[MAX_DRAGONFLY];
 	fPos _vineManPos[MAX_VINEMAN];
@@ -34,6 +35,9 @@ private:
 	fPos _treeManPos[MAX_TREEMAN];
 	fPos _plantFrogPos[MAX_PLANTFROG];
 	fPos _electriceelPos[MAX_ELECTRICEEL];
+
+	float _itemX;
+	float _itemY;
 
 
 	//eBullet* _eBullet;			// 총알 클래스
@@ -45,6 +49,12 @@ public:
 
 
 	vector<enemy*> getEnemy() { return _vEnemy; }
+
+	void setGhost(float itemX, float itemY)
+	{
+		_itemX = itemX;
+		_itemY = itemY;
+	}
 
 	HRESULT init(void);
 	void release(void);

@@ -9,7 +9,8 @@ enum ENEMY_TYPE
 	BUG,
 	TREEMAN,
 	PLANTFROG,
-	ELECTRICEEL
+	ELECTRICEEL,
+	GHOST
 };
 
 enum ENEMY_STATE
@@ -17,6 +18,7 @@ enum ENEMY_STATE
 	ENEMY_IDLE,
 	ENEMY_SPAWN,
 	ENEMY_WALK,
+	ENEMY_ATTACK,
 	ENEMY_FIRE,
 	ENEMY_DEAD
 };
@@ -150,6 +152,18 @@ public:
 };
 
 class electriceel : public enemy
+{
+private:
+	void init();
+	void idle();
+	void spawn();
+	void attack();
+	void move();
+	void dead();
+public:
+};
+
+class ghost : public enemy
 {
 private:
 	void init();

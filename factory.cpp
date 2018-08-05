@@ -27,7 +27,10 @@ enemy * enemyFactory::createEnemy(ENEMY_TYPE type)
 
 	case ELECTRICEEL:
 		_enemy = new electriceel;
-
+		break;
+	case GHOST:
+		_enemy = new ghost;
+		break;
 
 	default:
 		//´©±¸³Ä ³Í??
