@@ -43,7 +43,7 @@ private:
 	// 상점 할당
 	shop * _shop;
 
-	UI * _Ui;
+	UI * _ui;
 
 	state _state;
 	tagBoxs _cam;
@@ -67,6 +67,11 @@ private:
 	//기훈아 내가 여기에다가 레이어 배경 두개 일단 입혀놓을게!!
 	imgInfo _normalBack1;
 	imgInfo _normalBack2;
+
+	imgInfo _winterBack1;
+	imgInfo	_winterBack2;
+
+
 	imgInfo _iceBack1;
 	
 	int _a = 0;

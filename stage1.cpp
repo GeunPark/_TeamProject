@@ -32,6 +32,8 @@ HRESULT stage1::init(void)
 	_iMG = new itemManager;
 	_iMG->init();
 
+	_ui = new UI;
+	_ui->init();
 
 	_normalBack1._x = 0;
 	_normalBack1._y = 0;
@@ -41,6 +43,8 @@ HRESULT stage1::init(void)
 	_normalBack2._y = 0;
 	_normalBack2._img = IMAGEMANAGER->findImage("레이어2");
 
+	_winterBack1._img = IMAGEMANAGER->findImage("레이어1 겨울");
+	_winterBack2._img = IMAGEMANAGER->findImage("레이어2 겨울");
 
 	//상호참조
 	//_eMG->setPlayerLink(_player);
@@ -52,7 +56,8 @@ HRESULT stage1::init(void)
 	_iMG->setPlayerLink(_player);
 	_iMG->setEMGLink(_eMG);
 	_player->setEnemyManager(_eMG);
-
+	_player->setUIManager(_ui);
+	_ui->setPlayerManager(_player);
 
 
 	return S_OK;
@@ -103,7 +108,7 @@ void stage1::update(void)
 		else if (_state == SUMMER)_state = WINTER;
 	}
 
-	if (_state == WINTER && _a < WINSIZEX)_a+= 5;
+	if (_state == WINTER && _a < WINSIZEX)_a+= 30;
 	if (_state == SUMMER)_a = 0;
 	this->bgMove();
 
@@ -113,11 +118,12 @@ void stage1::update(void)
 
 void stage1::render(void)
 {
+	
 	_normalBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _player->getPlayerCam().top, WINSIZEX, 2550), _normalBack1._x, _normalBack1._y);
-	_normalBack2._img->loopRender(getMemDC(), &RectMake(0,2400 -_player->getPlayerCam().top, WINSIZEX, 2550), _normalBack2._x, _normalBack2._y);
-
+	_normalBack2._img->loopRender(getMemDC(), &RectMake(0, 2400 - _player->getPlayerCam().top, WINSIZEX, 2550), _normalBack2._x, _normalBack2._y);
 	if (_state == SUMMER)
 	{
+		
 		//  풀 이미지 출력
 		for (int i = 0; i < _vBush.size(); ++i)
 		{
@@ -147,6 +153,10 @@ void stage1::render(void)
 	}
 	if (_state == WINTER)
 	{
+
+		_winterBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _player->getPlayerCam().top, 0 + _a, 2550), _normalBack1._x, _normalBack1._y);
+		_winterBack2._img->loopRender(getMemDC(), &RectMake(0, 2400 - _player->getPlayerCam().top, 0 + _a, 2550), _normalBack2._x, _normalBack2._y);
+
 		feild->render(getMemDC(), 0 + _a, 0, _player->getPlayerCam().left +_a, _player->getPlayerCam().top, WINSIZEX - _a , WINSIZEY);
 		feildIce->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, 0 + _a, WINSIZEY);
 	}

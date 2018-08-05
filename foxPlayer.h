@@ -1,14 +1,14 @@
 #pragma once
 #include "gameNode.h"
 #include "arrow.h"
-#include "UI.h"
+
 
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
 #define MAX_STATE 14
 
 class enemyManager;
-
+class UI;
 enum tagState
 {
 	IDLE=0,
@@ -48,6 +48,8 @@ struct tagPlayer
 
 	float mana;
 	float maxMana;
+	int HP;
+	int MaxHp;
 };
 
 struct tagCam
@@ -111,7 +113,11 @@ public:
 	RECT getAttRc() { return attRc; }
 
 	float getMana() { return _player.mana; }
+	float getMaxMana() { return _player.maxMana; }
 
+	// 플레이어 HP
+	int getHp() { return _player.HP; }
+	int getMaxHp() { return _player.MaxHp; }
 
 	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
 	tagPlayer getTag() { return _player; }
