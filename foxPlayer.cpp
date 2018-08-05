@@ -2,6 +2,9 @@
 #include "foxPlayer.h"
 #include "enemyManager.h"
 
+#include "UI.h"
+
+
 //ToDo : init
 HRESULT foxPlayer::init(void)
 {
@@ -11,7 +14,9 @@ HRESULT foxPlayer::init(void)
 	_ui = new UI;
 	_ui->init();
 
+
 	_state = IDLE;
+	
 	_player.x = 100;
 	_player.y = MAX_HEIGHT - 200;
 	_player.speed = 30.f;
@@ -20,8 +25,13 @@ HRESULT foxPlayer::init(void)
 	_player.arrowAngle = 0;
 	_player.radian = 90;
 	_player.isJump = _player.isLeft = _player.isUp = _player.isDown = _player.isRight = _player.isAtt = false;
+<<<<<<< HEAD
 	
 	index = count = actionCount = actionIndex = jumpCount = hitCount = unDamage = 0;
+=======
+	_player.maxMana = _player.mana  =  100;
+	index = count = actionCount = actionIndex = jumpCount = 0;
+>>>>>>> 37cafe78873ac5b429ac3576a46de78f8e41a117
 
 	_arrow = new arrow;
 	_arrow->init(3, 600);
@@ -30,7 +40,6 @@ HRESULT foxPlayer::init(void)
 	_camera.y = _player.y;
 
 	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
-	
 	return S_OK;
 }
 
@@ -43,6 +52,22 @@ void foxPlayer::release(void)
 //ToDo : update
 void foxPlayer::update(void)
 {
+	if (KEYMANAGER->isOnceKeyDown('S'))
+	{
+		if (!ang)ang = true;
+		else ang = false;
+
+	}
+
+	if (ang)
+	{
+		_player.mana -= 0.1f;
+		if (_player.mana <= 0)ang = false;
+	}
+	else
+	{
+		if (_player.maxMana > _player.mana)_player.mana += 0.3f;
+	}
 	this->keySetting();	  //키셋팅 함수 호출
 
 	this->foxState();		//플레이어 상태 함수 호출
@@ -78,7 +103,7 @@ void foxPlayer::update(void)
 		attRc = RectMakeCenter(_player.x, _player.y, 200, 200);
 	}
 	else if (_player.isAtt && _state == SITATT)
-	{
+	{ 
 		if (_player.isLeft)
 		{
 			attRc = RectMakeCenter(_player.x - 100, _player.y + 50, 100, 30);
@@ -97,6 +122,8 @@ void foxPlayer::update(void)
 	_arrow->update();
 
 	_ui->update();
+
+	
 
 	_camera.rc = RectMakeCenter(_camera.x, _camera.y, WINSIZEX, WINSIZEY);
 }
@@ -147,7 +174,7 @@ void foxPlayer::render()
 		Rectangle(getMemDC(), _enemyManger->getEnemy()[i]->getRc().left - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().top - _camera.rc.top, _enemyManger->getEnemy()[i]->getRc().right - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().bottom - _camera.rc.top);
 	}
 	char str[128];
-	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d", _player.gravity, jumpCount, _state);
+	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d", _player.gravity, jumpCount,0);
 	TextOut(getMemDC(), 100, 600, str,strlen(str));
 }
 
