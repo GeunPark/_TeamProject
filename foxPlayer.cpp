@@ -362,6 +362,7 @@ void foxPlayer::foxState()
 	if (_state == RUN)
 	{
 		jumpCount = 0;
+		unDamage++;
 		if (_player.isLeft)
 		{
 			_player.x -= _player.speed / 3;
@@ -374,6 +375,7 @@ void foxPlayer::foxState()
 
 	if (_state == JUMP || _state == DOUBLEJUMP)
 	{
+		unDamage++;
 		_player.gravity += 0.7f;
 		_player.x += cosf(_player.angle)*_player.speed;
 		_player.y += -sinf(_player.angle)*_player.speed + _player.gravity;
@@ -400,6 +402,7 @@ void foxPlayer::foxState()
 
 	if (_state == FALL || _state == FALL2)
 	{
+		unDamage++;
 		_player.gravity = 0.f;
 		_player.gravity += 0.7f;
 		_player.y += _player.gravity;
@@ -682,6 +685,33 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			_player.y += 0.2f;
 		}
 	}
+	//플레이어 충돌렉트 top 픽셀 충돌
+	/*for (int i = _player.collisionRc.top + _player.speed; i > _player.collisionRc.top; --i)
+	{
+		COLORREF color = GetPixel(_bfx->getMemDC(), _player.x, i);
+
+		int r = GetRValue(color);
+		int g = GetGValue(color);
+		int b = GetBValue(color);
+
+		if (r == 0 && g == 255 && b == 255 && (_state != FALL || _state != FALL2 || _state == HIT || _player.isJump))
+		{
+
+			_player.y = i + nick[_state]->getFrameHeight() / 2;
+			//_player.gravity = 0.f;
+			//_player.isJump = false;
+			//_state = IDLE;
+			if (_state == FALL)
+			{
+				_state = IDLE;
+			}
+			break;
+		}
+		else //if (!(r == 0 && g == 255 && b == 255) && !_player.isJump)
+		{
+			_player.y += 0.2f;
+		}
+	}*/
 
 	//플레이어 렉트 right 픽셀 충돌
 	for (int i = _player.collisionRc.right - _player.speed; i < _player.collisionRc.right; i++)
