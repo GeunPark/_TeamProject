@@ -5,7 +5,7 @@
 
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
-#define MAX_STATE 14
+#define MAX_STATE 15
 
 class enemyManager;
 
@@ -24,7 +24,8 @@ enum tagState
 	JUMPATT,
 	JUMPATT2,
 	DOWNATT,
-	HIT
+	HIT,
+	WEATHER
 };
 
 struct tagPlayer
