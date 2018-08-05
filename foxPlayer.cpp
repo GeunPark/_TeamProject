@@ -30,6 +30,7 @@ HRESULT foxPlayer::init(void)
 	index = count = actionCount = actionIndex = jumpCount = hitCount = unDamage = 0;
 
 	_player.maxMana = _player.mana  =  100;
+	_player.HP = _player.MaxHp = 50;
 	index = count = actionCount = actionIndex = jumpCount = 0;
 
 
@@ -40,6 +41,8 @@ HRESULT foxPlayer::init(void)
 	_camera.y = _player.y;
 
 	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+
+	
 	return S_OK;
 }
 
@@ -52,7 +55,23 @@ void foxPlayer::release(void)
 //ToDo : update
 void foxPlayer::update(void)
 {
+<<<<<<< HEAD
 	
+=======
+	if (KEYMANAGER->isOnceKeyDown('S'))
+	{
+		if (!ang)
+		{
+			ang = true;
+		}
+		else
+		{
+			ang = false;
+		}
+		_state = WEATHER;
+
+	}
+>>>>>>> 7f084bbfacc72d6db0593def27196127d9ea3108
 	if (ang)
 	{
 		_player.mana -= 0.1f;
