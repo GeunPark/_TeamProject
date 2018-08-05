@@ -9,6 +9,8 @@ void loadingScene::GiHunImage()
 	_loading->loadImage("스테이지 1 겨울", "resource/스테이지1/스테이지 1 겨울.bmp", 10000, 2500, true, MAGENTA);
 	_loading->loadImage("레이어1", "resource/스테이지1/레이어1.bmp", 1280, 2340, true, MAGENTA);
 	_loading->loadImage("레이어2", "resource/스테이지1/레이어2.bmp", 1280, 256, true, MAGENTA);
+	_loading->loadImage("레이어1 겨울", "resource/스테이지1/레이어1 겨울.bmp", 1280, 2340, true, MAGENTA);
+	_loading->loadImage("레이어2 겨울", "resource/스테이지1/레이어2 겨울.bmp", 1280, 256, true, MAGENTA);
 	//_loading->loadImage("스테이지1 얼음", "resource/스테이지1/스테이지1 얼음.bmp", 20000, 2750, true, MAGENTA);
 	_loading->loadImage("스테이지1 픽셀", "resource/스테이지1/스테이지1 픽셀1.bmp", 10000, 2500, true, RGB(255, 0, 255));
 	//_loading->loadImage("스테이지1 얼음 픽셀", "resource/스테이지1/스테이지1 얼음 픽셀.bmp", 20000, 2750, true, RGB(255, 0, 255));

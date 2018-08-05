@@ -2,7 +2,7 @@
 #include "gameNode.h"
 
 #define MAXHEART 10
-//class foxPlayer;
+class foxPlayer;
 
 struct tagBox
 {
@@ -36,7 +36,7 @@ private:
 	image * _number[4];
 	image * _goldImage;
 	image * _warningLine;
-
+	foxPlayer * _player;
 	int manaUpNum;
 	int manaWarning;
 	int MaxMana;
@@ -64,6 +64,7 @@ public:
 	void nowMagic();
 
 	void nowGold();
+	void setPlayerManager(foxPlayer* player) { _player = player; }
 	//void setPLink(foxPlayer* py) { _players = py; }
 	UI() {}
 	~UI() {}

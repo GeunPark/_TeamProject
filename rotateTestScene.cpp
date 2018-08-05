@@ -37,8 +37,11 @@ void rotateTestScene::render(void)
 {
 	showTitle(getMemDC(), "로테이트 테스트");
 
+<<<<<<< HEAD
 	//미사일 로테이트렌더
-	_missile->rotateRender(getMemDC(), WINSIZEX / 2 - 200, WINSIZEY / 2, _angle);
+	//_missile->rotateRender(getMemDC(), WINSIZEX / 2 - 200, WINSIZEY / 2, _angle);
 	//미사일 로테이트프레임렌더
-	_frameMissle->rotateFrameRender(getMemDC(), WINSIZEX / 2 + 200, WINSIZEY / 2, _angle);
+	//_frameMissle->rotateFrameRender(getMemDC(), WINSIZEX / 2 + 200, WINSIZEY / 2, _angle);
+=======
+>>>>>>> 7f084bbfacc72d6db0593def27196127d9ea3108
 }

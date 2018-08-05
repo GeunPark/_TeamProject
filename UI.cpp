@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "UI.h"
-//#include "foxPlayer.h"
+#include "foxPlayer.h"
 
 HRESULT UI::init(void)
 {
@@ -46,14 +46,6 @@ void UI::update(void)
 	if (_mana._now  > 30  || _mana._now <= 0) _isManaWarning = false;
 	else _isManaWarning = true;
 	
-	if (KEYMANAGER->isOnceKeyDown('T') && _heartNum < maxHeart * 10)
-	{
-		_heartNum+= 5;
-	}
-	if (KEYMANAGER->isOnceKeyDown('Y') && _heartNum > 0)
-	{
-		_heartNum-= 5;
-	}
 	if (KEYMANAGER->isOnceKeyDown('U'))
 	{
 		a++;
@@ -110,21 +102,10 @@ void UI::render()
 void UI::heart()
 {
 	
-	maxHeart = 7;
-	for (int i = 0; i < maxHeart; i++)
+	maxHeart = 5;
+	for (int i = 0; i < MAXHEART; i++)
 	{
-		_heart[i]._numChk = 0;												// 이 변수값에 따라서 하트모양이 달라림, 풀 하트, 반 하트, 빈 하트
-		if (i < 5)
-		{
-			_heart[i]._x = 25 + 40 * i;
-			_heart[i]._y = 20;
-		}
-		else if (i > 4)
-		{
-			_heart[i]._x = 25 + 40 * i - 200;
-			_heart[i]._y = 68;
-		}
-		
+		_heart[i]._numChk = 2;												// 이 변수값에 따라서 하트모양이 달라림, 풀 하트, 반 하트, 빈 하트
 		_heart[i]._img = IMAGEMANAGER->findImage("fullHP");
 		
 		_heart[i]._rc = RectMakeCenter(_heart[i]._x, _heart[i]._y, 48, 48);
@@ -133,6 +114,9 @@ void UI::heart()
 }
 void UI::nowHeart()
 {
+	maxHeart = _player->getMaxHp() / 10;
+	_heartNum = _player->getHp();
+	if (maxHeart == 6)_heart[6]._numChk = 2;
 	for (int i = 0; i < maxHeart; i++)
 	{
 		if (_heart[i]._numChk == 2)											// 이 변수값에 따라서 하트모양이 달라림, 풀 하트, 반 하트, 빈 하트
@@ -147,6 +131,18 @@ void UI::nowHeart()
 		{
 			_heart[i]._img = IMAGEMANAGER->findImage("zeroHP");
 		}
+
+		if (i < 5)
+		{
+			_heart[i]._x = 25 + 40 * i;
+			_heart[i]._y = 20;
+		}
+		else if (i > 4)
+		{
+			_heart[i]._x = 25 + 40 * i - 200;
+			_heart[i]._y = 68;
+		}
+
 		_heart[i]._rc = RectMakeCenter(_heart[i]._x, _heart[i]._y, 48, 48);
 	}
 	for (int i = 0; i < maxHeart; i++)

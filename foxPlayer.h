@@ -1,14 +1,14 @@
 #pragma once
 #include "gameNode.h"
 #include "arrow.h"
-#include "UI.h"
+
 
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
-#define MAX_STATE 14
+#define MAX_STATE 15
 
 class enemyManager;
-
+class UI;
 enum tagState
 {
 	IDLE=0,
@@ -24,7 +24,8 @@ enum tagState
 	JUMPATT,
 	JUMPATT2,
 	DOWNATT,
-	HIT
+	HIT,
+	WEATHER
 };
 
 struct tagPlayer
@@ -45,9 +46,12 @@ struct tagPlayer
 	bool isUp;
 	bool isDown;
 	bool isAtt;
+	bool isChange;
 
 	float mana;
 	float maxMana;
+	int HP;
+	int MaxHp;
 };
 
 struct tagCam
@@ -74,9 +78,10 @@ private:
 
 	image* nick[MAX_STATE];
 	image* _bfx;
-	
+	image* _twinkle;
 	RECT attRc, attRc2, attRc3, attRc4;	//임시 공격렉트(잘 되면 주로 사용)
-	image* _bpx;
+	RECT twinkleRc;
+	//image* _bpx;
 	int count, index, actionCount, actionIndex;
 	int jumpCount;
 	bool ang = false;
@@ -111,7 +116,11 @@ public:
 	RECT getAttRc() { return attRc; }
 
 	float getMana() { return _player.mana; }
+	float getMaxMana() { return _player.maxMana; }
 
+	// 플레이어 HP
+	int getHp() { return _player.HP; }
+	int getMaxHp() { return _player.MaxHp; }
 
 	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
 	tagPlayer getTag() { return _player; }
