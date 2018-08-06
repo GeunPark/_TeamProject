@@ -187,6 +187,7 @@
     <ClInclude Include="soundTestScene.h" />
     <ClInclude Include="stage1.h" />
     <ClInclude Include="stage_1_enemy.h" />
+    <ClInclude Include="startScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="txtData.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="soundTestScene.cpp" />
     <ClCompile Include="stage1.cpp" />
     <ClCompile Include="stage_1_enemy.cpp" />
+    <ClCompile Include="startScene.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

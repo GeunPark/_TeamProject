@@ -60,6 +60,9 @@ HRESULT stage1::init(void)
 	_ui->setPlayerManager(_player);
 
 
+	//사운드 
+	SOUNDMANAGER->play("스테이지1 여름");
+
 	return S_OK;
 }
 void stage1::release(void)
