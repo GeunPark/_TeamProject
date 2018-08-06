@@ -177,6 +177,17 @@ void enemyManager::update(void)
 			//			_vPlantFrog.erase(_vPlantFrog.begin() + i);
 		}
 	}
+	//공격렉트 충돌 한개 더 만들엇엉~ㅎㅎ 김호뛰
+	for (int i = 0; i < _vEnemy.size(); ++i)
+	{
+		RECT _rct;
+
+		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc2()))
+		{
+			_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+			_vEnemy.erase(_vEnemy.begin() + i);
+		}
+	}
 	//아직 총알이 없음 attRc랑 충돌이나 만들어놓자!
 	//플레이어의 총알과 에너미 충돌
 	for (int i = 0; i < _vEnemy.size(); ++i)

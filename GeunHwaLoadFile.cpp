@@ -28,4 +28,11 @@ void loadingScene::GeunHwaSound()
 
 	//스테이지1
 	_loading->loadSound("스테이지1 여름", "resource/박근화/사운드리소스/스테이지 1 배경 사운드.wav", true, true);
+
+	//플레이어
+	_loading->loadSound("점프사운드", "resource/박근화/사운드리소스/1단점프 사운드.wav");
+	_loading->loadSound("2단점프사운드", "resource/박근화/사운드리소스/2단점프 사운드.wav");
+	_loading->loadSound("1단점프공격사운드", "resource/박근화/사운드리소스/1단점프 공격 사운드.wav");
+	_loading->loadSound("2단점프공격사운드", "resource/박근화/사운드리소스/2단점프 공격 사운드.wav");
+	_loading->loadSound("화살발사사운드", "resource/박근화/사운드리소스/화살발사 효과사운드.wav");
 }

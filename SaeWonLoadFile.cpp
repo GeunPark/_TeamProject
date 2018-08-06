@@ -21,6 +21,7 @@ void loadingScene::SaeWonImage()
 	_loading->loadFrameImage("arrow", "resource/foxPlayer/arrow.bmp", 66, 46, 1, 2, true, MAGENTA);
 	_loading->loadFrameImage("Weather", "resource/foxPlayer/weather.bmp", 1620, 360, 9, 2, true, MAGENTA);
 	_loading->loadFrameImage("Twinkle", "resource/foxPlayer/twinkle.bmp", 5805, 384, 15, 1, true, MAGENTA);
+	_loading->loadFrameImage("Poison", "resource/foxPlayer/poison.bmp", 672, 72, 7, 2, true, MAGENTA);
 }
 
 void loadingScene::SaeWonSound()
