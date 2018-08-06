@@ -144,7 +144,7 @@ void itemManager::update(void)
 	}
 
 	
-	//플레이어총알과 아이템상자 충돌
+	//플레이어 공격렉트와 아이템상자 충돌
 	
 		for (int i = 0; i < _vItemBox.size(); ++i)
 		{
@@ -156,6 +156,8 @@ void itemManager::update(void)
 					//_vEnemy[i]->setState(ENEMY_DEAD);
 					//_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 					_vItemBox[i]->setIsActive(true);
+					_player->setAttRcLeft(-10000);
+					_player->setAttRcRight(-10000);
 
 					if (i == 3)
 					{
@@ -179,7 +181,35 @@ void itemManager::update(void)
 				}
 			//}
 		}
-	
+
+	//플레이어와 코인충돌
+		for (int i = 0; i < _vCoinGold.size(); ++i)
+		{
+			RECT _rct;
+
+			if (IntersectRect(&_rct, &_vCoinGold[i]->getRc(), &_player->getCollisionRc()))
+			{
+				_vCoinGold.erase(_vCoinGold.begin() + i);
+			}
+		}
+		for (int i = 0; i < _vCoinSilver.size(); ++i)
+		{
+			RECT _rct;
+
+			if (IntersectRect(&_rct, &_vCoinSilver[i]->getRc(), &_player->getCollisionRc()))
+			{
+				_vCoinSilver.erase(_vCoinSilver.begin() + i);
+			}
+		}
+		for (int i = 0; i < _vCoinBronze.size(); ++i)
+		{
+			RECT _rct;
+
+			if (IntersectRect(&_rct, &_vCoinBronze[i]->getRc(), &_player->getCollisionRc()))
+			{
+				_vCoinBronze.erase(_vCoinBronze.begin() + i);
+			}
+		}
 
 }
 

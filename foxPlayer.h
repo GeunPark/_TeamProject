@@ -116,6 +116,8 @@ public:
 	bool getRight() { return _player.isRight; }
 	RECT getPlayerCam() { return _camera.rc; }
 	RECT getAttRc() { return attRc; }
+	void setAttRcLeft(float left) { attRc.left = left; }
+	void setAttRcRight(float right) { attRc.right = right; }
 	RECT getAttRc2() { return attRc2; }
 
 	// 플레이어 마나

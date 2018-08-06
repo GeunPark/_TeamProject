@@ -133,6 +133,7 @@ void vineMan::attack()
 {
 	_attRc = RectMake(_x, _y , 0, 20);
 
+	_animationSpeed = 4.f;
 
 	if (_isLeft)
 	{
@@ -338,7 +339,7 @@ void plantFrog::spawn()
 	isTongue = false;
 	if (isJump)
 	{
-		_gravity += 0.02f;
+		_gravity += 0.2f;
 
 	}
 
