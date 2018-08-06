@@ -95,13 +95,11 @@ void UI::render()
 	char str[128];
 	sprintf_s(str, "%04d     %d",a, b);
 	TextOut(getMemDC(), 300, 200, str, strlen(str));
-
 }
 
 // 하트(체력)
 void UI::heart()
 {
-	
 	maxHeart = 5;
 	for (int i = 0; i < MAXHEART; i++)
 	{

@@ -37,6 +37,7 @@ struct tagPlayer
 	float gravity;
 	float angle;
 	float arrowAngle;
+	float arrowAngle2, arrowAngle3;
 	float radian;
 	bool isJump;
 	bool isLeft;
@@ -82,7 +83,7 @@ private:
 	RECT attRc, attRc2, attRc3, attRc4;	//임시 공격렉트(잘 되면 주로 사용)
 	RECT twinkleRc;
 	//image* _bpx;
-	int count, index, actionCount, actionIndex;
+	int count, index, actionCount, actionIndex, weatherIndex, effectIndex, effectCount;
 	int jumpCount;
 	bool ang = false;
 	//image* _bpx2;
@@ -114,6 +115,7 @@ public:
 	bool getRight() { return _player.isRight; }
 	RECT getPlayerCam() { return _camera.rc; }
 	RECT getAttRc() { return attRc; }
+	RECT getAttRc2() { return attRc2; }
 
 	float getMana() { return _player.mana; }
 	float getMaxMana() { return _player.maxMana; }
@@ -122,8 +124,11 @@ public:
 	int getHp() { return _player.HP; }
 	int getMaxHp() { return _player.MaxHp; }
 
+	//에너미매니저와 상호참조
 	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
+
 	tagPlayer getTag() { return _player; }
+
 	// 계절을 변화시켰는지 아닌지 판별 Ang~♡
 	bool getAng() { return ang; }
 	
