@@ -57,7 +57,7 @@ protected:
 
 	//µÎ²¨ºñ
 	bool isJump;
-
+	bool isTongue;
 
 public:
 	virtual void init() = 0;
@@ -92,6 +92,7 @@ public:
 	int getIndexY() { return _indexY; }
 	bool getIsLeft() { return _isLeft; }
 	bool getIsActived() { return _isActived; }
+	bool getIsTongue() { return isTongue; }
 
 	void setState(ENEMY_STATE state) { _state = state; }
 	void setX(float x) { _x = x; }
