@@ -784,7 +784,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			}
 			break; 
 		}
-		else if (r == 255 && g == 255 && b == 0)
+		else if (ang && (r == 255 && g == 255 && b == 0))
 		{
 			_player.y = i - nick[_state]->getFrameHeight() / 2;
 			_player.gravity = 0.f;
@@ -820,6 +820,14 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			
 			break;
 		}
+		if (ang && (r == 255 && g == 255 && b == 0))
+		{
+			_player.y = i + (_player.collisionRc.bottom - _player.collisionRc.top) / 2 + 15;
+			_state = FALL;
+			_player.gravity += 0.7f;
+			_player.x += cosf(_player.angle)*_player.speed;
+			_player.y += -sinf(_player.angle)*_player.speed + _player.gravity;
+		}
 	}
 
 	//플레이어 렉트 right 픽셀 충돌
@@ -838,7 +846,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			
 			break;
 		}
-		if (r == 255 && g == 255 && b == 0)
+		if (ang && (r == 255 && g == 255 && b == 0))
 		{
 			_player.x = i - (_player.collisionRc.right - _player.collisionRc.left) / 2;
 			_player.isRight = false;
@@ -863,7 +871,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			//_player.isLeft = false;			//여기 문제있음
 			break;
 		}
-		if (r == 255 && g == 255 && b == 0)
+		if (ang && (r == 255 && g == 255 && b == 0))
 		{
 			_player.x = i + (_player.collisionRc.right - _player.collisionRc.left) / 2;
 			break;
@@ -950,65 +958,55 @@ void foxPlayer::enemyCollision()
 				_state = HIT;
 				unDamage = 0;
 			}
-
-			
-			
 		}
 	}
 }
 
 void foxPlayer::enemyAttCollision()
 {
-	
-		for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
+	//앉아잇는 상태에서는 충돌처리가 안되는것처럼 보임 충돌이 되긴되는데 계속앉아있으면 sit상태로 계속 지속이된다.
+	for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
+	{
+		RECT tempRc2;
+		
+		if (unDamage > 16)
 		{
-			RECT tempRc2;
-			
-			if (unDamage > 16)
+			if (IntersectRect(&tempRc2, &_player.collisionRc, &_enemyManger->getEnemy()[i]->getAttRc()))
 			{
-				if (IntersectRect(&tempRc2, &_player.collisionRc, &_enemyManger->getEnemy()[i]->getAttRc()))
+				if (chk == false)
 				{
-					if (chk == false)
-					{
-						_player.HP -= 5;
-						chk = true;
-					}
-					int width = (tempRc2.right - tempRc2.left) + 50;
-					int height = (tempRc2.bottom - tempRc2.top) + 50;
-
-					if (_player.x < _enemyManger->getEnemy()[i]->getAttRc().left)
-					{
-						_player.x -= width;
-						_player.y -= height;
-					}
-					else if (_player.x > _enemyManger->getEnemy()[i]->getAttRc().right)
-					{
-						_player.x += width;
-						_player.y += height;
-					}
-					else if (_player.y < _enemyManger->getEnemy()[i]->getAttRc().top)
-					{
-						_player.x -= width;
-						_player.y -= height;
-					}
-					else if (_player.y > _enemyManger->getEnemy()[i]->getAttRc().bottom)
-					{
-						_player.x += width;
-						_player.y += height;
-					}
-					_state = HIT;
-					unDamage = 0;
-
+					_player.HP -= 5;
+					chk = true;
 				}
+				int width = (tempRc2.right - tempRc2.left) + 50;
+				int height = (tempRc2.bottom - tempRc2.top) + 50;
+
+				if (_player.x < _enemyManger->getEnemy()[i]->getAttRc().left)
+				{
+					_player.x -= width;
+					_player.y -= height;
+				}
+				else if (_player.x > _enemyManger->getEnemy()[i]->getAttRc().right)
+				{
+					_player.x += width;
+					_player.y += height;
+				}
+				else if (_player.y < _enemyManger->getEnemy()[i]->getAttRc().top)
+				{
+					_player.x -= width;
+					_player.y -= height;
+				}
+				else if (_player.y > _enemyManger->getEnemy()[i]->getAttRc().bottom)
+				{
+					_player.x += width;
+					_player.y += height;
+				}
+				_state = HIT;
+				unDamage = 0;
+
 			}
-			
 		}
-
-	
-
-	
-	
-	
+	}
 }
 
 void foxPlayer::removeArrow(int index)
@@ -1051,4 +1049,3 @@ void foxPlayer::test()
 		_player.gold -= 1;
 	}
 }
-
