@@ -38,28 +38,32 @@ private:
 
 	float _itemX;
 	float _itemY;
+	int _num;
 
 
 	//eBullet* _eBullet;			// 총알 클래스
 public:
 	void setPlayerManager(foxPlayer* player) { _player = player; }
 	void setItemManager(itemManager* iMG) { _iMG = iMG; }
-	// 형구씨 앞으로 멋대로 get set 만들지마세요 짜증나니깐 띠바 -sw- ㅋㅋㅋㅋㅋ
 	// 우리 선수 괴롭히지마요
 
 
 	vector<enemy*> getEnemy() { return _vEnemy; }
 
-	void setGhost(float itemX, float itemY)
+	void setGhost(float itemX, float itemY, int number)
 	{
 		_itemX = itemX;
 		_itemY = itemY;
+		_num = number;
 	}
 
 	HRESULT init(void);
 	void release(void);
 	void update(void);
 	void render(void);
+
+	void appearGhost();
+
 
 	enemyManager() {}
 	~enemyManager() {}

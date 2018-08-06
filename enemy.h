@@ -45,6 +45,10 @@ protected:
 	bool _isLeft;
 	bool _isActived;
 	RECT _rc;
+	RECT _collisionRc;
+	RECT _sensorRc;
+	RECT _attRc;
+
 	//ÄÚÀÎ
 	int _gold;
 	int _silver;
@@ -64,6 +68,11 @@ public:
 	image* getBodyImage() { return _bodyImage[_state]; }
 	RECT getBoundingBox() { return RectMake(_x, _y, _bodyImage[_state]->getFrameWidth(), _bodyImage[_state]->getFrameHeight()); }
 	RECT getRc() { return _rc; }
+	RECT getCollisionRc() { return _collisionRc; }
+	RECT getSensorRc() { return _sensorRc; }
+	RECT getAttRc() { return _attRc; }
+
+
 	float getX() { return _x; }
 	float getY() { return _y; }
 	float getSpeed() { return _speed; }
