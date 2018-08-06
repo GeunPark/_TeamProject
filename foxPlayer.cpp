@@ -569,11 +569,13 @@ void foxPlayer::keySetting()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 		{
+			SOUNDMANAGER->play("점프사운드");
 			++jumpCount;
 			_player.isJump = true;
 			_state = JUMP;
 			if (jumpCount >=2)
 			{
+				SOUNDMANAGER->play("2단점프사운드");
 				//jumpCount = 0;
 				_player.gravity = 0.f;
 				_state = DOUBLEJUMP;
@@ -591,12 +593,13 @@ void foxPlayer::keySetting()
 		{
 			_player.isAtt = true;
 			_state = JUMPATT;
+			SOUNDMANAGER->play("1단점프공격사운드");
 		}
 		else if (_state == DOUBLEJUMP)
 		{
 			_player.isAtt = true;
 			_state = JUMPATT2;
-
+			SOUNDMANAGER->play("2단점프공격사운드");
 		}
 		else if (_player.isUp)
 		{
@@ -604,6 +607,7 @@ void foxPlayer::keySetting()
 		}
 		else if (_state == IDLE)
 		{
+			SOUNDMANAGER->play("화살발사사운드");
 			_state = FIRE;
 			_arrow->fire(_player.x, _player.y + 30, _player.arrowAngle);
 		}
