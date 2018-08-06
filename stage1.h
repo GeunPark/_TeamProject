@@ -47,22 +47,21 @@ private:
 
 	state _state;
 	tagBoxs _cam;
-	imgInfo _river[5];
+	imgInfo _river[20];
 
-	imgInfo _waterfall[3];
-	imgInfo _waterfalls[3];
+	imgInfo _waterfall[11];
+	imgInfo _waterfalls[11];
 	
 	//ū Ǯ
 	tagBoxs _bush[10];
 	vector<tagBoxs> _vBush;
 	vector<tagBoxs>::iterator _viBush;
-
 	image* feild;
+	//image* feild[4];
 	image* feildIce;
 	image* feildpixel;
-	image* feildIcepixel;
 	image*  _waterWheel;
-	
+
 
 	//기훈아 내가 여기에다가 레이어 배경 두개 일단 입혀놓을게!!
 	imgInfo _normalBack1;

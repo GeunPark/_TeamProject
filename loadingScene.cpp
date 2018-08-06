@@ -30,7 +30,7 @@ void loadingScene::update(void)
 	if (_loading->loadingDone())
 	{
 		//SCENEMANAGER->loadScene("픽셀충돌");
-		SCENEMANAGER->loadScene("스테이지1");
+		SCENEMANAGER->loadScene("스타트씬");
 	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
@@ -97,6 +97,8 @@ void loadingScene::loadingImage()
 //로딩사운드 함수(이곳에 사운드를 전부 넣어라)
 void loadingScene::loadingSound()
 {
-	_loading->loadSound("사운드1", "브금.mp3");
-	_loading->loadSound("사운드2", "브금1.mp3");
+	GeunHwaSound();
+	SaeWonSound();
+	SunSooSound();
+	GiHunSound();
 }

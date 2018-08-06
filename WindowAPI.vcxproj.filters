@@ -248,6 +248,9 @@
     <ClInclude Include="factory.h">
       <Filter>MainGame\선수\factoryClass</Filter>
     </ClInclude>
+    <ClInclude Include="startScene.h">
+      <Filter>MainGame\근화</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -390,6 +393,9 @@
     </ClCompile>
     <ClCompile Include="factory.cpp">
       <Filter>MainGame\선수\factoryClass</Filter>
+    </ClCompile>
+    <ClCompile Include="startScene.cpp">
+      <Filter>MainGame\근화</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
