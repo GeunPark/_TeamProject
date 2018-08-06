@@ -28,8 +28,9 @@ HRESULT foxPlayer::init(void)
 	
 	index = count = actionCount = actionIndex = jumpCount = hitCount = unDamage = weatherIndex = effectIndex = effectCount = 0;
 
-	_player.maxMana = _player.mana  =  100;
+	_player.maxMana = _player.mana = 100;
 	_player.HP = _player.MaxHp = 50;
+	_player.gold = 0;
 	index = count = actionCount = actionIndex = jumpCount = 0;
 
 
@@ -75,7 +76,11 @@ void foxPlayer::update(void)
 	else
 	{
 		if (_player.maxMana > _player.mana)_player.mana += 0.3f;
+		else if (_player.maxMana < _player.mana)_player.mana -= 0.3f;
 	}
+	// 테스트 함수
+	//test();
+
 	this->keySetting();	  //키셋팅 함수 호출
 
 	this->foxState();		//플레이어 상태 함수 호출
@@ -567,6 +572,7 @@ void foxPlayer::foxState()
 		hitCount++;
 		if (hitCount > 25)
 		{
+			chk = false;
 			_state = IDLE;
 			hitCount = 0;
 		}
@@ -910,6 +916,11 @@ void foxPlayer::enemyCollision()
 		{
 			if (IntersectRect(&tempRc, &_player.collisionRc, &_enemyManger->getEnemy()[i]->getCollisionRc()) && _enemyManger->getEnemy()[i]->getState() != ENEMY_SPAWN && _state != HIT)
 			{
+				if (chk == false)
+				{
+					_player.HP -= 5;
+					chk = true;
+				}
 				int width = (tempRc.right - tempRc.left) + 50;
 				int height = (tempRc.bottom - tempRc.top) + 50;
 
@@ -943,5 +954,41 @@ void foxPlayer::enemyCollision()
 void foxPlayer::removeArrow(int index)
 {
 	_arrow->removeArrow(index);
+}
+
+void foxPlayer::test()
+{
+	if (KEYMANAGER->isOnceKeyDown('F') && _player.MaxHp < 100)
+	{
+		_player.MaxHp += 10;
+	}
+	if (KEYMANAGER->isOnceKeyDown('G') && _player.MaxHp > 10)
+	{
+		_player.MaxHp -= 10;
+	}
+	if (KEYMANAGER->isOnceKeyDown('H') && _player.HP < _player.MaxHp)
+	{
+		_player.HP += 5;
+	}
+	if (KEYMANAGER->isOnceKeyDown('J') && _player.HP > 0)
+	{
+		_player.HP -= 5;
+	}
+	if (KEYMANAGER->isOnceKeyDown('K') && _player.maxMana < 200)
+	{
+		_player.maxMana += 5;
+	}
+	if (KEYMANAGER->isOnceKeyDown('L') && _player.maxMana > 100)
+	{
+		_player.maxMana -= 5;
+	}
+	if (KEYMANAGER->isStayKeyDown('N') && _player.gold < 1000)
+	{
+		_player.gold += 1;
+	}
+	if (KEYMANAGER->isStayKeyDown('M') && _player.gold > 0)
+	{
+		_player.gold -= 1;
+	}
 }
 

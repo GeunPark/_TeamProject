@@ -227,6 +227,8 @@ void enemyManager::render(void)
 		{
 			Rectangle(getMemDC(), _vEnemy[i]->getSensorRc().left - _player->getPlayerCam().left, _vEnemy[i]->getSensorRc().top - _player->getPlayerCam().top, _vEnemy[i]->getSensorRc().right - _player->getPlayerCam().left, _vEnemy[i]->getSensorRc().bottom - _player->getPlayerCam().top);
 			Rectangle(getMemDC(), _vEnemy[i]->getCollisionRc().left - _player->getPlayerCam().left, _vEnemy[i]->getCollisionRc().top - _player->getPlayerCam().top, _vEnemy[i]->getCollisionRc().right - _player->getPlayerCam().left, _vEnemy[i]->getCollisionRc().bottom - _player->getPlayerCam().top);
+			Rectangle(getMemDC(), _vEnemy[i]->getAttRc().left - _player->getPlayerCam().left, _vEnemy[i]->getAttRc().top - _player->getPlayerCam().top, _vEnemy[i]->getAttRc().right - _player->getPlayerCam().left, _vEnemy[i]->getAttRc().bottom - _player->getPlayerCam().top);
+
 		}
 
 		if (!_vEnemy[i]->getIsActived()) continue;
@@ -307,7 +309,7 @@ void enemyManager::sensorCollision()
 
 
 		}
-		else if (_vEnemy[i]->getType() == PLANTFROG && (_vEnemy[i]->getIndexX() == 0 || _vEnemy[i]->getIndexX() ==6))
+		else if (_vEnemy[i]->getType() == PLANTFROG && (_vEnemy[i]->getIndexX() == 0 || _vEnemy[i]->getIndexX() == 6) && _vEnemy[i]->getGravity() ==0)
 		{
 			if (IntersectRect(&rct, &_player->getCollisionRc(), &_vEnemy[i]->getSensorRc()))
 			{
