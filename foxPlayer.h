@@ -83,7 +83,7 @@ private:
 	RECT twinkleRc;
 	//image* _bpx;
 	int count, index, actionCount, actionIndex, weatherIndex, effectIndex, effectCount;
-	int jumpCount;
+	int jumpCount, jumpAttCount;
 	bool ang = false;
 	//image* _bpx2;
 	int hitCount;

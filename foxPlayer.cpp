@@ -26,13 +26,11 @@ HRESULT foxPlayer::init(void)
 	_player.isJump = _player.isLeft = _player.isUp = _player.isDown = _player.isRight = _player.isAtt = _player.isChange = false;
 
 	
-	index = count = actionCount = actionIndex = jumpCount = hitCount = unDamage = weatherIndex = effectIndex = effectCount = 0;
+	index = count = actionCount = actionIndex = jumpCount = hitCount = unDamage = weatherIndex = effectIndex = effectCount = jumpAttCount = 0;
 
 	_player.maxMana = _player.mana = 100;
 	_player.HP = _player.MaxHp = 50;
 	_player.gold = 0;
-	index = count = actionCount = actionIndex = jumpCount = 0;
-
 
 	_arrow = new arrow;
 	_arrow->init(3, 600);
@@ -444,7 +442,7 @@ void foxPlayer::foxState()
 		}
 	}
 
-	if (_state == JUMP || _state == DOUBLEJUMP)
+	if (_state == JUMP)
 	{
 		unDamage++;
 		_player.gravity += 0.7f;
@@ -469,6 +467,27 @@ void foxPlayer::foxState()
 		{
 			_state = FALL2;
 		}*/
+	}
+	if (_state == DOUBLEJUMP)
+	{
+		unDamage++;
+		_player.gravity += 0.7f;
+		_player.x += cosf(_player.angle)*_player.speed;
+		_player.y += -sinf(_player.angle)*_player.speed + _player.gravity;
+		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+		{
+			_player.isLeft = true;
+			_player.x -= _player.speed / 3;
+		}
+		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+		{
+			_player.isLeft = false;
+			_player.x += _player.speed / 3;
+		}
+		if (-sinf(_player.angle)*_player.speed + _player.gravity > 0)
+		{
+			_state = FALL2;
+		}
 	}
 
 	if (_state == FALL || _state == FALL2)
@@ -686,11 +705,19 @@ void foxPlayer::keySetting()
 			_state = JUMPATT;
 			SOUNDMANAGER->play("1단점프공격사운드");
 		}
+		else if (_state == FALL)
+		{
+			_state = JUMPATT;
+		}
 		else if (_state == DOUBLEJUMP)
 		{
 			_player.isAtt = true;
 			_state = JUMPATT2;
 			SOUNDMANAGER->play("2단점프공격사운드");
+		}
+		else if (_state == FALL2)
+		{
+			_state = JUMPATT2;
 		}
 		else if (_player.isUp)
 		{
@@ -778,7 +805,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			_player.gravity = 0.f;
 			_player.isJump = false;
 			//_state = IDLE;
-			if (_state == FALL)
+			if (_state == FALL || _state == FALL2)
 			{
 				_state = IDLE;
 			}
@@ -789,7 +816,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			_player.y = i - nick[_state]->getFrameHeight() / 2;
 			_player.gravity = 0.f;
 			_player.isJump = false;
-			if (_state == FALL)
+			if (_state == FALL || _state == FALL2)
 			{
 				_state = IDLE;
 			}
