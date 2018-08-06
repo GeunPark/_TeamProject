@@ -16,7 +16,7 @@ HRESULT foxPlayer::init(void)
 
 	_state = IDLE;
 	
-	_player.x = 6500;
+	_player.x = 200;
 	_player.y = MAX_HEIGHT - 200;
 	_player.speed = 30.f;
 	_player.gravity = 0.f;
@@ -55,7 +55,7 @@ void foxPlayer::release(void)
 //ToDo : update
 void foxPlayer::update(void)
 {
-	if (KEYMANAGER->isOnceKeyDown('S'))
+	/*if (KEYMANAGER->isOnceKeyDown('S'))
 	{
 		if (!ang)
 		{
@@ -67,7 +67,7 @@ void foxPlayer::update(void)
 		}
 		_state = WEATHER;
 
-	}
+	}*/
 	if (ang)
 	{
 		_player.mana -= 0.1f;
@@ -95,12 +95,15 @@ void foxPlayer::update(void)
 	//충돌렉트 위치 보정   완벽하지않아ㅜㅜ 일단 다른것들 진도좀 빼두고 수정할께!ㅎㅎ
 	this->collisionRcChange();
 
+	
+
 	//적과 충돌
 	if (KEYMANAGER->isToggleKey(VK_F3))
 	{
 		this->enemyCollision();
+		this->enemyAttCollision();
 	}
-	
+
 
 	//_player.collisionRc = RectMakeCenter(_player.x , _player.y , _player.radian, 110);
 	this->pixelCollision();		//픽셀충돌 함수 호출
@@ -906,7 +909,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 	//	}
 	//}
 }
-
+//ToDo : 적과의 충돌
 void foxPlayer::enemyCollision()
 {
 	for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
@@ -947,8 +950,65 @@ void foxPlayer::enemyCollision()
 				_state = HIT;
 				unDamage = 0;
 			}
+
+			
+			
 		}
 	}
+}
+
+void foxPlayer::enemyAttCollision()
+{
+	
+		for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
+		{
+			RECT tempRc2;
+			
+			if (unDamage > 16)
+			{
+				if (IntersectRect(&tempRc2, &_player.collisionRc, &_enemyManger->getEnemy()[i]->getAttRc()))
+				{
+					if (chk == false)
+					{
+						_player.HP -= 5;
+						chk = true;
+					}
+					int width = (tempRc2.right - tempRc2.left) + 50;
+					int height = (tempRc2.bottom - tempRc2.top) + 50;
+
+					if (_player.x < _enemyManger->getEnemy()[i]->getAttRc().left)
+					{
+						_player.x -= width;
+						_player.y -= height;
+					}
+					else if (_player.x > _enemyManger->getEnemy()[i]->getAttRc().right)
+					{
+						_player.x += width;
+						_player.y += height;
+					}
+					else if (_player.y < _enemyManger->getEnemy()[i]->getAttRc().top)
+					{
+						_player.x -= width;
+						_player.y -= height;
+					}
+					else if (_player.y > _enemyManger->getEnemy()[i]->getAttRc().bottom)
+					{
+						_player.x += width;
+						_player.y += height;
+					}
+					_state = HIT;
+					unDamage = 0;
+
+				}
+			}
+			
+		}
+
+	
+
+	
+	
+	
 }
 
 void foxPlayer::removeArrow(int index)

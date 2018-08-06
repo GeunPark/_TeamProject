@@ -106,6 +106,7 @@ public:
 	void camera();
 	void pixelCollision();
 	void enemyCollision();
+	void enemyAttCollision();
 	void removeArrow(int index);
 
 	// get, setÇÔ¼öµé
