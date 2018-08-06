@@ -302,11 +302,11 @@ void enemyManager::sensorCollision()
 				if (_vEnemy[i]->getX() > _player->getX())
 				{
 					_vEnemy[i]->setIsLeft(true);
-
 				}
 				else
 				{
 					_vEnemy[i]->setIsLeft(false);
+
 				}
 			}
 			else
