@@ -159,8 +159,17 @@ void itemManager::update(void)
 
 					if (i == 3)
 					{
-						_eMG->setGhost(_vItemBox[i]->getX(), _vItemBox[i]->getY());
+						_eMG->setGhost(_vItemBox[i]->getX(), _vItemBox[i]->getY(), 1);
 					}
+					else
+					{
+						enemyX = _vItemBox[i]->getX();
+						enemyY = _vItemBox[i]->getY();
+						gold = 6;
+						silver = 4;
+						bronze = 2;
+					}
+		
 					//break;
 
 					//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
@@ -241,6 +250,7 @@ void itemManager::dropCoin()
 	{
 		item* _silverCoin = _itemFactory->createItem(SILVER_COIN);
 		_silverCoin->setPosition(enemyX, enemyY);
+		_silverCoin->setAngle(_silverCoin->getAngle() + PI / 150 * i);
 		_vCoinSilver.push_back(_silverCoin);
 	}
 	//µ¿È­
@@ -249,6 +259,7 @@ void itemManager::dropCoin()
 	{
 		item* _bronzeCoin = _itemFactory->createItem(BRONZE_COIN);
 		_bronzeCoin->setPosition(enemyX, enemyY);
+		_bronzeCoin->setAngle(_bronzeCoin->getAngle() + PI / 150 * i);
 		_vCoinBronze.push_back(_bronzeCoin);
 	}
 

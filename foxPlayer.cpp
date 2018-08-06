@@ -17,7 +17,7 @@ HRESULT foxPlayer::init(void)
 
 	_state = IDLE;
 	
-	_player.x = 100;
+	_player.x = 200;
 	_player.y = MAX_HEIGHT - 200;
 	_player.speed = 30.f;
 	_player.gravity = 0.f;
@@ -178,11 +178,15 @@ void foxPlayer::render()
 		//Rectangle(getMemDC(), _arrow->getArrow()[i].rc.left - _camera.rc.left, _arrow->getArrow()[i].rc.top - _camera.rc.top, _arrow->getArrow()[i].rc.right - _camera.rc.left, _arrow->getArrow()[i].rc.bottom - _camera.rc.top);
 		_arrow->getVArrow()[i].arrowImage->frameRender(getMemDC(), _arrow->getVArrow()[i].rc.left - _camera.rc.left, _arrow->getVArrow()[i].rc.top - _camera.rc.top, 0, temp);
 	}
-	
-	for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
+	if (KEYMANAGER->isToggleKey(VK_F1))
 	{
-		Rectangle(getMemDC(), _enemyManger->getEnemy()[i]->getRc().left - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().top - _camera.rc.top, _enemyManger->getEnemy()[i]->getRc().right - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().bottom - _camera.rc.top);
+
+		for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
+		{
+			Rectangle(getMemDC(), _enemyManger->getEnemy()[i]->getRc().left - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().top - _camera.rc.top, _enemyManger->getEnemy()[i]->getRc().right - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().bottom - _camera.rc.top);
+		}
 	}
+
 	char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d", _player.gravity, jumpCount,0);
 	TextOut(getMemDC(), 100, 600, str,strlen(str));
@@ -362,6 +366,7 @@ void foxPlayer::foxState()
 	if (_state == RUN)
 	{
 		jumpCount = 0;
+		unDamage++;
 		if (_player.isLeft)
 		{
 			_player.x -= _player.speed / 3;
@@ -374,6 +379,7 @@ void foxPlayer::foxState()
 
 	if (_state == JUMP || _state == DOUBLEJUMP)
 	{
+		unDamage++;
 		_player.gravity += 0.7f;
 		_player.x += cosf(_player.angle)*_player.speed;
 		_player.y += -sinf(_player.angle)*_player.speed + _player.gravity;
@@ -400,6 +406,7 @@ void foxPlayer::foxState()
 
 	if (_state == FALL || _state == FALL2)
 	{
+		unDamage++;
 		_player.gravity = 0.f;
 		_player.gravity += 0.7f;
 		_player.y += _player.gravity;
@@ -682,6 +689,33 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			_player.y += 0.2f;
 		}
 	}
+	//플레이어 충돌렉트 top 픽셀 충돌
+	/*for (int i = _player.collisionRc.top + _player.speed; i > _player.collisionRc.top; --i)
+	{
+		COLORREF color = GetPixel(_bfx->getMemDC(), _player.x, i);
+
+		int r = GetRValue(color);
+		int g = GetGValue(color);
+		int b = GetBValue(color);
+
+		if (r == 0 && g == 255 && b == 255 && (_state != FALL || _state != FALL2 || _state == HIT || _player.isJump))
+		{
+
+			_player.y = i + nick[_state]->getFrameHeight() / 2;
+			//_player.gravity = 0.f;
+			//_player.isJump = false;
+			//_state = IDLE;
+			if (_state == FALL)
+			{
+				_state = IDLE;
+			}
+			break;
+		}
+		else //if (!(r == 0 && g == 255 && b == 255) && !_player.isJump)
+		{
+			_player.y += 0.2f;
+		}
+	}*/
 
 	//플레이어 렉트 right 픽셀 충돌
 	for (int i = _player.collisionRc.right - _player.speed; i < _player.collisionRc.right; i++)
