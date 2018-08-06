@@ -24,6 +24,7 @@ class enemyManager : public gameNode
 private:
 	foxPlayer * _player;
 	itemManager* _iMG;
+	image* _tongue;
 
 	factory* _factory;
 	vector<enemy*> _vEnemy;	// ÀÏ¹İ Àû

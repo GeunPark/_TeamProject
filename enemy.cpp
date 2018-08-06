@@ -322,6 +322,7 @@ void plantFrog::init()
 	_bronze = 0;
 	_moveCount = 0;
 	isJump = false;
+	isTongue = false;
 }
 
 void plantFrog::idle()
@@ -332,6 +333,9 @@ void plantFrog::spawn()
 {
 	_animationSpeed = 20.f;
 
+	_attRc = RectMake(_x, _y + 18, 0, 9);
+
+	isTongue = false;
 	if (isJump)
 	{
 		_gravity += 0.02f;
@@ -378,9 +382,40 @@ void plantFrog::spawn()
 void plantFrog::attack()
 {
 
-	_animationSpeed = 5.f;
+	if (_isLeft)
+	{
+		_attRc = RectMake(_x-60, _y + 18, 0, 9);
+		_animationSpeed = 5.f;
 
+		if (_indexX == 7)
+		{
+			_attRc.left -= 170;
+			isTongue = true;
 
+		}
+		else
+		{
+			isTongue = false;
+
+		}
+	}
+	else
+	{
+		_attRc = RectMake(_x+30, _y + 18, 0, 9);
+		_animationSpeed = 5.f;
+
+		if (_indexX == 1)
+		{
+			_attRc.right += 170;
+			isTongue = true;
+
+		}
+		else
+		{
+			isTongue = false;
+
+		}
+	}
 
 
 
@@ -423,8 +458,11 @@ void plantFrog::move()
 {
 	_animationSpeed = 11.f;
 
+	_attRc = RectMake(_x, _y + 18, 0, 9);
+
 	isJump = true;
 
+	isTongue = false;
 
 	if (_count % 800 < 400 && _gravity == 0)
 	{

@@ -29,7 +29,7 @@ void loadingScene::SunSooImage()
 	_loading->loadFrameImage("두꺼비move", "resource/이선수/몬스터/두꺼비move.bmp", 1176, 288, 7, 2);
 	_loading->loadFrameImage("두꺼비attack", "resource/이선수/몬스터/두꺼비attack.bmp", 792, 288, 9, 2);
 	_loading->loadFrameImage("두꺼비dead", "resource/이선수/몬스터/두꺼비dead.bmp", 2442, 348, 11, 2);
-
+	_loading->loadFrameImage("두꺼비tongue", "resource/이선수/몬스터/두꺼비tongue.bmp", 200, 18, 1, 2);
 
 	//꼼장어
 	_loading->loadFrameImage("꼼장어spawn", "resource/이선수/몬스터/꼼장어spawn.bmp", 810, 60, 6, 1);

@@ -11,6 +11,7 @@ HRESULT enemyManager::init(void)
 
 	_factory = new enemyFactory;
 
+
 	//INIDATA로 바꿀것
 	//일단은
 
@@ -105,6 +106,7 @@ HRESULT enemyManager::init(void)
 
 
 	isAttack = 0;
+	_tongue = IMAGEMANAGER->findImage("두꺼비tongue");
 
 	return S_OK;
 }
@@ -236,6 +238,13 @@ void enemyManager::render(void)
 		_vEnemy[i]->getBodyImage()->frameRender(getMemDC(), _vEnemy[i]->getRc().left - _player->getPlayerCam().left, _vEnemy[i]->getRc().top - _player->getPlayerCam().top, _vEnemy[i]->getIndexX(), _vEnemy[i]->getIndexY());
 		//카메라 메니져 대신 렌더넣기 
 
+		if (_vEnemy[i]->getType() == PLANTFROG)
+		{
+			if (_vEnemy[i]->getIsTongue())
+			{
+				_tongue->frameRender(getMemDC(), _vEnemy[i]->getAttRc().left - _player->getPlayerCam().left, _vEnemy[i]->getAttRc().top - _player->getPlayerCam().top, _tongue->getFrameX(), _vEnemy[i]->getIndexY());
+			}
+		}
 	
 		//switch (_vEnemy[i]->getType())
 		//{
