@@ -36,6 +36,7 @@ protected:
 	ENEMY_TYPE _type;
 	ENEMY_STATE _state;
 	image* _bodyImage[5];
+	image* _bfx;
 	float _x, _y;
 	float _speed;
 	float _angle;
@@ -54,6 +55,10 @@ protected:
 	int _silver;
 	int _bronze;
 
+	//µÎ²¨ºñ
+	bool isJump;
+
+
 public:
 	virtual void init() = 0;
 	virtual void update();
@@ -62,6 +67,10 @@ public:
 	virtual void attack() = 0;
 	virtual void move() = 0;
 	virtual void dead() = 0;
+
+	void pixelCollision();
+
+
 
 	ENEMY_STATE getState() { return _state; }
 	ENEMY_TYPE getType() { return _type; }
@@ -87,9 +96,10 @@ public:
 	void setState(ENEMY_STATE state) { _state = state; }
 	void setX(float x) { _x = x; }
 	void setY(float y) { _y = y; }
+	void setIndexX(int x) { _indexX = x; }
 	void setPosition(float x, float y) { _x = x, _y = y; }
 	void setIsLeft(bool isLeft) { _isLeft = isLeft; }
-
+	
 
 	int getGold() { return _gold; }
 	int getSilver() { return _silver; }
@@ -102,86 +112,94 @@ class dragonFly : public enemy
 {
 	//image* _gunImage[1];
 private:
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 	//image * getGunImage() { return _gunImage[0]; }
 };
 
 class vineMan : public enemy
 {
 private:
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 };
 
 class bug : public enemy
 {
 private:
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 };
 
 class treeMan : public enemy
 {
 private:
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 };
 
 class plantFrog : public enemy
 {
 private:
+	int _moveCount;
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 };
 
 class electriceel : public enemy
 {
 private:
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 };
 
 class ghost : public enemy
 {
 private:
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 };
 
 

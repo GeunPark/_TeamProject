@@ -13,6 +13,7 @@ void dragonFly::init()
 	_bodyImage[ENEMY_WALK]= IMAGEMANAGER->findImage("잠자리move");
 	//_bodyImage[ENEMY_FIRE]= IMAGEMANAGER->findImage("잠자리move");
 	_bodyImage[ENEMY_DEAD]= IMAGEMANAGER->findImage("잠자리dead");
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
 
 
 	//_gunImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("총평상시");
@@ -84,7 +85,11 @@ void vineMan::init()
 {
 	_bodyImage[ENEMY_SPAWN] = IMAGEMANAGER->findImage("나무인간spawn");
 	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("나무인간move");
+	_bodyImage[ENEMY_ATTACK] = IMAGEMANAGER->findImage("나무인간attack");
 	_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("나무인간dead");
+
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+
 	_speed = 3.f;
 	_angle = 270.f * 3.14f / 180;
 	_gravity = 0.f;
@@ -122,7 +127,8 @@ void vineMan::spawn()
 
 void vineMan::attack()
 {
-	_collisionRc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth() * 2 / 3, _bodyImage[_state]->getFrameHeight());
+	
+	_collisionRc = RectMakeCenter(_x, _y, _bodyImage[ENEMY_WALK]->getFrameWidth() * 2 / 3, _bodyImage[ENEMY_WALK]->getFrameHeight());
 
 }
 
@@ -131,12 +137,17 @@ void vineMan::move()
 	if (_count % 200 < 100)
 	{
 		_x -= 1;
+		_isLeft = true;
 	}
 	else if (_count % 200 <= 200)
 	{
 		_x += 1;
+		_isLeft = false;
 	}
-	_collisionRc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth() * 2 / 3, _bodyImage[_state]->getFrameHeight());
+
+	_gravity += 3.0f;
+	_y += _gravity;
+	_collisionRc = RectMakeCenter(_x, _y, _bodyImage[ENEMY_WALK]->getFrameWidth() * 2 / 3, _bodyImage[ENEMY_WALK]->getFrameHeight());
 
 }
 
@@ -150,6 +161,9 @@ void bug::init()
 	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("버그spawn");
 	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("버그move");
 	_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("버그dead");
+
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+
 	_speed = 3.f;
 	_angle = 270.f * 3.14f / 180;
 	_gravity = 0.f;
@@ -183,11 +197,15 @@ void bug::move()
 	if (_count % 200 < 100)
 	{
 		_x -= 1;
+		_isLeft = true;
 	}
 	else if (_count % 200 <= 200)
 	{
 		_x += 1;
+		_isLeft = false;
 	}
+	_collisionRc = RectMakeCenter(_x, _y, _bodyImage[ENEMY_WALK]->getFrameWidth(), _bodyImage[ENEMY_WALK]->getFrameHeight());
+
 }
 
 void bug::dead()
@@ -199,6 +217,9 @@ void treeMan::init()
 	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("버그spawn");
 	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("통나무move");
 	_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("통나무dead");
+
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+
 	_speed = 3.f;
 	_angle = 270.f * 3.14f / 180;
 	_gravity = 0.f;
@@ -232,11 +253,15 @@ void treeMan::move()
 	if (_count % 200 < 100)
 	{
 		_x -= 1;
+		_isLeft = true;
 	}
 	else if (_count % 200 <= 200)
 	{
 		_x += 1;
+		_isLeft = false;
 	}
+	_collisionRc = RectMakeCenter(_x, _y, _bodyImage[ENEMY_WALK]->getFrameWidth(), _bodyImage[ENEMY_WALK]->getFrameHeight());
+
 }
 
 void treeMan::dead()
@@ -246,14 +271,18 @@ void treeMan::dead()
 void plantFrog::init()
 {
 	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("버그spawn");
+	_bodyImage[ENEMY_SPAWN] = IMAGEMANAGER->findImage("두꺼비spawn");
 	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("두꺼비move");
-	_bodyImage[ENEMY_FIRE] = IMAGEMANAGER->findImage("두꺼비attack");
+	_bodyImage[ENEMY_ATTACK] = IMAGEMANAGER->findImage("두꺼비attack");
 	_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("두꺼비dead");
-	_speed = 3.f;
-	_angle = PI/2;
+
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+
+	_speed = 5.f;
+	_angle = PI/4;
 	_gravity = 0.f;
 	_count = 0, _indexX = 0;
-	_animationSpeed = 3.f;
+	_animationSpeed = 11.f;
 	_isActived = true;
 	_state = ENEMY_WALK;
 	_type = PLANTFROG;
@@ -263,6 +292,8 @@ void plantFrog::init()
 	_gold = 1;
 	_silver = 1;
 	_bronze = 0;
+	_moveCount = 0;
+	isJump = false;
 }
 
 void plantFrog::idle()
@@ -271,23 +302,170 @@ void plantFrog::idle()
 
 void plantFrog::spawn()
 {
+	_animationSpeed = 20.f;
+
+	if (isJump)
+	{
+		_gravity += 0.02f;
+
+	}
+
+	_y += _gravity;
+
+
+
+
+	
+	if (_count % 800 < 400 && _gravity == 0)
+	{
+		_isLeft = true;
+	}
+	else if (_count % 800 <= 800 && _gravity == 0)
+	{
+		_isLeft = false;
+	}
+
+	if (_isLeft)
+	{
+		if (_indexX == _bodyImage[_state]->getMaxFrameX())
+		{
+			_state = ENEMY_WALK;
+			_indexX = 0;
+		}
+		
+	}
+	else
+	{
+		if (_indexX == 0)
+		{
+			_state = ENEMY_WALK;
+			_indexX = _bodyImage[_state]->getMaxFrameX();
+		}
+
+	}
+
 
 }
 
 void plantFrog::attack()
 {
+
+	_animationSpeed = 5.f;
+
+
+
+
+
+
+
+
+
+	if (isJump)
+	{
+		_gravity += 0.02f;
+	}
+
+	_y += _gravity;
+
+
+
+
+
+	if (_isLeft)
+	{
+		if (_indexX == _bodyImage[_state]->getMaxFrameX())
+		{
+			_state = ENEMY_SPAWN;
+			_indexX = 0;
+
+		}
+	}
+	else
+	{
+		if (_indexX == 0)
+		{
+			_state = ENEMY_SPAWN;
+			_indexX = _bodyImage[_state]->getMaxFrameX();
+
+		}
+	}
+
+
+
 }
 
 void plantFrog::move()
 {
-	if (_count % 200 < 100)
+	_animationSpeed = 11.f;
+
+	isJump = true;
+
+	if (_count % 800 < 400 && _gravity == 0)
 	{
-		_x -= 1;
+		_isLeft = true;
 	}
-	else if (_count % 200 <= 200)
+	else if (_count % 800 <= 800 && _gravity == 0)
 	{
-		_x += 1;
+		_isLeft = false;
 	}
+
+	if (_isLeft)
+	{
+		if (_indexX == _bodyImage[_state]->getMaxFrameX())
+		{
+			_state = ENEMY_SPAWN;
+			_indexX = 0;
+
+		}
+	}
+	else
+	{
+		if (_indexX == 0)
+		{
+			_state = ENEMY_SPAWN;
+			_indexX = _bodyImage[_state]->getMaxFrameX();
+
+		}
+	}
+
+	_gravity = 0;
+	_gravity += 0.02f;
+
+	if (_isLeft)
+	{
+		_x -= cosf(_angle)*_speed;
+
+		if (_indexX < 3)
+		{
+			_y += -sinf(_angle)*_speed + _gravity;
+		}
+		else
+		{
+			_y += sinf(_angle)*_speed + _gravity;
+		}
+	}
+	else
+	{
+		_x += cosf(_angle)*_speed;
+
+		if (_indexX > 3)
+		{
+			_y += -sinf(_angle)*_speed + _gravity;
+
+		}
+		else
+		{
+			_y += sinf(_angle)*_speed + _gravity;
+
+		}
+	}
+	
+
+
+
+
+	_collisionRc = RectMakeCenter(_x, _y, _bodyImage[ENEMY_WALK]->getFrameWidth()*2/3, _bodyImage[ENEMY_WALK]->getFrameHeight()/2);
+
 }
 
 void plantFrog::dead()
@@ -300,6 +478,9 @@ void electriceel::init()
 	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("꼼장어move");
 	//_bodyImage[ENEMY_FIRE] = IMAGEMANAGER->findImage("두꺼비attack");
 	_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("꼼장어dead");
+
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+
 	_speed = 3.f;
 	_angle = PI / 2;
 	_gravity = 0.f;
@@ -377,6 +558,9 @@ void ghost::init()
 	_bodyImage[ENEMY_SPAWN] = IMAGEMANAGER->findImage("유령spawn");
 	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("유령spawn");
 	_bodyImage[ENEMY_ATTACK] = IMAGEMANAGER->findImage("유령attack");
+
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+
 	_speed = 3.f;
 	_angle = PI / 2;
 	_gravity = 0.f;
@@ -422,6 +606,31 @@ void enemy::update()
 	_count++;
 
 
+	if (_count % _animationSpeed == 0)
+	{
+		if (_isLeft)
+		{
+			_indexX++;
+			if (_indexX > _bodyImage[_state]->getMaxFrameX())
+			{
+				_indexX = 0;
+			}
+		}
+		else
+		{
+			_indexX--;
+			if (_indexX <0)
+			{
+				_indexX = _bodyImage[_state]->getMaxFrameX();
+				
+			}
+		}
+
+		_bodyImage[_state]->setFrameX(_indexX);
+
+	}
+
+
 	switch (_state)
 	{
 	case ENEMY_IDLE:
@@ -433,7 +642,7 @@ void enemy::update()
 	case ENEMY_WALK:
 		move();
 		break;
-	case ENEMY_FIRE:
+	case ENEMY_ATTACK:
 		attack();
 		break;
 	case ENEMY_DEAD:
@@ -453,31 +662,6 @@ void enemy::update()
 	//_y += _gravity;
 
 
-	if (_count % _animationSpeed == 0)
-	{
-		if (_isLeft)
-		{
-			_indexX++;
-			if (_indexX > _bodyImage[_state]->getMaxFrameX())
-			{
-				_indexX = 0;
-			}
-		}
-		else
-		{
-			_indexX--;
-			if (_indexX <0)
-			{
-				_indexX = _bodyImage[_state]->getMaxFrameX();
-			}
-		}
-
-		_bodyImage[_state]->setFrameX(_indexX);
-
-	}
-
-
-
 	if (_isLeft)
 	{
 		_indexY = 0;
@@ -488,8 +672,10 @@ void enemy::update()
 	}
 
 	_rc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth(), _bodyImage[_state]->getFrameHeight());
-	_sensorRc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth() * 5, _bodyImage[_state]->getFrameHeight());
+	_sensorRc = RectMakeCenter(_x, _y, _bodyImage[ENEMY_WALK]->getFrameWidth() * 3, _bodyImage[ENEMY_WALK]->getFrameHeight());
 
+
+	this->pixelCollision();
 
 	//if (COLLISIONMANAGER->pixelCollision(RectMake(_x, _y, _bodyImage[_state]->getFrameWidth(), _bodyImage[_state]->getFrameHeight()), _x, _y, _speed, _gravity, ENEMY_BOTTOM))
 	//{
@@ -497,6 +683,26 @@ void enemy::update()
 	//}
 	//
 	//FRAMEMANAGER->frameChange(_bodyImage[_state], _count, _index, _animationSpeed, _isLeft);
+}
+
+void enemy::pixelCollision()
+{
+	for (int j = _rc.bottom - 4; j < _rc.bottom; j += 2)
+	{
+		COLORREF color = GetPixel(_bfx->getMemDC(), _x, j);
+		int r = GetRValue(color);
+		int g = GetGValue(color);
+		int b = GetBValue(color);
+
+		if ((r == 0 && g == 255 && b == 255))
+		{
+			_y = j - _bodyImage[_state]->getFrameHeight() / 2;
+			_gravity = 0;
+			isJump = false;
+
+			break;
+		}
+	}
 }
 
 
