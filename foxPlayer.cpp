@@ -170,11 +170,11 @@ void foxPlayer::render()
 	Rectangle(getMemDC(), attRc2.left - _camera.rc.left, attRc2.top - _camera.rc.top, attRc2.right - _camera.rc.left, attRc2.bottom - _camera.rc.top);
 	nick[_state]->frameRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, nick[_state]->getFrameX(), nick[_state]->getFrameY());
 
-	if (_player.isChange)
+	/*if (_player.isChange)
 	{
 		Rectangle(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, twinkleRc.right - _camera.rc.left, twinkleRc.bottom - _camera.rc.top);
 		_twinkle->frameRender(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, _twinkle->getFrameX(), _twinkle->getFrameY());
-	}
+	}*/
 	
 	//Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
 	//Rectangle(getMemDC(), attRc2.left - _camera.rc.left, attRc2.top - _camera.rc.top, attRc2.right - _camera.rc.left, attRc2.bottom - _camera.rc.top);
@@ -620,6 +620,8 @@ void foxPlayer::keySetting()
 	if (_state == IDLE && KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		_player.isLeft = true;
+		_player.isRight = false;
+
 		_player.arrowAngle = PI;
 		//_player.arrowAngle2 = PI / 4;
 		//_player.arrowAngle3 = PI / 3;
@@ -627,6 +629,8 @@ void foxPlayer::keySetting()
 	}
 	if (_player.isJump == false && _state != HIT && KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
+		//_player.isLeft = false;
+
 		_state = IDLE;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_UP))
@@ -715,6 +719,11 @@ void foxPlayer::keySetting()
 		}
 		_player.isChange = true;
 		_state = WEATHER;
+		if (_player.isChange)
+		{
+			Rectangle(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, twinkleRc.right - _camera.rc.left, twinkleRc.bottom - _camera.rc.top);
+			_twinkle->frameRender(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, _twinkle->getFrameX(), _twinkle->getFrameY());
+		}
 	}
 
 	/*if (KEYMANAGER->isOnceKeyDown('S'))
@@ -772,13 +781,24 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			}
 			break; 
 		}
+		else if (r == 255 && g == 255 && b == 0)
+		{
+			_player.y = i - nick[_state]->getFrameHeight() / 2;
+			_player.gravity = 0.f;
+			_player.isJump = false;
+			if (_state == FALL)
+			{
+				_state = IDLE;
+			}
+			break;
+		}
 		else //if (!(r == 0 && g == 255 && b == 255) && !_player.isJump)
 		{
 			_player.y += 0.2f;
 		}
 	}
 	//플레이어 충돌렉트 top 픽셀 충돌
-	for (int i = _player.collisionRc.top + _player.speed; i > _player.collisionRc.top; --i)
+	for (int i = _player.collisionRc.top + _player.speed; i > _player.collisionRc.top + 5; --i)
 	{
 		COLORREF color = GetPixel(_bfx->getMemDC(), _player.x, i);
 
@@ -786,9 +806,9 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 		int g = GetGValue(color);
 		int b = GetBValue(color);
 
-		if (r == 0 && g == 255 && b == 255 && (_state != FALL || _state != FALL2 || _state == HIT ||  _state == RUN||_player.isJump))
+		if (r == 0 && g == 255 && b == 255 && (_state != FALL || _state != FALL2 || _state == HIT ||  _state == RUN || _player.isJump))
 		{
-			_player.y = i + (_player.collisionRc.bottom - _player.collisionRc.top) / 2;
+			_player.y = i + (_player.collisionRc.bottom - _player.collisionRc.top) / 2 + 15;
 			_state = FALL;
 			//_player.speed = 0.f;
 			_player.gravity += 0.7f;
@@ -815,6 +835,13 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			
 			break;
 		}
+		if (r == 255 && g == 255 && b == 0)
+		{
+			_player.x = i - (_player.collisionRc.right - _player.collisionRc.left) / 2;
+			_player.isRight = false;
+
+			break;
+		}
 
 	}
 
@@ -831,6 +858,11 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 		{
 			_player.x = i + (_player.collisionRc.right - _player.collisionRc.left) / 2;
 			//_player.isLeft = false;			//여기 문제있음
+			break;
+		}
+		if (r == 255 && g == 255 && b == 0)
+		{
+			_player.x = i + (_player.collisionRc.right - _player.collisionRc.left) / 2;
 			break;
 		}
 	}
@@ -882,7 +914,7 @@ void foxPlayer::enemyCollision()
 		RECT tempRc;
 		if (unDamage > 15)
 		{
-			if (IntersectRect(&tempRc, &_player.collisionRc, &_enemyManger->getEnemy()[i]->getRc()) && _enemyManger->getEnemy()[i]->getState() != ENEMY_SPAWN && _state != HIT)
+			if (IntersectRect(&tempRc, &_player.collisionRc, &_enemyManger->getEnemy()[i]->getCollisionRc()) && _enemyManger->getEnemy()[i]->getState() != ENEMY_SPAWN && _state != HIT)
 			{
 				if (chk == false)
 				{
@@ -892,22 +924,22 @@ void foxPlayer::enemyCollision()
 				int width = (tempRc.right - tempRc.left) + 50;
 				int height = (tempRc.bottom - tempRc.top) + 50;
 
-				if (_player.x < _enemyManger->getEnemy()[i]->getRc().left)
+				if (_player.x < _enemyManger->getEnemy()[i]->getCollisionRc().left)
 				{
 					_player.x -= width;
 					_player.y -= height;
 				}
-				else if (_player.x > _enemyManger->getEnemy()[i]->getRc().right)
+				else if (_player.x > _enemyManger->getEnemy()[i]->getCollisionRc().right)
 				{
 					_player.x += width;
 					_player.y += height;
 				}
-				else if (_player.y < _enemyManger->getEnemy()[i]->getRc().top)
+				else if (_player.y < _enemyManger->getEnemy()[i]->getCollisionRc().top)
 				{
 					_player.x -= width;
 					_player.y -= height;
 				}
-				else if (_player.y > _enemyManger->getEnemy()[i]->getRc().bottom)
+				else if (_player.y > _enemyManger->getEnemy()[i]->getCollisionRc().bottom)
 				{
 					_player.x += width;
 					_player.y += height;
