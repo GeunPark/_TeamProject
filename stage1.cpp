@@ -116,7 +116,7 @@ void stage1::update(void)
 		else if (_state == SUMMER)_state = WINTER;
 	}
 
-	if (_state == WINTER && _a < WINSIZEX)_a+= 30;
+	if (_state == WINTER && _a != WINSIZEX)_a+= 32;
 	if (_state == SUMMER)_a = 0;
 	this->bgMove();
 

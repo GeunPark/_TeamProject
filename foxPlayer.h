@@ -53,6 +53,7 @@ struct tagPlayer
 	float maxMana;
 	int HP;
 	int MaxHp;
+	int gold;
 };
 
 struct tagCam
@@ -75,8 +76,6 @@ private:
 	arrow* _arrow;
 	UI * _ui;
 
-
-
 	image* nick[MAX_STATE];
 	image* _bfx;
 	image* _twinkle;
@@ -89,7 +88,8 @@ private:
 	//image* _bpx2;
 	int hitCount;
 	int unDamage;
-
+	
+	bool chk = false;
 public:
 	HRESULT init(void);
 	void release(void);
@@ -117,15 +117,21 @@ public:
 	RECT getAttRc() { return attRc; }
 	RECT getAttRc2() { return attRc2; }
 
+	// 플레이어 마나
 	float getMana() { return _player.mana; }
 	float getMaxMana() { return _player.maxMana; }
 
 	// 플레이어 HP
+	void setHp(int hp) { _player.HP = hp; }
 	int getHp() { return _player.HP; }
 	int getMaxHp() { return _player.MaxHp; }
 
+	// 플레이어 골드
+	int getGold() { return _player.gold; }
+
 	//에너미매니저와 상호참조
 	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
+	void setUIManager(UI* ui) { _ui = ui; }
 
 	tagPlayer getTag() { return _player; }
 
@@ -139,7 +145,8 @@ public:
 	RECT getCollisionRc() { return _player.collisionRc; }
 	//tagCam getCamera(tagCam camera) { return _camera; }
 
-	void setUIManager(UI* ui) { _ui = ui; }
+	// 테스트 함수
+	void test();
 
 	foxPlayer() {}
 	~foxPlayer() {}
