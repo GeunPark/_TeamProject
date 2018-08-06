@@ -52,12 +52,12 @@ HRESULT enemyManager::init(void)
 	//_plantFrogPos[3].x = 190.f; _plantFrogPos[3].y = 2400.f;
 
 	//꼼장어
-	_electriceelPos[0].x = 3240.f; _electriceelPos[0].y = 2410.f;
-	_electriceelPos[1].x = 6230.f; _electriceelPos[1].y = 2410.f;
+	_electriceelPos[0].x = 3240.f; _electriceelPos[0].y = 2470.f;
+	_electriceelPos[1].x = 6230.f; _electriceelPos[1].y = 2470.f;
 	//_electriceelPos[2].x = 130.f; _electriceelPos[2].y = 2300.f;
 	//_electriceelPos[3].x = 190.f; _electriceelPos[3].y = 2300.f;
 
-	_itemX, _itemY = 0;
+	_itemX, _itemY, _num = 0;
 
 	for (int i = 0; i < MAX_DRAGONFLY; i++)
 	{
@@ -102,12 +102,7 @@ HRESULT enemyManager::init(void)
 		_vEnemy.push_back(_enemy);
 	}
 
-	for (int i = 0; i < 1; ++i)
-	{
-		enemy* _ghost = _factory->createEnemy(GHOST);
-		_ghost->setPosition(_itemX, _itemY);
-		_vGhost.push_back(_ghost);
-	}
+
 
 
 	return S_OK;
@@ -122,29 +117,35 @@ void enemyManager::update(void)
 {
 	for (int i = 0; i < _vEnemy.size(); i++)
 	{
-		if (_vEnemy[i]->getX() > _player->getX())
+		if (_vEnemy[i]->getType() != ELECTRICEEL)
 		{
-			_vEnemy[i]->setIsLeft(true);
+			if (_vEnemy[i]->getX() > _player->getX())
+			{
+				_vEnemy[i]->setIsLeft(true);
+			}
+			else
+			{
+				_vEnemy[i]->setIsLeft(false);
+			}
 		}
-		else
-		{
-			_vEnemy[i]->setIsLeft(false);
-		}
+
 
 		_vEnemy[i]->update();
 	}
 
+	this->appearGhost();
+
 
 	for (int i = 0; i < _vGhost.size(); i++)
 	{
-		if (_vGhost[i]->getX() > _player->getX())
-		{
-			_vGhost[i]->setIsLeft(true);
-		}
-		else
-		{
-			_vGhost[i]->setIsLeft(false);
-		}
+		//if (_vGhost[i]->getX() > _player->getX())
+		//{
+		//	_vGhost[i]->setIsLeft(true);
+		//}
+		//else
+		//{
+		//	_vGhost[i]->setIsLeft(false);
+		//}
 
 		_vGhost[i]->update();
 	}
@@ -177,7 +178,7 @@ void enemyManager::update(void)
 		{
 			RECT _rct;
 
-			if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getArrow()->getVArrow()[j].rc))
+			if (IntersectRect(&_rct, &_vEnemy[i]->getCollisionRc(), &_player->getArrow()->getVArrow()[j].rc))
 			{
 				//_vEnemy[i]->setState(ENEMY_DEAD);
 				_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
@@ -203,12 +204,19 @@ void enemyManager::render(void)
 {
 	for (int i = 0; i < _vEnemy.size(); i++)
 	{
+
+		if (KEYMANAGER->isToggleKey(VK_F1))
+		{
+			Rectangle(getMemDC(), _vEnemy[i]->getSensorRc().left - _player->getPlayerCam().left, _vEnemy[i]->getSensorRc().top - _player->getPlayerCam().top, _vEnemy[i]->getSensorRc().right - _player->getPlayerCam().left, _vEnemy[i]->getSensorRc().bottom - _player->getPlayerCam().top);
+			Rectangle(getMemDC(), _vEnemy[i]->getCollisionRc().left - _player->getPlayerCam().left, _vEnemy[i]->getCollisionRc().top - _player->getPlayerCam().top, _vEnemy[i]->getCollisionRc().right - _player->getPlayerCam().left, _vEnemy[i]->getCollisionRc().bottom - _player->getPlayerCam().top);
+		}
+
 		if (!_vEnemy[i]->getIsActived()) continue;
 
 		_vEnemy[i]->getBodyImage()->frameRender(getMemDC(), _vEnemy[i]->getRc().left - _player->getPlayerCam().left, _vEnemy[i]->getRc().top - _player->getPlayerCam().top, _vEnemy[i]->getIndexX(), _vEnemy[i]->getIndexY());
 		//카메라 메니져 대신 렌더넣기 
 
-
+	
 		//switch (_vEnemy[i]->getType())
 		//{
 		//case SOLDIER:
@@ -226,7 +234,7 @@ void enemyManager::render(void)
 	{
 	
 
-		_vGhost[i]->getBodyImage()->frameRender(getMemDC(), _vGhost[i]->getRc().left - _player->getPlayerCam().left, _vGhost[i]->getRc().top - _player->getPlayerCam().top, _vGhost[i]->getIndexX(), _vGhost[i]->getIndexY());
+		_vGhost[i]->getBodyImage()->frameRender(getMemDC(), _vGhost[i]->getRc().left - _player->getPlayerCam().left, _vGhost[i]->getRc().top - _player->getPlayerCam().top, _vGhost[i]->getBodyImage()->getFrameX(), _vGhost[i]->getBodyImage()->getFrameY());
 
 	}
 	//char str[64];
@@ -237,188 +245,20 @@ void enemyManager::render(void)
 	//}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void enemyManager::appearGhost()
+{
+	for (int i = 0; i < _num; ++i)
+	{
+		enemy* _ghost = _factory->createEnemy(GHOST);
+		_ghost->setPosition(_itemX, _itemY-50);
+		_vGhost.push_back(_ghost);
+	}
+
+	_itemX = 0;
+	_itemY = 0;
+	_num = 0;
+
+}
 
 
 

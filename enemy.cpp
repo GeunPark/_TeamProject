@@ -17,7 +17,7 @@ void dragonFly::init()
 
 	//_gunImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("ÃÑÆò»ó½Ã");
 	_speed = 3.f;
-	_angle = 270.f * 3.14f / 180;
+	_angle = 0;
 	_gravity = 0.f;
 	_count = 0, _indexX = 0;
 	_animationSpeed = 5.f;
@@ -42,6 +42,16 @@ void dragonFly::idle()
 
 void dragonFly::spawn()
 {
+	if (_isLeft)
+	{
+		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+			_state = ENEMY_WALK;
+	}
+	else
+	{
+		if (_indexX <= 0)
+			_state = ENEMY_WALK;
+	}
 }
 
 void dragonFly::attack()
@@ -50,7 +60,19 @@ void dragonFly::attack()
 
 void dragonFly::move()
 {
-	
+	if (_count % 100 < 50)
+	{
+		_y -= 1;
+	}
+	else if (_count % 100 <= 100)
+	{
+		_y += 1;
+	}
+	_angle += 0.08f;
+	_y += -sinf(_angle)*_speed;
+
+	_collisionRc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth() * 2 / 3, _bodyImage[_state]->getFrameHeight() * 2 / 3);
+
 }
 
 void dragonFly::dead()
@@ -86,14 +108,36 @@ void vineMan::idle()
 
 void vineMan::spawn()
 {
+	if (_isLeft)
+	{
+		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+			_state = ENEMY_WALK;
+	}
+	else
+	{
+		if (_indexX <= 0)
+			_state = ENEMY_WALK;
+	}
 }
 
 void vineMan::attack()
 {
+	_collisionRc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth() * 2 / 3, _bodyImage[_state]->getFrameHeight());
+
 }
 
 void vineMan::move()
 {
+	if (_count % 200 < 100)
+	{
+		_x -= 1;
+	}
+	else if (_count % 200 <= 200)
+	{
+		_x += 1;
+	}
+	_collisionRc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth() * 2 / 3, _bodyImage[_state]->getFrameHeight());
+
 }
 
 void vineMan::dead()
@@ -136,6 +180,14 @@ void bug::attack()
 
 void bug::move()
 {
+	if (_count % 200 < 100)
+	{
+		_x -= 1;
+	}
+	else if (_count % 200 <= 200)
+	{
+		_x += 1;
+	}
 }
 
 void bug::dead()
@@ -177,6 +229,14 @@ void treeMan::attack()
 
 void treeMan::move()
 {
+	if (_count % 200 < 100)
+	{
+		_x -= 1;
+	}
+	else if (_count % 200 <= 200)
+	{
+		_x += 1;
+	}
 }
 
 void treeMan::dead()
@@ -211,6 +271,7 @@ void plantFrog::idle()
 
 void plantFrog::spawn()
 {
+
 }
 
 void plantFrog::attack()
@@ -219,6 +280,14 @@ void plantFrog::attack()
 
 void plantFrog::move()
 {
+	if (_count % 200 < 100)
+	{
+		_x -= 1;
+	}
+	else if (_count % 200 <= 200)
+	{
+		_x += 1;
+	}
 }
 
 void plantFrog::dead()
@@ -227,7 +296,7 @@ void plantFrog::dead()
 
 void electriceel::init()
 {
-	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("¹ö±×spawn");
+	_bodyImage[ENEMY_SPAWN] = IMAGEMANAGER->findImage("²ÄÀå¾îspawn");
 	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("²ÄÀå¾îmove");
 	//_bodyImage[ENEMY_FIRE] = IMAGEMANAGER->findImage("µÎ²¨ºñattack");
 	_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("²ÄÀå¾îdead");
@@ -235,13 +304,13 @@ void electriceel::init()
 	_angle = PI / 2;
 	_gravity = 0.f;
 	_count = 0, _indexX = 0;
-	_animationSpeed = 3.f;
+	_animationSpeed = 4.f;
 	_isActived = true;
-	_state = ENEMY_WALK;
+	_state = ENEMY_SPAWN;
 	_type = ELECTRICEEL;
 	_x = 3480.f;
 	_y = 900.f;
-	_isLeft = false;
+	_isLeft = true;
 	_gold = 0;
 	_silver = 1;
 	_bronze = 1;
@@ -253,6 +322,19 @@ void electriceel::idle()
 
 void electriceel::spawn()
 {
+	if (_isLeft)
+	{
+		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+			_state = ENEMY_WALK;
+	}
+	else
+	{
+		if (_indexX <= 0)
+			_state = ENEMY_WALK;
+	}
+
+	_collisionRc = RectMakeCenter(_x, _y + 50, _bodyImage[_state]->getFrameWidth() * 2 / 3, _bodyImage[_state]->getFrameHeight() / 2);
+
 }
 
 void electriceel::attack()
@@ -261,6 +343,27 @@ void electriceel::attack()
 
 void electriceel::move()
 {
+
+	if (_indexX >= 7 && _indexX <= 11)
+	{
+		_y -= 7;
+	}
+	else if (_indexX >= 21 && _indexX <= 25)
+	{
+		_y += 8.05f;
+
+	}
+
+	if (_indexX == 25)
+	{
+		_indexX = 0;
+		_animationSpeed = 3.0f;
+		_state = ENEMY_SPAWN;
+	}
+
+
+
+	_collisionRc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth() * 2 / 3, _bodyImage[_state]->getFrameHeight() / 2);
 }
 
 void electriceel::dead()
@@ -352,17 +455,28 @@ void enemy::update()
 
 	if (_count % _animationSpeed == 0)
 	{
-		_indexX++;
-		if (_indexX > _bodyImage[_state]->getMaxFrameX())
+		if (_isLeft)
 		{
-			if (_state != ENEMY_DEAD)
-				_state = ENEMY_WALK;
-			_indexX = 0;
+			_indexX++;
+			if (_indexX > _bodyImage[_state]->getMaxFrameX())
+			{
+				_indexX = 0;
+			}
 		}
+		else
+		{
+			_indexX--;
+			if (_indexX <0)
+			{
+				_indexX = _bodyImage[_state]->getMaxFrameX();
+			}
+		}
+
 		_bodyImage[_state]->setFrameX(_indexX);
 
-		
 	}
+
+
 
 	if (_isLeft)
 	{
@@ -374,6 +488,7 @@ void enemy::update()
 	}
 
 	_rc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth(), _bodyImage[_state]->getFrameHeight());
+	_sensorRc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth() * 5, _bodyImage[_state]->getFrameHeight());
 
 
 	//if (COLLISIONMANAGER->pixelCollision(RectMake(_x, _y, _bodyImage[_state]->getFrameWidth(), _bodyImage[_state]->getFrameHeight()), _x, _y, _speed, _gravity, ENEMY_BOTTOM))

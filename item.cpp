@@ -169,7 +169,7 @@ void goldCoin::init()
 	_image = new image;
 	_image = IMAGEMANAGER->findImage("금화");
 	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
-	_speed = 5.f;
+	_speed = 5.4f;
 	_angle = PI/2;
 	_gravity = 0.f;
 	_count = 0, _index = 0;
@@ -193,7 +193,7 @@ void silverCoin::init()
 	_image = new image;
 	_image = IMAGEMANAGER->findImage("은화");
 	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
-	_speed = 5.f;
+	_speed = 5.3f;
 	_angle = PI * 73 /150;
 	_gravity = 0.f;
 	_count = 0, _index = 0;
@@ -207,7 +207,7 @@ void silverCoin::init()
 void silverCoin::move()
 {
 	if (_speed != 0)
-		_gravity += 0.08f;
+		_gravity += 0.082f;
 	_x += cosf(_angle)*_speed;
 	_y += -sinf(_angle)*_speed + _gravity;
 }
@@ -217,7 +217,7 @@ void bronzeCoin::init()
 	_image = new image;
 	_image = IMAGEMANAGER->findImage("동화");
 	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
-	_speed = 5.f;
+	_speed = 5.2f;
 	_angle = PI * 77 / 150;
 	_gravity = 0.f;
 	_count = 0, _index = 0;
@@ -231,7 +231,7 @@ void bronzeCoin::init()
 void bronzeCoin::move()
 {
 	if (_speed != 0)
-		_gravity += 0.08f;
+		_gravity += 0.084f;
 	_x += cosf(_angle)*_speed;
 	_y += -sinf(_angle)*_speed + _gravity;
 }
