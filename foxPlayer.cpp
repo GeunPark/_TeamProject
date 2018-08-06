@@ -16,7 +16,7 @@ HRESULT foxPlayer::init(void)
 
 	_state = IDLE;
 	
-	_player.x = 100;
+	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 200;
 	_player.speed = 30.f;
 	_player.gravity = 0.f;
@@ -192,11 +192,15 @@ void foxPlayer::render()
 		//Rectangle(getMemDC(), _arrow->getArrow()[i].rc.left - _camera.rc.left, _arrow->getArrow()[i].rc.top - _camera.rc.top, _arrow->getArrow()[i].rc.right - _camera.rc.left, _arrow->getArrow()[i].rc.bottom - _camera.rc.top);
 		_arrow->getVArrow()[i].arrowImage->frameRender(getMemDC(), _arrow->getVArrow()[i].rc.left - _camera.rc.left, _arrow->getVArrow()[i].rc.top - _camera.rc.top);
 	}
-	
-	for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
+	if (KEYMANAGER->isToggleKey(VK_F1))
 	{
-		Rectangle(getMemDC(), _enemyManger->getEnemy()[i]->getRc().left - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().top - _camera.rc.top, _enemyManger->getEnemy()[i]->getRc().right - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().bottom - _camera.rc.top);
+
+		for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
+		{
+			Rectangle(getMemDC(), _enemyManger->getEnemy()[i]->getRc().left - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().top - _camera.rc.top, _enemyManger->getEnemy()[i]->getRc().right - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().bottom - _camera.rc.top);
+		}
 	}
+
 	char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d", _player.gravity, jumpCount,_state);
 	TextOut(getMemDC(), 100, 600, str,strlen(str));
@@ -643,11 +647,13 @@ void foxPlayer::keySetting()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 		{
+			SOUNDMANAGER->play("점프사운드");
 			++jumpCount;
 			_player.isJump = true;
 			_state = JUMP;
 			if (jumpCount >=2)
 			{
+				SOUNDMANAGER->play("2단점프사운드");
 				//jumpCount = 0;
 				_player.gravity = 0.f;
 				_state = DOUBLEJUMP;
@@ -665,12 +671,13 @@ void foxPlayer::keySetting()
 		{
 			_player.isAtt = true;
 			_state = JUMPATT;
+			SOUNDMANAGER->play("1단점프공격사운드");
 		}
 		else if (_state == DOUBLEJUMP)
 		{
 			_player.isAtt = true;
 			_state = JUMPATT2;
-
+			SOUNDMANAGER->play("2단점프공격사운드");
 		}
 		else if (_player.isUp)
 		{
@@ -678,6 +685,7 @@ void foxPlayer::keySetting()
 		}
 		else if (_state == IDLE)
 		{
+			SOUNDMANAGER->play("화살발사사운드");
 			_state = FIRE;
 			_arrow->fire(_player.x, _player.y + 30, _player.arrowAngle);
 			//_arrow->fire2(_player.x, _player.y + 30, _player.arrowAngle, _player.arrowAngle2, _player.arrowAngle3);

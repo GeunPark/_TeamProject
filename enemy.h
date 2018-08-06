@@ -36,6 +36,7 @@ protected:
 	ENEMY_TYPE _type;
 	ENEMY_STATE _state;
 	image* _bodyImage[5];
+	image* _bfx;
 	float _x, _y;
 	float _speed;
 	float _angle;
@@ -45,10 +46,18 @@ protected:
 	bool _isLeft;
 	bool _isActived;
 	RECT _rc;
+	RECT _collisionRc;
+	RECT _sensorRc;
+	RECT _attRc;
+
 	//ÄÚÀÎ
 	int _gold;
 	int _silver;
 	int _bronze;
+
+	//µÎ²¨ºñ
+	bool isJump;
+
 
 public:
 	virtual void init() = 0;
@@ -59,11 +68,20 @@ public:
 	virtual void move() = 0;
 	virtual void dead() = 0;
 
+	void pixelCollision();
+
+
+
 	ENEMY_STATE getState() { return _state; }
 	ENEMY_TYPE getType() { return _type; }
 	image* getBodyImage() { return _bodyImage[_state]; }
 	RECT getBoundingBox() { return RectMake(_x, _y, _bodyImage[_state]->getFrameWidth(), _bodyImage[_state]->getFrameHeight()); }
 	RECT getRc() { return _rc; }
+	RECT getCollisionRc() { return _collisionRc; }
+	RECT getSensorRc() { return _sensorRc; }
+	RECT getAttRc() { return _attRc; }
+
+
 	float getX() { return _x; }
 	float getY() { return _y; }
 	float getSpeed() { return _speed; }
@@ -78,9 +96,10 @@ public:
 	void setState(ENEMY_STATE state) { _state = state; }
 	void setX(float x) { _x = x; }
 	void setY(float y) { _y = y; }
+	void setIndexX(int x) { _indexX = x; }
 	void setPosition(float x, float y) { _x = x, _y = y; }
 	void setIsLeft(bool isLeft) { _isLeft = isLeft; }
-
+	
 
 	int getGold() { return _gold; }
 	int getSilver() { return _silver; }
@@ -93,86 +112,94 @@ class dragonFly : public enemy
 {
 	//image* _gunImage[1];
 private:
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 	//image * getGunImage() { return _gunImage[0]; }
 };
 
 class vineMan : public enemy
 {
 private:
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 };
 
 class bug : public enemy
 {
 private:
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 };
 
 class treeMan : public enemy
 {
 private:
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 };
 
 class plantFrog : public enemy
 {
 private:
+	int _moveCount;
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 };
 
 class electriceel : public enemy
 {
 private:
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 };
 
 class ghost : public enemy
 {
 private:
+
+public:
 	void init();
 	void idle();
 	void spawn();
 	void attack();
 	void move();
 	void dead();
-public:
 };
 
 
