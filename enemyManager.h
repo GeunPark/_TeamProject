@@ -40,6 +40,8 @@ private:
 	float _itemY;
 	int _num;
 
+	int isAttack;
+
 
 	//eBullet* _eBullet;			// ÃÑ¾Ë Å¬·¡½º
 public:
@@ -63,6 +65,7 @@ public:
 	void render(void);
 
 	void appearGhost();
+	void sensorCollision();
 
 
 	enemyManager() {}

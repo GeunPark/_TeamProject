@@ -25,7 +25,7 @@ HRESULT enemyManager::init(void)
 
 
 	//나무인간
-	_vineManPos[0].x = 1600.f; _vineManPos[0].y = 2240.f;
+	_vineManPos[0].x = 1600.f; _vineManPos[0].y = 2280.f;
 	_vineManPos[1].x = 3600.f; _vineManPos[1].y = 2350.f;
 	_vineManPos[2].x = 3900.f; _vineManPos[2].y = 2350.f;
 	_vineManPos[3].x = 5900.f; _vineManPos[3].y = 2350.f;
@@ -46,8 +46,8 @@ HRESULT enemyManager::init(void)
 
 
 	//두꺼비
-	_plantFrogPos[0].x = 7100.f; _plantFrogPos[0].y = 2350.f;
-	_plantFrogPos[1].x = 7200.f; _plantFrogPos[1].y = 2350.f;
+	_plantFrogPos[0].x = 4300.f; _plantFrogPos[0].y = 2350.f;
+	_plantFrogPos[1].x = 7500.f; _plantFrogPos[1].y = 2350.f;
 	//_plantFrogPos[2].x = 130.f; _plantFrogPos[2].y = 2400.f;
 	//_plantFrogPos[3].x = 190.f; _plantFrogPos[3].y = 2400.f;
 
@@ -104,6 +104,7 @@ HRESULT enemyManager::init(void)
 
 
 
+	isAttack = 0;
 
 	return S_OK;
 }
@@ -115,19 +116,22 @@ void enemyManager::release(void)
 
 void enemyManager::update(void)
 {
+
+	this->sensorCollision();
+
 	for (int i = 0; i < _vEnemy.size(); i++)
 	{
-		if (_vEnemy[i]->getType() != ELECTRICEEL)
-		{
-			if (_vEnemy[i]->getX() > _player->getX())
-			{
-				_vEnemy[i]->setIsLeft(true);
-			}
-			else
-			{
-				_vEnemy[i]->setIsLeft(false);
-			}
-		}
+		//if (_vEnemy[i]->getType() != ELECTRICEEL || _vEnemy[i]->getType() != PLANTFROG)
+		//{
+		//	if (_vEnemy[i]->getX() > _player->getX())
+		//	{
+		//		_vEnemy[i]->setIsLeft(true);
+		//	}
+		//	else
+		//	{
+		//		_vEnemy[i]->setIsLeft(false);
+		//	}
+		//}
 
 
 		_vEnemy[i]->update();
@@ -149,6 +153,9 @@ void enemyManager::update(void)
 
 		_vGhost[i]->update();
 	}
+
+
+
 
 
 	//에너미 충돌처리
@@ -259,6 +266,64 @@ void enemyManager::appearGhost()
 	_num = 0;
 
 }
+
+void enemyManager::sensorCollision()
+{
+	RECT rct;
+	for (int i = 0; i < _vEnemy.size(); i++)
+	{
+		if (_vEnemy[i]->getType() == VINEMAN)
+		{
+			if (IntersectRect(&rct, &_player->getCollisionRc(), &_vEnemy[i]->getSensorRc()))
+			{
+				_vEnemy[i]->setState(ENEMY_ATTACK);
+				if (_vEnemy[i]->getX() > _player->getX())
+				{
+					_vEnemy[i]->setIsLeft(true);
+
+				}
+				else
+				{
+					_vEnemy[i]->setIsLeft(false);
+				}
+			}
+			else
+			{
+				_vEnemy[i]->setState(ENEMY_WALK);
+			}
+
+
+
+
+		}
+		else if (_vEnemy[i]->getType() == PLANTFROG && (_vEnemy[i]->getIndexX() == 0 || _vEnemy[i]->getIndexX() ==6))
+		{
+			if (IntersectRect(&rct, &_player->getCollisionRc(), &_vEnemy[i]->getSensorRc()))
+			{
+				_vEnemy[i]->setState(ENEMY_ATTACK);
+
+				if (_vEnemy[i]->getX() > _player->getX())
+				{
+					_vEnemy[i]->setIsLeft(true);
+					//_vEnemy[i]->setIndexX(0);
+				}
+				else
+				{
+					_vEnemy[i]->setIsLeft(false);
+					//_vEnemy[i]->setIndexX(6);
+
+				}
+			}
+			
+		}
+
+
+
+	}
+
+
+}
+
 
 
 
