@@ -346,3 +346,82 @@ void ghostBullet::move()
 		}
 	}
 }
+
+HRESULT beeBullet::init(float range)
+{
+	_range = range;
+	_index = 0;
+	_count = 0;
+	isFire = false;
+
+	return S_OK;
+}
+
+void beeBullet::release(void)
+{
+
+}
+
+void beeBullet::update(void)
+{
+	this->move();
+}
+
+void beeBullet::render(void)
+{
+}
+
+void beeBullet::fire(float x, float y, int bulletMax)
+{
+	if (isFire)
+	{
+		for (int i = 0; i < bulletMax; i++)
+		{
+			//총알 구조체 선언
+			tagBullet bullet;
+			//제로메모리 또는 멤셋
+			//구조체의 변수들의 값을 한번에 0으로 초기화 시켜준다
+			ZeroMemory(&bullet, sizeof(tagBullet));
+			bullet.bulletImage = IMAGEMANAGER->findImage("벌bullet");
+			bullet.speed = 5.0f;
+			bullet.angle = PI / 180 * (i * 30);
+			bullet.x = x;
+			bullet.y = y;
+			bullet.fireX = x;
+			bullet.fireY = y;
+			bullet.count = 0;
+			bullet.fire = true;
+			//벡터에 담기
+			_vBullet.push_back(bullet);
+
+			break;
+		}
+
+		isFire = false;
+
+	}
+	
+
+
+	
+}
+
+void beeBullet::move()
+{
+	for (int i = 0; i < _vBullet.size(); ++i)
+	{
+		if (_vBullet[i].fire)
+		{
+			_vBullet[i].x += cosf(_vBullet[i].angle)*_vBullet[i].speed;
+			_vBullet[i].y += -sinf(_vBullet[i].angle)*_vBullet[i].speed;
+			_vBullet[i].rc = RectMakeCenter(_vBullet[i].x, _vBullet[i].y, 50, 50);
+
+
+			if (getDistance(_vBullet[i].x, _vBullet[i].y, _vBullet[i].fireX, _vBullet[i].fireY) > _range)
+			{
+				_vBullet[i].fire = false;
+			}
+		}
+	}
+	
+}

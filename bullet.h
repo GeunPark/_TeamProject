@@ -150,6 +150,42 @@ public:
 	~ghostBullet() {}
 };
 
+class beeBullet : public gameNode
+{
+private:
+	//ÃÑ¾Ë ±¸Á¶Ã¼¸¦ ´ãÀ» º¤ÅÍ, ¹Ýº¹ÀÚ
+	//tagBullet _bullet;
 
+	vector<tagBullet> _vBullet;
+
+private:
+	float _range;			//ÃÑ¾Ë »ç°Å¸®
+	int _bulletMax;			//ÃÑ¾Ë ÃÖ´ë°¹¼ö
+	int _index, _count;
+	bool isFire;
+
+public:
+	HRESULT init(float range);
+	void release(void);
+	void update(void);
+	void render(void);
+
+	//ÃÑ¾Ë¹ß»ç
+	void fire(float x, float y, int bulletMax);
+
+	//ÃÑ¾Ë¹«ºê
+	void move();
+
+	//image* getBulletImage() { return _bullet.bulletImage; }
+
+
+	void setBulletFire(bool _isFire) { isFire = _isFire; }
+	bool getBulletFire() { return isFire; }
+
+	//RECT getBulletRc() { return _bullet.rc; }
+
+	beeBullet() {}
+	~beeBullet() {}
+};
 
 

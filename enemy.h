@@ -1,6 +1,6 @@
 #pragma once
 #include "gameNode.h"
-
+#include "bullet.h"
 
 enum ENEMY_TYPE
 {
@@ -210,6 +210,9 @@ public:
 class bee : public enemy
 {
 private:
+	bool _isFire;
+	int _fireCount;
+	beeBullet * _bullet;
 
 public:
 	void init();

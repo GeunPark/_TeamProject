@@ -708,7 +708,12 @@ void bee::init()
 	_bodyImage[ENEMY_ATTACK] = IMAGEMANAGER->findImage("¹úattack");
 	_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("¹úhurt"); //¾ÆÀÌµéÀº ÇæÆ®·Î!!
 
+	_bullet = new beeBullet;
+	_bullet->init(500);
 	//_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("À¯·Édead");
+
+	_isFire = false;
+	_fireCount = 0;
 
 	_bfx = IMAGEMANAGER->findImage("½ºÅ×ÀÌÁö1 ÇÈ¼¿");
 
@@ -718,7 +723,7 @@ void bee::init()
 	_count = 0, _indexX = 0, _indexY = 0;
 	_animationSpeed = 10.f;
 	_isActived = true;
-	_state = ENEMY_SPAWN;
+	_state = ENEMY_ATTACK;
 	_type = GHOST;
 	_x = 900.f;
 	_y = 2000.f;
@@ -727,6 +732,9 @@ void bee::init()
 	_gold = 0;
 	_silver = 0;
 	_bronze = 0;
+
+
+
 }
 
 void bee::idle()
@@ -771,42 +779,48 @@ void bee::spawn()
 
 void bee::attack()
 {
-	if (_isLeft)
-	{
-		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
-		{
-			_state = ENEMY_WALK;
-			_indexX = 0;
-		}
-	}
-	else
-	{
-		if (_indexX <= 0)
-		{
-			_state = ENEMY_WALK;
 
-		}
-	}
+
+
+
+	_bullet->update();
+
+	//if (_isLeft)
+	//{
+	//	if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+	//	{
+	//		_state = ENEMY_WALK;
+	//		_indexX = 0;
+	//	}
+	//}
+	//else
+	//{
+	//	if (_indexX <= 0)
+	//	{
+	//		_state = ENEMY_WALK;
+	//
+	//	}
+	//}
 }
 
 void bee::move()
 {
-	if (_isLeft)
-	{
-		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
-		{
-			_state = ENEMY_IDLE;
-			_indexX = 0;
-		}
-	}
-	else
-	{
-		if (_indexX <= 0)
-		{
-			_state = ENEMY_IDLE;
-
-		}
-	}
+	//if (_isLeft)
+	//{
+	//	if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+	//	{
+	//		_state = ENEMY_IDLE;
+	//		_indexX = 0;
+	//	}
+	//}
+	//else
+	//{
+	//	if (_indexX <= 0)
+	//	{
+	//		_state = ENEMY_IDLE;
+	//
+	//	}
+	//}
 }
 
 void bee::dead()
@@ -856,7 +870,6 @@ void enemy::update()
 	}
 
 	this->pixelCollision();
-
 
 	switch (_state)
 	{

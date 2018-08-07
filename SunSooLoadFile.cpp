@@ -47,7 +47,8 @@ void loadingScene::SunSooImage()
 	_loading->loadFrameImage("벌dizzy", "resource/이선수/몬스터/보스벌/벌dizzy.bmp", 3000, 1141, 6, 2);
 	_loading->loadFrameImage("벌hurt", "resource/이선수/몬스터/보스벌/벌hurt.bmp", 3600, 1800, 4, 2);
 	_loading->loadFrameImage("벌idle", "resource/이선수/몬스터/보스벌/벌idle.bmp", 3000, 1141, 6, 2);
-
+	//보스벌 총알
+	_loading->loadFrameImage("벌bullet", "resource/이선수/몬스터/보스벌/벌bullet.bmp", 150, 50, 3, 1);
 
 
 
