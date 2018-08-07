@@ -5,7 +5,7 @@
 
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
-#define MAX_STATE 15
+#define MAX_STATE 16
 
 class enemyManager;
 class UI;
@@ -25,7 +25,8 @@ enum tagState
 	JUMPATT2,
 	DOWNATT,
 	HIT,
-	WEATHER
+	WEATHER,
+	DEATH
 };
 
 struct tagPlayer
@@ -42,7 +43,7 @@ struct tagPlayer
 	bool isJump;
 	bool isLeft;
 	bool isRight;
-	//bool isFoxLeft;
+	bool isFoxLeft;
 	//bool isFoxRight;
 	bool isUp;
 	bool isDown;
@@ -103,6 +104,7 @@ public:
 	void collisionRcChange();
 	void foxState();
 	void keySetting();
+	void attRect();
 	void camera();
 	void pixelCollision();
 	void enemyCollision();
