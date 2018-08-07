@@ -277,4 +277,72 @@ void missileM1::removeMissileM1(int index)
 	_vBullet.erase(_vBullet.begin() + index);
 }
 
+HRESULT ghostBullet::init(const char * imageName, int bulletMax, float range)
+{
+	_bullet.bulletImage = IMAGEMANAGER->findImage(imageName);
+	_bulletMax = bulletMax;
+	_range = range;
+	_index = 0;
+	_count = 0;
+	_bullet.fire = false;
+	return S_OK;
+}
 
+void ghostBullet::release(void)
+{
+}
+
+void ghostBullet::update(void)
+{
+	_count++;
+
+	if (_count % 10 == 0)
+	{
+		_index++;
+		if (_index > _bullet.bulletImage->getMaxFrameX())
+		{
+			_index = 0;
+		}
+	}
+
+	_bullet.bulletImage->setFrameX(_index);
+	_bullet.bulletImage->setFrameY(0);
+
+
+
+	this->move();
+}
+
+
+void ghostBullet::render(void)
+{
+	
+}
+
+void ghostBullet::fire(float x, float y, float playerX, float playerY)
+{
+	_bullet.x = x;
+	_bullet.y = y;
+	_bullet.fireX = x;
+	_bullet.fireY = y;
+	_bullet.angle = getAngle(x, y, playerX, playerY);
+	_bullet.speed = 5.0f;
+	_bullet.fire = true;
+}
+
+void ghostBullet::move()
+{
+	if (_bullet.fire)
+	{
+		_bullet.x += cosf(_bullet.angle)*_bullet.speed;
+		_bullet.y += -sinf(_bullet.angle)*_bullet.speed;
+		_bullet.rc = RectMakeCenter(_bullet.x, _bullet.y, _bullet.bulletImage->getFrameWidth(), _bullet.bulletImage->getFrameHeight());
+
+		if (getDistance(_bullet.fireX, _bullet.fireY, _bullet.x, _bullet.y) > _range)
+		{
+			_bullet.x = -10000;
+			_bullet.y = -10000;
+			_bullet.fire = false;
+		}
+	}
+}

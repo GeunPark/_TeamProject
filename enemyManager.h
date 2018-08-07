@@ -3,6 +3,7 @@
 #include "enemy.h"
 #include "foxPlayer.h"
 #include "factory.h"
+#include "bullet.h"
 
 class itemManager;
 class foxPlayer;
@@ -25,6 +26,9 @@ private:
 	foxPlayer * _player;
 	itemManager* _iMG;
 	image* _tongue;
+	ghostBullet* _ghostBullet;
+
+
 
 	factory* _factory;
 	vector<enemy*> _vEnemy;	// ÀÏ¹Ý Àû
@@ -52,6 +56,7 @@ public:
 
 
 	vector<enemy*> getEnemy() { return _vEnemy; }
+	vector<enemy*> getGhost() { return _vGhost; }
 
 	void setGhost(float itemX, float itemY, int number)
 	{

@@ -81,6 +81,7 @@ private:
 	int _a = 0;
 	int _count1;
 	int _index1;
+	int bgCount;  //배경이 너무 빨리 움직여서 배경카운트만들엇엉 -세원-
 
 	//int _x, _y;
 public:

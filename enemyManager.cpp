@@ -11,6 +11,9 @@ HRESULT enemyManager::init(void)
 
 	_factory = new enemyFactory;
 
+	_ghostBullet = new ghostBullet;
+
+	_ghostBullet->init("유령총알", 1, 1000);
 
 	//INIDATA로 바꿀것
 	//일단은
@@ -144,20 +147,33 @@ void enemyManager::update(void)
 
 	for (int i = 0; i < _vGhost.size(); i++)
 	{
-		//if (_vGhost[i]->getX() > _player->getX())
-		//{
-		//	_vGhost[i]->setIsLeft(true);
-		//}
-		//else
-		//{
-		//	_vGhost[i]->setIsLeft(false);
-		//}
+		if (_vGhost[i]->getX() > _player->getX())
+		{
+			_vGhost[i]->setIsLeft(true);
+		}
+		else
+		{
+			_vGhost[i]->setIsLeft(false);
+		}
 
 		_vGhost[i]->update();
 	}
 
+	for (int i = 0; i < _vGhost.size(); ++i)
+	{
+		if (_vGhost[i]->getIsFire())
+		{
+			_ghostBullet->fire(_vGhost[i]->getX(), _vGhost[i]->getY(), _player->getX(), _player->getY());
+			_vGhost[i]->setIsFire(false);
+		}
+	}
 
+	if (_ghostBullet->getBulletFire())
+	{
+		_ghostBullet->update();
 
+	}
+	
 
 
 	//에너미 충돌처리
@@ -261,11 +277,16 @@ void enemyManager::render(void)
 	}
 	for (int i = 0; i < _vGhost.size(); i++)
 	{
-	
-
 		_vGhost[i]->getBodyImage()->frameRender(getMemDC(), _vGhost[i]->getRc().left - _player->getPlayerCam().left, _vGhost[i]->getRc().top - _player->getPlayerCam().top, _vGhost[i]->getBodyImage()->getFrameX(), _vGhost[i]->getBodyImage()->getFrameY());
 
+		if (_ghostBullet->getBulletFire())
+		{
+			_ghostBullet->getBulletImage()->frameRender(getMemDC(), _ghostBullet->getBulletRc().left - _player->getPlayerCam().left, _ghostBullet->getBulletRc().top - _player->getPlayerCam().top, _ghostBullet->getBulletImage()->getFrameX(), _ghostBullet->getBulletImage()->getFrameY());
+
+		}
 	}
+
+
 	//char str[64];
 	//for (int i = 0; i < _vEnemy.size(); i++)
 	//{

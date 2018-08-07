@@ -11,6 +11,7 @@ HRESULT stage1::init(void)
 	_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
 	_index1 = 0;
 	_count1 = 0;
+	bgCount = 0;
 	imagePosition();
 	images();
 
@@ -481,18 +482,31 @@ void stage1::images()
 }
 void stage1::bgMove()
 {
+	bgCount++;
 	if (_player->getLeft())
 	{
-		_normalBack1._x -= 1;
-		_normalBack2._x -= 1;
-		_winterBack1._x -= 1;
-		_winterBack2._x -= 1;
+		if (bgCount > 2)
+		{
+			_normalBack1._x -= 1;
+			_normalBack2._x -= 1;
+			_winterBack1._x -= 1;
+			_winterBack2._x -= 1;
+		}
+		
 	}
 	if(_player->getRight())
 	{
-		_normalBack1._x += 1;
-		_normalBack2._x += 1;
-		_winterBack1._x += 1;
-		_winterBack2._x += 1;
+		if (bgCount > 2)
+		{
+			_normalBack1._x += 1;
+			_normalBack2._x += 1;
+			_winterBack1._x += 1;
+			_winterBack2._x += 1;
+		}
+	
+	}
+	if (bgCount > 3)
+	{
+		bgCount = 0;
 	}
 }
