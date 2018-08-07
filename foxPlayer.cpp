@@ -13,12 +13,27 @@ HRESULT foxPlayer::init(void)
 	_state = IDLE;
 
 	_player.x = 200;
+<<<<<<< HEAD
 
 
 	_player.x = 6500;
 
 	_player.x = 3331;
 
+=======
+=======
+	
+<<<<<<< HEAD
+	_player.x = 300;
+=======
+<<<<<<< HEAD
+	_player.x = 6500;
+=======
+	_player.x = 6520;
+>>>>>>> ec11ba5cc1ad6d1b45a63ba75452ba6a5ccafc21
+>>>>>>> 68976d0e7d05eaf9e56d288fbd81ecd4154dddef
+>>>>>>> fec79534e27c039ec3678f93c2ee90c2458dd9ed
+>>>>>>> 53f0723663cf840e0068f0323fee27b947eb85eb
 	_player.y = MAX_HEIGHT - 200;
 	_player.speed = 30.f;
 	_player.gravity = 0.f;

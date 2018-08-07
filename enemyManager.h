@@ -28,6 +28,7 @@ private:
 	image* _tongue;
 	ghostBullet* _ghostBullet;
 
+	bee* _bee;
 
 
 	factory* _factory;

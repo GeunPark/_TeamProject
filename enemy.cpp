@@ -697,6 +697,123 @@ void ghost::dead()
 }
 
 
+//보스/보스보스스스보스보스보습소브소브스스스//
+
+void bee::init()
+{
+	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("버그spawn");
+	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("벌idle");
+	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("벌idle"); 
+	_bodyImage[ENEMY_SPAWN] = IMAGEMANAGER->findImage("벌dizzy"); // 스폰을 디지로!!
+	_bodyImage[ENEMY_ATTACK] = IMAGEMANAGER->findImage("벌attack");
+	_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("벌hurt"); //아이들은 헐트로!!
+
+	//_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("유령dead");
+
+	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+
+	_speed = 3.f;
+	_angle = PI / 2;
+	_gravity = 0.f;
+	_count = 0, _indexX = 0, _indexY = 0;
+	_animationSpeed = 10.f;
+	_isActived = true;
+	_state = ENEMY_SPAWN;
+	_type = GHOST;
+	_x = 900.f;
+	_y = 2000.f;
+	_isLeft = true;
+	isFire = false;
+	_gold = 0;
+	_silver = 0;
+	_bronze = 0;
+}
+
+void bee::idle()
+{
+	if (_isLeft)
+	{
+		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+		{
+			_state = ENEMY_SPAWN;
+			_indexX = 0;
+		}
+	}
+	else
+	{
+		if (_indexX <= 0)
+		{
+			_state = ENEMY_SPAWN;
+
+		}
+	}
+}
+
+void bee::spawn()
+{
+	if (_isLeft)
+	{
+		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+		{
+			_state = ENEMY_ATTACK;
+			_indexX = 0;
+		}
+	}
+	else
+	{
+		if (_indexX <= 0)
+		{
+			_state = ENEMY_ATTACK;
+
+		}
+	}
+}
+
+void bee::attack()
+{
+	if (_isLeft)
+	{
+		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+		{
+			_state = ENEMY_WALK;
+			_indexX = 0;
+		}
+	}
+	else
+	{
+		if (_indexX <= 0)
+		{
+			_state = ENEMY_WALK;
+
+		}
+	}
+}
+
+void bee::move()
+{
+	if (_isLeft)
+	{
+		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+		{
+			_state = ENEMY_IDLE;
+			_indexX = 0;
+		}
+	}
+	else
+	{
+		if (_indexX <= 0)
+		{
+			_state = ENEMY_IDLE;
+
+		}
+	}
+}
+
+void bee::dead()
+{
+}
+
+
 
 
 
@@ -775,6 +892,7 @@ void enemy::update()
 
 
 	_rc = RectMakeCenter(_x, _y, _bodyImage[_state]->getFrameWidth(), _bodyImage[_state]->getFrameHeight());
+
 	if (_isLeft)
 	{
 		_sensorRc = RectMake(_x - _bodyImage[ENEMY_WALK]->getFrameWidth() * 2, _y - _bodyImage[ENEMY_WALK]->getFrameHeight() / 2, _bodyImage[ENEMY_WALK]->getFrameWidth() * 2, _bodyImage[ENEMY_WALK]->getFrameHeight());

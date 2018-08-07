@@ -12,6 +12,8 @@ HRESULT enemyManager::init(void)
 	_factory = new enemyFactory;
 
 	_ghostBullet = new ghostBullet;
+	_bee = new bee;
+	_bee->init();
 
 	_ghostBullet->init("À¯·ÉÃÑ¾Ë", 1, 1000);
 
@@ -173,6 +175,9 @@ void enemyManager::update(void)
 		_ghostBullet->update();
 
 	}
+
+
+	_bee->update();
 	
 
 
@@ -286,6 +291,7 @@ void enemyManager::render(void)
 		}
 	}
 
+	_bee->getBodyImage()->frameRender(getMemDC(), _bee->getRc().left - _player->getPlayerCam().left, _bee->getRc().top - _player->getPlayerCam().top, _bee->getBodyImage()->getFrameX(), _bee->getBodyImage()->getFrameY());
 
 	//char str[64];
 	//for (int i = 0; i < _vEnemy.size(); i++)
