@@ -48,6 +48,8 @@ public:
 	void frameImageMove();
 	void selectObjectInIt();
 	void selectObject();
+	void ItemSell();
+
 
 	void setPlayerManager(foxPlayer* player);
 

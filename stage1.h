@@ -58,6 +58,7 @@ private:
 	tagBoxs _bush[10];
 
 	tagBoxs _bee[2];
+	tagBoxs _iceBee[2];
 
 	vector<tagBoxs> _vBush;
 	vector<tagBoxs>::iterator _viBush;
@@ -78,7 +79,8 @@ private:
 
 	imgInfo _iceBack1;
 	
-	int _a = 0;
+	int _bagrandslide;
+	int _b = 0;
 	int _count1;
 	int _index1;
 	int bgCount;  //배경이 너무 빨리 움직여서 배경카운트만들엇엉 -세원-

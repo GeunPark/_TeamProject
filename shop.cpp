@@ -80,8 +80,6 @@ void shop::ItemList()
 		_Item[1].price = 1500;
 		_Item[2].price = 2000;
 
-
-
 		_ItemInfo[0]._img = IMAGEMANAGER->findImage("초록화살 설명");
 		_ItemInfo[1]._img = IMAGEMANAGER->findImage("마나 업그레이드 설명");
 		_ItemInfo[2]._img = IMAGEMANAGER->findImage("하트 설명");
@@ -156,12 +154,13 @@ void shop::selectObject()
 		{
 			_selectNumber--;
 		}
-		if (KEYMANAGER->isOnceKeyDown('L'))
+		if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 		{
 			_isSelect = true;
 			if (_player->getGold() > _Item[_selectNumber].price )
 			{
 				_player->setGold(_player->getGold() - _Item[_selectNumber].price);
+				ItemSell();
 			}
 		}
 	}
@@ -173,6 +172,29 @@ void shop::selectObject()
 	else if(_isSelect)_selectOj._img = IMAGEMANAGER->findImage("선택함");
 	
 	_selectOj._rc = RectMake(_selectOj._x, _selectOj._y, 120, 120);
+}
+
+void shop::ItemSell()
+{
+	if (_kindShop == UPGRADE)
+	{
+		/*_Item[0]._img = IMAGEMANAGER->findImage("총알 추가");
+		_Item[1]._img = IMAGEMANAGER->findImage("마나업그레이드1");
+		_Item[2]._img = IMAGEMANAGER->findImage("하트");*/
+		if (_selectNumber == 1)
+		{
+			_player->setMaxMAna(_player->getMaxMana() + 30);
+		}
+		else if (_selectNumber == 2 && _player->getMaxHp() < 100)
+		{
+			_player->setMaxHp(_player->getMaxHp() + 10);
+			_player->setHp(_player->getMaxHp());
+		}
+	}
+	else if (_kindShop == MAGIC)
+	{
+
+	}
 }
 
 void shop::setPlayerManager(foxPlayer * player)
