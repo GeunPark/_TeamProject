@@ -207,7 +207,18 @@ public:
 	void dead();
 };
 
+class bee : public enemy
+{
+private:
 
+public:
+	void init();
+	void idle();
+	void spawn();
+	void attack();
+	void move();
+	void dead();
+};
 
 
 
