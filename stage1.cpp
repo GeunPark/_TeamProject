@@ -12,6 +12,7 @@ HRESULT stage1::init(void)
 	_index1 = 0;
 	_count1 = 0;
 	bgCount = 0;
+	_bagrandslide = 0;
 	imagePosition();
 	images();
 
@@ -77,10 +78,8 @@ void stage1::release(void)
 	SAFE_DELETE(_player);
 	SAFE_DELETE(_eMG);
 	SAFE_DELETE(_iMG);
-
-
 }
-
+ 
 void stage1::update(void)
 {
 	if (_player->getAng() == false)_state = SUMMER;
@@ -112,8 +111,11 @@ void stage1::update(void)
 	{
 		this->init();
 	}
-	if (_state == WINTER && _a != WINSIZEX)_a+= 32;
-	if (_state == SUMMER)_a = 0;
+	if (_state == WINTER && _bagrandslide != WINSIZEX)
+	{
+		_bagrandslide += 32;
+	}
+	if (_state == SUMMER)_bagrandslide = 0;
 	this->bgMove();
 
 
@@ -122,8 +124,6 @@ void stage1::update(void)
 		
 		_bee[i].rc = RectMake(_bee[i].x - _player->getPlayerCam().left, _bee[i].y - _player->getPlayerCam().top, 240, 240);
 	}
-	//_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
-
 }
 
 void stage1::render(void)
@@ -214,12 +214,18 @@ void stage1::render(void)
 		{
 			_river[7 + i]._img->frameRender(getMemDC(), _river[7 + i]._x - _player->getPlayerCam().left, _river[7 + i]._y - _player->getPlayerCam().top);
 		}
+		
 		_waterWheel->frameRender(getMemDC(), 8730 - _player->getPlayerCam().left, 2175 - _player->getPlayerCam().top);
 		//////////////////////////////////////////////°Ü          ¿ï               ¸Ê/////////////////////////////////////////////////////////////////////
-		_winterBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _player->getPlayerCam().top, 0 + _a, 2550), _winterBack1._x, _winterBack1._y);
-		_winterBack2._img->loopRender(getMemDC(), &RectMake(0, 2200 - _player->getPlayerCam().top, 0 + _a, 2550), _winterBack2._x, _winterBack2._y);
-		feild->render(getMemDC(), 0 + _a, 0, _player->getPlayerCam().left + _a, _player->getPlayerCam().top, WINSIZEX - _a, WINSIZEY);
+		_winterBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _player->getPlayerCam().top, 0 + _bagrandslide, 2550), _winterBack1._x, _winterBack1._y);
+		_winterBack2._img->loopRender(getMemDC(), &RectMake(0, 2200 - _player->getPlayerCam().top, 0 + _bagrandslide, 2550), _winterBack2._x, _winterBack2._y);
+		feild->render(getMemDC(), 0 + _bagrandslide, 0, _player->getPlayerCam().left + _bagrandslide, _player->getPlayerCam().top, WINSIZEX - _bagrandslide, WINSIZEY);
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		for (int i = 0; i < 2; i++)
+		{
+			_bee[i]._img->frameRender(getMemDC(), _bee[i].x - _player->getPlayerCam().left, _bee[i].y - _player->getPlayerCam().top);
+
+		}
 		for (int i = 3; i < 5; i++)
 		{
 			_waterfall[i]._img->frameRender(getMemDC(), _waterfall[i]._x - _player->getPlayerCam().left, _waterfall[i]._y - _player->getPlayerCam().top);
@@ -229,9 +235,13 @@ void stage1::render(void)
 		{
 			_river[i]._img->frameRender(getMemDC(), _river[i]._x - _player->getPlayerCam().left, _river[i]._y - _player->getPlayerCam().top);
 		}
-		
+
 		/////////////////////////////////////////////°Ü          ¿ï               ¸Ê/////////////////////////////////////////////////////////////
-		feildIce->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, 0 + _a, WINSIZEY);
+		feildIce->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, 0 + _bagrandslide, WINSIZEY);
+		for (int i = 0; i < 2; i++)
+		{
+			_iceBee[i]._img->frameRender(getMemDC(), _iceBee[i].x - _player->getPlayerCam().left, _iceBee[i].y - _player->getPlayerCam().top);
+		}
 	}
 	// ÇÈ¼¿ ÀÌ¹ÌÁö Ãâ·Â
 	if (KEYMANAGER->isToggleKey(VK_F4))
@@ -320,7 +330,7 @@ void stage1::imageMove()
 	{
 		_bee[i]._count++;
 		if (_bee[i]._count % 5 == 0)_bee[i]._index++;
-		if (_bee[i]._index > 7)_bee[i]._index = 0;
+		if (_bee[i]._index > 6)_bee[i]._index = 0;
 		_bee[i]._img->setFrameX(_bee[i]._index);
 	}
 
@@ -338,10 +348,19 @@ void stage1::imagePosition()
 	_bee[1].x = 6200;
 	_bee[1].y = 2190;
 
+	_iceBee[0].x = 3475;
+	_iceBee[0].y = 2200;
+
+	_iceBee[1].x = 6288;
+	_iceBee[1].y = 2152;
+
 	for (int i = 0; i < 2; i++)
 	{
 		_bee[i]._count = 0;
-			_bee[i]._index = 0;
+		_bee[i]._index = 0;
+
+		_iceBee[i]._count = 0;
+		_iceBee[i]._index = 0;
 	}
 
 	_bush[9].y = 2600;
@@ -444,6 +463,7 @@ void stage1::images()
 	for (int i = 0; i < 2; i++)
 	{
 		_bee[i]._img = IMAGEMANAGER->findImage("¹úÁý");
+		_iceBee[i]._img = IMAGEMANAGER->findImage("¹úÁý²ÜÀá");
 	}
 	for (int i = 0; i < 10; i++)
 	{

@@ -84,7 +84,7 @@ void loadingScene::GiHunImage()
 	_loading->loadFrameImage("숫자", "resource/UI/숫자.bmp", 240, 24, 10, 1);
 
 	_loading->loadFrameImage("벌집", "resource/스테이지1/벌집.bmp", 1680, 240, 7, 1);
-
+	_loading->loadFrameImage("벌집꿀잠", "resource/스테이지1/벌집꿀잠.bmp", 1440, 240, 6, 1);
 }
 
 

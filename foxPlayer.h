@@ -139,6 +139,7 @@ public:
 
 	// 플레이어 HP
 	void setHp(int hp) { _player.HP = hp; }
+	void setMaxHp(int hp) { _player.MaxHp = hp; }
 	int getHp() { return _player.HP; }
 	int getMaxHp() { return _player.MaxHp; }
 	
