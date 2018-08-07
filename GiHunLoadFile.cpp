@@ -76,9 +76,14 @@ void loadingScene::GiHunImage()
 	_loading->loadImage("노선택R", "resource/UI/노선택R.bmp", 30, 24, true, MAGENTA);
 	_loading->loadImage("경고선", "resource/UI/경고선.bmp", 27, 66, true, MAGENTA);
 
+	_loading->loadImage("불마법", "resource/UI/불마법.bmp", 96, 96, true, MAGENTA);
+	_loading->loadImage("번개마법", "resource/UI/번개마법.bmp", 96, 96, true, MAGENTA);
+	_loading->loadImage("얼음마법", "resource/UI/얼음마법.bmp", 96, 96, true, MAGENTA);
+
 	_loading->loadImage("골드", "resource/UI/골드.bmp", 96, 96, true, MAGENTA);
 	_loading->loadFrameImage("숫자", "resource/UI/숫자.bmp", 240, 24, 10, 1);
 
+	_loading->loadFrameImage("벌집", "resource/스테이지1/벌집.bmp", 1680, 240, 7, 1);
 
 }
 

@@ -25,6 +25,8 @@ struct tagBoxs
 	bool isActive = true;
 	RECT rc;
 	image* _img;
+	int _count;
+	int _index;
 };
 
 class stage1 : public gameNode
@@ -54,6 +56,9 @@ private:
 	
 	//ū Ǯ
 	tagBoxs _bush[10];
+
+	tagBoxs _bee[2];
+
 	vector<tagBoxs> _vBush;
 	vector<tagBoxs>::iterator _viBush;
 	image* feild;
@@ -90,6 +95,7 @@ public:
 	void imagePosition();
 	void images();
 	void setState(state ste) { _state = ste; }
+	void beeInit();
 	state getState() { return _state; }
 	//배경 움직이는 함수
 

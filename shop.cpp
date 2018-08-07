@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "shop.h"
+#include "foxPlayer.h"
 
 HRESULT shop::init(void)
 {
-	_kindShop = true;				// 상점 종류 flase-> 업그레이드 상점, true -> 마법 상점
+	_kindShop = MAGIC;				// 상점 종류 flase-> 업그레이드 상점, true -> 마법 상점
 	_backImage._x = 100;
 	_backImage._y = 100;
 	_backImage._img = IMAGEMANAGER->findImage("기모띠");
@@ -27,16 +28,8 @@ void shop::update(void)
 	selectObject();
 	if (KEYMANAGER->isOnceKeyDown('W'))
 	{
-		if (!_kindShop)_kindShop = true;
-		else if (_kindShop)_kindShop = false;
-	}
-	if (!_kindShop)
-	{
-		
-	}
-	else if (_kindShop)
-	{
-
+		if (_kindShop == UPGRADE)_kindShop = MAGIC;
+		else if (_kindShop == MAGIC)_kindShop = UPGRADE;
 	}
 
 }
@@ -77,7 +70,7 @@ void shop::ItemList()
 
 		_Item[i]._rc = RectMake(_Item[i]._x, _Item[i]._y, 120, 120);
 	}
-	if (!_kindShop)
+	if (_kindShop == UPGRADE)
 	{
 		_Item[0]._img = IMAGEMANAGER->findImage("총알 추가");
 		_Item[1]._img = IMAGEMANAGER->findImage("마나업그레이드1");
@@ -87,11 +80,13 @@ void shop::ItemList()
 		_Item[1].price = 1500;
 		_Item[2].price = 2000;
 
+
+
 		_ItemInfo[0]._img = IMAGEMANAGER->findImage("초록화살 설명");
 		_ItemInfo[1]._img = IMAGEMANAGER->findImage("마나 업그레이드 설명");
 		_ItemInfo[2]._img = IMAGEMANAGER->findImage("하트 설명");
 	}
-	else if (_kindShop)
+	else if (MAGIC)
 	{
 		_Item[0]._img = IMAGEMANAGER->findImage("불 마법");
 		_Item[1]._img = IMAGEMANAGER->findImage("얼음 마법");
@@ -104,6 +99,7 @@ void shop::ItemList()
 		_Item[0].price = 300;
 		_Item[1].price = 400;
 		_Item[2].price = 500;
+
 	}
 	for (int i = 0; i < 4; i++)
 	{
@@ -160,9 +156,13 @@ void shop::selectObject()
 		{
 			_selectNumber--;
 		}
-		if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
+		if (KEYMANAGER->isOnceKeyDown('L'))
 		{
 			_isSelect = true;
+			if (_player->getGold() > _Item[_selectNumber].price )
+			{
+				_player->setGold(_player->getGold() - _Item[_selectNumber].price);
+			}
 		}
 	}
 
@@ -171,6 +171,12 @@ void shop::selectObject()
 
 	if (!_isSelect)_selectOj._img = IMAGEMANAGER->findImage("아이템 선택");
 	else if(_isSelect)_selectOj._img = IMAGEMANAGER->findImage("선택함");
-
+	
 	_selectOj._rc = RectMake(_selectOj._x, _selectOj._y, 120, 120);
+}
+
+void shop::setPlayerManager(foxPlayer * player)
+{
+	_player = player;
+
 }

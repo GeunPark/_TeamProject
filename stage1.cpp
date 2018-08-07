@@ -13,12 +13,6 @@ HRESULT stage1::init(void)
 	_count1 = 0;
 	imagePosition();
 	images();
-	
-
-	_shop = new shop;
-	_shop->init();
-
-
 
 	//플레이어 동적할당
 	_player = new foxPlayer;
@@ -34,6 +28,11 @@ HRESULT stage1::init(void)
 
 	_ui = new UI;
 	_ui->init();
+
+
+	_shop = new shop;
+	_shop->init();
+
 
 	_normalBack1._x = 0;
 	_normalBack1._y = 0;
@@ -62,6 +61,8 @@ HRESULT stage1::init(void)
 	_iMG->setEMGLink(_eMG);
 	_player->setEnemyManager(_eMG);
 	_player->setUIManager(_ui);
+	_player->setShopManager(_shop);
+	_shop->setPlayerManager(_player);
 	_ui->setPlayerManager(_player);
 
 
@@ -110,16 +111,16 @@ void stage1::update(void)
 	{
 		this->init();
 	}
-	if (KEYMANAGER->isOnceKeyDown('Z'))		//공격키하고 겹쳐가지고 계속 없는 이미지라고 터져서 Z로 바꿔놨엉 -세원-
-	{
-		if (_state == WINTER)_state = SUMMER;
-		else if (_state == SUMMER)_state = WINTER;
-	}
-
 	if (_state == WINTER && _a != WINSIZEX)_a+= 32;
 	if (_state == SUMMER)_a = 0;
 	this->bgMove();
 
+
+	for (int i = 0; i < 2; i++)
+	{
+		
+		_bee[i].rc = RectMake(_bee[i].x - _player->getPlayerCam().left, _bee[i].y - _player->getPlayerCam().top, 240, 240);
+	}
 	//_cam.rc = RectMakeCenter(_cam.x, _cam.y, WINSIZEX, WINSIZEY);
 
 }
@@ -128,7 +129,7 @@ void stage1::render(void)
 {
 	
 	_normalBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _player->getPlayerCam().top, WINSIZEX, 2550), _normalBack1._x, _normalBack1._y);
-	_normalBack2._img->loopRender(getMemDC(), &RectMake(0, 2400 - _player->getPlayerCam().top, WINSIZEX, 2550), _normalBack2._x, _normalBack2._y);
+	_normalBack2._img->loopRender(getMemDC(), &RectMake(0, 2200 - _player->getPlayerCam().top, WINSIZEX, 2550), _normalBack2._x, _normalBack2._y);
 	if (_state == SUMMER)
 	{
 		
@@ -171,7 +172,13 @@ void stage1::render(void)
 		{
 			_river[i]._img->frameRender(getMemDC(), _river[i]._x - _player->getPlayerCam().left, _river[i]._y - _player->getPlayerCam().top);
 		}
-
+		// 벌 이미지
+		for (int i = 0; i < 2; i++)
+		{
+			_bee[i]._img->frameRender(getMemDC(),_bee[i].x - _player->getPlayerCam().left, _bee[i].y- _player->getPlayerCam().top);
+			
+		}
+		
 		_waterWheel->frameRender(getMemDC(), 8730 - _player->getPlayerCam().left, 2175 - _player->getPlayerCam().top);
 		/*
 		for (int i = 0; i < 4; i++)
@@ -209,7 +216,7 @@ void stage1::render(void)
 		_waterWheel->frameRender(getMemDC(), 8730 - _player->getPlayerCam().left, 2175 - _player->getPlayerCam().top);
 		//////////////////////////////////////////////겨          울               맵/////////////////////////////////////////////////////////////////////
 		_winterBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _player->getPlayerCam().top, 0 + _a, 2550), _winterBack1._x, _winterBack1._y);
-		_winterBack2._img->loopRender(getMemDC(), &RectMake(0, 2400 - _player->getPlayerCam().top, 0 + _a, 2550), _winterBack2._x, _winterBack2._y);
+		_winterBack2._img->loopRender(getMemDC(), &RectMake(0, 2200 - _player->getPlayerCam().top, 0 + _a, 2550), _winterBack2._x, _winterBack2._y);
 		feild->render(getMemDC(), 0 + _a, 0, _player->getPlayerCam().left + _a, _player->getPlayerCam().top, WINSIZEX - _a, WINSIZEY);
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		for (int i = 3; i < 5; i++)
@@ -229,6 +236,8 @@ void stage1::render(void)
 	if (KEYMANAGER->isToggleKey(VK_F4))
 	{
 		feildpixel->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
+		Rectangle(getMemDC(), _bee[0].rc);
+		Rectangle(getMemDC(), _bee[1].rc);
 	}
 
 	//아이템매니저
@@ -306,6 +315,15 @@ void stage1::imageMove()
 		_waterfall[i]._img->setFrameX(_waterfall[0]._index);
 		_waterfalls[i]._img->setFrameX(_waterfall[0]._index);
 	}
+	for (int i = 0; i < 2; i++)
+	{
+		_bee[i]._count++;
+		if (_bee[i]._count % 5 == 0)_bee[i]._index++;
+		if (_bee[i]._index > 7)_bee[i]._index = 0;
+		_bee[i]._img->setFrameX(_bee[i]._index);
+	}
+
+
 	// 물레방아 이미지
 	_waterWheel->setFrameX(_river[0]._index);
 
@@ -313,7 +331,17 @@ void stage1::imageMove()
 void stage1::imagePosition()
 {
 	// 풀
+	_bee[0].x = 3390;
+	_bee[0].y = 2240;
 
+	_bee[1].x = 6200;
+	_bee[1].y = 2190;
+
+	for (int i = 0; i < 2; i++)
+	{
+		_bee[i]._count = 0;
+			_bee[i]._index = 0;
+	}
 
 	_bush[9].y = 2600;
 
@@ -400,6 +428,7 @@ void stage1::imagePosition()
 void stage1::images()
 {
 	feild = IMAGEMANAGER->findImage("스테이지1");
+	
 	/*
 	feild[0] = IMAGEMANAGER->findImage("스테이지 1-1");
 	feild[1] = IMAGEMANAGER->findImage("스테이지 1-2");
@@ -410,6 +439,11 @@ void stage1::images()
 	feildIce = IMAGEMANAGER->findImage("스테이지 1 겨울");
 	feildpixel = IMAGEMANAGER->findImage("스테이지1 픽셀");
 	_waterWheel = IMAGEMANAGER->findImage("물레방아");
+
+	for (int i = 0; i < 2; i++)
+	{
+		_bee[i]._img = IMAGEMANAGER->findImage("벌집");
+	}
 	for (int i = 0; i < 10; i++)
 	{
 		tagBoxs _bushs;
@@ -445,7 +479,6 @@ void stage1::images()
 	}
 	
 }
-
 void stage1::bgMove()
 {
 	if (_player->getLeft())

@@ -84,6 +84,7 @@ void UI::render()
 	}
 	// 마법 이미지
 	_nowState[1]->render(getMemDC(), 800, 20);
+
 	for (int i = 0; i < _magicNum; i++)
 	{
 		_MagicChoice[i]._img->render(getMemDC(), _MagicChoice[i]._x, _MagicChoice[i]._y);
@@ -220,6 +221,7 @@ void UI::nowMagic()
 		_MagicChoice[i]._x = 920;
 		_MagicChoice[i]._y = 20 + i * 24;
 	}
+
 }
 
 void UI::nowGold()
