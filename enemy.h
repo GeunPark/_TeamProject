@@ -59,6 +59,9 @@ protected:
 	bool isJump;
 	bool isTongue;
 
+	//À¯·É
+	bool isFire;
+
 public:
 	virtual void init() = 0;
 	virtual void update();
@@ -93,6 +96,7 @@ public:
 	bool getIsLeft() { return _isLeft; }
 	bool getIsActived() { return _isActived; }
 	bool getIsTongue() { return isTongue; }
+	bool getIsFire() { return isFire; }
 
 	void setState(ENEMY_STATE state) { _state = state; }
 	void setX(float x) { _x = x; }
@@ -100,7 +104,7 @@ public:
 	void setIndexX(int x) { _indexX = x; }
 	void setPosition(float x, float y) { _x = x, _y = y; }
 	void setIsLeft(bool isLeft) { _isLeft = isLeft; }
-	
+	void setIsFire(bool _isFire) { isFire = _isFire; }
 
 	int getGold() { return _gold; }
 	int getSilver() { return _silver; }

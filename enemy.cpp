@@ -621,8 +621,9 @@ void ghost::init()
 {
 	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("버그spawn");
 	_bodyImage[ENEMY_SPAWN] = IMAGEMANAGER->findImage("유령spawn");
-	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("유령spawn");
+	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("유령dead"); // 이유를 모르겠지만 dead에서는 안되는데 walk로 빼면 됨!? 어딘가에서 dead일때 안되게 해놓은듯?
 	_bodyImage[ENEMY_ATTACK] = IMAGEMANAGER->findImage("유령attack");
+	//_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("유령dead");
 
 	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
 
@@ -636,7 +637,8 @@ void ghost::init()
 	_type = GHOST;
 	_x = 0.f;
 	_y = 0.f;
-	_isLeft = false;
+	_isLeft = true;
+	isFire = false;
 	_gold = 0;
 	_silver = 0;
 	_bronze = 0;
@@ -648,18 +650,50 @@ void ghost::idle()
 
 void ghost::spawn()
 {
+	_animationSpeed = 13.f;
+
+	if (_isLeft)
+	{
+		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+		{
+			_state = ENEMY_ATTACK;
+			_indexX = 0;
+		}
+	}
+	else
+	{
+		if (_indexX <= 0)
+		{
+			_state = ENEMY_ATTACK;
+
+		}
+	}
 }
 
 void ghost::attack()
 {
+	_animationSpeed = 20.f;
+	
+		if (_indexX == _bodyImage[_state]->getMaxFrameX())
+		{
+			isFire = true;
+			//_state = ENEMY_WALK;
+			// _indexX = 0;
+		}
+	
+	
+
 }
 
 void ghost::move()
 {
+	_animationSpeed = 13.f;
+
 }
 
 void ghost::dead()
 {
+
 }
 
 

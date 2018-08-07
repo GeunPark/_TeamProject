@@ -38,7 +38,9 @@ void loadingScene::SunSooImage()
 
 	//상자유령
 	_loading->loadFrameImage("유령spawn", "resource/이선수/몬스터/상자유령/상자유령spawn.bmp", 800,267, 6, 2);
-	_loading->loadFrameImage("유령attack", "resource/이선수/몬스터/상자유령/상자유령attack.bmp", 300, 100, 6, 2);
+	_loading->loadFrameImage("유령attack", "resource/이선수/몬스터/상자유령/상자유령attack.bmp", 800, 267, 6, 2);
+	_loading->loadFrameImage("유령dead", "resource/이선수/몬스터/상자유령/상자유령dead.bmp", 800, 267, 6, 2);
+	_loading->loadFrameImage("유령총알", "resource/이선수/몬스터/상자유령/상자유령bullet.bmp", 200, 50, 4, 1);
 
 
 

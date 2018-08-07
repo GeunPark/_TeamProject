@@ -117,6 +117,38 @@ public:
 	~missileM1() {}
 };
 
+class ghostBullet : public gameNode
+{
+private:
+	//ÃÑ¾Ë ±¸Á¶Ã¼¸¦ ´ãÀ» º¤ÅÍ, ¹Ýº¹ÀÚ
+	tagBullet _bullet;
+
+
+private:
+	float _range;			//ÃÑ¾Ë »ç°Å¸®
+	int _bulletMax;			//ÃÑ¾Ë ÃÖ´ë°¹¼ö
+	int _index, _count;
+
+
+public:
+	HRESULT init(const char * imageName, int bulletMax, float range);
+	void release(void);
+	void update(void);
+	void render(void);
+
+	//ÃÑ¾Ë¹ß»ç
+	void fire(float x, float y, float playerX, float playerY);
+
+	//ÃÑ¾Ë¹«ºê
+	void move();
+
+	image* getBulletImage() { return _bullet.bulletImage; }
+	bool getBulletFire() { return _bullet.fire; }
+	RECT getBulletRc() { return _bullet.rc; }
+
+	ghostBullet() {}
+	~ghostBullet() {}
+};
 
 
 
