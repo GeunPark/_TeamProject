@@ -16,7 +16,7 @@ HRESULT foxPlayer::init(void)
 
 	_state = IDLE;
 	
-	_player.x = 200;
+	_player.x = 6520;
 	_player.y = MAX_HEIGHT - 200;
 	_player.speed = 30.f;
 	_player.gravity = 0.f;

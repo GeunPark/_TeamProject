@@ -35,7 +35,9 @@ HRESULT itemManager::init(void)
 	_itemBoxPos[0].x = 3550.f; _itemBoxPos[0].y = 2155.f;
 	_itemBoxPos[1].x = 7750.f; _itemBoxPos[1].y = 2195.f;
 	_itemBoxPos[2].x = 7350.f; _itemBoxPos[2].y = 1415.f;
-	_itemBoxPos[3].x = 8440.f; _itemBoxPos[3].y = 2395.f;
+	_itemBoxPos[3].x = 7040.f; _itemBoxPos[3].y = 2180.f;
+
+//	_itemBoxPos[3].x = 8440.f; _itemBoxPos[3].y = 2395.f;
 
 
 
@@ -142,7 +144,7 @@ void itemManager::update(void)
 			//			_vPlantFrog.erase(_vPlantFrog.begin() + i);
 		}
 	}
-
+	
 	
 	//플레이어 공격렉트와 아이템상자 충돌
 	
@@ -156,12 +158,12 @@ void itemManager::update(void)
 					//_vEnemy[i]->setState(ENEMY_DEAD);
 					//_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 					_vItemBox[i]->setIsActive(true);
-					_player->setAttRcLeft(-10000);
-					_player->setAttRcRight(-10000);
+					
 
 					if (i == 3)
 					{
 						_eMG->setGhost(_vItemBox[i]->getX(), _vItemBox[i]->getY(), 1);
+						
 					}
 					else
 					{
