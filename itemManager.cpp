@@ -134,8 +134,33 @@ void itemManager::update(void)
 
 		if (IntersectRect(&_rct, &_vItem[i]->getRc(), &_player->getCollisionRc()))
 		{
+
+			/*
+				HEALTH_LARGE,
+				HEALTH_SMALL,
+				MANA_BIG,
+				MANA_SMALL,
+			*/
 			//_vEnemy[i]->setState(ENEMY_DEAD);
 			//_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+			if (_vItem[i]->getItemType() == HEALTH_LARGE)
+			{
+				_player->setHp(_player->getHp() + 10);
+			}
+			else if(_vItem[i]->getItemType() == HEALTH_SMALL)
+			{
+				_player->setHp(_player->getHp() + 5);
+			}
+			else if (_vItem[i]->getItemType() == MANA_BIG)
+			{
+				_player->setMana(_player->getMana() + 50);
+			}
+			else if (_vItem[i]->getItemType() == MANA_SMALL)
+			{
+				_player->setMana(_player->getMana() + 20);
+			}
+
+
 			_vItem.erase(_vItem.begin() + i);
 
 			//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
@@ -191,6 +216,7 @@ void itemManager::update(void)
 
 			if (IntersectRect(&_rct, &_vCoinGold[i]->getRc(), &_player->getCollisionRc()))
 			{
+				_player->setGold(_player->getGold() + 10);
 				_vCoinGold.erase(_vCoinGold.begin() + i);
 			}
 		}
@@ -200,6 +226,7 @@ void itemManager::update(void)
 
 			if (IntersectRect(&_rct, &_vCoinSilver[i]->getRc(), &_player->getCollisionRc()))
 			{
+				_player->setGold(_player->getGold() + 5);
 				_vCoinSilver.erase(_vCoinSilver.begin() + i);
 			}
 		}
@@ -209,6 +236,7 @@ void itemManager::update(void)
 
 			if (IntersectRect(&_rct, &_vCoinBronze[i]->getRc(), &_player->getCollisionRc()))
 			{
+				_player->setGold(_player->getGold() + 1);
 				_vCoinBronze.erase(_vCoinBronze.begin() + i);
 			}
 		}

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "foxPlayer.h"
 #include "enemyManager.h"
-
+#include "shop.h"
 #include "UI.h"
 
 
@@ -9,14 +9,22 @@
 HRESULT foxPlayer::init(void)
 {
 	imageSetting();
-
-	// 형 UI 설정좀 하께  웅웅
-	_ui = new UI;
-	_ui->init();
-
+	// 형 UI 설정좀 하께  웅
 	_state = IDLE;
+<<<<<<< HEAD
+	_player.x = 200;
+=======
 	
+<<<<<<< HEAD
 	_player.x = 300;
+=======
+<<<<<<< HEAD
+	_player.x = 6500;
+=======
+	_player.x = 6520;
+>>>>>>> ec11ba5cc1ad6d1b45a63ba75452ba6a5ccafc21
+>>>>>>> 68976d0e7d05eaf9e56d288fbd81ecd4154dddef
+>>>>>>> fec79534e27c039ec3678f93c2ee90c2458dd9ed
 	_player.y = MAX_HEIGHT - 200;
 	_player.speed = 30.f;
 	_player.gravity = 0.f;
@@ -53,6 +61,11 @@ void foxPlayer::release(void)
 //ToDo : update
 void foxPlayer::update(void)
 {
+<<<<<<< HEAD
+	
+	// 테스트 함수
+	if (KEYMANAGER->isToggleKey('Z'))
+=======
 	/*if (KEYMANAGER->isOnceKeyDown('S'))
 	{
 		if (!ang)
@@ -73,13 +86,17 @@ void foxPlayer::update(void)
 		if (_player.mana <= 0)ang = false;
 	}
 	else
+>>>>>>> 68976d0e7d05eaf9e56d288fbd81ecd4154dddef
 	{
-		if (_player.maxMana > _player.mana)_player.mana += 0.3f;
-		else if (_player.maxMana < _player.mana)_player.mana -= 0.3f;
+		test();
 	}
+<<<<<<< HEAD
+	playerUI();
+=======
 
 	// 테스트 함수
 	//test();
+>>>>>>> 68976d0e7d05eaf9e56d288fbd81ecd4154dddef
 
 	this->keySetting();	  //키셋팅 함수 호출
 
@@ -175,10 +192,18 @@ void foxPlayer::render()
 	}
 
 	char str[128];
+<<<<<<< HEAD
+	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount,_player.HP);
+	TextOut(getMemDC(), 100, 600, str,strlen(str));
+
+
+
+=======
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 스피드 : %f", _player.gravity, jumpCount, _state, _player.speed);
 	TextOut(getMemDC(), 100, 600, str,strlen(str));
 
 	Rectangle(getMemDC(), RectMakeCenter(_player.x - _camera.rc.left, _player.y - _camera.rc.top, 10, 10));
+>>>>>>> 68976d0e7d05eaf9e56d288fbd81ecd4154dddef
 }
 
 //ToDo : 이미지 셋팅
@@ -425,8 +450,8 @@ void foxPlayer::foxState()
 	
 	}
 
-	if (_state == RUN)
-	{
+	if (_state == RUN )
+	{  
 		jumpCount = 0;
 		unDamage++;
 		if (_player.isFoxLeft)
@@ -930,8 +955,10 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 	}
 
 	//플레이어 렉트 right 픽셀 충돌
+
 	for (int i = _player.collisionRc.right - _player.speed; i < _player.collisionRc.right; i++)
 	{
+
 		COLORREF color = GetPixel(_bfx->getMemDC(), i, _player.y + 60);
 
 		int r = GetRValue(color);
@@ -942,7 +969,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 		{
 			_player.x = i - (_player.collisionRc.right - _player.collisionRc.left) / 2;
 			_player.isRight = false;
-			
+			//_player.speed =0.f;
 			break;
 		}
 		else if (ang && (r == 255 && g == 255 && b == 0))
@@ -950,8 +977,6 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			_player.x = i - (_player.collisionRc.right - _player.collisionRc.left) / 2;
 		
 			_player.isRight = false;
-
-			break;
 		}
 	}
 
@@ -967,14 +992,17 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 		if (r == 0 && g == 255 && b == 255)
 		{
 			_player.x = i + (_player.collisionRc.right - _player.collisionRc.left) / 2;
+<<<<<<< HEAD
+=======
 			_player.isLeft = false;			
+>>>>>>> 68976d0e7d05eaf9e56d288fbd81ecd4154dddef
 			break;
 		}
 		if (ang && (r == 255 && g == 255 && b == 0))
 		{
 			_player.x = i + (_player.collisionRc.right - _player.collisionRc.left) / 2;
-			break;
 		}
+
 	}
 
 	//for (int i = _player.rc.top; i < _player.rc.bottom; i += (_player.rc.bottom - _player.rc.top) / 2)
@@ -1056,6 +1084,11 @@ void foxPlayer::enemyCollision()
 				}
 				_state = HIT;
 				unDamage = 0;
+			}
+
+			if (IntersectRect(&tempRc, &_player.collisionRc, &_enemyManger->getEnemy()[i]->getCollisionRc()) && _enemyManger->getEnemy()[i]->getState() != ENEMY_SPAWN && _state != HIT)
+			{
+
 			}
 		}
 	}
@@ -1147,4 +1180,23 @@ void foxPlayer::test()
 	{
 		_player.gold -= 1;
 	}
+}
+
+void foxPlayer::playerUI()
+{
+	
+	if (ang)
+	{
+		_player.mana -= 0.1f;
+		if (_player.mana <= 0)ang = false;
+	}
+	else
+	{
+		if (_player.maxMana > _player.mana)_player.mana += 0.3f;
+		
+	}
+
+	if (_player.HP > _player.MaxHp)_player.HP = _player.MaxHp;
+	if (_player.HP < 0)_player.HP = 0;
+	if (_player.maxMana < _player.mana)_player.mana = _player.maxMana;
 }

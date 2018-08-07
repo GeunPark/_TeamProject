@@ -36,6 +36,7 @@ private:
 	image * _number[4];
 	image * _goldImage;
 	image * _warningLine;
+	image * _magicImage[5];
 	foxPlayer * _player;
 	int manaUpNum;
 	int manaWarning;

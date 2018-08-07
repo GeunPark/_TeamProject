@@ -1,5 +1,13 @@
 #pragma once
 #include "gameNode.h"
+class foxPlayer;
+enum kindShop
+{
+	UPGRADE,
+	MAGIC
+};
+
+
 
 struct tagShopBox
 {
@@ -21,8 +29,11 @@ private:
 	tagShopBox _ItemInfo[3];
 	tagShopBox _selectOj;
 	tagShopBox _priceNum[4];
+
+	foxPlayer * _player;
+
 	int num[4];
-	bool _kindShop;
+	kindShop _kindShop;
 	bool _isSelect;
 	int _selectCount;
 	int _selectNumber;
@@ -37,6 +48,10 @@ public:
 	void frameImageMove();
 	void selectObjectInIt();
 	void selectObject();
+
+	void setPlayerManager(foxPlayer* player);
+
+
 	shop() {}
 	~shop() {}
 };

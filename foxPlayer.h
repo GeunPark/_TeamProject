@@ -9,6 +9,7 @@
 
 class enemyManager;
 class UI;
+class shop;
 enum tagState
 {
 	IDLE=0,
@@ -55,6 +56,8 @@ struct tagPlayer
 	int HP;
 	int MaxHp;
 	int gold;
+
+
 };
 
 struct tagCam
@@ -76,6 +79,10 @@ private:
 
 	arrow* _arrow;
 	UI * _ui;
+	shop * _shop;
+
+	// 상점에서 산 아이템 저장하는 벡터
+	
 
 	image* nick[MAX_STATE];
 	image* _bfx;
@@ -91,7 +98,11 @@ private:
 	int unDamage;
 	
 	bool chk = false;
+	bool _a;
 public:
+
+
+
 	HRESULT init(void);
 	void release(void);
 	void update(void);
@@ -123,18 +134,27 @@ public:
 	// 플레이어 마나
 	float getMana() { return _player.mana; }
 	float getMaxMana() { return _player.maxMana; }
+	void setMana(float mana) { _player.mana = mana; }
+	void setMaxMAna(float maxMana) { _player.maxMana = maxMana; }
 
 	// 플레이어 HP
 	void setHp(int hp) { _player.HP = hp; }
 	int getHp() { return _player.HP; }
 	int getMaxHp() { return _player.MaxHp; }
+	
 
 	// 플레이어 골드
 	int getGold() { return _player.gold; }
+	void setGold(int gold) { _player.gold = gold; }
 
 	//에너미매니저와 상호참조
 	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
 	void setUIManager(UI* ui) { _ui = ui; }
+	void setShopManager(shop * shop) { _shop = shop; }
+
+	// 백터 값 저장
+	//void setVShopItem(vector<shop> shop) { _shopItem = shop; }
+	//vector<shop> getVShopItem() { return _shopItem;  }
 
 	tagPlayer getTag() { return _player; }
 
@@ -150,6 +170,7 @@ public:
 
 	// 테스트 함수
 	void test();
+	void playerUI();
 
 	foxPlayer() {}
 	~foxPlayer() {}
