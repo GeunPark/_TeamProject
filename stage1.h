@@ -5,6 +5,9 @@
 #include "shop.h"
 #include "foxPlayer.h"
 #include "UI.h"
+#include "effect.h"
+#include "effectManager.h"
+
 struct imgInfo
 {
 	float _x, _y;
@@ -42,10 +45,14 @@ private:
 	//플레이어 할당
 	foxPlayer* _player;
 
+	effectManager* _effMG;
+
 	// 상점 할당
 	shop * _shop;
 
 	UI * _ui;
+
+	//effect* _effect;
 
 	state _state;
 	tagBoxs _cam;

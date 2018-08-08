@@ -10,7 +10,8 @@ enum ENEMY_TYPE
 	TREEMAN,
 	PLANTFROG,
 	ELECTRICEEL,
-	GHOST
+	GHOST,
+	BOSS
 };
 
 enum ENEMY_STATE
@@ -105,6 +106,7 @@ public:
 	void setPosition(float x, float y) { _x = x, _y = y; }
 	void setIsLeft(bool isLeft) { _isLeft = isLeft; }
 	void setIsFire(bool _isFire) { isFire = _isFire; }
+	void setIsActived(bool isActived) { _isActived = isActived; }
 
 	int getGold() { return _gold; }
 	int getSilver() { return _silver; }
@@ -221,6 +223,8 @@ public:
 	void attack();
 	void move();
 	void dead();
+
+	beeBullet* getBullet() { return _bullet; }
 };
 
 

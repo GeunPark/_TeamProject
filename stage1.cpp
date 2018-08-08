@@ -35,6 +35,8 @@ HRESULT stage1::init(void)
 	_shop = new shop;
 	_shop->init();
 
+	_effMG = effectManager::getSingleton();
+
 
 	_normalBack1._x = 0;
 	_normalBack1._y = 0;
@@ -66,7 +68,7 @@ HRESULT stage1::init(void)
 	_player->setShopManager(_shop);
 	_shop->setPlayerManager(_player);
 	_ui->setPlayerManager(_player);
-
+	_effMG->setPlayerLink(_player);
 
 	//사운드 
 	SOUNDMANAGER->play("스테이지1 여름");
@@ -124,6 +126,8 @@ void stage1::update(void)
 		
 		_bee[i].rc = RectMake(_bee[i].x - _player->getPlayerCam().left, _bee[i].y - _player->getPlayerCam().top, 240, 240);
 	}
+
+
 }
 
 void stage1::render(void)
@@ -260,6 +264,7 @@ void stage1::render(void)
 	//에너미매니저
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
+
 
 
 

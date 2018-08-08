@@ -4,6 +4,7 @@
 #include "foxPlayer.h"
 #include "factory.h"
 #include "bullet.h"
+#include "effect.h"
 
 class itemManager;
 class foxPlayer;
@@ -27,9 +28,10 @@ private:
 	itemManager* _iMG;
 	image* _tongue;
 	ghostBullet* _ghostBullet;
-
+	beeBullet* _beeBullet;
 	bee* _bee;
 
+	effect* _effect;
 
 	factory* _factory;
 	vector<enemy*> _vEnemy;	// ÀÏ¹Ý Àû
@@ -70,6 +72,7 @@ public:
 	void release(void);
 	void update(void);
 	void render(void);
+	void beAttackedEffect();
 
 	void appearGhost();
 	void sensorCollision();

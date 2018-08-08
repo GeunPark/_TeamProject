@@ -7,7 +7,7 @@ HRESULT effectTestScene::init(void)
 	IMAGEMANAGER->addFrameImage("Æø¹ßÀÌÆåÆ®", "explosion.bmp", 832, 62, 26, 1);
 
 	//ÀÌÆåÆ® Å¬·¡½º ÃÊ±âÈ­
-	_effect = new effect;
+	//_effect = new effect;
 	_effect->init(IMAGEMANAGER->findImage("Æø¹ßÀÌÆåÆ®"), 0.3f);
 
 	/*ÀÌÆåÆ® ¸Å´ÏÁ® »ç¿ë½Ã*/
@@ -52,5 +52,5 @@ void effectTestScene::render(void)
 	showTitle(getMemDC(), "ÀÌÆåÆ® Å×½ºÆ®");
 
 	//ÀÌÆåÆ® Å¬·¡½º ·»´õ
-	_effect->render();
+	//_effect->render();
 }
