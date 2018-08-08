@@ -11,7 +11,28 @@ HRESULT foxPlayer::init(void)
 	imageSetting();
 	// 형 UI 설정좀 하께  웅
 	_state = IDLE;
+<<<<<<< HEAD
 	_player.x = 200;
+=======
+
+	_player.x = 200;
+
+
+	_player.x = 200;
+
+
+
+	_player.x = 6500;
+
+	_player.x = 3331;
+
+	_player.x = 300;
+
+	_player.x = 6500;
+
+	_player.x = 6520;
+
+>>>>>>> 5c82d88af9fcea4b1b3dcffa517383657fcfd044
 	_player.y = MAX_HEIGHT - 200;
 	_player.speed = 30.f;
 	_player.gravity = 0.f;
@@ -20,7 +41,7 @@ HRESULT foxPlayer::init(void)
 	_player.radian = 90;
 	_player.isJump = _player.isLeft = _player.isUp = _player.isDown = _player.isRight = _player.isAtt = _player.isChange = _player.isFoxLeft = false;
 
-	
+	eftChk = false;
 	index = count = actionCount = actionIndex = jumpCount = hitCount = unDamage = weatherIndex = effectIndex = effectCount = jumpAttCount = 0;
 
 	_player.maxMana = _player.mana = 100;
@@ -48,6 +69,10 @@ void foxPlayer::release(void)
 //ToDo : update
 void foxPlayer::update(void)
 {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5c82d88af9fcea4b1b3dcffa517383657fcfd044
 	
 	// 테스트 함수
 	if (KEYMANAGER->isToggleKey('Z'))
@@ -71,10 +96,18 @@ void foxPlayer::update(void)
 		if (_player.mana <= 0)ang = false;
 	}
 	else
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5c82d88af9fcea4b1b3dcffa517383657fcfd044
 	{
 		test();
 	}
 	playerUI();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5c82d88af9fcea4b1b3dcffa517383657fcfd044
 
 	{
 		test();
@@ -82,6 +115,10 @@ void foxPlayer::update(void)
 
 	playerUI();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5c82d88af9fcea4b1b3dcffa517383657fcfd044
 
 	// 테스트 함수
 	//test();
@@ -183,7 +220,10 @@ void foxPlayer::render()
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount,_player.HP);
 	TextOut(getMemDC(), 100, 600, str,strlen(str));
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c82d88af9fcea4b1b3dcffa517383657fcfd044
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 스피드 : %f", _player.gravity, jumpCount, _state, _player.speed);
 	TextOut(getMemDC(), 100, 600, str,strlen(str));
 
@@ -776,12 +816,17 @@ void foxPlayer::keySetting()
 	{
 		if (!ang)
 		{
+			
 			ang = true;
+			
 		}
 		else
 		{
 			ang = false;
 		}
+
+		eftChk = true;
+
 		_player.isChange = true;
 		_state = WEATHER;
 		if (_player.isChange)
@@ -976,7 +1021,10 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 		if (r == 0 && g == 255 && b == 255)
 		{
 			_player.x = i + (_player.collisionRc.right - _player.collisionRc.left) / 2;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c82d88af9fcea4b1b3dcffa517383657fcfd044
 			_player.isLeft = false;			
 			break;
 		}

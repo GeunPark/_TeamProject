@@ -15,6 +15,7 @@ HRESULT stage1::init(void)
 	_bagrandslide = 0;
 	imagePosition();
 	images();
+	eftInit();
 
 	//플레이어 동적할당
 	_player = new foxPlayer;
@@ -36,6 +37,7 @@ HRESULT stage1::init(void)
 	_shop->init();
 
 	_effMG = effectManager::getSingleton();
+
 
 
 	_normalBack1._x = 0;
@@ -80,10 +82,14 @@ void stage1::release(void)
 	SAFE_DELETE(_player);
 	SAFE_DELETE(_eMG);
 	SAFE_DELETE(_iMG);
+	SAFE_DELETE(_effect);
 }
  
 void stage1::update(void)
 {
+	for(int i=0;i<_vEffect.size();i++)_vEffect[i]->update();
+
+
 	if (_player->getAng() == false)_state = SUMMER;
 	else if (_player->getAng() == true)_state = WINTER;
 	//imageMove();
@@ -115,11 +121,30 @@ void stage1::update(void)
 	}
 	if (_state == WINTER && _bagrandslide != WINSIZEX)
 	{
+		if (_player->getEftChk() == true)
+		{
+			for (int i = 0; i < _vEffect.size(); i++)
+			{
+				_vEffect[i]->startEffect(_eftX[i] - _player->getPlayerCam().left, _eftY[i] - _player->getPlayerCam().top);
+			}
+		
+			_player->setEftChk(false);
+		}
 		_bagrandslide += 32;
 	}
-	if (_state == SUMMER)_bagrandslide = 0;
+	if (_state == SUMMER)
+	{
+		if (_player->getEftChk() == true)
+		{
+			for (int i = 0; i < _vEffect.size(); i++)
+			{
+				_vEffect[i]->startEffect(_eftX[i] - _player->getPlayerCam().left, _eftY[i] - _player->getPlayerCam().top);
+			}
+			_player->setEftChk(false);
+		}
+		_bagrandslide = 0;
+	}
 	this->bgMove();
-
 
 	for (int i = 0; i < 2; i++)
 	{
@@ -218,18 +243,18 @@ void stage1::render(void)
 		{
 			_river[7 + i]._img->frameRender(getMemDC(), _river[7 + i]._x - _player->getPlayerCam().left, _river[7 + i]._y - _player->getPlayerCam().top);
 		}
-		
+		for (int i = 0; i < 2; i++)
+		{
+			_bee[i]._img->frameRender(getMemDC(), _bee[i].x - _player->getPlayerCam().left, _bee[i].y - _player->getPlayerCam().top);
+
+		}
 		_waterWheel->frameRender(getMemDC(), 8730 - _player->getPlayerCam().left, 2175 - _player->getPlayerCam().top);
 		//////////////////////////////////////////////겨          울               맵/////////////////////////////////////////////////////////////////////
 		_winterBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _player->getPlayerCam().top, 0 + _bagrandslide, 2550), _winterBack1._x, _winterBack1._y);
 		_winterBack2._img->loopRender(getMemDC(), &RectMake(0, 2200 - _player->getPlayerCam().top, 0 + _bagrandslide, 2550), _winterBack2._x, _winterBack2._y);
 		feild->render(getMemDC(), 0 + _bagrandslide, 0, _player->getPlayerCam().left + _bagrandslide, _player->getPlayerCam().top, WINSIZEX - _bagrandslide, WINSIZEY);
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		for (int i = 0; i < 2; i++)
-		{
-			_bee[i]._img->frameRender(getMemDC(), _bee[i].x - _player->getPlayerCam().left, _bee[i].y - _player->getPlayerCam().top);
-
-		}
+		
 		for (int i = 3; i < 5; i++)
 		{
 			_waterfall[i]._img->frameRender(getMemDC(), _waterfall[i]._x - _player->getPlayerCam().left, _waterfall[i]._y - _player->getPlayerCam().top);
@@ -242,10 +267,10 @@ void stage1::render(void)
 
 		/////////////////////////////////////////////겨          울               맵/////////////////////////////////////////////////////////////
 		feildIce->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, 0 + _bagrandslide, WINSIZEY);
-		for (int i = 0; i < 2; i++)
-		{
-			_iceBee[i]._img->frameRender(getMemDC(), _iceBee[i].x - _player->getPlayerCam().left, _iceBee[i].y - _player->getPlayerCam().top);
-		}
+	//9	for (int i = 0; i < 2; i++)
+	//	{
+	//		_iceBee[i]._img->frameRender(getMemDC(), _iceBee[i].x - _player->getPlayerCam().left, _iceBee[i].y - _player->getPlayerCam().top);
+	//	}
 	}
 	// 픽셀 이미지 출력
 	if (KEYMANAGER->isToggleKey(VK_F4))
@@ -264,8 +289,10 @@ void stage1::render(void)
 	//에너미매니저
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
-
-
+	for (int i = 0; i < _vEffect.size(); i++)
+	{
+		_vEffect[i]->render();
+	}
 
 
 	// 테스트용 상점 구현
@@ -505,6 +532,7 @@ void stage1::images()
 	}
 	
 }
+
 void stage1::bgMove()
 {
 	bgCount++;
@@ -534,4 +562,48 @@ void stage1::bgMove()
 	{
 		bgCount = 0;
 	}
+}
+
+
+void stage1::eftInit()
+{
+	
+	
+	_eftX[0] = 6360;
+	_eftY[0] = 2190;
+
+	_eftX[1] = 6590;
+	_eftY[1] = 2120;
+
+	_eftX[2] = 6360;
+	_eftY[2] = 2060;
+
+	_eftX[3] = 6590;
+	_eftY[3] = 2000;
+
+	_eftX[4] = 6590;
+	_eftY[4] = 1800;
+
+	_eftX[5] = 6360;
+	_eftY[5] = 1745;
+
+	_eftX[6] = 6590;
+	_eftY[6] = 1680;
+
+	_eftX[7] = 7240;
+	_eftY[7] = 2325;
+
+	_eftX[8] = 7470;
+	_eftY[8] = 2255;
+
+	for (int i = 0; i < 9; i++)
+	{
+		_effect = new effect;
+		_effect->init(IMAGEMANAGER->findImage("빛"), 0.3f);
+		_vEffect.push_back(_effect);
+	}
+}
+void stage1::eftMove()
+{
+
 }

@@ -77,8 +77,8 @@ void shop::ItemList()
 		_Item[2]._img = IMAGEMANAGER->findImage("하트");
 
 		_Item[0].price = 1000;
-		_Item[1].price = 1500;
-		_Item[2].price = 2000;
+		_Item[1].price = 150;
+		_Item[2].price = 200;
 
 		_ItemInfo[0]._img = IMAGEMANAGER->findImage("초록화살 설명");
 		_ItemInfo[1]._img = IMAGEMANAGER->findImage("마나 업그레이드 설명");
@@ -94,9 +94,9 @@ void shop::ItemList()
 		_ItemInfo[1]._img = IMAGEMANAGER->findImage("얼음 마법 정보");
 		_ItemInfo[2]._img = IMAGEMANAGER->findImage("번개 마법 정보");
 
-		_Item[0].price = 300;
-		_Item[1].price = 400;
-		_Item[2].price = 500;
+		_Item[0].price = 30;
+		_Item[1].price = 30;
+		_Item[2].price = 30;
 
 	}
 	for (int i = 0; i < 4; i++)

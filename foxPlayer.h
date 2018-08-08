@@ -51,6 +51,8 @@ struct tagPlayer
 	bool isAtt;
 	bool isChange;
 
+	
+
 	float mana;
 	float maxMana;
 	int HP;
@@ -99,10 +101,11 @@ private:
 	
 	bool chk = false;
 	bool _a;
+	bool eftChk;
 public:
 
 
-
+	
 	HRESULT init(void);
 	void release(void);
 	void update(void);
@@ -168,6 +171,10 @@ public:
 	arrow* getArrow() { return _arrow; }
 	RECT getCollisionRc() { return _player.collisionRc; }
 	//tagCam getCamera(tagCam camera) { return _camera; }
+
+	bool getEftChk() { return eftChk; }
+	void setEftChk(bool eC) { eftChk = eC; }
+
 
 	// 테스트 함수
 	void test();
