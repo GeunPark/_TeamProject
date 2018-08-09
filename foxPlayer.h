@@ -126,6 +126,7 @@ public:
 	float getY() { return _player.y; }
 	bool getLeft() { return _player.isLeft; }
 	bool getRight() { return _player.isRight; }
+	bool getIsAtt() { return _player.isAtt; }
 	RECT getPlayerCam() { return _camera.rc; }
 	RECT getAttRc() { return attRc; }
 	RECT getAttRc2() { return attRc2; }

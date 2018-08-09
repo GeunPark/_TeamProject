@@ -732,9 +732,6 @@ void bee::init()
 	_gold = 0;
 	_silver = 0;
 	_bronze = 0;
-
-
-
 }
 
 void bee::idle()
@@ -796,8 +793,6 @@ void bee::attack()
 		}
 
 	}
-
-
 
 	//if (_isLeft)
 	//{

@@ -122,10 +122,8 @@ HRESULT enemyManager::init(void)
 		_vEnemy.push_back(_enemy);
 	}
 
-
-
 	isAttack = 0;
-	_tongue = IMAGEMANAGER->findImage("µÎ²¨ºñtongue");
+	_tongue = IMAGEMANAGER->findImage("µÎ²¨ºñtongue");		// Ãò·Î¿Ã·Îº¸·Ó¤·°íÆÛ¤¿¤±¤¤¤·¤½¤§¸®¤Ã¤·°ÜÇÇ¤Ó³Ä¤Ñ¤½¸Ï¤Ã¤©¤©¤©¤§¤¤¤·¤½¤±·¯¤Á¤Ó¤Ã¤Ì¤©¤© È¯»ó~~! (³³µæÀÌ)
 
 	return S_OK;
 }
@@ -399,11 +397,7 @@ void enemyManager::beAttackedEffect()
 			}
 			_vEnemy.erase(_vEnemy.begin() + i);
 		}
-		
-
 	}
-
-
 }
 
 void enemyManager::appearGhost()
@@ -438,17 +432,12 @@ void enemyManager::sensorCollision()
 				else
 				{
 					_vEnemy[i]->setIsLeft(false);
-
 				}
 			}
 			else
 			{
 				_vEnemy[i]->setState(ENEMY_WALK);
 			}
-
-
-
-
 		}
 		else if (_vEnemy[i]->getType() == PLANTFROG && (_vEnemy[i]->getIndexX() == 0 || _vEnemy[i]->getIndexX() == 6) && _vEnemy[i]->getGravity() ==0)
 		{

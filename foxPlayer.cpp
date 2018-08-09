@@ -804,6 +804,8 @@ void foxPlayer::enemyAttCollision()
 			}
 		}
 	}
+
+	//for(int i = 0; i < _enemyManger->)
 }
 
 void foxPlayer::removeArrow(int index)
