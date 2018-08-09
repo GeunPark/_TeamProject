@@ -136,7 +136,6 @@ void foxPlayer::update(void)
 void foxPlayer::render()
 {
 	Rectangle(getMemDC(), _player.collisionRc.left - _camera.rc.left, _player.collisionRc.top - _camera.rc.top, _player.collisionRc.right - _camera.rc.left, _player.collisionRc.bottom - _camera.rc.top);
-	nick[_state]->frameRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, nick[_state]->getFrameX(), nick[_state]->getFrameY());
 
 	if (_player.isAtt)
 	{
@@ -148,6 +147,8 @@ void foxPlayer::render()
 		Rectangle(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, twinkleRc.right - _camera.rc.left, twinkleRc.bottom - _camera.rc.top);
 		_twinkle->frameRender(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, _twinkle->getFrameX(), _twinkle->getFrameY());
 	}
+
+	nick[_state]->frameRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, nick[_state]->getFrameX(), nick[_state]->getFrameY());
 
 	if (KEYMANAGER->isToggleKey('O'))
 	{
@@ -285,6 +286,7 @@ void foxPlayer::keySetting()
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		_player.isUp = false;
+		if (_state != SITATT && _state != RUN && _state != JUMP && _state != DOUBLEJUMP && _state != FALL && _state != FALL2)		//임뫄~! 이거하나면 해결되는거자나! 정신똑띠 차리자!!! 이거 좀 화낫다 너무 쉬운거여서 화낫다   -세원-
 		_state = SIT;
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_DOWN) && _state != SITATT)
