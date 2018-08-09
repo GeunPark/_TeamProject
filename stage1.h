@@ -6,10 +6,7 @@
 #include "foxPlayer.h"
 #include "UI.h"
 #include "effect.h"
-<<<<<<< HEAD
 #include "effectManager.h"
-=======
->>>>>>> 5c82d88af9fcea4b1b3dcffa517383657fcfd044
 
 struct imgInfo
 {

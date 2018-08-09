@@ -291,7 +291,7 @@ void stage1::render(void)
 	_eMG->render();
 	for (int i = 0; i < _vEffect.size(); i++)
 	{
-		_vEffect[i]->render();
+		//_vEffect[i]->render();
 	}
 
 
