@@ -7,8 +7,17 @@ HRESULT shop::init(void)
 	_kindShop = MAGIC;				// 상점 종류 flase-> 업그레이드 상점, true -> 마법 상점
 	_backImage._x = 100;
 	_backImage._y = 100;
+	_sellMagicNum = 0;
 	_backImage._img = IMAGEMANAGER->findImage("기모띠");
+	_isNotSelect = false;
 	selectObjectInIt();
+	for (int i = 0; i < 3; i++)
+	{
+		_Item[i]._sellCount = 0;
+		_Item[i]._maxNum = 0;
+		upgnum[i] = 0;
+		magicNum[i] = 0;
+	}
 	for (int i = 0; i < 4; i++)
 	{
 		_priceNum[i]._img = IMAGEMANAGER->findImage("숫자");
@@ -43,7 +52,7 @@ void shop::render()
 	}
 	for (int i = 0; i < 4; i++)
 	{
-		_priceNum[i]._img->frameRender(getMemDC(), _priceNum[i]._x, _priceNum[i]._y, num[i], 0);
+		if(!_isNotSelect)_priceNum[i]._img->frameRender(getMemDC(), _priceNum[i]._x, _priceNum[i]._y, num[i], 0);
 		//number[i]->frameRender(getMemDC(), 1100 + (24 * i), 50, num[i], 0);
 	}
 
@@ -53,6 +62,11 @@ void shop::render()
 	if(!_isSelect)_selectOj._img->render(getMemDC(), _selectOj._x, _selectOj._y);
 	else if(_isSelect)_selectOj._img->frameRender(getMemDC(), _selectOj._x, _selectOj._y);
 
+
+
+	char str[128];
+	sprintf_s(str, "%d    %d ", magicNum[_selectNumber] ,_Item[_selectNumber]._maxNum);
+	TextOut(getMemDC(), 120, WINSIZEY / 2, str, strlen(str));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 }
@@ -76,13 +90,17 @@ void shop::ItemList()
 		_Item[1]._img = IMAGEMANAGER->findImage("마나업그레이드1");
 		_Item[2]._img = IMAGEMANAGER->findImage("하트");
 
+		_ItemInfo[0]._img = IMAGEMANAGER->findImage("초록화살 설명");
+		_ItemInfo[1]._img = IMAGEMANAGER->findImage("마나 업그레이드 설명");
+		_ItemInfo[2]._img = IMAGEMANAGER->findImage("하트 설명");
+
 		_Item[0].price = 1000;
 		_Item[1].price = 150;
 		_Item[2].price = 200;
 
-		_ItemInfo[0]._img = IMAGEMANAGER->findImage("초록화살 설명");
-		_ItemInfo[1]._img = IMAGEMANAGER->findImage("마나 업그레이드 설명");
-		_ItemInfo[2]._img = IMAGEMANAGER->findImage("하트 설명");
+		_Item[0]._maxNum = MAXGREENARROW;
+		_Item[1]._maxNum = MAXMANAITEM;
+		_Item[2]._maxNum = MAXHPITEM;
 	}
 	else if (MAGIC)
 	{
@@ -97,6 +115,10 @@ void shop::ItemList()
 		_Item[0].price = 30;
 		_Item[1].price = 30;
 		_Item[2].price = 30;
+
+		_Item[0]._maxNum = 1;
+		_Item[1]._maxNum = 1;
+		_Item[2]._maxNum = 1;
 
 	}
 	for (int i = 0; i < 4; i++)
@@ -119,6 +141,7 @@ void shop::frameImageMove()
 		if (_selectCount > 60)
 		{
 			_isSelect = false;
+			_isNotSelect = false;
 			_selectCount = 0;
 			_selectOj._count = 0;
 			_selectOj._index = 0;
@@ -157,11 +180,12 @@ void shop::selectObject()
 		if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 		{
 			_isSelect = true;
-			if (_player->getGold() > _Item[_selectNumber].price )
+			if (_player->getGold() > _Item[_selectNumber].price && (upgnum[_selectNumber] < _Item[_selectNumber]._maxNum || magicNum[_selectNumber] < _Item[_selectNumber]._maxNum))
 			{
 				_player->setGold(_player->getGold() - _Item[_selectNumber].price);
 				ItemSell();
 			}
+			else _isNotSelect = true;
 		}
 	}
 
@@ -170,7 +194,9 @@ void shop::selectObject()
 
 	if (!_isSelect)_selectOj._img = IMAGEMANAGER->findImage("아이템 선택");
 	else if(_isSelect)_selectOj._img = IMAGEMANAGER->findImage("선택함");
-	
+
+	if (_isNotSelect && _kindShop == UPGRADE)_ItemInfo[_selectNumber]._img = IMAGEMANAGER->findImage("업그레이드 불가");
+	if (_isNotSelect && _kindShop == MAGIC)_ItemInfo[_selectNumber]._img = IMAGEMANAGER->findImage("마법 구매 불가");
 	_selectOj._rc = RectMake(_selectOj._x, _selectOj._y, 120, 120);
 }
 
@@ -178,10 +204,11 @@ void shop::ItemSell()
 {
 	if (_kindShop == UPGRADE)
 	{
-		/*_Item[0]._img = IMAGEMANAGER->findImage("총알 추가");
-		_Item[1]._img = IMAGEMANAGER->findImage("마나업그레이드1");
-		_Item[2]._img = IMAGEMANAGER->findImage("하트");*/
-		if (_selectNumber == 1)
+		if (_selectNumber == 0)
+		{
+			
+		}
+		else if (_selectNumber == 1)
 		{
 			_player->setMaxMAna(_player->getMaxMana() + 30);
 		}
@@ -189,11 +216,11 @@ void shop::ItemSell()
 		{
 			_player->setMaxHp(_player->getMaxHp() + 10);
 			_player->setHp(_player->getMaxHp());
-		}
+		}upgnum[_selectNumber] += 1;
 	}
 	else if (_kindShop == MAGIC)
 	{
-
+		magicNum[_selectNumber] += 1;
 	}
 }
 

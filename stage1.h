@@ -6,10 +6,8 @@
 #include "foxPlayer.h"
 #include "UI.h"
 #include "effect.h"
-<<<<<<< HEAD
 #include "effectManager.h"
-=======
->>>>>>> 5c82d88af9fcea4b1b3dcffa517383657fcfd044
+
 
 struct imgInfo
 {
@@ -100,6 +98,7 @@ private:
 	int _index1;
 	int bgCount;  //배경이 너무 빨리 움직여서 배경카운트만들엇엉 -세원-
 	float _eftX[9],_eftY[9];
+	bool shopMode;
 
 	//int _x, _y;
 public:
@@ -118,6 +117,7 @@ public:
 	void eftInit();
 	void eftMove();
 
+	void beecollision();
 	state getState() { return _state; }
 	//배경 움직이는 함수
 

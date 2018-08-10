@@ -1,6 +1,6 @@
 #pragma once
 #include "gameNode.h"
-#define POISON 3
+#define POISON 
 
 struct tagArrow
 {

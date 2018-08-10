@@ -1,5 +1,11 @@
 #pragma once
 #include "gameNode.h"
+#define MAXHPITEM 5
+#define MAXMANAITEM 3
+#define MAXGREENARROW 1
+
+#define MAXMAGICITEM 3
+
 class foxPlayer;
 enum kindShop
 {
@@ -17,6 +23,8 @@ struct tagShopBox
 	int _count;
 	int _index;
 	int price;
+	int _sellCount;
+	int _maxNum;
 };
 
 
@@ -35,8 +43,12 @@ private:
 	int num[4];
 	kindShop _kindShop;
 	bool _isSelect;
+	bool _isNotSelect;
 	int _selectCount;
 	int _selectNumber;
+	int _sellMagicNum;
+	int upgnum[3];
+	int magicNum[3];
 	float _x, _y;
 public:
 	HRESULT init(void);

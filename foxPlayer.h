@@ -51,15 +51,11 @@ struct tagPlayer
 	bool isAtt;
 	bool isChange;
 
-	
-
 	float mana;
 	float maxMana;
 	int HP;
 	int MaxHp;
 	int gold;
-
-
 };
 
 struct tagCam
@@ -134,6 +130,9 @@ public:
 	RECT getAttRc() { return attRc; }
 	RECT getAttRc2() { return attRc2; }
 
+	void setState(tagState state) { _state = state; }
+	tagState getPlayerState() { return _state;}
+
 	// 플레이어 마나
 	float getMana() { return _player.mana; }
 	float getMaxMana() { return _player.maxMana; }
@@ -162,7 +161,7 @@ public:
 
 	tagPlayer getTag() { return _player; }
 
-	// 계절을 변화시켰는지 아닌지 판별 Ang~♡
+	// 계절을 변화시켰는지 아닌지 판별
 	bool getAng() { return ang; }
 	
 	void setIsAttack(bool _isAttack) { _player.isAtt = _isAttack; }
@@ -170,7 +169,6 @@ public:
 	
 	arrow* getArrow() { return _arrow; }
 	RECT getCollisionRc() { return _player.collisionRc; }
-	//tagCam getCamera(tagCam camera) { return _camera; }
 
 	bool getEftChk() { return eftChk; }
 	void setEftChk(bool eC) { eftChk = eC; }

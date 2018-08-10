@@ -38,7 +38,7 @@ HRESULT stage1::init(void)
 
 	_effMG = effectManager::getSingleton();
 
-
+	shopMode = false;
 
 	_normalBack1._x = 0;
 	_normalBack1._y = 0;
@@ -83,11 +83,12 @@ void stage1::release(void)
 	SAFE_DELETE(_eMG);
 	SAFE_DELETE(_iMG);
 	SAFE_DELETE(_effect);
+	SAFE_DELETE(_shop);
 }
  
 void stage1::update(void)
 {
-	for(int i=0;i<_vEffect.size();i++)_vEffect[i]->update();
+	
 
 
 	if (_player->getAng() == false)_state = SUMMER;
@@ -108,7 +109,6 @@ void stage1::update(void)
 	_iMG->update();
 
 	_shop->update();
-
 	if (KEYMANAGER->isToggleKey(VK_F2))
 	{
 		cameraMove();
@@ -151,13 +151,11 @@ void stage1::update(void)
 		
 		_bee[i].rc = RectMake(_bee[i].x - _player->getPlayerCam().left, _bee[i].y - _player->getPlayerCam().top, 240, 240);
 	}
-
-
+	for (int i = 0; i<_vEffect.size(); i++)_vEffect[i]->update();
 }
 
 void stage1::render(void)
 {
-	
 	_normalBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _player->getPlayerCam().top, WINSIZEX, 2550), _normalBack1._x, _normalBack1._y);
 	_normalBack2._img->loopRender(getMemDC(), &RectMake(0, 2200 - _player->getPlayerCam().top, WINSIZEX, 2550), _normalBack2._x, _normalBack2._y);
 	if (_state == SUMMER)
@@ -216,8 +214,8 @@ void stage1::render(void)
 			feild[i]->render(getMemDC(), 0 + 2500 * i, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
 		}
 		*/
-		
 	}
+
 	if (_state == WINTER)
 	{
 		for (int i = 0; i < 3; i++)
@@ -289,22 +287,23 @@ void stage1::render(void)
 	//에너미매니저
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
+
 	for (int i = 0; i < _vEffect.size(); i++)
 	{
-		_vEffect[i]->render();
+		_vEffect[i]->render(0,0);
 	}
-
-
 	// 테스트용 상점 구현
-	if (KEYMANAGER->isToggleKey('Q'))
+	if (KEYMANAGER->isOnceKeyDown('Q'))
 	{
-		_shop->render();
-	}
 
+		if(!shopMode)shopMode = true;
+		else shopMode = false;
+	}
+	if(shopMode)_shop->render();
 
 	char str[128];
-	sprintf_s(str, "%d    %d ",_ptMouse.x + _player->getPlayerCam().left,_ptMouse.y + _player->getPlayerCam().top);
-	TextOut(getMemDC(), 120 , WINSIZEY /2 , str, strlen(str));
+	sprintf_s(str, "%d    %d ", _b, _b);
+	TextOut(getMemDC(), 120, WINSIZEY / 2, str, strlen(str));
 	
 }
 
@@ -603,7 +602,16 @@ void stage1::eftInit()
 		_vEffect.push_back(_effect);
 	}
 }
-void stage1::eftMove()
-{
 
+void stage1::beecollision()
+{
+	RECT _Trc;
+	for(int i=0;i<2;i++)
+	{
+		if (IntersectRect(&_Trc, &_bee[i].rc, &_player->getCollisionRc()))
+		{
+			_b++;
+			_player->setState(HIT);
+		}
+	}
 }

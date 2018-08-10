@@ -60,6 +60,9 @@ void loadingScene::GiHunImage()
 	_loading->loadImage("마나 업그레이드 설명", "resource/상점/마나 업그레이드 설명.bmp", 400, 400, true, MAGENTA);
 	_loading->loadImage("하트 설명", "resource/상점/하트 설명.bmp", 400, 400, true, MAGENTA);
 
+	_loading->loadImage("업그레이드 불가", "resource/상점/업그레이드 불가.bmp", 400, 400, true, MAGENTA);
+	_loading->loadImage("마법 구매 불가", "resource/상점/마법 구매 불가.bmp", 400, 400, true, MAGENTA);
+
 	// UI
 	_loading->loadImage("fullHP", "resource/UI/fullHP.bmp", 48, 48, true, MAGENTA);
 	_loading->loadImage("halfHP", "resource/UI/halfHP.bmp", 48, 48, true, MAGENTA);

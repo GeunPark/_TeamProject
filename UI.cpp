@@ -95,8 +95,9 @@ void UI::render()
 	{
 		if (frameNumChk[i] == true)_number[i]->frameRender(getMemDC(), 1100 + (24 * i), 50, _frameNum[i], 0);
 	}
-
-
+	char str[128];
+	sprintf(str, "%d,      %d", _heartNum, _heart[6]._numChk);
+	TextOut(getMemDC(), 100, 700, str, strlen(str));
 }
 
 // 하트(체력)
@@ -148,10 +149,9 @@ void UI::nowHeart()
 	}
 	for (int i = 0; i < maxHeart; i++)
 	{
-		// _heartNum / 10 + i * 10;
 		if (_heartNum / 10 > i)_heart[i]._numChk = 2;
-		if (_heartNum / 10 == i && _heartNum % 10 == 5)_heart[i]._numChk = 1;
-		if (_heartNum / 10 <= i && (_heartNum % 10 == 0 || _heartNum == 0))_heart[i]._numChk = 0;
+		else if (_heartNum / 10 == i && _heartNum % 10 == 5)_heart[i]._numChk = 1;
+		else if (_heartNum / 10 <= i || _heartNum == 0)_heart[i]._numChk = 0;
 
 
 	}
@@ -178,7 +178,7 @@ void UI::mana()
 	_manaUp._x = 610;
 	_manaUp._y = 59;
 
-	// 마나를 거의 따 쓰면 마나색이 빨간색으로 바뀜
+	// 마나를 거의 따 쓰면 마나색이 빨간색으로 바뀜"
 	_manaWa = IMAGEMANAGER->findImage("마나 경고");
 	manaWarning = (_mana._MaxNum / 100) * 20;
 	_warningLine = IMAGEMANAGER->findImage("경고선");
