@@ -51,6 +51,9 @@ private:
 	int magicNum[3];
 	int upgMaxNum[3];
 	int magicMaxNum[3];
+
+	bool frameNumChk[4];
+	
 	float _x, _y;
 
 public:

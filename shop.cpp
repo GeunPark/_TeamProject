@@ -24,6 +24,7 @@ HRESULT shop::init(void)
 	for (int i = 0; i < 4; i++)
 	{
 		_priceNum[i]._img = IMAGEMANAGER->findImage("숫자");
+		frameNumChk[i] = false;
 	}
 	return S_OK;
 }
@@ -43,21 +44,23 @@ void shop::update(void)
 		if (_kindShop == UPGRADE)_kindShop = MAGIC;
 		else if (_kindShop == MAGIC)_kindShop = UPGRADE;
 	}
-
 }
-
 void shop::render()
 {
 	_backImage._img->render(getMemDC(), _backImage._x, _backImage._y);
 	for (int i = 0; i < 3; i++)
 	{
 		_Item[i]._img->render(getMemDC(), _Item[i]._x, _Item[i]._y);	
-	}
-	for (int i = 0; i < 4; i++)
+	}	
+
+	if (!_isNotSelect[0] && !_isNotSelect[1])
 	{
-		if(!_isNotSelect)_priceNum[i]._img->frameRender(getMemDC(), _priceNum[i]._x, _priceNum[i]._y, num[i], 0);
-		//number[i]->frameRender(getMemDC(), 1100 + (24 * i), 50, num[i], 0);
+		for (int i = 0; i < 4; i++)
+		{
+			if (frameNumChk[i] == true)_priceNum[i]._img->frameRender(getMemDC(), _priceNum[i]._x, _priceNum[i]._y, num[i], 0);
+		}
 	}
+	
 
 	_ItemInfo[_selectNumber]._img->render(getMemDC(), _ItemInfo[_selectNumber]._x, _ItemInfo[_selectNumber]._y);
 	//_ItemInfo[1]._img->render(getMemDC(), _ItemInfo[1]._x, _ItemInfo[1]._y);
@@ -65,17 +68,12 @@ void shop::render()
 	if(!_isSelect)_selectOj._img->render(getMemDC(), _selectOj._x, _selectOj._y);
 	else if(_isSelect)_selectOj._img->frameRender(getMemDC(), _selectOj._x, _selectOj._y);
 
-
-
 	char str[128];
 	sprintf_s(str, "%d    %d           %d", upgnum[_selectNumber],upgMaxNum[_selectNumber], _isNotSelect);
 	TextOut(getMemDC(), 200, WINSIZEY / 2, str, strlen(str));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 }
-
-
-
 void shop::ItemList()
 {
 	for (int i = 0; i < 3; i++)
@@ -132,6 +130,7 @@ void shop::ItemList()
 		_priceNum[i]._img = IMAGEMANAGER->findImage("숫자");
 		_priceNum[i]._x = 300 + i * 24;
 		_priceNum[i]._y = 450;
+
 	}
 }
 
@@ -160,6 +159,15 @@ void shop::frameImageMove()
 	num[1] = (_Item[_selectNumber].price % 1000) / 100;
 	num[2] = (_Item[_selectNumber].price % 100) / 10;
 	num[3] = _Item[_selectNumber].price % 10;
+	
+
+	if (_Item[_selectNumber].price >= 0) frameNumChk[3] = true;
+	if (_Item[_selectNumber].price > 9) frameNumChk[2] = true;
+	else if (_Item[_selectNumber].price <= 9) frameNumChk[2] = false;
+	if (_Item[_selectNumber].price > 99) frameNumChk[1] = true;
+	else if (_Item[_selectNumber].price <= 99) frameNumChk[1] = false;
+	if (_Item[_selectNumber].price > 999) frameNumChk[0] = true;
+	else if (_Item[_selectNumber].price <= 999) frameNumChk[0] = false;
 
 }
 
@@ -204,7 +212,7 @@ void shop::selectObject()
 			{
 				_isNotSelect[0] = true;
 			}
-			else if (_player->getGold() < _Item[_selectNumber].price || magicNum[_selectNumber] > magicMaxNum[_selectNumber])
+			if (_player->getGold() < _Item[_selectNumber].price || magicNum[_selectNumber] > magicMaxNum[_selectNumber])
 			{
 				_isNotSelect[1] = true;
 			}
@@ -220,6 +228,7 @@ void shop::selectObject()
 	if (_isNotSelect[0] && _kindShop == UPGRADE)_ItemInfo[_selectNumber]._img = IMAGEMANAGER->findImage("업그레이드 불가");
 	if (_isNotSelect[1] && _kindShop == MAGIC)_ItemInfo[_selectNumber]._img = IMAGEMANAGER->findImage("마법 구매 불가");
 	_selectOj._rc = RectMake(_selectOj._x, _selectOj._y, 120, 120);
+
 }
 
 void shop::ItemSell()
