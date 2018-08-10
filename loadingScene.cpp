@@ -11,6 +11,7 @@ HRESULT loadingScene::init(void)
 	this->loadingImage();
 	this->loadingSound();
 
+	
 	return S_OK;
 }
 
@@ -27,11 +28,14 @@ void loadingScene::update(void)
 	_loading->update();
 
 	//로딩완료후 씬변경
+	
 	if (_loading->loadingDone())
 	{
 		//SCENEMANAGER->loadScene("픽셀충돌");
 		SCENEMANAGER->loadScene("스타트씬");
 	}
+	
+	
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
@@ -52,8 +56,8 @@ void loadingScene::render(void)
 	if (_loading->getCurrnetGauge() < _loading->getLoadItem().size())
 	{
 		char str[128];
-		sprintf_s(str, "%s.bmp", _loading->getLoadItem()[_loading->getCurrnetGauge()]->getImageResource().keyName.c_str());
-		TextOut(getMemDC(), 120, 430, str, strlen(str));
+		sprintf_s(str, "%s  을(를) 읽는중...", _loading->getLoadItem()[_loading->getCurrnetGauge()]->getImageResource().keyName.c_str());
+		TextOut(getMemDC(), 300, 580, str, strlen(str));
 	}
 
 	float num = _loading->getLoadItem().size();
