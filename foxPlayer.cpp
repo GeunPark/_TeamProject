@@ -4,7 +4,6 @@
 #include "shop.h"
 #include "UI.h"
 
-
 //ToDo : init
 HRESULT foxPlayer::init(void)
 {
@@ -54,7 +53,10 @@ void foxPlayer::release(void)
 //ToDo : update
 void foxPlayer::update(void)
 {
+<<<<<<< HEAD
 	test();
+=======
+>>>>>>> 91baea7037be2ac10ddeaa5e9bdfdccbb2eb71f6
 	if (ang)
 	{
 		_player.mana -= 0.1f;
@@ -470,7 +472,7 @@ void foxPlayer::keySetting()
 
 	if (KEYMANAGER->isOnceKeyDown('S') && _state == IDLE)
 	{
-		if (!ang && _player.mana > 30)
+		if (!ang)
 		{
 			ang = true;
 		}
@@ -860,7 +862,11 @@ void foxPlayer::playerUI()
 	}
 	else
 	{
+<<<<<<< HEAD
 		if (_player.maxMana > _player.mana)_player.mana += 0.05f;
+=======
+		if (_player.maxMana > _player.mana)_player.mana += 0.3f;
+>>>>>>> 91baea7037be2ac10ddeaa5e9bdfdccbb2eb71f6
 	}
 	if (_player.HP > _player.MaxHp)_player.HP = _player.MaxHp;
 	if (_player.HP < 0)_player.HP = 0;

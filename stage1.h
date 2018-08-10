@@ -7,6 +7,10 @@
 #include "UI.h"
 #include "effect.h"
 #include "effectManager.h"
+<<<<<<< HEAD
+=======
+
+>>>>>>> 91baea7037be2ac10ddeaa5e9bdfdccbb2eb71f6
 struct imgInfo
 {
 	float _x, _y;
