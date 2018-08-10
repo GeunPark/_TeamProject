@@ -568,10 +568,12 @@ void stage1::bgMove()
 	{
 		if (bgCount > 2)
 		{
-			_normalBack1._x -= 1;
-			_normalBack2._x -= 1;
-			_winterBack1._x -= 1;
-			_winterBack2._x -= 1;
+			_normalBack1._x -= 0.5f;
+
+			_normalBack2._x -= 2.f;
+
+			_winterBack1._x -= 0.5f;
+			_winterBack2._x -= 2.f;
 		}
 		
 	}
@@ -579,10 +581,10 @@ void stage1::bgMove()
 	{
 		if (bgCount > 2)
 		{
-			_normalBack1._x += 1;
-			_normalBack2._x += 1;
-			_winterBack1._x += 1;
-			_winterBack2._x += 1;
+			_normalBack1._x += 0.5f;
+			_normalBack2._x += 2.f;
+			_winterBack1._x += 0.5f;
+			_winterBack2._x += 2.f;
 		}
 	
 	}

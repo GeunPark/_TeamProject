@@ -30,6 +30,7 @@ public:
 	void setY(int y) { _y = y; }
 	//체력바 렉트 가져오기
 	RECT getRect() { return _rcProgress; }
+	float getGaugeWidth() { return _width; }
 
 	progressBar() {}
 	~progressBar() {}
