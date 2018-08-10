@@ -6,8 +6,8 @@ void loadingScene::SaeWonImage()
 {
 	_loading->loadFrameImage("Idle", "resource/foxPlayer/nickIdle.bmp", 3600, 360, 20, 2, true, MAGENTA);
 	_loading->loadFrameImage("Run", "resource/foxPlayer/run.bmp", 1440, 360, 8, 2, true, MAGENTA);
-	_loading->loadFrameImage("Jump", "resource/foxPlayer/jump.bmp", 360, 360, 2, 2, true, MAGENTA);
-	_loading->loadFrameImage("Jump2", "resource/foxPlayer/jump.bmp", 360, 360, 2, 2, true, MAGENTA);
+	_loading->loadFrameImage("Jump", "resource/foxPlayer/jump.bmp", 180, 360, 1, 2, true, MAGENTA);
+	_loading->loadFrameImage("Jump2", "resource/foxPlayer/jump.bmp", 180, 360, 1, 2, true, MAGENTA);
 	_loading->loadFrameImage("Fall", "resource/foxPlayer/fall.bmp", 720, 360, 4, 2, true, MAGENTA);
 	_loading->loadFrameImage("Fall2", "resource/foxPlayer/fall.bmp", 720, 360, 4, 2, true, MAGENTA);
 	_loading->loadFrameImage("Fire", "resource/foxPlayer/bowFire.bmp", 1440, 360, 8, 2, true, MAGENTA);
@@ -17,7 +17,7 @@ void loadingScene::SaeWonImage()
 	_loading->loadFrameImage("JumpAtt", "resource/foxPlayer/jumpAtt.bmp", 2034, 360, 6, 2, true, MAGENTA);
 	_loading->loadFrameImage("JumpAtt2", "resource/foxPlayer/jumpAtt2.bmp", 1704, 426, 8, 2, true, MAGENTA);
 	_loading->loadFrameImage("DownAtt", "resource/foxPlayer/downAtt.bmp", 564, 318, 4, 2, true, MAGENTA);
-	_loading->loadFrameImage("Hurt", "resource/foxPlayer/hurt.bmp", 180, 360, 1,2,true, MAGENTA);
+	_loading->loadFrameImage("Hurt", "resource/foxPlayer/hurt.bmp", 180, 360, 1, 2, true, MAGENTA);
 	_loading->loadFrameImage("arrow", "resource/foxPlayer/arrow.bmp", 66, 46, 1, 2, true, MAGENTA);
 	_loading->loadFrameImage("Weather", "resource/foxPlayer/weather.bmp", 1620, 360, 9, 2, true, MAGENTA);
 	_loading->loadFrameImage("Twinkle", "resource/foxPlayer/twinkle.bmp", 5805, 384, 15, 1, true, MAGENTA);

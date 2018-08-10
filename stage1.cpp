@@ -290,7 +290,11 @@ void stage1::render(void)
 
 	for (int i = 0; i < _vEffect.size(); i++)
 	{
+<<<<<<< HEAD
 		_vEffect[i]->render(0,0);
+=======
+		//_vEffect[i]->render();
+>>>>>>> e239fc1a6947ab01572d6317ba579089b836b5e1
 	}
 	// 테스트용 상점 구현
 	if (KEYMANAGER->isOnceKeyDown('Q'))

@@ -178,7 +178,7 @@ void itemManager::update(void)
 			RECT _rct;
 			//if (!_vItemBox[i]->getIsActive())
 			//{
-				if (IntersectRect(&_rct, &_vItemBox[i]->getRc(), &_player->getAttRc()))
+			if (IntersectRect(&_rct, &_vItemBox[i]->getRc(), &_player->getAttRc()) && _player->getIsAtt())
 				{
 					//_vEnemy[i]->setState(ENEMY_DEAD);
 					//_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());

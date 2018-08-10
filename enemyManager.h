@@ -26,7 +26,7 @@ class enemyManager : public gameNode
 private:
 	foxPlayer * _player;
 	itemManager* _iMG;
-	image* _tongue;
+	image* _tongue;			// 츄로올로보롭ㅇ고퍼ㅏㅁㄴㅇㅍㄷ리ㅓㅇ겨피ㅣ냐ㅡㅍ먀ㅓㄹㄹㄹㄷㄴㅇㅍㅁ러ㅑㅣㅓㅜㄹㄹ 환상~~! (납득이)
 	ghostBullet* _ghostBullet;
 	beeBullet* _beeBullet;
 	bee* _bee;
