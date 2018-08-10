@@ -12,7 +12,7 @@ class UI;
 class shop;
 enum tagState
 {
-	IDLE=0,
+	IDLE = 0,
 	RUN,
 	SIT,
 	JUMP,
@@ -36,16 +36,17 @@ struct tagPlayer
 	RECT collisionRc;
 	float x, y;
 	float speed;
+	float jumpSpeed;
 	float gravity;
 	float angle;
 	float arrowAngle;
-	float arrowAngle2, arrowAngle3;
 	float radian;
+
 	bool isJump;
 	bool isLeft;
 	bool isRight;
+
 	bool isFoxLeft;
-	//bool isFoxRight;
 	bool isUp;
 	bool isDown;
 	bool isAtt;
@@ -56,8 +57,6 @@ struct tagPlayer
 	int HP;
 	int MaxHp;
 	int gold;
-
-
 };
 
 struct tagCam
@@ -85,24 +84,26 @@ private:
 	
 
 	image* nick[MAX_STATE];
-	image* _bfx;
+	image* _bpx;
 	image* _twinkle;
+
 	RECT attRc, attRc2, attRc3, attRc4;	//임시 공격렉트(잘 되면 주로 사용)
 	RECT twinkleRc;
-	//image* _bpx;
-	int count, index, actionCount, actionIndex, weatherIndex, effectIndex, effectCount;
+
+	int count, index, index2, actionCount, weatherIndex, effectIndex, effectCount, attCount;
 	int jumpCount, jumpAttCount;
-	bool ang = false;
-	//image* _bpx2;
+	int animationSpeed;
 	int hitCount;
 	int unDamage;
 	
+	bool ang = false;
 	bool chk = false;
 	bool _a;
+	bool eftChk;
 public:
 
 
-
+	
 	HRESULT init(void);
 	void release(void);
 	void update(void);
@@ -112,8 +113,6 @@ public:
 	//함수들
 	void imageSetting();
 	void frameMove();
-	void collisionRcChange();
-	void foxState();
 	void keySetting();
 	void attRect();
 	void camera();
@@ -127,6 +126,7 @@ public:
 	float getY() { return _player.y; }
 	bool getLeft() { return _player.isLeft; }
 	bool getRight() { return _player.isRight; }
+	bool getIsAtt() { return _player.isAtt; }
 	RECT getPlayerCam() { return _camera.rc; }
 	RECT getAttRc() { return attRc; }
 	RECT getAttRc2() { return attRc2; }
@@ -168,6 +168,10 @@ public:
 	arrow* getArrow() { return _arrow; }
 	RECT getCollisionRc() { return _player.collisionRc; }
 	//tagCam getCamera(tagCam camera) { return _camera; }
+
+	bool getEftChk() { return eftChk; }
+	void setEftChk(bool eC) { eftChk = eC; }
+
 
 	// 테스트 함수
 	void test();

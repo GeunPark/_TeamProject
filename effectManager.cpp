@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "effectManager.h"
 #include "effect.h"
+#include "foxPlayer.h"
 
 HRESULT effectManager::init(void)
 {
@@ -43,7 +44,7 @@ void effectManager::render(void)
 	{
 		for (int i = 0; i < mIter->second.size(); i++)
 		{
-			mIter->second[i]->render();
+			mIter->second[i]->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 		}
 	}
 }
@@ -70,7 +71,7 @@ void effectManager::play(string effectName, int x, int y)
 	
 	for (mIter = _mEffect.begin(); mIter != _mEffect.end(); ++mIter)
 	{
-		if (!(mIter->first == effectName)) break;
+		if (!(mIter->first == effectName)) continue;
 
 		//이펙트키와 일치하면 이펙트 실행
 		for (int i = 0; i < mIter->second.size(); i++)

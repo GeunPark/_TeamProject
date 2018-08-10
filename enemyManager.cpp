@@ -12,10 +12,24 @@ HRESULT enemyManager::init(void)
 	_factory = new enemyFactory;
 
 	_ghostBullet = new ghostBullet;
+	_ghostBullet->init("À¯·ÉÃÑ¾Ë", 1, 1000);
+
+
 	_bee = new bee;
 	_bee->init();
 
-	_ghostBullet->init("À¯·ÉÃÑ¾Ë", 1, 1000);
+
+	EFFECTMANAGER->addEffect("ÀáÀÚ¸®Á×À½", "ÀáÀÚ¸®dead", 0.2f, 10);
+	EFFECTMANAGER->addEffect("³ª¹«ÀÎ°£Á×À½", "³ª¹«ÀÎ°£dead", 0.2f, 10);
+	EFFECTMANAGER->addEffect("¹ö±×Á×À½", "¹ö±×dead", 0.2f, 10);
+	EFFECTMANAGER->addEffect("Åë³ª¹«Á×À½", "Åë³ª¹«dead", 0.2f, 10);
+	EFFECTMANAGER->addEffect("²ÄÀå¾îÁ×À½", "²ÄÀå¾îdead", 0.2f, 10);
+	EFFECTMANAGER->addEffect("µÎ²¨ºñÁ×À½", "µÎ²¨ºñdead", 0.2f, 10);
+
+
+	//_beeBullet = new beeBullet;
+	//_beeBullet->init(500);
+
 
 	//INIDATA·Î ¹Ù²Ü°Í
 	//ÀÏ´ÜÀº
@@ -108,10 +122,8 @@ HRESULT enemyManager::init(void)
 		_vEnemy.push_back(_enemy);
 	}
 
-
-
 	isAttack = 0;
-	_tongue = IMAGEMANAGER->findImage("µÎ²¨ºñtongue");
+	_tongue = IMAGEMANAGER->findImage("µÎ²¨ºñtongue");		// Ãò·Î¿Ã·Îº¸·Ó¤·°íÆÛ¤¿¤±¤¤¤·¤½¤§¸®¤Ã¤·°ÜÇÇ¤Ó³Ä¤Ñ¤½¸Ï¤Ã¤©¤©¤©¤§¤¤¤·¤½¤±·¯¤Á¤Ó¤Ã¤Ì¤©¤© È¯»ó~~! (³³µæÀÌ)
 
 	return S_OK;
 }
@@ -178,6 +190,8 @@ void enemyManager::update(void)
 
 
 	_bee->update();
+	//_beeBullet->fire(_bee->getX(), _bee->getY(), 10);
+	//_beeBullet->update();
 	
 
 
@@ -223,11 +237,13 @@ void enemyManager::update(void)
 			{
 				//_vEnemy[i]->setState(ENEMY_DEAD);
 				_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
-				_vEnemy.erase(_vEnemy.begin() + i);
+
+				_vEnemy[i]->setIsActived(false);
+				//_vEnemy.erase(_vEnemy.begin() + i);
 
 				//¼±¼ö¾¾~ ¿©±â´Ù°¡ ÀúÀÇ ÈçÀûÀ» ³²±â°í°¡¿ä~¤¾¤¾
 				_player->removeArrow(j);	//Àû°ú È­»ì Ãæµ¹½Ã È­»ì Áö¿öÁÜ
-				
+
 				//j--;
 				//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
 				//			_player->setIsAttack(false);
@@ -235,8 +251,18 @@ void enemyManager::update(void)
 				//			_vPlantFrog.erase(_vPlantFrog.begin() + i);
 			}
 		}
-		
+
 	}
+
+	//if (KEYMANAGER->isStayKeyDown(VK_RBUTTON))
+	//{
+	//	EFFECTMANAGER->play("ÀáÀÚ¸®Á×À½",100, 100);
+	//}
+
+	this->beAttackedEffect();
+
+
+
 
 
 }
@@ -255,7 +281,6 @@ void enemyManager::render(void)
 		}
 
 		if (!_vEnemy[i]->getIsActived()) continue;
-
 		_vEnemy[i]->getBodyImage()->frameRender(getMemDC(), _vEnemy[i]->getRc().left - _player->getPlayerCam().left, _vEnemy[i]->getRc().top - _player->getPlayerCam().top, _vEnemy[i]->getIndexX(), _vEnemy[i]->getIndexY());
 		//Ä«¸Þ¶ó ¸Þ´ÏÁ® ´ë½Å ·»´õ³Ö±â 
 
@@ -266,7 +291,7 @@ void enemyManager::render(void)
 				_tongue->frameRender(getMemDC(), _vEnemy[i]->getAttRc().left - _player->getPlayerCam().left, _vEnemy[i]->getAttRc().top - _player->getPlayerCam().top, _tongue->getFrameX(), _vEnemy[i]->getIndexY());
 			}
 		}
-	
+
 		//switch (_vEnemy[i]->getType())
 		//{
 		//case SOLDIER:
@@ -291,14 +316,88 @@ void enemyManager::render(void)
 		}
 	}
 
+	//¹ú¸öÃ¼
 	_bee->getBodyImage()->frameRender(getMemDC(), _bee->getRc().left - _player->getPlayerCam().left, _bee->getRc().top - _player->getPlayerCam().top, _bee->getBodyImage()->getFrameX(), _bee->getBodyImage()->getFrameY());
 
+	//¹úÃÑ¾Ë
+	for (int i = 0; i < _bee->getBullet()->getVBullet().size(); ++i)
+	{
+		if(_bee->getBullet()->getVBullet()[i].fire)
+		{
+			_bee->getBullet()->getVBullet()[i].bulletImage->frameRender(getMemDC(), _bee->getBullet()->getVBullet()[i].rc.left - _player->getPlayerCam().left, _bee->getBullet()->getVBullet()[i].rc.top - _player->getPlayerCam().top, _bee->getBullet()->getIndex(), 0);
+
+		}
+
+	}
+
+	//for (int i = 0; i < _beeBullet->getVBullet().size(); ++i)
+	//{
+	//	if (_beeBullet->getVBullet()[i].fire)
+	//	{
+	//
+	//		_beeBullet->getVBullet()[i].bulletImage->frameRender(getMemDC(), _beeBullet->getVBullet()[i].rc.left - _player->getPlayerCam().left, _beeBullet->getVBullet()[i].rc.top - _player->getPlayerCam().top, _beeBullet->getIndex(), 0);
+	//
+	//	}
+	//
+	//}
 	//char str[64];
 	//for (int i = 0; i < _vEnemy.size(); i++)
 	//{
 	//	sprintf(str, "%d", _vEnemy[i]->getIsLeft());
 	//	TextOut(getMemDC(), 200, 400+i*50, str, strlen(str));
 	//}
+}
+
+void enemyManager::beAttackedEffect()
+{
+	for (int i = 0; i < _vEnemy.size(); ++i)
+	{
+		if (!_vEnemy[i]->getIsActived())
+		{
+			switch (_vEnemy[i]->getType())
+			{
+			case DRAGONFLY:
+				EFFECTMANAGER->play("ÀáÀÚ¸®Á×À½", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+				
+				break;
+
+			case VINEMAN:
+				EFFECTMANAGER->play("³ª¹«ÀÎ°£Á×À½", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+
+
+				break;
+
+			case BUG:
+
+				EFFECTMANAGER->play("¹ö±×Á×À½", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+
+				break;
+
+			case TREEMAN:
+				EFFECTMANAGER->play("Åë³ª¹«Á×À½", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+
+
+				break;
+
+			case ELECTRICEEL:
+				EFFECTMANAGER->play("²ÄÀå¾îÁ×À½", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+
+
+				break;
+
+			case PLANTFROG:
+				EFFECTMANAGER->play("µÎ²¨ºñÁ×À½", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+
+
+				break;
+
+			default:
+
+				break;
+			}
+			_vEnemy.erase(_vEnemy.begin() + i);
+		}
+	}
 }
 
 void enemyManager::appearGhost()
@@ -333,17 +432,12 @@ void enemyManager::sensorCollision()
 				else
 				{
 					_vEnemy[i]->setIsLeft(false);
-
 				}
 			}
 			else
 			{
 				_vEnemy[i]->setState(ENEMY_WALK);
 			}
-
-
-
-
 		}
 		else if (_vEnemy[i]->getType() == PLANTFROG && (_vEnemy[i]->getIndexX() == 0 || _vEnemy[i]->getIndexX() == 6) && _vEnemy[i]->getGravity() ==0)
 		{

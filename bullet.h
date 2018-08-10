@@ -163,6 +163,7 @@ private:
 	int _bulletMax;			//ÃÑ¾Ë ÃÖ´ë°¹¼ö
 	int _index, _count;
 	bool isFire;
+	int fireNum;
 
 public:
 	HRESULT init(float range);
@@ -176,12 +177,16 @@ public:
 	//ÃÑ¾Ë¹«ºê
 	void move();
 
+	
+	
 	//image* getBulletImage() { return _bullet.bulletImage; }
+	vector<tagBullet> getVBullet() { return _vBullet; }
 
 
 	void setBulletFire(bool _isFire) { isFire = _isFire; }
 	bool getBulletFire() { return isFire; }
-
+	int getIndex() { return _index; }
+	int getBulletMax() { return _bulletMax; }
 	//RECT getBulletRc() { return _bullet.rc; }
 
 	beeBullet() {}

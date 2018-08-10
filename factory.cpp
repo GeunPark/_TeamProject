@@ -32,6 +32,10 @@ enemy * enemyFactory::createEnemy(ENEMY_TYPE type)
 		_enemy = new ghost;
 		break;
 
+	case BOSS:
+		_enemy = new bee;
+		break;
+
 	default:
 		//´©±¸³Ä ³Í??
 		break;

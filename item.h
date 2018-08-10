@@ -45,8 +45,6 @@ public:
 	void animation();
 	void pixelCollision();
 
-
-
 	RECT getRc() { return _rc; }
 	image* getItemImage() { return _image; }
 	float getX() { return _x; }

@@ -34,11 +34,11 @@ void effect::update(void)
 	if (!_effectAni->isPlay()) this->stopEffect();
 }
 
-void effect::render(void)
+void effect::render(float x, float y)
 {
 	if (_isRunning)
 	{
-		_effectImg->aniRender(getMemDC(), _x, _y, _effectAni);
+		_effectImg->aniRender(getMemDC(), _x -x , _y-y , _effectAni);
 	}
 }
 

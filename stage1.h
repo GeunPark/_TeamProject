@@ -5,6 +5,9 @@
 #include "shop.h"
 #include "foxPlayer.h"
 #include "UI.h"
+#include "effect.h"
+#include "effectManager.h"
+
 struct imgInfo
 {
 	float _x, _y;
@@ -42,10 +45,14 @@ private:
 	//플레이어 할당
 	foxPlayer* _player;
 
+	effectManager* _effMG;
+
 	// 상점 할당
 	shop * _shop;
 
 	UI * _ui;
+
+	//effect* _effect;
 
 	state _state;
 	tagBoxs _cam;
@@ -62,6 +69,11 @@ private:
 
 	vector<tagBoxs> _vBush;
 	vector<tagBoxs>::iterator _viBush;
+
+	effect * _effect;
+	vector<effect*> _vEffect;
+
+
 	image* feild;
 	//image* feild[4];
 	image* feildIce;
@@ -84,6 +96,7 @@ private:
 	int _count1;
 	int _index1;
 	int bgCount;  //배경이 너무 빨리 움직여서 배경카운트만들엇엉 -세원-
+	float _eftX[9],_eftY[9];
 
 	//int _x, _y;
 public:
@@ -99,6 +112,9 @@ public:
 	void images();
 	void setState(state ste) { _state = ste; }
 	void beeInit();
+	void eftInit();
+	void eftMove();
+
 	state getState() { return _state; }
 	//배경 움직이는 함수
 

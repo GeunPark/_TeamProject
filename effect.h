@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 
+
 class effect : public gameNode
 {
 private:
@@ -15,7 +16,7 @@ public:
 	HRESULT init(image* effectImg, float effectFPS);
 	void release(void);
 	void update(void);
-	void render(void);
+	void render(float x, float y);
 
 	//내가 원하는 좌표에 이펙트 시작하기
 	void startEffect(int x, int y);
@@ -24,6 +25,7 @@ public:
 
 	//이펙트가 재생중인지 상태값 가져오기
 	bool getIsRunning() { return _isRunning; }
+
 
 	effect() : _effectImg(NULL), _effectAni(NULL), _isRunning(false), _x(0), _y(0) {}
 	~effect() {}

@@ -15,9 +15,9 @@ void loadingScene::GiHunImage()
 
 
 	_loading->loadImage("레이어1", "resource/스테이지1/레이어1.bmp", 1280, 2340, true, MAGENTA);
-	_loading->loadImage("레이어2", "resource/스테이지1/레이어2.bmp", 1280, 256, true, MAGENTA);
+	_loading->loadImage("레이어2", "resource/스테이지1/레이어2.bmp", 1280, 326, true, MAGENTA);
 	_loading->loadImage("레이어1 겨울", "resource/스테이지1/레이어1 겨울.bmp", 1280, 2340, true, MAGENTA);
-	_loading->loadImage("레이어2 겨울", "resource/스테이지1/레이어2 겨울.bmp", 1280, 256, true, MAGENTA);
+	_loading->loadImage("레이어2 겨울", "resource/스테이지1/레이어2 겨울.bmp", 1280, 326, true, MAGENTA);
 	//_loading->loadImage("스테이지1 얼음", "resource/스테이지1/스테이지1 얼음.bmp", 20000, 2750, true, MAGENTA);
 	_loading->loadImage("스테이지1 픽셀", "resource/스테이지1/스테이지1 픽셀1.bmp", 10000, 2500, true, RGB(255, 0, 255));
 	//_loading->loadImage("스테이지1 얼음 픽셀", "resource/스테이지1/스테이지1 얼음 픽셀.bmp", 20000, 2750, true, RGB(255, 0, 255));
@@ -30,6 +30,8 @@ void loadingScene::GiHunImage()
 	_loading->loadFrameImage("물레방아", "resource/스테이지1/물레방아.bmp", 2080, 256, 8, 1,true, MAGENTA);
 	_loading->loadFrameImage("물가", "resource/스테이지1/물 찰랑.bmp", 11520, 120, 8, 1);
 	_loading->loadFrameImage("물가2", "resource/스테이지1/물찰랑.bmp", 1024, 78, 8, 1);
+	_loading->loadFrameImage("빛","resource/스테이지1/빛.bmp",1008,48,7,1);
+
 
 	// 상점
 	_loading->loadImage("기모띠", "resource/상점/기모띠.bmp", 800, 483);

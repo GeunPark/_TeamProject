@@ -2,6 +2,7 @@
 #include "singletonBase.h"
 //이펙트 클래스 전방선언(뻥남 방지용)
 class effect;
+class foxPlayer;
 
 class effectManager : public singletonBase <effectManager>
 {
@@ -13,8 +14,10 @@ private:
 	typedef map<string, vEffect> mEffect;
 	typedef map<string, vEffect>::iterator miEffect;
 
+
 private:
 	mEffect _mEffect;		//이펙트벡터가 담겨있는 맵
+	foxPlayer* _player;
 
 public:
 	HRESULT init(void);
@@ -26,6 +29,7 @@ public:
 	void addEffect(string effectName, const char* imageName, float effectFPS, int buffer);
 	//이펙트 플레이
 	void play(string effectName, int x, int y);
+	void setPlayerLink(foxPlayer* player) { _player = player; }
 
 	effectManager() {}
 	~effectManager() {}
