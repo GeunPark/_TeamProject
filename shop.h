@@ -43,13 +43,19 @@ private:
 	int num[4];
 	kindShop _kindShop;
 	bool _isSelect;
-	bool _isNotSelect;
+	bool _isNotSelect[2];
 	int _selectCount;
 	int _selectNumber;
 	int _sellMagicNum;
 	int upgnum[3];
 	int magicNum[3];
+	int upgMaxNum[3];
+	int magicMaxNum[3];
+
+	bool frameNumChk[4];
+	
 	float _x, _y;
+
 public:
 	HRESULT init(void);
 	void release(void);
@@ -62,6 +68,8 @@ public:
 	void selectObject();
 	void ItemSell();
 
+
+	void setKindShop(kindShop ks) { _kindShop = ks; }
 
 	void setPlayerManager(foxPlayer* player);
 

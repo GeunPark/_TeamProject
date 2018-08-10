@@ -65,6 +65,8 @@ public:
 	void nowMagic();
 
 	void nowGold();
+
+	//get, set ÇÔ¼öµé
 	void setPlayerManager(foxPlayer* player) { _player = player; }
 	//void setPLink(foxPlayer* py) { _players = py; }
 	UI() {}

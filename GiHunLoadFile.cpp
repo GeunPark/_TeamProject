@@ -33,6 +33,13 @@ void loadingScene::GiHunImage()
 	_loading->loadFrameImage("빛","resource/스테이지1/빛.bmp",1008,48,7,1);
 
 
+	_loading->loadFrameImage("새노래", "resource/스테이지1/새노래.bmp", 1320,135, 8, 1, true, MAGENTA);
+	_loading->loadFrameImage("널뛰기2", "resource/스테이지1/널뛰기2.bmp", 588,102, 2, 1, true, MAGENTA);
+	_loading->loadImage("널뛰기1", "resource/스테이지1/널뛰기1.bmp", 300, 100, true, MAGENTA);
+	_loading->loadImage("새날다", "resource/스테이지1/새날다.bmp", 78, 126, true, MAGENTA);
+
+
+
 	// 상점
 	_loading->loadImage("기모띠", "resource/상점/기모띠.bmp", 800, 483);
 

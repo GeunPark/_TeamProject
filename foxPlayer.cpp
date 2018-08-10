@@ -16,8 +16,16 @@ HRESULT foxPlayer::init(void)
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
-	_player.x = 300;
+<<<<<<< HEAD
+	_cuticle = new cuticle;
+	_cuticle->init(500);
+
+	_player.x = 3000;
 	_player.y = MAX_HEIGHT - 150;
+=======
+	_player.x = 9500;
+	_player.y = 1250;//MAX_HEIGHT - 150;
+>>>>>>> 98047fece4d62ecad27ee9170f535d98ed775727
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
 	_player.gravity = 0.f;
@@ -26,7 +34,7 @@ HRESULT foxPlayer::init(void)
 	_player.isLeft = _player.isUp = _player.isDown = _player.isRight = _player.isAtt = _player.isChange = _player.isFoxLeft = false;
 	_player.isJump = false;
 
-	index = count = actionCount = index2 = jumpCount = hitCount = unDamage = weatherIndex = effectIndex = effectCount = jumpAttCount = unDamage = 0;
+	index = count = actionCount = index2 = jumpCount = hitCount = unDamage = weatherIndex = effectIndex = effectCount = jumpAttCount = unDamage = alphaCount = 0;
 
 	animationSpeed = 6;
 
@@ -53,17 +61,6 @@ void foxPlayer::release(void)
 //ToDo : update
 void foxPlayer::update(void)
 {
-	if (ang)
-	{
-		_player.mana -= 0.1f;
-		if (_player.mana <= 0)ang = false;
-	}
-	else
-	{
-		if (_player.maxMana > _player.mana)_player.mana += 0.3f;
-		else if (_player.maxMana < _player.mana)_player.mana -= 0.3f;
-	}
-
 	playerUI();
 
 	_player.gravity += 0.58f;
@@ -105,29 +102,19 @@ void foxPlayer::update(void)
 
 	//공격렉트 생성
 	this->attRect();
-
-	if (_state == IDLE || _state == RUN || _state == SIT || _state == JUMP || _state == DOUBLEJUMP || _state == FALL || _state == FALL2)
-	{
-		unDamage++;
-	}
-
-	if (_state == HIT)
-	{
-		hitCount++;
-		if (hitCount > 25)
-		{
-			chk = false;
-			_state = IDLE;
-			hitCount = 0;
-		}
-	}
+	//여우 상태 
+	this->foxState();
+	
 	_arrow->update();
+
+	_cuticle->update();
 
 	_ui->update();
 
 	this->camera();			//카메라 움직이는 함수 호출
+
 	_player.rc = RectMakeCenter(_player.x, _player.y, nick[_state]->getFrameWidth(), nick[_state]->getFrameHeight());
-	twinkleRc = RectMakeCenter(_player.x, _player.y, _twinkle->getFrameWidth(), _twinkle->getFrameHeight());
+	twinkleRc = RectMakeCenter(_player.x, _player.y + 50, _twinkle->getFrameWidth(), _twinkle->getFrameHeight());
 	_camera.rc = RectMakeCenter(_camera.x, _camera.y, WINSIZEX, WINSIZEY);
 }
 
@@ -135,8 +122,7 @@ void foxPlayer::update(void)
 void foxPlayer::render()
 {
 	Rectangle(getMemDC(), _player.collisionRc.left - _camera.rc.left, _player.collisionRc.top - _camera.rc.top, _player.collisionRc.right - _camera.rc.left, _player.collisionRc.bottom - _camera.rc.top);
-	nick[_state]->frameRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, nick[_state]->getFrameX(), nick[_state]->getFrameY());
-
+	
 	if (_player.isAtt)
 	{
 		Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
@@ -144,21 +130,43 @@ void foxPlayer::render()
 	}
 	if (_player.isChange)
 	{
-		Rectangle(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, twinkleRc.right - _camera.rc.left, twinkleRc.bottom - _camera.rc.top);
+		//Rectangle(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, twinkleRc.right - _camera.rc.left, twinkleRc.bottom - _camera.rc.top);
 		_twinkle->frameRender(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, _twinkle->getFrameX(), _twinkle->getFrameY());
-	}
 
+		for (int i = 0; i < _cuticle->getCuticle().size(); i++)
+		{
+			_cuticle->getCuticle()[i].cuticleImage->render(getMemDC(), _cuticle->getCuticle()[i].rc.left - _camera.rc.left, _cuticle->getCuticle()[i].rc.top - _camera.rc.top);
+		}
+	}
+	
 	if (KEYMANAGER->isToggleKey('O'))
 	{
 		Rectangle(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, _player.rc.right - _camera.rc.left, _player.rc.bottom - _camera.rc.top);
 	}
-
+	if (_state == HIT)
+	{
+		if (alphaCount < 10 || alphaCount > 20)
+		{
+			nick[HIT]->frameAlphaRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, 170);
+		}
+		else
+		{
+			nick[HIT]->frameAlphaRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, 200);
+		}
+		
+	}
+	else
+	{
+		nick[_state]->frameRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, nick[_state]->getFrameX(), nick[_state]->getFrameY());
+	}
+	
 	_ui->render();
 
 	for (int i = 0; i < _arrow->getVArrow().size(); i++)
 	{
 		_arrow->getVArrow()[i].arrowImage->frameRender(getMemDC(), _arrow->getVArrow()[i].rc.left - _camera.rc.left, _arrow->getVArrow()[i].rc.top - _camera.rc.top);
 	}
+	
 	if (KEYMANAGER->isToggleKey(VK_F1))
 	{
 		for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
@@ -170,6 +178,8 @@ void foxPlayer::render()
 	char str[128];
 	sprintf(str, "중력 : %f, 인덱스 : %d, 상태 : %d, 인덱스2 : %d, 날씨 : %d", _player.gravity, index, _state, index2, weatherIndex);
 	TextOut(getMemDC(), 100, 600, str, strlen(str));
+
+
 }
 
 //ToDo : 이미지 셋팅
@@ -284,7 +294,7 @@ void foxPlayer::keySetting()
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		_player.isUp = false;
-		if (_state != SITATT)		//임뫄~! 이거하나면 해결되는거자나! 정신똑띠 차리자!!! 이거 좀 화낫다 너무 쉬운거여서 화낫다   -세원-
+		if (_state != SITATT && _state != HIT)		//임뫄~! 이거하나면 해결되는거자나! 정신똑띠 차리자!!! 이거 좀 화낫다 너무 쉬운거여서 화낫다   -세원-
 			_state = SIT;
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_DOWN) && _state != SITATT)
@@ -468,7 +478,7 @@ void foxPlayer::keySetting()
 
 	if (KEYMANAGER->isOnceKeyDown('S') && _state == IDLE)
 	{
-		if (!ang)
+		if (!ang && _player.mana > 30)
 		{
 			ang = true;
 		}
@@ -481,6 +491,7 @@ void foxPlayer::keySetting()
 			if (_player.isFoxLeft)
 			{
 				_state = WEATHER;
+				_cuticle->fire(_player.x, _player.y + 35, 100);
 				index2 = nick[WEATHER]->getMaxFrameX();
 				count = 0;
 				_player.isChange = true;
@@ -488,6 +499,7 @@ void foxPlayer::keySetting()
 			else
 			{
 				_state = WEATHER;
+				_cuticle->fire(_player.x, _player.y + 35, 100);
 				index = 0;
 				count = 0;
 				_player.isChange = true;
@@ -730,23 +742,47 @@ void foxPlayer::enemyCollision()
 
 				if (_player.x < _enemyManger->getEnemy()[i]->getCollisionRc().left)
 				{
-					_player.x -= width;
-					_player.y -= height;
+					if (_player.x > width)
+					{
+						_player.x -= 30;
+					}
+					if (_player.y > height)
+					{
+						_player.y -= 30;
+					}
 				}
 				else if (_player.x > _enemyManger->getEnemy()[i]->getCollisionRc().right)
 				{
-					_player.x += width;
-					_player.y += height;
+					if (_player.x < width)
+					{
+						_player.x += 30;
+					}
+					if (_player.y < height)
+					{
+						_player.y += 30;
+					}
 				}
 				else if (_player.y < _enemyManger->getEnemy()[i]->getCollisionRc().top)
 				{
-					_player.x -= width;
-					_player.y -= height;
+					if (_player.x > width)
+					{
+						_player.x -= 30;
+					}
+					if (_player.y > height)
+					{
+						_player.y -= 30;
+					}
 				}
 				else if (_player.y > _enemyManger->getEnemy()[i]->getCollisionRc().bottom)
 				{
-					_player.x += width;
-					_player.y += height;
+					if (_player.x < width)
+					{
+						_player.x += 30;
+					}
+					if (_player.y < height)
+					{
+						_player.y += 30;
+					}
 				}
 				_state = HIT;
 				unDamage = 0;
@@ -762,7 +798,6 @@ void foxPlayer::enemyCollision()
 
 void foxPlayer::enemyAttCollision()
 {
-	//앉아잇는 상태에서는 충돌처리가 안되는것처럼 보임 충돌이 되긴되는데 계속앉아있으면 sit상태로 계속 지속이된다.
 	for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
 	{
 		RECT tempRc2;
@@ -781,27 +816,52 @@ void foxPlayer::enemyAttCollision()
 
 				if (_player.x < _enemyManger->getEnemy()[i]->getAttRc().left)
 				{
-					_player.x -= width;
-					_player.y -= height;
+					if (_player.x > width)
+					{
+						_player.x -= 30;
+					}
+					if (_player.y > height)
+					{
+						_player.y -= 30;
+					}
 				}
 				else if (_player.x > _enemyManger->getEnemy()[i]->getAttRc().right)
 				{
-					_player.x += width;
-					_player.y += height;
+					if (_player.x < width)
+					{
+						_player.x += 30;
+					}
+					if (_player.y < height)
+					{
+						_player.y += 30;
+					}
 				}
 				else if (_player.y < _enemyManger->getEnemy()[i]->getAttRc().top)
 				{
-					_player.x -= width;
-					_player.y -= height;
+					if (_player.x > width)
+					{
+						_player.x -= 30;
+					}
+					if (_player.y > height)
+					{
+						_player.y -= 30;
+					}
 				}
 				else if (_player.y > _enemyManger->getEnemy()[i]->getAttRc().bottom)
 				{
-					_player.x += width;
-					_player.y += height;
+					if (_player.x < width)
+					{
+						_player.x += 30;
+					}
+					if (_player.y < height)
+					{
+						_player.y += 30;
+					}
 				}
 				_state = HIT;
 				unDamage = 0;
 			}
+			//if(IntersectRect(&temp, &_player.collisionRc, &_enemyManger->getGhost()[i]->getAttRc()))
 		}
 	}
 
@@ -811,6 +871,32 @@ void foxPlayer::enemyAttCollision()
 void foxPlayer::removeArrow(int index)
 {
 	_arrow->removeArrow(index);
+}
+
+void foxPlayer::foxState()
+{
+	if (_state == IDLE || _state == RUN || _state == SIT || _state == JUMP || _state == DOUBLEJUMP || _state == FALL || _state == FALL2)
+	{
+		unDamage++;
+	}
+
+	if (_state == HIT)
+	{
+		hitCount++;
+		alphaCount++;
+		if (hitCount > 25)
+		{
+			chk = false;
+			_state = IDLE;
+			alphaCount = 0;
+			hitCount = 0;
+		}
+	}
+	if (_player.HP == 0)
+	{
+		_state = DEATH;
+	}
+
 }
 
 void foxPlayer::test()
@@ -839,16 +925,15 @@ void foxPlayer::test()
 	{
 		_player.maxMana -= 5;
 	}
-	if (KEYMANAGER->isStayKeyDown('N') && _player.gold < 1000)
+	if (KEYMANAGER->isStayKeyDown('N') && _player.gold < 9999)
 	{
-		_player.gold += 1;
+		_player.gold += 100;
 	}
 	if (KEYMANAGER->isStayKeyDown('M') && _player.gold > 0)
 	{
-		_player.gold -= 1;
+		_player.gold -= 100;
 	}
 }
-
 void foxPlayer::playerUI()
 {
 	if (ang)
@@ -858,9 +943,8 @@ void foxPlayer::playerUI()
 	}
 	else
 	{
-		if (_player.maxMana > _player.mana)_player.mana += 0.3f;
+		if (_player.maxMana > _player.mana)_player.mana += 0.05f;
 	}
-
 	if (_player.HP > _player.MaxHp)_player.HP = _player.MaxHp;
 	if (_player.HP < 0)_player.HP = 0;
 	if (_player.maxMana < _player.mana)_player.mana = _player.maxMana;

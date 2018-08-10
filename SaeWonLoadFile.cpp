@@ -20,9 +20,10 @@ void loadingScene::SaeWonImage()
 	_loading->loadFrameImage("Hurt", "resource/foxPlayer/hurt.bmp", 180, 360, 1, 2, true, MAGENTA);
 	_loading->loadFrameImage("arrow", "resource/foxPlayer/arrow.bmp", 66, 46, 1, 2, true, MAGENTA);
 	_loading->loadFrameImage("Weather", "resource/foxPlayer/weather.bmp", 1620, 360, 9, 2, true, MAGENTA);
-	_loading->loadFrameImage("Twinkle", "resource/foxPlayer/twinkle.bmp", 5805, 384, 15, 1, true, MAGENTA);
-	_loading->loadFrameImage("Poison", "resource/foxPlayer/poison.bmp", 672, 72, 7, 2, true, MAGENTA);
 	_loading->loadFrameImage("Die", "resource/foxPlayer/dead.bmp", 720, 360, 4, 2, true, MAGENTA);
+	_loading->loadFrameImage("Twinkle", "resource/foxPlayer/twinkle.bmp", 5805, 384, 15, 1, true, MAGENTA);
+	_loading->loadImage("Cuticle", "resource/foxPlayer/cuticle.bmp", 21, 21, true, MAGENTA);
+	_loading->loadFrameImage("Poison", "resource/foxPlayer/poison.bmp", 672, 72, 7, 2, true, MAGENTA);
 }
 
 void loadingScene::SaeWonSound()

@@ -72,6 +72,7 @@ HRESULT stage1::init(void)
 	_ui->setPlayerManager(_player);
 	_effMG->setPlayerLink(_player);
 
+	stageClearInit();
 	//사운드 
 	SOUNDMANAGER->play("스테이지1 여름");
 
@@ -96,14 +97,14 @@ void stage1::update(void)
 	//imageMove();
 	// 기훈아 두개라서 이거 주석처리했다 니가 나중에 알아서 정리해 -근화-########################################################################
 	cameraMove();
-
+	this->stageClear();
 	//To Do : 기훈아 내일 이거 건들지말아바 -근화- ##############################################################################################
 	imageMove();
 
 	//플레이어
 	_player->update();
 	//에너미매니저
-	_eMG->update();
+	//_eMG->update();
 
 	//아이템매니저
 	_iMG->update();
@@ -214,6 +215,20 @@ void stage1::render(void)
 			feild[i]->render(getMemDC(), 0 + 2500 * i, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
 		}
 		*/
+		if (_neolttwigiColls == false)
+		{
+			_neolttwigi[0]._img->render(getMemDC(), _neolttwigi[0].x - _player->getPlayerCam().left, _neolttwigi[0].y - _player->getPlayerCam().top);
+			_brid[0]._img->frameRender(getMemDC(), _brid[0].x - _player->getPlayerCam().left, _brid[0].y - _player->getPlayerCam().top);
+		}
+		else if (_neolttwigiColls == true)
+		{
+			_neolttwigi[1]._img->frameRender(getMemDC(), _neolttwigi[1].x - _player->getPlayerCam().left, _neolttwigi[1].y - _player->getPlayerCam().top);
+			_brid[1]._img->render(getMemDC(), _brid[1].x - _player->getPlayerCam().left, _brid[1].y - _player->getPlayerCam().top);
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			Rectangle(getMemDC(), _neolttwigi[0].rc);
+		}
 	}
 
 	if (_state == WINTER)
@@ -286,7 +301,7 @@ void stage1::render(void)
 
 	//에너미매니저
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
-	_eMG->render();
+	//_eMG->render();
 
 	for (int i = 0; i < _vEffect.size(); i++)
 	{
@@ -303,7 +318,7 @@ void stage1::render(void)
 	if(shopMode)_shop->render();
 
 	char str[128];
-	sprintf_s(str, "%d    %d ", _b, _b);
+	sprintf_s(str, "%d    %d ", _ptMouse.x + _player->getPlayerCam().left, _ptMouse.y + _player->getPlayerCam().top);
 	TextOut(getMemDC(), 120, WINSIZEY / 2, str, strlen(str));
 	
 }
@@ -365,7 +380,20 @@ void stage1::imageMove()
 		if (_bee[i]._index > 6)_bee[i]._index = 0;
 		_bee[i]._img->setFrameX(_bee[i]._index);
 	}
-
+	if (_neolttwigiColls == false)
+	{
+		_brid[0]._count++;
+		if (_brid[0]._count % 5 == 0)_brid[0]._index++;
+		if (_brid[0]._index > 7)_brid[0]._index = 0;
+		_brid[0]._img->setFrameX(_brid[0]._index);
+	}
+	if (_neolttwigiColls == true)
+	{
+		_neolttwigi[1]._count++;
+		if (_neolttwigi[1]._count % 5 == 0)_neolttwigi[1]._index++;
+		if (_neolttwigi[1]._index > 0)_neolttwigi[1]._index = 1;
+		_neolttwigi[1]._img->setFrameX(_neolttwigi[1]._index);
+	}
 
 	// 물레방아 이미지
 	_waterWheel->setFrameX(_river[0]._index);
@@ -567,6 +595,8 @@ void stage1::bgMove()
 }
 
 
+
+
 void stage1::eftInit()
 {
 	
@@ -616,5 +646,54 @@ void stage1::beecollision()
 			_b++;
 			_player->setState(HIT);
 		}
+	}
+}
+void stage1::stageClearInit()
+{
+	_neolttwigi[0]._img = IMAGEMANAGER->findImage("널뛰기1");
+	_neolttwigi[1]._img = IMAGEMANAGER->findImage("널뛰기2");
+	_brid[0]._img = IMAGEMANAGER->findImage("새노래");
+	_brid[1]._img = IMAGEMANAGER->findImage("새날다");
+	_bridAngle = PI / 3;
+	_bridSpeed = 20.0f;
+	_neolttwigiColls = false;
+
+	//널뛰기
+	for (int i = 0; i < 2; i++)
+	{
+		_neolttwigi[i].x = 9500;
+		_neolttwigi[i].y = 1250;
+		_neolttwigi[i]._count = 0;
+		_neolttwigi[1]._index = 0;
+		_neolttwigi[i].rc = RectMake(_neolttwigi[i].x,_neolttwigi[i].y + 40,50,10);
+
+		_brid[i].x = 9700;
+		_brid[i].y = 1220;
+		_brid[i]._count = 0;
+		_brid[i]._index = 0;
+	}
+	// 새노래
+	
+}
+	
+
+void stage1::stageClear()
+{
+	RECT _rcT;
+	for (int i = 0; i < 2; i++)
+	{
+		if (IntersectRect(&_rcT, &_neolttwigi[i].rc, &_player->getCollisionRc()) && (_player->getPlayerState() == FALL || _player->getPlayerState() == FALL2))
+		{
+			_neolttwigiColls = true;
+		}
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		_neolttwigi[i].rc = RectMake(_neolttwigi[i].x /* - _player->getPlayerCam().left */, (_neolttwigi[i].y + 40) /*- _player->getPlayerCam().top*/, 50, 20);
+	}
+	if (_neolttwigiColls == true)
+	{
+		_brid[1].x += cosf(_bridAngle)*_bridSpeed;
+		_brid[1].y += -sinf(_bridAngle)*_bridSpeed;
 	}
 }

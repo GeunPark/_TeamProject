@@ -1,6 +1,5 @@
 #pragma once
 #include "gameNode.h"
-#define POISON 
 
 struct tagArrow
 {
@@ -30,7 +29,6 @@ struct tagArrow2
 	int count;
 };
 
-
 class arrow : public gameNode
 {
 private:
@@ -39,6 +37,7 @@ private:
 
 	vector<tagArrow2> _vPoison;
 	vector<tagArrow2>::iterator _viPoison;
+
 
 private:
 	int _arrowMax;
@@ -53,6 +52,9 @@ public:
 	void fire(float x, float y, float angle);
 
 	void fire2(float x, float y, float angle, float angle2, float angle3);
+
+	
+
 	void move();
 	void move2();
 
