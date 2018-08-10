@@ -224,12 +224,9 @@ void UI::nowGold()
 	_frameNum[1] = (_goldNum % 1000) / 100;
 	_frameNum[2] = (_goldNum % 100) / 10;
 	_frameNum[3] = _goldNum % 10;
-<<<<<<< HEAD
 	if (_goldNum >= 0) frameNumChk[3] = true; 
 
-=======
 	if (_goldNum >= 0) frameNumChk[3] = true;
->>>>>>> 98047fece4d62ecad27ee9170f535d98ed775727
 	if (_goldNum > 9) frameNumChk[2] = true;
 	else if (_goldNum <= 9) frameNumChk[2] = false;
 	if (_goldNum > 99) frameNumChk[1] = true;

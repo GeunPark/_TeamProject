@@ -16,16 +16,11 @@ HRESULT foxPlayer::init(void)
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
-<<<<<<< HEAD
 	_cuticle = new cuticle;
 	_cuticle->init(500);
 
-	_player.x = 3000;
-	_player.y = MAX_HEIGHT - 150;
-=======
 	_player.x = 9500;
-	_player.y = 1250;//MAX_HEIGHT - 150;
->>>>>>> 98047fece4d62ecad27ee9170f535d98ed775727
+	_player.y = MAX_HEIGHT - 150;
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
 	_player.gravity = 0.f;
@@ -166,7 +161,10 @@ void foxPlayer::render()
 	{
 		_arrow->getVArrow()[i].arrowImage->frameRender(getMemDC(), _arrow->getVArrow()[i].rc.left - _camera.rc.left, _arrow->getVArrow()[i].rc.top - _camera.rc.top);
 	}
-	
+	for (int i = 0; i < _arrow->getVPoison().size(); ++i)
+	{
+		_arrow->getVPoison()[i].arrowImage->frameRender(getMemDC(), _arrow->getVPoison()[i].rc.left - _camera.rc.left, _arrow->getVPoison()[i].rc.top - _camera.rc.top);
+	}
 	if (KEYMANAGER->isToggleKey(VK_F1))
 	{
 		for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
@@ -333,6 +331,7 @@ void foxPlayer::keySetting()
 			{
 				_state = FIRE;
 				_arrow->fire(_player.x - 15, _player.y + 30, _player.arrowAngle);
+				//_arrow->fire2(_player.x - 15, _player.y + 30, _player.arrowAngle);
 				index2 = nick[FIRE]->getMaxFrameX();
 				count = 0;
 			}
@@ -340,6 +339,7 @@ void foxPlayer::keySetting()
 			{
 				_state = FIRE;
 				_arrow->fire(_player.x + 15, _player.y + 30, _player.arrowAngle);
+				//_arrow->fire2(_player.x + 15, _player.y + 30, _player.arrowAngle);
 				index = 0;
 				count = 0;
 			}

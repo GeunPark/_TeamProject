@@ -104,7 +104,7 @@ void stage1::update(void)
 	//플레이어
 	_player->update();
 	//에너미매니저
-	//_eMG->update();
+	_eMG->update();
 
 	//아이템매니저
 	_iMG->update();
@@ -301,7 +301,7 @@ void stage1::render(void)
 
 	//에너미매니저
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
-	//_eMG->render();
+	_eMG->render();
 
 	for (int i = 0; i < _vEffect.size(); i++)
 	{
