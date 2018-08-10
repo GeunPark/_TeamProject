@@ -52,11 +52,6 @@ void UI::update(void)
 		if (_arrowNumChk > _arrowNum - 1)_arrowNumChk = 0;
 	}
 
-	if (KEYMANAGER->isOnceKeyDown('I'))
-	{
-		b++;
-		if (b > _magicNum - 1)b = 0;
-	}
 	_mana._now = _player->getMana();
 	_mana._MaxNum = _player->getMaxMana();
 }
@@ -95,9 +90,7 @@ void UI::render()
 	{
 		if (frameNumChk[i] == true)_number[i]->frameRender(getMemDC(), 1100 + (24 * i), 50, _frameNum[i], 0);
 	}
-	char str[128];
-	sprintf(str, "%d,      %d", _heartNum, _heart[6]._numChk);
-	TextOut(getMemDC(), 100, 700, str, strlen(str));
+
 }
 
 // 하트(체력)
@@ -231,8 +224,12 @@ void UI::nowGold()
 	_frameNum[1] = (_goldNum % 1000) / 100;
 	_frameNum[2] = (_goldNum % 100) / 10;
 	_frameNum[3] = _goldNum % 10;
+<<<<<<< HEAD
 	if (_goldNum >= 0) frameNumChk[3] = true; 
 
+=======
+	if (_goldNum >= 0) frameNumChk[3] = true;
+>>>>>>> 98047fece4d62ecad27ee9170f535d98ed775727
 	if (_goldNum > 9) frameNumChk[2] = true;
 	else if (_goldNum <= 9) frameNumChk[2] = false;
 	if (_goldNum > 99) frameNumChk[1] = true;

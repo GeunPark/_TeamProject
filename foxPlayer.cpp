@@ -16,11 +16,16 @@ HRESULT foxPlayer::init(void)
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
+<<<<<<< HEAD
 	_cuticle = new cuticle;
 	_cuticle->init(500);
 
 	_player.x = 3000;
 	_player.y = MAX_HEIGHT - 150;
+=======
+	_player.x = 9500;
+	_player.y = 1250;//MAX_HEIGHT - 150;
+>>>>>>> 98047fece4d62ecad27ee9170f535d98ed775727
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
 	_player.gravity = 0.f;
@@ -56,17 +61,6 @@ void foxPlayer::release(void)
 //ToDo : update
 void foxPlayer::update(void)
 {
-	if (ang)
-	{
-		_player.mana -= 0.1f;
-		if (_player.mana <= 0)ang = false;
-	}
-	else
-	{
-		if (_player.maxMana > _player.mana)_player.mana += 0.3f;
-		else if (_player.maxMana < _player.mana)_player.mana -= 0.3f;
-	}
-
 	playerUI();
 
 	_player.gravity += 0.58f;
@@ -184,6 +178,8 @@ void foxPlayer::render()
 	char str[128];
 	sprintf(str, "중력 : %f, 인덱스 : %d, 상태 : %d, 인덱스2 : %d, 날씨 : %d", _player.gravity, index, _state, index2, weatherIndex);
 	TextOut(getMemDC(), 100, 600, str, strlen(str));
+
+
 }
 
 //ToDo : 이미지 셋팅
@@ -482,7 +478,7 @@ void foxPlayer::keySetting()
 
 	if (KEYMANAGER->isOnceKeyDown('S') && _state == IDLE)
 	{
-		if (!ang)
+		if (!ang && _player.mana > 30)
 		{
 			ang = true;
 		}
@@ -929,16 +925,15 @@ void foxPlayer::test()
 	{
 		_player.maxMana -= 5;
 	}
-	if (KEYMANAGER->isStayKeyDown('N') && _player.gold < 1000)
+	if (KEYMANAGER->isStayKeyDown('N') && _player.gold < 9999)
 	{
-		_player.gold += 1;
+		_player.gold += 100;
 	}
 	if (KEYMANAGER->isStayKeyDown('M') && _player.gold > 0)
 	{
-		_player.gold -= 1;
+		_player.gold -= 100;
 	}
 }
-
 void foxPlayer::playerUI()
 {
 	if (ang)
@@ -948,9 +943,8 @@ void foxPlayer::playerUI()
 	}
 	else
 	{
-		if (_player.maxMana > _player.mana)_player.mana += 0.3f;
+		if (_player.maxMana > _player.mana)_player.mana += 0.05f;
 	}
-
 	if (_player.HP > _player.MaxHp)_player.HP = _player.MaxHp;
 	if (_player.HP < 0)_player.HP = 0;
 	if (_player.maxMana < _player.mana)_player.mana = _player.maxMana;
