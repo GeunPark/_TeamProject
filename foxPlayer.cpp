@@ -19,7 +19,7 @@ HRESULT foxPlayer::init(void)
 	_cuticle = new cuticle;
 	_cuticle->init(500);
 
-	_player.x = 9500;
+	_player.x = 300;
 	_player.y = MAX_HEIGHT - 150;
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
