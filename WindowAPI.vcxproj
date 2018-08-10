@@ -153,6 +153,7 @@
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camel.h" />
     <ClInclude Include="commonMacroFunction.h" />
+    <ClInclude Include="cuticle.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="effectTestScene.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="arrow.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camel.cpp" />
+    <ClCompile Include="cuticle.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="effectTestScene.cpp" />

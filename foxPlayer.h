@@ -1,7 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "arrow.h"
-
+#include "cuticle.h"
 
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
@@ -77,6 +77,7 @@ private:
 	tagState _state;
 
 	arrow* _arrow;
+	cuticle* _cuticle;
 	UI * _ui;
 	shop * _shop;
 
@@ -86,6 +87,7 @@ private:
 	image* nick[MAX_STATE];
 	image* _bpx;
 	image* _twinkle;
+	
 
 	RECT attRc, attRc2, attRc3, attRc4;	//임시 공격렉트(잘 되면 주로 사용)
 	RECT twinkleRc;
@@ -95,7 +97,8 @@ private:
 	int animationSpeed;
 	int hitCount;
 	int unDamage;
-	
+	int alphaCount;
+
 	bool ang = false;
 	bool chk = false;
 	bool _a;
@@ -120,6 +123,8 @@ public:
 	void enemyCollision();
 	void enemyAttCollision();
 	void removeArrow(int index);
+	void foxState();
+	
 
 	// get, set함수들
 	float getX() { return _player.x; }

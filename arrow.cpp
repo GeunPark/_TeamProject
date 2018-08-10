@@ -76,6 +76,8 @@ void arrow::fire2(float x, float y, float angle, float angle2, float angle3)
 	_vPoison.push_back(poisonArrow);
 }
 
+
+
 void arrow::move()
 {
 	_viArrow = _vArrow.begin();
