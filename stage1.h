@@ -7,10 +7,6 @@
 #include "UI.h"
 #include "effect.h"
 #include "effectManager.h"
-<<<<<<< HEAD
-
-=======
->>>>>>> e239fc1a6947ab01572d6317ba579089b836b5e1
 
 struct imgInfo
 {
