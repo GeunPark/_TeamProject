@@ -1,7 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "enemy.h"
-
+#include "itemManager.h"
 #include "factory.h"
 #include "bullet.h"
 #include "effect.h"
@@ -28,8 +28,7 @@ private:
 	itemManager* _iMG;
 	image* _tongue;			// √Ú∑Œø√∑Œ∫∏∑”§∑∞Ì∆€§ø§±§§§∑§Ω§ß∏Æ§√§∑∞‹««§”≥ƒ§—§Ω∏œ§√§©§©§©§ß§§§∑§Ω§±∑Ø§¡§”§√§Ã§©§© »ØªÛ~~! (≥≥µÊ¿Ã)
 	ghostBullet* _ghostBullet;
-	beeBullet* _beeBullet;
-	bee* _bee;
+
 
 	effect* _effect;
 
@@ -72,8 +71,11 @@ public:
 	void release(void);
 	void update(void);
 	void render(void);
-	void beAttackedEffect();
 
+	
+
+
+	void beAttackedEffect();
 	void appearGhost();
 	void sensorCollision();
 

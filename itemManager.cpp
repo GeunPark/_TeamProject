@@ -38,8 +38,8 @@ HRESULT itemManager::init(void)
 
 	_itemBoxPos[0].x = 3550.f; _itemBoxPos[0].y = 2155.f;
 	_itemBoxPos[1].x = 7750.f; _itemBoxPos[1].y = 2195.f;
-	_itemBoxPos[2].x = 7350.f; _itemBoxPos[2].y = 1415.f;
-	_itemBoxPos[3].x = 7040.f; _itemBoxPos[3].y = 2180.f;
+	_itemBoxPos[2].x = 9050.f; _itemBoxPos[2].y = 1490.f;
+	_itemBoxPos[3].x = 6990.f; _itemBoxPos[3].y = 2200.f;
 
 //	_itemBoxPos[3].x = 8440.f; _itemBoxPos[3].y = 2395.f;
 
@@ -92,6 +92,11 @@ HRESULT itemManager::init(void)
 void itemManager::release(void)
 {
 	SAFE_DELETE(_itemFactory);
+	_vItem.clear();
+	_vCoinBronze.clear();
+	_vCoinSilver.clear();
+	_vCoinGold.clear();
+	_vItemBox.clear();
 }
 
 void itemManager::update(void)
@@ -186,10 +191,17 @@ void itemManager::update(void)
 					_vItemBox[i]->setIsActive(true);
 					
 
-					if (i == 3)
+					if (i == 3 )
 					{
-						_eMG->setGhost(_vItemBox[i]->getX(), _vItemBox[i]->getY(), 1);
+						_eMG->setGhost(_vItemBox[i]->getX(), _vItemBox[i]->getY(),1);
 						
+					}
+					else if (i == 2)
+					{
+						enemyX = _vItemBox[i]->getX();
+						enemyY = _vItemBox[i]->getY();
+						gold = 10;
+
 					}
 					else
 					{
