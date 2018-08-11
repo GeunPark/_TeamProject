@@ -23,11 +23,6 @@ HRESULT foxPlayer::init(void)
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> f39cd0295fc23d47695de5de22518185d8463bda
 
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
@@ -64,8 +59,6 @@ HRESULT foxPlayer::init(void)
 
 	tempX = tempY = 0;
 	_bpx = IMAGEMANAGER->findImage("스테이지1 픽셀");
-
-
 
 	return S_OK;
 }
@@ -269,15 +262,12 @@ void foxPlayer::render()
 	{
 		//Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
 	}
-<<<<<<< HEAD
 	Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 	char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
 	TextOut(getMemDC(), 100, 600, str, strlen(str));
-=======
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
->>>>>>> f39cd0295fc23d47695de5de22518185d8463bda
 
 }
 
