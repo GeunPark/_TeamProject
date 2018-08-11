@@ -309,12 +309,12 @@ void foxPlayer::keySetting()
 		if (KEYMANAGER->isOnceKeyDown(VK_SPACE) && _state != HIT)
 		{
 			++jumpCount;
-			_player.jumpSpeed = 10.f;
+			_player.jumpSpeed = 9.f;
 			_state = JUMP;
 			if (jumpCount >= 2)
 			{
 				_player.gravity = 0.f;
-				_player.jumpSpeed = 10.f;
+				_player.jumpSpeed = 9.f;
 				actionCount = 0;
 				_state = DOUBLEJUMP;
 			}

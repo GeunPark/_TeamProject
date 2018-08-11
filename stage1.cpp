@@ -278,11 +278,23 @@ void stage1::render(void)
 
 	_eMG->render();
 
+<<<<<<< HEAD
 	for (int i = 0; i < _vEffect.size(); i++)
 	{
 		_vEffect[i]->render(0,0);
 	}
+=======
+	//for (int i = 0; i < _vEffect.size(); i++)
+	//{
+	//	_vEffect[i]->render(0,0);
+	//	//_vEffect[i]->render();
+	//}
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5a36815810c5cc582ffa2b58aff1f467858e3ccf
 	
+>>>>>>> 314bdd80a1cfb30fd97ab57ab4758d7a71df2205
 	// 테스트용 상점 구현
 	if (KEYMANAGER->isOnceKeyDown('Q'))
 	{
