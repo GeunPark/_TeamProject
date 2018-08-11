@@ -7,17 +7,29 @@ HRESULT foxPlayer::init(void)
 {
 	imageSetting();
 
+<<<<<<< HEAD
+=======
 	
 
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
 	_cuticle = new cuticle;
 	_cuticle->init(500);
+<<<<<<< HEAD
+
+	_player.x = 6500;
+	_player.y = MAX_HEIGHT - 150;
+
+	_player.x = 9500;
+	_player.y = 1250;
+=======
 
 
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
@@ -86,7 +98,8 @@ void foxPlayer::update(void)
 	this->pixelCollision();		//픽셀충돌 함수 호출
 
 	this->frameMove();		//프레임 움직이는 함수 호출
-							//적과 충돌
+
+	//적과 충돌
 	if (KEYMANAGER->isToggleKey(VK_F3))
 	{
 		this->enemyCollision();
@@ -99,11 +112,15 @@ void foxPlayer::update(void)
 	this->foxState();
 	
 	_arrow->update();
+	
 	this->test();
 
 	_cuticle->update();
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 
 	this->camera();			//카메라 움직이는 함수 호출
 	test();
@@ -154,8 +171,6 @@ void foxPlayer::render()
 		nick[_state]->frameRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, nick[_state]->getFrameX(), nick[_state]->getFrameY());
 	}
 	
-	//_ui->render();
-
 	for (int i = 0; i < _arrow->getVArrow().size(); i++)
 	{
 		_arrow->getVArrow()[i].arrowImage->frameRender(getMemDC(), _arrow->getVArrow()[i].rc.left - _camera.rc.left, _arrow->getVArrow()[i].rc.top - _camera.rc.top);
@@ -175,8 +190,6 @@ void foxPlayer::render()
 	char str[128];
 	sprintf(str, "중력 : %f, 인덱스 : %d, 상태 : %d, 인덱스2 : %d, 날씨 : %d", _player.gravity, index, _state, index2, weatherIndex);
 	TextOut(getMemDC(), 100, 600, str, strlen(str));
-
-
 }
 
 //ToDo : 이미지 셋팅
@@ -889,7 +902,6 @@ void foxPlayer::foxState()
 	{
 		_state = DEATH;
 	}
-
 }
 
 void foxPlayer::test()
@@ -927,6 +939,14 @@ void foxPlayer::test()
 		_player.gold -= 100;
 	}
 
+<<<<<<< HEAD
+	/*if (KEYMANAGER->isOnceKeyDown('U'))
+	{
+		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
+		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
+	}*/
+=======
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 }
 void foxPlayer::playerUI()
 {
