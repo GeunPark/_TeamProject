@@ -211,7 +211,7 @@ void enemyManager::update(void)
 	{
 		RECT _rct;
 
-		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc()))
+		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc()) && _player->getIsAtt())
 		{
 			//_vEnemy[i]->setState(ENEMY_DEAD);
 			_vEnemy[i]->setIsActived(false);
@@ -230,7 +230,7 @@ void enemyManager::update(void)
 	{
 		RECT _rct;
 
-		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc2()))
+		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc2()) && _player->getIsAtt())
 		{
 			_vEnemy[i]->setIsActived(false);
 			_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());

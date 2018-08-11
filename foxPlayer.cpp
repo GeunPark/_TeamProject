@@ -253,7 +253,7 @@ void foxPlayer::frameMove()
 //ToDo : 키 셋팅
 void foxPlayer::keySetting()
 {
-	if (_state != FIRE && _state != HIT && KEYMANAGER->isStayKeyDown(VK_RIGHT))
+	if (_state != FIRE && _state != HIT && _state != SIT && _state != SITATT && _state != UPATT && _state != WEATHER && KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
 		if (_state == IDLE)
 		{
@@ -265,7 +265,7 @@ void foxPlayer::keySetting()
 		_player.isUp = false;
 		_player.x += _player.speed;
 	}
-	if (_state != FIRE && _state != HIT && KEYMANAGER->isStayKeyDown(VK_LEFT))
+	if (_state != FIRE && _state != HIT && _state != SIT && _state != SITATT && _state != UPATT && _state != WEATHER && KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		if (_state == IDLE)
 		{
@@ -306,10 +306,13 @@ void foxPlayer::keySetting()
 	{
 		_player.isUp = true;
 	}
-
+	if (KEYMANAGER->isOnceKeyUp(VK_UP))
+	{
+		_player.isUp = false;
+	}
 	if (jumpCount < 2)
 	{
-		if (KEYMANAGER->isOnceKeyDown(VK_SPACE) && _state != HIT)
+		if (_state != HIT && _state != WEATHER   && KEYMANAGER->isOnceKeyDown(VK_SPACE))
 		{
 			++jumpCount;
 			_player.jumpSpeed = 9.f;
@@ -328,7 +331,7 @@ void foxPlayer::keySetting()
 	{
 		//화살 발사
 		if (_state != FIRE && _state != SIT && _state != JUMP && _state != DOUBLEJUMP && _state != FALL && _state != FALL2 
-			&& !_player.isUp && _state != JUMPATT && _state != JUMPATT2 && _state != HIT && _state != DEATH)
+			&& !_player.isUp && _state != JUMPATT && _state != JUMPATT2 && _state != HIT && _state != DEATH && _state != SITATT && _state != WEATHER)
 		{
 			if (_player.isFoxLeft)
 			{
@@ -470,7 +473,7 @@ void foxPlayer::keySetting()
 		_state = IDLE;
 	}
 	//공격이 끝난후 false처리
-	if ((index <= nick[_state]->getMaxFrameX() || index2 >= 0) && _state != FIRE && _state != IDLE && _state != JUMP && _state != DOUBLEJUMP && _state != SIT && _state != RUN && _state != WEATHER && _state != FALL && _state != FALL2)
+	if ((index < nick[_state]->getMaxFrameX() || index2 > 0) && _state != FIRE && _state != IDLE && _state != HIT && _state != JUMP && _state != DOUBLEJUMP && _state != SIT && _state != RUN && _state != WEATHER && _state != FALL && _state != FALL2)
 	{
 		_player.isAtt = true;
 	}
@@ -511,7 +514,7 @@ void foxPlayer::keySetting()
 		}
 
 		weatherIndex++;
-		if (weatherIndex > 1)
+		if (weatherIndex > 1 || _player.mana < 30)
 		{
 			_state = IDLE;
 			weatherIndex = 0;
