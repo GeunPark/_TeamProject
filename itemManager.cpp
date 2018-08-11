@@ -261,6 +261,10 @@ void itemManager::update(void)
 		}
 
 
+		this->pixelCollisionAng(_vCoinBronze);
+		this->pixelCollisionAng(_vCoinGold);
+		this->pixelCollisionAng(_vCoinSilver);
+
 }
 
 void itemManager::render()
@@ -346,5 +350,74 @@ void itemManager::dropCoin()
 	gold = 0;
 	silver = 0;
 	bronze = 0;
+}
+
+void itemManager::pixelCollisionAng(vector<item*> _tempVector)
+{
+	if (_player->getAng())
+	{
+		//vector<item*> _tempVector;
+
+		for (int i = 0; i < _tempVector.size(); ++i)
+		{
+			for (int j = _tempVector[i]->getRc().bottom - 4; j <  _tempVector[i]->getRc().bottom; j += 2)
+			{
+				COLORREF color = GetPixel(_tempVector[i]->getPixelImage()->getMemDC(), _tempVector[i]->getX(), j);
+				int r = GetRValue(color);
+				int g = GetGValue(color);
+				int b = GetBValue(color);
+
+				if ((r == 255 && g == 255 && b == 0))
+				{
+					_tempVector[i]->setY(j - _tempVector[i]->getItemImage()->getFrameHeight()/2);
+					_tempVector[i]->setGravity(0);
+
+					if (_tempVector[i]->getSpeed() > 0.5f)
+					{
+						_tempVector[i]->setSpeed(_tempVector[i]->getSpeed() / 2.0f);
+					}
+					else
+					{
+						_tempVector[i]->setSpeed(0);
+					}
+					break;
+				}
+			}
+
+
+		}
+	
+	}
+	else
+	{
+		for (int i = 0; i < _tempVector.size(); ++i)
+		{
+			for (int j = _tempVector[i]->getRc().bottom - 30; j < _tempVector[i]->getRc().bottom +30; j += 2)
+			{
+				COLORREF color = GetPixel(_tempVector[i]->getPixelImage()->getMemDC(), _tempVector[i]->getX(), j);
+				int r = GetRValue(color);
+				int g = GetGValue(color);
+				int b = GetBValue(color);
+
+				if ((r == 255 && g == 255 && b == 0))
+				{
+					_tempVector[i]->setY(_tempVector[i]->getY() + 0.05f);
+					_tempVector[i]->setX(_tempVector[i]->getX() + _tempVector[i]->getAngle()*0.0001f);
+					_tempVector[i]->setAngle(_tempVector[i]->getAngle() + 0.5f);
+
+					if (_tempVector[i]->getY() > 2900)
+					{
+						_tempVector.erase(_tempVector.begin()+i);
+					}
+					//break;
+				}
+			}
+
+
+		}
+
+	}
+
+
 }
 
