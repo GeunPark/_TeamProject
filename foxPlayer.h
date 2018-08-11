@@ -2,6 +2,8 @@
 #include "gameNode.h"
 #include "arrow.h"
 #include "cuticle.h"
+#include "magic.h"
+#include "shop.h"
 #include "poison.h"
 
 #define MAX_HEIGHT 2500
@@ -78,6 +80,8 @@ private:
 	tagState _state;
 
 	arrow* _arrow;
+	magic* _magic;
+	shop * _shop;
 	cuticle* _cuticle;
 	poison* _poison;
 	
@@ -100,11 +104,24 @@ private:
 	int unDamage;
 	int alphaCount;
 
+	int arrowNum;
+	int arrowNumChk;
+
+	int magicNum;
+	int magicNumCHk;
 
 	bool ang = false;
 	bool chk = false;
 	bool _a;
 	bool eftChk;
+	int _magicUseCount;
+	bool _magicUseChk;
+	bool _magicUseChk2;
+	int a = 0;
+	float tempX, tempY;
+
+	float _c[10], _d[10];
+
 public:
 
 
@@ -126,8 +143,8 @@ public:
 	void enemyAttCollision();
 	void removeArrow(int index);
 	void foxState();
-	void fire(float angle);
-	
+	//void fire(float angle);
+	void magicCollision();
 
 	// get, set함수들
 	float getX() { return _player.x; }
@@ -135,6 +152,8 @@ public:
 	void setX(float x) { _player.x = x; }
 	void setY(float y) { _player.y = y; }
 
+	bool getmagicUseChk() { return _magicUseChk; }
+	bool getmagicUseChk2() { return _magicUseChk2; }
 	bool getLeft() { return _player.isLeft; }
 	bool getRight() { return _player.isRight; }
 	bool getIsAtt() { return _player.isAtt; }
@@ -167,8 +186,6 @@ public:
 
 	//에너미매니저와 상호참조
 	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
-
-
 	tagPlayer getTag() { return _player; }
 
 	// 계절을 변화시켰는지 아닌지 판별
@@ -178,6 +195,9 @@ public:
 	//세원쓰^^~ 불금인데 못놀아서 아쉽지 ~~ 월요일날 보니깐 힘내 내가 아래 겟함수 하나 만들었는데~~ 미안쓰 -HG-
 	
 	arrow* getArrow() { return _arrow; }
+	magic* getMagic() {return _magic;}
+	shop* getShop() { return _shop; }
+
 	RECT getCollisionRc() { return _player.collisionRc; }
 
 	bool getEftChk() { return eftChk; }
@@ -186,9 +206,18 @@ public:
 	int getUnHit() { return unDamage; }
 	void setUnHit(int a) { unDamage = a; }
 
+	//tagState getState() { return _state; }
+	//void setState(tagState state) { _state = state; }
+
 	// 테스트 함수
 	void test();
 	void playerUI();
+
+	int getarrowNum() { return arrowNum; }
+	int getarrowNumChk() { return arrowNumChk; }
+
+	int getMagicNUm() { return magicNum; }
+	int getMagicNUmChk() { return magicNumCHk; }
 
 	foxPlayer() {}
 	~foxPlayer() {}

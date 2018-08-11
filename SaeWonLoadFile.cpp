@@ -24,6 +24,13 @@ void loadingScene::SaeWonImage()
 	_loading->loadFrameImage("Twinkle", "resource/foxPlayer/twinkle.bmp", 5805, 384, 15, 1, true, MAGENTA);
 	_loading->loadImage("Cuticle", "resource/foxPlayer/cuticle.bmp", 21, 21, true, MAGENTA);
 	_loading->loadFrameImage("Poison", "resource/foxPlayer/poison.bmp", 672, 72, 7, 2, true, MAGENTA);
+	
+
+	_loading->loadFrameImage("번개마법1", "resource/foxPlayer/번개마법1.bmp", 864, 960, 9, 1, true, MAGENTA);
+	_loading->loadFrameImage("토네이도", "resource/foxPlayer/토네이도.bmp", 648, 636, 2, 1, true, MAGENTA);
+
+	_loading->loadImage("나이트메어", "resource/foxPlayer/나이트메어.bmp", 417, 447, true, MAGENTA);
+	_loading->loadImage("나이트메어 그림자", "resource/foxPlayer/나이트메어 그림자.bmp", 417, 447, true, MAGENTA);
 }
 
 void loadingScene::SaeWonSound()
