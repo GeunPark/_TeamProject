@@ -150,7 +150,7 @@ void itemManager::update(void)
 
 			if (_vItem[i]->getItemType() == HEALTH_LARGE)
 			{
-				_player->setHp(_player->getHp() + 10);
+				_player->setHp(_player->getHp() + 30);
 			}
 			else if(_vItem[i]->getItemType() == HEALTH_SMALL)
 			{

@@ -3,11 +3,11 @@
 
 HRESULT arrow::init(int arrowMax, float range)
 {
-	count = 0;
 	_arrowMax = arrowMax;
 	_range = range;
 
-
+	index = 0;
+	count = 0;
 	return S_OK;
 }
 
@@ -21,9 +21,10 @@ void arrow::update(void)
 {
 	move();
 	//move2();
-
+	
 	animation();
 	//animation2();
+	
 
 }
 
@@ -56,19 +57,18 @@ void arrow::fire(float x, float y, float angle)
 void arrow::fire2(float x, float y, float angle)
 {
 	if (_arrowMax < _vPoison.size() + 1)return;
-	tagArrow2 poisonArrow;
-	ZeroMemory(&poisonArrow, sizeof(tagArrow2));
+	tagArrow2 poison;
+	ZeroMemory(&poison, sizeof(tagArrow2));
+	poison.arrowImage = IMAGEMANAGER->findImage("Poison");
 
-	poisonArrow.angle = angle;
-	poisonArrow.x = poisonArrow.fireX = x;
-	poisonArrow.y = poisonArrow.fireY = y;
-	poisonArrow.speed = 12.f;
+	poison.angle = angle;
+	poison.x = poison.fireX = x;
+	poison.y = poison.fireY = y;
+	poison.speed = 12.f;
 
-	poisonArrow.arrowImage = IMAGEMANAGER->findImage("Poison");
+	poison.rc = RectMakeCenter(poison.x, poison.y, poison.arrowImage->getFrameWidth(), poison.arrowImage->getFrameHeight());
 
-	poisonArrow.rc = RectMakeCenter(poisonArrow.x, poisonArrow.y, poisonArrow.arrowImage->getFrameWidth(), poisonArrow.arrowImage->getFrameHeight()); 
-
-	_vPoison.push_back(poisonArrow);
+	_vPoison.push_back(poison);
 }
 
 
@@ -98,29 +98,27 @@ void arrow::move()
 
 void arrow::move2()
 {
+	_viPoison = _vPoison.begin();
+	for (; _viPoison != _vPoison.end();)
+	{
+		_viPoison->x += cosf(_viPoison->angle)*_viPoison->speed;
+		_viPoison->rc = RectMakeCenter(_viPoison->x, _viPoison->y, _viPoison->arrowImage->getFrameWidth(), _viPoison->arrowImage->getFrameHeight());
 
-	
-	for(int i=0;i< _vPoison.size();i++)
-	{	
-		_vPoison[i].x += cosf(PI / 180 * _vPoison[i].angle)*_vPoison[i].speed;
-		_vPoison[i].y += -sinf(PI / 180 * _vPoison[i].angle)*_vPoison[i].speed;
-		
-		_vPoison[i].rc = RectMakeCenter(_vPoison[i].x, _vPoison[i].y, _vPoison[i].arrowImage->getFrameWidth(), _vPoison[i].arrowImage->getFrameHeight());
-		_vPoison[i].angle += 15.f;
-		
-		count++;
-		if (count >= 3)
+		if (_range < getDistance(_viPoison->x, _viPoison->y, _viPoison->fireX, _viPoison->fireY))
 		{
-			break;
+			_viPoison = _vPoison.erase(_viPoison);
 		}
+		else
+		{
+			_viPoison++;
+		} 
 	}
+	
 }
 
 
 void arrow::animation()
 {
-	
-
 	for (int i = 0; i < _vArrow.size(); ++i)
 	{
 		if (_vArrow[i].angle == PI)
@@ -138,7 +136,14 @@ void arrow::animation2()
 {
 	for (int i = 0; i < _vPoison.size(); ++i)
 	{
-		//if(_vPoison[i].angle)
+		if (_vPoison[i].angle == PI)
+		{
+			_vPoison[i].arrowImage->setFrameY(1);
+		}
+		else if (_vPoison[i].angle == 0)
+		{
+			_vPoison[i].arrowImage->setFrameY(0);
+		}
 	}
 }
 

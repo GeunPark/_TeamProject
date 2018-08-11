@@ -14,6 +14,8 @@ HRESULT UI::init(void)
 	_number[2] = IMAGEMANAGER->findImage("숫자");
 	_number[3] = IMAGEMANAGER->findImage("숫자");
 	_goldImage = IMAGEMANAGER->findImage("골드");
+	_arrowNum = 0;
+	_arrowNumChk = 0;
 	for (int i = 0; i < 4; i++)
 	{
 		frameNumChk[i] = false;
@@ -46,11 +48,6 @@ void UI::update(void)
 	if (_mana._now  > 30 || _mana._now <= 0) _isManaWarning = false;
 	else _isManaWarning = true;
 
-	if (KEYMANAGER->isOnceKeyDown('U'))
-	{
-		_arrowNumChk++;
-		if (_arrowNumChk > _arrowNum - 1)_arrowNumChk = 0;
-	}
 
 	_mana._now = _player->getMana();
 	_mana._MaxNum = _player->getMaxMana();

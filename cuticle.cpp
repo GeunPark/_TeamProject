@@ -61,8 +61,6 @@ void cuticle::fire(float x, float y, float cuticleMax)
 			_vCuticle.push_back(cuticle);
 			fireNum++;
 		}
-	
-	
 }
 
 void cuticle::move()
