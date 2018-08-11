@@ -2,6 +2,8 @@
 #include "gameNode.h"
 #include "foxPlayer.h"
 #include "UI.h"
+#include "bullet.h"
+#include "enemy.h"
 
 struct tagLeaf
 {
@@ -18,6 +20,11 @@ private:
 	tagLeaf leaf[20];
 
 	foxPlayer* _player;
+
+
+	beeBullet* _beeBullet;
+	bee* _bee;
+
 
 	UI* _ui;
 

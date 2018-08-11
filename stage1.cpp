@@ -18,22 +18,24 @@ HRESULT stage1::init(void)
 	eftInit();
 
 	_player = SAVEDATA->getPlayer();
-	_player->setX(100);
+	_player->setX(300);
 	_player->setY(2300);
 	_player->setBgPixel(feildpixel);
-	_player->setEnemyManager(_eMG);
 
 	_ui = SAVEDATA->getUI();
-	_ui->setPlayerManager(_player);
 
 	_iMG = SAVEDATA->getItemManager();
 	_iMG->init();
-	_iMG->setEMGLink(_eMG);
-	_iMG->setPlayerLink(_player);
+
 
 	_eMG = SAVEDATA->getEnemyManager();
-	if(isFrist == false)
-		_eMG->init();
+	_eMG->init();
+
+
+	_player->setEnemyManager(_eMG);
+	_ui->setPlayerManager(_player);
+	_iMG->setEMGLink(_eMG);
+	_iMG->setPlayerLink(_player);
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
@@ -41,11 +43,14 @@ HRESULT stage1::init(void)
 	////_effMG->init();
 	//_effMG->setPlayerLink(_player);
 
+<<<<<<< HEAD
 
 
 
 	_effMG = effectManager::getSingleton();
 
+=======
+>>>>>>> 7a01130e7d1e0d942c8af65449243f8357f0385f
 	_effMG = effectManager::getSingleton();
 	shopMode = false;
 
@@ -79,6 +84,7 @@ HRESULT stage1::init(void)
 void stage1::release(void)
 {
 	SAFE_DELETE(_player);
+	//_eMG->release();
 	SAFE_DELETE(_eMG);
 	SAFE_DELETE(_iMG);
 	SAFE_DELETE(_effect);
@@ -101,7 +107,7 @@ void stage1::update(void)
 	//에너미매니저
 	_eMG->update();
 
-	_ui->update();
+	//_ui->update();
 	//아이템매니저
 	_iMG->update();
 	_ui->update();
@@ -146,6 +152,14 @@ void stage1::update(void)
 	}
 	
 	for (int i = 0; i<_vEffect.size(); i++)_vEffect[i]->update();
+
+	if (_player->getX() < 0)
+	{
+		SCENEMANAGER->loadScene("타운씬");
+		_eMG->release();
+		_iMG->release();
+		//isFrist = true;
+	}
 }
 
 void stage1::render(void)
@@ -286,14 +300,19 @@ void stage1::render(void)
 	}
 
 	//아이템매니저
-	_iMG->render();
 
 	_ui->render();
 
 	//플레이어
 	_player->render();
 
+	_iMG->render();
+
 	_eMG->render();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a01130e7d1e0d942c8af65449243f8357f0385f
 	_ui->render();
 	//for (int i = 0; i < _vEffect.size(); i++)
 	//{
