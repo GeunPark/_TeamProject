@@ -67,6 +67,9 @@ protected:
 	//유령
 	bool isFire;
 
+	//통나무
+	bool isStrong;
+
 public:
 	virtual void init() = 0;
 	virtual void update();
@@ -102,6 +105,7 @@ public:
 	bool getIsActived() { return _isActived; }
 	bool getIsTongue() { return isTongue; }
 	bool getIsFire() { return isFire; }
+	bool getIsStrong() { return isStrong; }
 	
 
 	void setState(ENEMY_STATE state) { _state = state; }
@@ -115,6 +119,7 @@ public:
 	void setAng(bool _ang) { ang = _ang; }
 	void setAngle(float angle) { _angle = angle; }
 	void setCount(int count) { _count = count; }
+	void setIsStrong(bool _isStrong) { isStrong = _isStrong; }
 
 	int getGold() { return _gold; }
 	int getSilver() { return _silver; }

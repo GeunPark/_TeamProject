@@ -212,7 +212,7 @@ void itemManager::update(void)
 						bronze = 2;
 					}
 		
-					//break;
+					break;
 
 					//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
 					//			_player->setIsAttack(false);

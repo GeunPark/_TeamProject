@@ -36,9 +36,7 @@ HRESULT stage1::init(void)
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
-	if (isFrist == false)
-		_eMG->init();
-	_eMG->init();
+
 
 
 	_player->setEnemyManager(_eMG);
