@@ -195,9 +195,20 @@ void bossStage::update(void)
 
 	}
 	RECT tempRc;
-	if (IntersectRect(&tempRc, &_player->getCollisionRc(), &_bee->getRc()))
+	if (IntersectRect(&tempRc, &_player->getCollisionRc(), &_bee->getRc()) && _player->getUnHit()>20 && _player->getPlayerState() != HIT)
 	{
 		_player->setState(HIT);
+		_player->setUnHit(0);
+	}
+
+	for (int i = 0; i < _bee->getBullet()->getVBullet().size(); ++i)
+	{
+		RECT collRc;
+		if (IntersectRect(&collRc, &_player->getCollisionRc(), &_bee->getBullet()->getVBullet()[i].rc) && _player->getUnHit() >20 && _player->getPlayerState() != HIT)
+		{
+			_player->setState(HIT);
+			_player->setUnHit(0);
+		}
 	}
 	
 

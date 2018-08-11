@@ -18,8 +18,6 @@ HRESULT stage1::init(void)
 	eftInit();
 
 	_player = SAVEDATA->getPlayer();
-
-	
 	_player->setX(300);
 	_player->setY(2300);
 	_player->setBgPixel(feildpixel);
@@ -31,8 +29,6 @@ HRESULT stage1::init(void)
 
 
 	_eMG = SAVEDATA->getEnemyManager();
-	if (isFrist == false)
-		_eMG->init();
 	_eMG->init();
 
 

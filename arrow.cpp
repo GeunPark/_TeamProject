@@ -19,11 +19,11 @@ void arrow::release(void)
 
 void arrow::update(void)
 {
-	//move();
+	move();
 	//move2();
 	
-	//animation();
-	animation2();
+	animation();
+	//animation2();
 	
 
 }

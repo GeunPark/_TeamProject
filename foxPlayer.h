@@ -119,6 +119,8 @@ private:
 	bool _magicUseChk2;
 	int a = 0;
 	float tempX, tempY;
+	bool isTouch;
+	bool isArrowChange;
 
 	float _c[10], _d[10];
 
@@ -152,11 +154,15 @@ public:
 	void setX(float x) { _player.x = x; }
 	void setY(float y) { _player.y = y; }
 
+	bool getIsTouch() { return isTouch; }
+	void setIsTouch(bool a) { isTouch = a; }
+
 	bool getmagicUseChk() { return _magicUseChk; }
 	bool getmagicUseChk2() { return _magicUseChk2; }
 	bool getLeft() { return _player.isLeft; }
 	bool getRight() { return _player.isRight; }
 	bool getIsAtt() { return _player.isAtt; }
+	void setIsAtt(bool a) { _player.isAtt = a; }
 	RECT getPlayerCam() { return _camera.rc; }
 	RECT getAttRc() { return attRc; }
 	RECT getAttRc2() { return attRc2; }
@@ -187,6 +193,7 @@ public:
 	//에너미매니저와 상호참조
 	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
 	tagPlayer getTag() { return _player; }
+	void setTag(tagPlayer player) { _player = player; }
 
 	// 계절을 변화시켰는지 아닌지 판별
 	bool getAng() { return ang; }
