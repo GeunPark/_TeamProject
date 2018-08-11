@@ -76,6 +76,7 @@ public:
 
 	void setPosition(float x, float y) { _x = x, _y = y; }
 
+	image* getPixelImage() { return _bfx; }
 
 	item() {}
 	~item() {}
