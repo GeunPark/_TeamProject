@@ -22,7 +22,7 @@ private:
 	foxPlayer* _player;
 
 
-	beeBullet* _beeBullet;
+	//beeBullet* _beeBullet;
 	bee* _bee;
 
 

@@ -240,6 +240,8 @@ public:
 	int getHp() { return hp; }
 	int getDizzyCount() { return dizzyCount; }
 	int getAttackCount() { return attackCount; }
+	int getFireCount() { return _fireCount; }
+	void setFireCount(int fireCount) { _fireCount = fireCount; }
 	void setAttackCount(int _attackCount) { attackCount = _attackCount; }
 	
 };
