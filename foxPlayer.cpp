@@ -246,9 +246,9 @@ void foxPlayer::render()
 	}
 	for (int i = 0; i < _magic->getvthunder().size(); i++)
 	{
-		Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
+		//Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
 	}
-	Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
+	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
 
 }
