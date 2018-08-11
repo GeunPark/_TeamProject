@@ -38,8 +38,8 @@ HRESULT itemManager::init(void)
 
 	_itemBoxPos[0].x = 3550.f; _itemBoxPos[0].y = 2155.f;
 	_itemBoxPos[1].x = 7750.f; _itemBoxPos[1].y = 2195.f;
-	_itemBoxPos[2].x = 7350.f; _itemBoxPos[2].y = 1415.f;
-	_itemBoxPos[3].x = 7040.f; _itemBoxPos[3].y = 2180.f;
+	_itemBoxPos[2].x = 9050.f; _itemBoxPos[2].y = 1490.f;
+	_itemBoxPos[3].x = 6990.f; _itemBoxPos[3].y = 2200.f;
 
 //	_itemBoxPos[3].x = 8440.f; _itemBoxPos[3].y = 2395.f;
 
@@ -92,6 +92,11 @@ HRESULT itemManager::init(void)
 void itemManager::release(void)
 {
 	SAFE_DELETE(_itemFactory);
+	_vItem.clear();
+	_vCoinBronze.clear();
+	_vCoinSilver.clear();
+	_vCoinGold.clear();
+	_vItemBox.clear();
 }
 
 void itemManager::update(void)
@@ -186,10 +191,17 @@ void itemManager::update(void)
 					_vItemBox[i]->setIsActive(true);
 					
 
-					if (i == 3)
+					if (i == 3 )
 					{
-						_eMG->setGhost(_vItemBox[i]->getX(), _vItemBox[i]->getY(), 1);
+						_eMG->setGhost(_vItemBox[i]->getX(), _vItemBox[i]->getY(),1);
 						
+					}
+					else if (i == 2)
+					{
+						enemyX = _vItemBox[i]->getX();
+						enemyY = _vItemBox[i]->getY();
+						gold = 10;
+
 					}
 					else
 					{
@@ -260,6 +272,10 @@ void itemManager::update(void)
 
 		}
 
+
+		this->pixelCollisionAng(_vCoinBronze);
+		this->pixelCollisionAng(_vCoinGold);
+		this->pixelCollisionAng(_vCoinSilver);
 
 }
 
@@ -346,5 +362,74 @@ void itemManager::dropCoin()
 	gold = 0;
 	silver = 0;
 	bronze = 0;
+}
+
+void itemManager::pixelCollisionAng(vector<item*> _tempVector)
+{
+	if (_player->getAng())
+	{
+		//vector<item*> _tempVector;
+
+		for (int i = 0; i < _tempVector.size(); ++i)
+		{
+			for (int j = _tempVector[i]->getRc().bottom - 4; j <  _tempVector[i]->getRc().bottom; j += 2)
+			{
+				COLORREF color = GetPixel(_tempVector[i]->getPixelImage()->getMemDC(), _tempVector[i]->getX(), j);
+				int r = GetRValue(color);
+				int g = GetGValue(color);
+				int b = GetBValue(color);
+
+				if ((r == 255 && g == 255 && b == 0))
+				{
+					_tempVector[i]->setY(j - _tempVector[i]->getItemImage()->getFrameHeight()/2);
+					_tempVector[i]->setGravity(0);
+
+					if (_tempVector[i]->getSpeed() > 0.5f)
+					{
+						_tempVector[i]->setSpeed(_tempVector[i]->getSpeed() / 2.0f);
+					}
+					else
+					{
+						_tempVector[i]->setSpeed(0);
+					}
+					break;
+				}
+			}
+
+
+		}
+	
+	}
+	else
+	{
+		for (int i = 0; i < _tempVector.size(); ++i)
+		{
+			for (int j = _tempVector[i]->getRc().bottom - 30; j < _tempVector[i]->getRc().bottom +30; j += 2)
+			{
+				COLORREF color = GetPixel(_tempVector[i]->getPixelImage()->getMemDC(), _tempVector[i]->getX(), j);
+				int r = GetRValue(color);
+				int g = GetGValue(color);
+				int b = GetBValue(color);
+
+				if ((r == 255 && g == 255 && b == 0))
+				{
+					_tempVector[i]->setY(_tempVector[i]->getY() + 0.05f);
+					_tempVector[i]->setX(_tempVector[i]->getX() + _tempVector[i]->getAngle()*0.0001f);
+					_tempVector[i]->setAngle(_tempVector[i]->getAngle() + 0.5f);
+
+					if (_tempVector[i]->getY() > 2900)
+					{
+						_tempVector.erase(_tempVector.begin()+i);
+					}
+					//break;
+				}
+			}
+
+
+		}
+
+	}
+
+
 }
 

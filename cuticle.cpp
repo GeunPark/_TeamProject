@@ -46,7 +46,6 @@ void cuticle::fire(float x, float y, float cuticleMax)
 			fireNum++;
 		}
 	
-	
 		for (int i = 0; i < cuticleMax; i++)
 		{
 			tagCuticle cuticle;
@@ -80,6 +79,5 @@ void cuticle::move()
 
 void cuticle::removeCuticle(int index)
 {
-	
 
 }

@@ -38,6 +38,7 @@ void UI::update(void)
 	nowGold();
 	nowHeart();
 	nowArrow();
+	nowMagic();
 	// 하트 갯수만큼 표시
 
 	for (int i = 0; i < maxHeart; i++)
@@ -177,7 +178,8 @@ void UI::mana()
 void UI::nowArrow()
 {
 	// a는 몇번째 화살을 선택했다는 값? 입니다
-	_arrowNum = 2;
+	_arrowNum = _player->getarrowNum();
+	_arrowNumChk = _player->getarrowNumChk();
 	_nowState[0] = IMAGEMANAGER->findImage("현재상태");
 	for (int i = 0; i < _arrowNum; i++)
 	{
@@ -199,19 +201,19 @@ void UI::nowArrow()
 
 void UI::nowMagic()
 {
-	_magicNum = 3;
+	_magicNum = _player->getMagicNUm();
+	_magicNumChk = _player->getMagicNUmChk();
 	_nowState[1] = IMAGEMANAGER->findImage("현재상태");
 	for (int i = 0; i < _magicNum; i++)
 	{
-		if (b == i)
+		if (_magicNumChk == i)
 		{
 			_MagicChoice[i]._img = IMAGEMANAGER->findImage("선택R");
 		}
-		else if (b != i)_MagicChoice[i]._img = IMAGEMANAGER->findImage("노선택R");
+		else if (_magicNumChk != i)_MagicChoice[i]._img = IMAGEMANAGER->findImage("노선택R");
 		_MagicChoice[i]._x = 920;
 		_MagicChoice[i]._y = 20 + i * 24;
 	}
-
 }
 
 void UI::nowGold()
@@ -222,6 +224,16 @@ void UI::nowGold()
 	_frameNum[2] = (_goldNum % 100) / 10;
 	_frameNum[3] = _goldNum % 10;
 
+<<<<<<< HEAD
+=======
+
+
+
+
+	if (_goldNum >= 0) frameNumChk[3] = true;
+	frameNumChk[3] = true;
+
+>>>>>>> 470ec218d9a9d2fe73425bf77285540fb1af0de2
 	if (_goldNum > 9) frameNumChk[2] = true;
 	else if (_goldNum <= 9) frameNumChk[2] = false;
 	if (_goldNum > 99) frameNumChk[1] = true;

@@ -41,16 +41,19 @@ private:
 	int manaUpNum;
 	int manaWarning;
 	int MaxMana;
-	int _arrowNum;
-	int _magicNum;
+	
 	int _frameNum[4];
 	bool frameNumChk[4];
 	bool _isManaUse;
 	int _goldNum;
-	int _arrowNumChk = 0;
+	
 	int b = 0;
 	int _heartNum;
 	bool _isManaWarning;
+	int _arrowNum;
+	int _arrowNumChk = 0;
+	int _magicNum;
+	int _magicNumChk;
 public:
 
 	HRESULT init(void);

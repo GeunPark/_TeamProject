@@ -39,7 +39,6 @@ private:
 	//vector<item*>::iterator _viCoinSilver;
 	vector<item*> _vCoinBronze;
 	//vector<item*>::iterator _viCoinBronze;
-
 	vector<item*> _vItemBox;
 
 	itemPos _healthLargePos[MAX_HEALTHLARGE];
@@ -76,6 +75,7 @@ public:
 
 	void dropCoin();
 
+	void pixelCollisionAng(vector<item*> _tempVector);
 
 
 	//void dropCoin();

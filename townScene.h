@@ -25,7 +25,8 @@ private:
 	tagBackGround _pixel;
 
 
-	RECT _shopRc;
+	RECT _upgradeShopRc;
+	RECT _magicShopRc;
 	int shopCount = 0;
 
 	bool test = false;

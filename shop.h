@@ -58,6 +58,8 @@ private:
 	float _x, _y;
 
 	bool _isOpen = false;
+
+	vector<tagShopBox> _vShopItem;
 public:
 	HRESULT init(void);
 	void release(void);
@@ -70,8 +72,9 @@ public:
 	void selectObject();
 	void ItemSell();
 
-
-	void setKindShop(kindShop ks) { _kindShop = ks; }
+	void setKindShop(kindShop kd) { _kindShop = kd; }
+	
+	vector<tagShopBox> getvShopItem() {	return _vShopItem;}
 
 	void setPlayerManager(foxPlayer* player);
 

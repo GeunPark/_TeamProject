@@ -360,7 +360,8 @@ HRESULT beeBullet::init(float range)
 
 void beeBullet::release(void)
 {
-	
+	_vBullet.clear();
+
 }
 
 void beeBullet::update(void)

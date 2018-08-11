@@ -2,6 +2,8 @@
 #include "gameNode.h"
 #include "foxPlayer.h"
 #include "UI.h"
+#include "bullet.h"
+#include "enemy.h"
 
 struct tagLeaf
 {
@@ -19,9 +21,15 @@ private:
 
 	foxPlayer* _player;
 
+
+	//beeBullet* _beeBullet;
+	bee* _bee;
+
+
 	UI* _ui;
 
 	int count;
+	int alpha;
 	bool isSeason;
 	
 

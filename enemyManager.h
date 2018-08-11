@@ -1,7 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "enemy.h"
-
+#include "itemManager.h"
 #include "factory.h"
 #include "bullet.h"
 #include "effect.h"
@@ -28,8 +28,7 @@ private:
 	itemManager* _iMG;
 	image* _tongue;			// 츄로올로보롭ㅇ고퍼ㅏㅁㄴㅇㅍㄷ리ㅓㅇ겨피ㅣ냐ㅡㅍ먀ㅓㄹㄹㄹㄷㄴㅇㅍㅁ러ㅑㅣㅓㅜㄹㄹ 환상~~! (납득이)
 	ghostBullet* _ghostBullet;
-	beeBullet* _beeBullet;
-	bee* _bee;
+
 
 	effect* _effect;
 
@@ -60,6 +59,7 @@ public:
 
 	vector<enemy*> getEnemy() { return _vEnemy; }
 	vector<enemy*> getGhost() { return _vGhost; }
+	//bee* getBoss() { return _bee; }		//보스 게또 함수 하나 만들엇엉 -세원-
 
 	void setGhost(float itemX, float itemY, int number)
 	{
@@ -72,8 +72,11 @@ public:
 	void release(void);
 	void update(void);
 	void render(void);
-	void beAttackedEffect();
 
+	
+
+
+	void beAttackedEffect();
 	void appearGhost();
 	void sensorCollision();
 

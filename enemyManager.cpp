@@ -1,25 +1,26 @@
 #include "stdafx.h"
 #include "enemyManager.h"
 #include "foxPlayer.h"
-#include "itemManager.h"
+#include "bossStage.h"
 
 HRESULT enemyManager::init(void)
 {
 	
 	// 맵데이터 가져오기
 	//this->setMapData(_mapData);
-
+	
+	
 	_factory = new enemyFactory;
 
 	_ghostBullet = new ghostBullet;
 	_ghostBullet->init("유령총알", 1, 1000);
 
+	
 
-	_bee = new bee;
-	_bee->init();
+	
+
 
 	//LEFT
-
 	EFFECTMANAGER->addEffect("잠자리죽음L", "잠자리deadL", 0.2f, 10);
 	EFFECTMANAGER->addEffect("나무인간죽음L", "나무인간deadL", 0.2f, 10);
 	EFFECTMANAGER->addEffect("버그죽음L", "버그deadL", 0.2f, 10);
@@ -28,7 +29,6 @@ HRESULT enemyManager::init(void)
 	EFFECTMANAGER->addEffect("두꺼비죽음L", "두꺼비deadL", 0.2f, 10);
 
 	//RIGHT
-
 	EFFECTMANAGER->addEffect("잠자리죽음R", "잠자리deadR", 0.2f, 10);
 	EFFECTMANAGER->addEffect("나무인간죽음R", "나무인간deadR", 0.2f, 10);
 	EFFECTMANAGER->addEffect("버그죽음R", "버그deadR", 0.2f, 10);
@@ -63,15 +63,15 @@ HRESULT enemyManager::init(void)
 
 	//통나무
 	_treeManPos[0].x = 7000.f; _treeManPos[0].y = 1785.f;
-	_treeManPos[1].x = 7000.f; _treeManPos[1].y = 1400.f;
+	_treeManPos[1].x = 7700.f; _treeManPos[1].y = 1785.f;
 	//_treeManPos[2].x = 300.f; _treeManPos[2].y = 2200.f;
 	//_treeManPos[3].x = 900.f; _treeManPos[3].y = 2200.f;
 
 	//버그
-	_bugPos[0].x = 7300.f; _bugPos[0].y = 1770.f;
-	_bugPos[1].x = 7400.f; _bugPos[1].y = 1770.f;
-	_bugPos[2].x = 9450.f; _bugPos[2].y = 1960.f;
-	_bugPos[3].x = 9550.f; _bugPos[3].y = 1960.f;
+	_bugPos[0].x = 7450.f; _bugPos[0].y = 1770.f;
+	_bugPos[1].x = 7500.f; _bugPos[1].y = 1770.f;
+	_bugPos[2].x = 9450.f; _bugPos[2].y = 2160.f;
+	_bugPos[3].x = 9550.f; _bugPos[3].y = 2160.f;
 
 
 	//두꺼비
@@ -106,14 +106,14 @@ HRESULT enemyManager::init(void)
 	{
 		enemy* _enemy = _factory->createEnemy(TREEMAN);
 		_enemy->setPosition(_treeManPos[i].x, _treeManPos[i].y);
-
+		_enemy->setCount(i * 50);
 		_vEnemy.push_back(_enemy);
 	}
 	for (int i = 0; i < MAX_BUG; i++)
 	{
 		enemy* _enemy = _factory->createEnemy(BUG);
 		_enemy->setPosition(_bugPos[i].x, _bugPos[i].y);
-
+		_enemy->setCount(i * 50);
 		_vEnemy.push_back(_enemy);
 	}
 	for (int i = 0; i < MAX_PLANTFROG; i++)
@@ -140,6 +140,8 @@ HRESULT enemyManager::init(void)
 void enemyManager::release(void)
 {
 	SAFE_DELETE(_factory);
+	_vEnemy.clear();
+	
 }
 
 void enemyManager::update(void)
@@ -149,17 +151,6 @@ void enemyManager::update(void)
 
 	for (int i = 0; i < _vEnemy.size(); i++)
 	{
-		//if (_vEnemy[i]->getType() != ELECTRICEEL || _vEnemy[i]->getType() != PLANTFROG)
-		//{
-		//	if (_vEnemy[i]->getX() > _player->getX())
-		//	{
-		//		_vEnemy[i]->setIsLeft(true);
-		//	}
-		//	else
-		//	{
-		//		_vEnemy[i]->setIsLeft(false);
-		//	}
-		//}
 
 
 		_vEnemy[i]->update();
@@ -170,17 +161,29 @@ void enemyManager::update(void)
 
 	for (int i = 0; i < _vGhost.size(); i++)
 	{
-		if (_vGhost[i]->getX() > _player->getX())
-		{
-			_vGhost[i]->setIsLeft(true);
-		}
-		else
-		{
-			_vGhost[i]->setIsLeft(false);
-		}
+		//if (_vGhost[i]->getX() > _player->getX())
+		//{
+		//	_vGhost[i]->setIsLeft(true);
+		//}
+		//else
+		//{
+		//	_vGhost[i]->setIsLeft(false);
+		//}
 
 		_vGhost[i]->update();
 	}
+
+
+	//for (int i = 0; i < _vGhost.size(); i++)
+	//{
+	//	if (!_vGhost[i]->getIsActived())
+	//	{
+	//		_vGhost.erase(_vGhost.begin() + i);
+	//	}
+	//
+	//}
+
+
 
 	for (int i = 0; i < _vGhost.size(); ++i)
 	{
@@ -198,10 +201,10 @@ void enemyManager::update(void)
 	}
 
 
-	_bee->update();
+
 	//_beeBullet->fire(_bee->getX(), _bee->getY(), 10);
 	//_beeBullet->update();
-	
+
 
 
 	//에너미 충돌처리
@@ -211,7 +214,7 @@ void enemyManager::update(void)
 	{
 		RECT _rct;
 
-		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc()))
+		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc()) && _player->getIsAtt())
 		{
 			//_vEnemy[i]->setState(ENEMY_DEAD);
 			_vEnemy[i]->setIsActived(false);
@@ -230,7 +233,7 @@ void enemyManager::update(void)
 	{
 		RECT _rct;
 
-		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc2()))
+		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc2()) && _player->getIsAtt())
 		{
 			_vEnemy[i]->setIsActived(false);
 			_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
@@ -265,11 +268,74 @@ void enemyManager::update(void)
 		}
 
 	}
+	for (int i = 0; i < _vEnemy.size(); ++i)
+	{
+		for (int j = 0; j < _player->getMagic()->getvthunder().size(); j++)
+		{
+			RECT _rct;
+			if (IntersectRect(&_rct, &_vEnemy[i]->getCollisionRc(), &_player->getMagic()->getvthunder()[j]._rc))
+			{
+				if (_player->getmagicUseChk() == true)_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 
+				if (_player->getmagicUseChk() == true)_vEnemy[i]->setIsActived(false);
+			}
+		}
+	}
+
+	for (int i = 0; i < _vEnemy.size(); ++i)
+	{
+
+		RECT _rct2;
+		if (IntersectRect(&_rct2, &_vEnemy[i]->getCollisionRc(), &_player->getMagic()->getvnightMare()[0]._rc))
+		{
+			if (_player->getmagicUseChk2() == true)_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+			if (_player->getmagicUseChk2() == true)_vEnemy[i]->setIsActived(false);
+		}
+
+	}
 	//if (KEYMANAGER->isStayKeyDown(VK_RBUTTON))
 	//{
 	//	EFFECTMANAGER->play("잠자리죽음",100, 100);
 	//}
+	for (int i = 0; i < _vEnemy.size(); ++i)
+	{
+		if (_vEnemy[i]->getType() == ELECTRICEEL)
+		{
+			if (_player->getAng())
+			{
+				if (_vEnemy[i]->getState() == ENEMY_SPAWN)
+				{
+					_vEnemy[i]->setAng(false);
+				}
+				else
+				{
+					for (int j = _vEnemy[i]->getRc().bottom - 50; j < _vEnemy[i]->getRc().bottom - 45; j++)
+					{
+						COLORREF color = GetPixel(_player->getBgPixel()->getMemDC(), _vEnemy[i]->getX(), j);
+						int r = GetRValue(color);
+						int g = GetGValue(color);
+						int b = GetBValue(color);
+
+						if ((r == 255 && g == 255 && b == 0))
+						{
+							_vEnemy[i]->setIsActived(false);
+						}
+
+					}
+				}
+			}
+			else
+			{
+				_vEnemy[i]->setAng(true);
+
+			}
+
+		}
+
+	}
+
+
+
 
 
 	this->beAttackedEffect();
@@ -329,19 +395,6 @@ void enemyManager::render(void)
 		}
 	}
 
-	//벌몸체
-	_bee->getBodyImage()->frameRender(getMemDC(), _bee->getRc().left - _player->getPlayerCam().left, _bee->getRc().top - _player->getPlayerCam().top, _bee->getBodyImage()->getFrameX(), _bee->getBodyImage()->getFrameY());
-
-	//벌총알
-	for (int i = 0; i < _bee->getBullet()->getVBullet().size(); ++i)
-	{
-		if(_bee->getBullet()->getVBullet()[i].fire)
-		{
-			_bee->getBullet()->getVBullet()[i].bulletImage->frameRender(getMemDC(), _bee->getBullet()->getVBullet()[i].rc.left - _player->getPlayerCam().left, _bee->getBullet()->getVBullet()[i].rc.top - _player->getPlayerCam().top, _bee->getBullet()->getIndex(), 0);
-
-		}
-
-	}
 
 	//for (int i = 0; i < _beeBullet->getVBullet().size(); ++i)
 	//{
@@ -361,12 +414,17 @@ void enemyManager::render(void)
 	//}
 }
 
+
+
 void enemyManager::beAttackedEffect()
 {
 	for (int i = 0; i < _vEnemy.size(); ++i)
 	{
 		if (!_vEnemy[i]->getIsActived())
 		{
+			_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+
+
 			if (_vEnemy[i]->getIndexY() == 0)
 			{
 				switch (_vEnemy[i]->getType())
@@ -455,7 +513,7 @@ void enemyManager::beAttackedEffect()
 					break;
 				}
 			}
-			
+
 			_vEnemy.erase(_vEnemy.begin() + i);
 		}
 	}
@@ -467,6 +525,7 @@ void enemyManager::appearGhost()
 	{
 		enemy* _ghost = _factory->createEnemy(GHOST);
 		_ghost->setPosition(_itemX, _itemY-50);
+		_ghost->setIndexX(0);
 		_vGhost.push_back(_ghost);
 	}
 

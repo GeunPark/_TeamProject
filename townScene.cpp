@@ -59,8 +59,8 @@ HRESULT townScene::init(void)
 	_shop->init();
 
 
-	_shopRc = RectMakeCenter(1210, 520, 250, 200);
-
+	_upgradeShopRc = RectMakeCenter(1210, 520, 250, 200);
+	_magicShopRc = RectMakeCenter(930, 520,250,200);
 	return S_OK;
 }
 
@@ -90,13 +90,17 @@ void townScene::update(void)
 		}
 	}
 	RECT temp;
-	if (IntersectRect(&temp, &_player->getCollisionRc(), &_shopRc))
+	////////////////////////업그레이드 상점//////////////////////////////////
+	if (IntersectRect(&temp, &_player->getCollisionRc(), &_upgradeShopRc))
 	{
 		if (KEYMANAGER->isOnceKeyDown('Q'))
 		{
 			shopCount++;
 			if (shopCount < 2)
+			{
 				_shop->setOpen(true);
+				_shop->setKindShop(UPGRADE);
+			}
 			else
 			{
 				_shop->setOpen(false);
@@ -104,10 +108,37 @@ void townScene::update(void)
 			}
 		}
 	}
+
+
+	////////////////////////마법 상점//////////////////////////////////
+	if (IntersectRect(&temp, &_player->getCollisionRc(), &_magicShopRc))
+	{
+		if (KEYMANAGER->isOnceKeyDown('Q'))
+		{
+			shopCount++;
+			if (shopCount < 2)
+			{
+				_shop->setOpen(true);
+				_shop->setKindShop(MAGIC);
+			}
+			else
+			{
+				_shop->setOpen(false);
+				shopCount = 0;
+			}
+		}
+	}
+
+
+
 	if (_player->getX() < 0)
 	{
 		test = true;
+<<<<<<< HEAD
 		SCENEMANAGER->loadScene("월드맵");
+=======
+		SCENEMANAGER->loadScene("보스");
+>>>>>>> 470ec218d9a9d2fe73425bf77285540fb1af0de2
 		SOUNDMANAGER->stop("마을배경사운드");
 	}
 
@@ -125,7 +156,13 @@ void townScene::render(void)
 	{
 		_pixel.img->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
 	}
-	//Rectangle(getMemDC(), _shopRc.left - _player->getPlayerCam().left, _shopRc.top - _player->getPlayerCam().top, _shopRc.right - _player->getPlayerCam().left, _shopRc.bottom - _player->getPlayerCam().top);
+
+//	Rectangle(getMemDC(), _upgradeShopRc.left - _player->getPlayerCam().left, _upgradeShopRc.top - _player->getPlayerCam().top, _upgradeShopRc.right - _player->getPlayerCam().left, _upgradeShopRc.bottom - _player->getPlayerCam().top);
+//	Rectangle(getMemDC(), _magicShopRc.left - _player->getPlayerCam().left, _magicShopRc.top - _player->getPlayerCam().top, _magicShopRc.right - _player->getPlayerCam().left, _magicShopRc.bottom - _player->getPlayerCam().top);
+
+	//Rectangle(getMemDC(), _upgradeShopRc.left - _player->getPlayerCam().left, _upgradeShopRc.top - _player->getPlayerCam().top, _upgradeShopRc.right - _player->getPlayerCam().left, _upgradeShopRc.bottom - _player->getPlayerCam().top);
+	//Rectangle(getMemDC(), _magicShopRc.left - _player->getPlayerCam().left, _magicShopRc.top - _player->getPlayerCam().top, _magicShopRc.right - _player->getPlayerCam().left, _magicShopRc.bottom - _player->getPlayerCam().top);
+
 	//간바떼 그나찡!!!(반짝)(엄지척)
 	_ui->render();
 	_player->render();
