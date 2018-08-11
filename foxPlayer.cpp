@@ -10,18 +10,15 @@ HRESULT foxPlayer::init(void)
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
-<<<<<<< HEAD
 	_magic = new magic;
 	_magic->init();
 	//_cuticle = new cuticle;
 	//_cuticle->init(500);
-=======
 	_poison = new poison;
 	_poison->init(600.f);
 
 	_player.x = 9500;
 	_player.y = 1250;
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 
 	_cuticle = new cuticle;
 	_cuticle->init(500);
@@ -29,11 +26,8 @@ HRESULT foxPlayer::init(void)
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
 
-<<<<<<< HEAD
 	_cuticle = new cuticle;
 	_cuticle->init(500);
-=======
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 
 
 	_player.speed = 6.f;
@@ -92,7 +86,6 @@ void foxPlayer::update(void)
 	this->keySetting();	  //키셋팅 함수 호출
 	_magic->update();
 	_arrow->update();
-	test();
 
 	_player.gravity += 0.58f;
 	if (_state == JUMP)
@@ -115,13 +108,10 @@ void foxPlayer::update(void)
 	_player.y += -sinf(_player.angle) * _player.jumpSpeed + _player.gravity;
 	_player.collisionRc = RectMakeCenter(_player.x, _player.y + 40, 50, 85);
 
-<<<<<<< HEAD
-=======
 	this->pixelCollision();		//픽셀충돌 함수 호출
 
 	this->frameMove();		//프레임 움직이는 함수 호출
 
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 	//적과 충돌
 	if (KEYMANAGER->isToggleKey(VK_F3))
 	{
@@ -154,7 +144,6 @@ void foxPlayer::update(void)
 			_magicUseChk2 = true;
 		}
 	
-<<<<<<< HEAD
 	}
 	if (_magicUseChk2 == true)
 	{
@@ -178,8 +167,6 @@ void foxPlayer::update(void)
 		if (magicNumCHk > magicNum - 1)magicNumCHk = 0;
 	}
 	
-=======
-	this->test();
 
 	_cuticle->update();
 
@@ -187,7 +174,6 @@ void foxPlayer::update(void)
 
 	this->camera();			//카메라 움직이는 함수 호출
 
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 	_player.rc = RectMakeCenter(_player.x, _player.y, nick[_state]->getFrameWidth(), nick[_state]->getFrameHeight());
 	twinkleRc = RectMakeCenter(_player.x, _player.y + 50, _twinkle->getFrameWidth(), _twinkle->getFrameHeight());
 	_camera.rc = RectMakeCenter(_camera.x, _camera.y, WINSIZEX, WINSIZEY);
@@ -245,7 +231,6 @@ void foxPlayer::render()
 	{
 		_poison->getPoison()[i].poisonImage->frameRender(getMemDC(), _poison->getPoison()[i].rc.left - _camera.rc.left, _poison->getPoison()[i].rc.top - _camera.rc.top);
 	}
-<<<<<<< HEAD
 
 	for (int i = 0; i <_magic->getvthunder().size(); ++i)
 	{
@@ -257,9 +242,6 @@ void foxPlayer::render()
 		_magic->getvnightMare()[0]._img->render(getMemDC(), _magic->getvnightMare()[0]._x - _camera.rc.left, _magic->getvnightMare()[0]._y - _camera.rc.top);
 
 	}
-=======
-	
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 	if (KEYMANAGER->isToggleKey(VK_F1))
 	{
 		for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
@@ -1046,8 +1028,6 @@ void foxPlayer::test()
 	{
 		_player.gold -= 100;
 	}
-<<<<<<< HEAD
-=======
 
 	/*if (KEYMANAGER->isOnceKeyDown('U'))
 	{
@@ -1055,7 +1035,6 @@ void foxPlayer::test()
 		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
 		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
 	}*/
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 }
 void foxPlayer::playerUI()
 {

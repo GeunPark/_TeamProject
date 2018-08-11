@@ -18,13 +18,10 @@ HRESULT stage1::init(void)
 	eftInit();
 
 	_player = SAVEDATA->getPlayer();
-<<<<<<< HEAD
-	_player->setX(9500);
-	_player->setY(1200);
-=======
+
+	
 	_player->setX(300);
 	_player->setY(2300);
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 	_player->setBgPixel(feildpixel);
 
 	_ui = SAVEDATA->getUI();
@@ -34,10 +31,8 @@ HRESULT stage1::init(void)
 
 
 	_eMG = SAVEDATA->getEnemyManager();
-<<<<<<< HEAD
 	if (isFrist == false)
 		_eMG->init();
-=======
 	_eMG->init();
 
 
@@ -45,28 +40,10 @@ HRESULT stage1::init(void)
 	_ui->setPlayerManager(_player);
 	_iMG->setEMGLink(_eMG);
 	_iMG->setPlayerLink(_player);
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
-	//_effMG = SAVEDATA->getEffectManager();
-	////_effMG->init();
-	//_effMG->setPlayerLink(_player);
-
-<<<<<<< HEAD
-	_effMG = effectManager::getSingleton();
-=======
-
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
-
-
-	_effMG = effectManager::getSingleton();
-
-<<<<<<< HEAD
-=======
-	_effMG = effectManager::getSingleton();
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
-	shopMode = false;
+	
 
 
 	_normalBack1._x = 0;
@@ -228,6 +205,7 @@ void stage1::render(void)
 
 		}
 		_waterWheel->frameRender(getMemDC(), 8730 - _player->getPlayerCam().left, 2175 - _player->getPlayerCam().top);
+
 	}
 
 	if (_state == WINTER)
@@ -281,6 +259,7 @@ void stage1::render(void)
 		/////////////////////////////////////////////겨          울               맵/////////////////////////////////////////////////////////////
 		feildIce->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, 0 + _bagrandslide, WINSIZEY);
 	}
+
 	// 픽셀 이미지 출력
 
 	for (int i = 0; i < _vEffect.size(); i++)
@@ -322,10 +301,6 @@ void stage1::render(void)
 	_iMG->render();
 
 	_eMG->render();
-<<<<<<< HEAD
-
-=======
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 	_ui->render();
 	//for (int i = 0; i < _vEffect.size(); i++)
 	//{
@@ -333,41 +308,39 @@ void stage1::render(void)
 	//	//_vEffect[i]->render();
 	//}
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 
 	for (int i = 0; i < _vEffect.size(); i++)
 	{
 		_vEffect[i]->render(0, 0);
 	}
 
-<<<<<<< HEAD
+
 	// 테스트용 상점 구현
 	if (KEYMANAGER->isOnceKeyDown('Q'))
 	{
 
 		if (!shopMode)shopMode = true;
-=======
 
 
-	// 테스트용 상점 구현
-	if (KEYMANAGER->isOnceKeyDown('Q'))
-	{
-		if(!shopMode)shopMode = true;
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
-		else shopMode = false;
+
+		// 테스트용 상점 구현
+		if (KEYMANAGER->isOnceKeyDown('Q'))
+		{
+			if (!shopMode)shopMode = true;
+
+			else shopMode = false;
+		}
+		//if(shopMode)_shop->render();
+
+
+		if (stageClearCount > 180)stageClearImg->render(getMemDC(), 297, 359);
+
+		char str[128];
+		sprintf_s(str, "%d    %d ", _player->getPlayerState(), stageClearCount);
+		TextOut(getMemDC(), 120, WINSIZEY / 2, str, strlen(str));
+
 	}
-	//if(shopMode)_shop->render();
-
-
-	if (stageClearCount > 180)stageClearImg->render(getMemDC(), 297, 359);
-
-	char str[128];
-	sprintf_s(str, "%d    %d ", _player->getPlayerState(), stageClearCount);
-	TextOut(getMemDC(), 120, WINSIZEY / 2, str, strlen(str));
-
 }
 
 // 프레임 이미지 움직임

@@ -2,12 +2,9 @@
 #include "gameNode.h"
 #include "arrow.h"
 #include "cuticle.h"
-<<<<<<< HEAD
 #include "magic.h"
 #include "shop.h"
-=======
 #include "poison.h"
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
@@ -146,26 +143,8 @@ public:
 	void enemyAttCollision();
 	void removeArrow(int index);
 	void foxState();
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8a6e72778944b18af6e679aa436a25711233bd1a
 	//void fire(float angle);
-=======
-<<<<<<< HEAD
 	void magicCollision();
-=======
-	void fire(float angle);
->>>>>>> c2642a7eaeac04dd17b99ec0392ef574661aa47f
-<<<<<<< HEAD
-=======
-	void fire(float angle);
->>>>>>> parent of 380705e... 보스와 보스총알에 충돌처리 완료
-=======
->>>>>>> 8a6e72778944b18af6e679aa436a25711233bd1a
-	
->>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 
 	// get, set�Լ���
 	float getX() { return _player.x; }
