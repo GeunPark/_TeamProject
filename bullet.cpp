@@ -426,11 +426,17 @@ void beeBullet::move()
 		if (_vBullet[i].fire)
 		{
 			_vBullet[i].angle += 0.00025f;
+			//if (_vBullet[i].angle > 360)
+			_vBullet[i].count++;
+
+			//{
+			//	_vBullet[i].angle = 0;
+			//}
 			_vBullet[i].x += cosf(_vBullet[i].angle)*_vBullet[i].speed;
 			_vBullet[i].y += -sinf(_vBullet[i].angle)*_vBullet[i].speed;
 			_vBullet[i].rc = RectMakeCenter(_vBullet[i].x, _vBullet[i].y, 50, 50);
 
-			if (getDistance(_vBullet[i].x, _vBullet[i].y, _vBullet[i].fireX, _vBullet[i].fireY) > _range)
+			if (getDistance(_vBullet[i].x, _vBullet[i].y, _vBullet[i].fireX, _vBullet[i].fireY) > _range || _vBullet[i].count == 10000)
 			{
 				_vBullet[i].fire = false;
 				_vBullet.erase(_vBullet.begin() + i);

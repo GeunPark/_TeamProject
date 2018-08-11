@@ -18,14 +18,23 @@ HRESULT enemyManager::init(void)
 	_bee = new bee;
 	_bee->init();
 
+	//LEFT
 
-	EFFECTMANAGER->addEffect("ÀáÀÚ¸®Á×À½", "ÀáÀÚ¸®dead", 0.2f, 10);
-	EFFECTMANAGER->addEffect("³ª¹«ÀÎ°£Á×À½", "³ª¹«ÀÎ°£dead", 0.2f, 10);
-	EFFECTMANAGER->addEffect("¹ö±×Á×À½", "¹ö±×dead", 0.2f, 10);
-	EFFECTMANAGER->addEffect("Åë³ª¹«Á×À½", "Åë³ª¹«dead", 0.2f, 10);
-	EFFECTMANAGER->addEffect("²ÄÀå¾îÁ×À½", "²ÄÀå¾îdead", 0.2f, 10);
-	EFFECTMANAGER->addEffect("µÎ²¨ºñÁ×À½", "µÎ²¨ºñdead", 0.2f, 10);
+	EFFECTMANAGER->addEffect("ÀáÀÚ¸®Á×À½L", "ÀáÀÚ¸®deadL", 0.2f, 10);
+	EFFECTMANAGER->addEffect("³ª¹«ÀÎ°£Á×À½L", "³ª¹«ÀÎ°£deadL", 0.2f, 10);
+	EFFECTMANAGER->addEffect("¹ö±×Á×À½L", "¹ö±×deadL", 0.2f, 10);
+	EFFECTMANAGER->addEffect("Åë³ª¹«Á×À½L", "Åë³ª¹«deadL", 0.2f, 10);
+	EFFECTMANAGER->addEffect("²ÄÀå¾îÁ×À½L", "²ÄÀå¾îdeadL", 0.2f, 10);
+	EFFECTMANAGER->addEffect("µÎ²¨ºñÁ×À½L", "µÎ²¨ºñdeadL", 0.2f, 10);
 
+	//RIGHT
+
+	EFFECTMANAGER->addEffect("ÀáÀÚ¸®Á×À½R", "ÀáÀÚ¸®deadR", 0.2f, 10);
+	EFFECTMANAGER->addEffect("³ª¹«ÀÎ°£Á×À½R", "³ª¹«ÀÎ°£deadR", 0.2f, 10);
+	EFFECTMANAGER->addEffect("¹ö±×Á×À½R", "¹ö±×deadR", 0.2f, 10);
+	EFFECTMANAGER->addEffect("Åë³ª¹«Á×À½R", "Åë³ª¹«deadR", 0.2f, 10);
+	EFFECTMANAGER->addEffect("²ÄÀå¾îÁ×À½R", "²ÄÀå¾îdeadR", 0.2f, 10);
+	EFFECTMANAGER->addEffect("µÎ²¨ºñÁ×À½R", "µÎ²¨ºñdeadR", 0.2f, 10);
 
 	//_beeBullet = new beeBullet;
 	//_beeBullet->init(500);
@@ -205,8 +214,10 @@ void enemyManager::update(void)
 		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc()))
 		{
 			//_vEnemy[i]->setState(ENEMY_DEAD);
+			_vEnemy[i]->setIsActived(false);
+
 			_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
-			_vEnemy.erase(_vEnemy.begin() + i);
+			//_vEnemy.erase(_vEnemy.begin() + i);
 
 			//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
 			//			_player->setIsAttack(false);
@@ -221,8 +232,9 @@ void enemyManager::update(void)
 
 		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc2()))
 		{
+			_vEnemy[i]->setIsActived(false);
 			_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
-			_vEnemy.erase(_vEnemy.begin() + i);
+			//_vEnemy.erase(_vEnemy.begin() + i);
 		}
 	}
 	//¾ÆÁ÷ ÃÑ¾ËÀÌ ¾øÀ½ attRc¶û Ãæµ¹ÀÌ³ª ¸¸µé¾î³õÀÚ!
@@ -258,6 +270,7 @@ void enemyManager::update(void)
 	//{
 	//	EFFECTMANAGER->play("ÀáÀÚ¸®Á×À½",100, 100);
 	//}
+
 
 	this->beAttackedEffect();
 
@@ -354,47 +367,95 @@ void enemyManager::beAttackedEffect()
 	{
 		if (!_vEnemy[i]->getIsActived())
 		{
-			switch (_vEnemy[i]->getType())
+			if (_vEnemy[i]->getIndexY() == 0)
 			{
-			case DRAGONFLY:
-				EFFECTMANAGER->play("ÀáÀÚ¸®Á×À½", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
-				
-				break;
+				switch (_vEnemy[i]->getType())
+				{
+				case DRAGONFLY:
+					EFFECTMANAGER->play("ÀáÀÚ¸®Á×À½L", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
 
-			case VINEMAN:
-				EFFECTMANAGER->play("³ª¹«ÀÎ°£Á×À½", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+					break;
 
-
-				break;
-
-			case BUG:
-
-				EFFECTMANAGER->play("¹ö±×Á×À½", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
-
-				break;
-
-			case TREEMAN:
-				EFFECTMANAGER->play("Åë³ª¹«Á×À½", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+				case VINEMAN:
+					EFFECTMANAGER->play("³ª¹«ÀÎ°£Á×À½L", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
 
 
-				break;
+					break;
 
-			case ELECTRICEEL:
-				EFFECTMANAGER->play("²ÄÀå¾îÁ×À½", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+				case BUG:
+
+					EFFECTMANAGER->play("¹ö±×Á×À½L", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+
+					break;
+
+				case TREEMAN:
+					EFFECTMANAGER->play("Åë³ª¹«Á×À½L", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
 
 
-				break;
+					break;
 
-			case PLANTFROG:
-				EFFECTMANAGER->play("µÎ²¨ºñÁ×À½", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+				case ELECTRICEEL:
+					EFFECTMANAGER->play("²ÄÀå¾îÁ×À½L", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
 
 
-				break;
+					break;
 
-			default:
+				case PLANTFROG:
+					EFFECTMANAGER->play("µÎ²¨ºñÁ×À½L", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
 
-				break;
+
+					break;
+
+				default:
+
+					break;
+				}
 			}
+			else if (_vEnemy[i]->getIndexY() == 1)
+			{
+				switch (_vEnemy[i]->getType())
+				{
+				case DRAGONFLY:
+					EFFECTMANAGER->play("ÀáÀÚ¸®Á×À½R", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+
+					break;
+
+				case VINEMAN:
+					EFFECTMANAGER->play("³ª¹«ÀÎ°£Á×À½R", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+
+
+					break;
+
+				case BUG:
+
+					EFFECTMANAGER->play("¹ö±×Á×À½R", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+
+					break;
+
+				case TREEMAN:
+					EFFECTMANAGER->play("Åë³ª¹«Á×À½R", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+
+
+					break;
+
+				case ELECTRICEEL:
+					EFFECTMANAGER->play("²ÄÀå¾îÁ×À½R", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+
+
+					break;
+
+				case PLANTFROG:
+					EFFECTMANAGER->play("µÎ²¨ºñÁ×À½R", _vEnemy[i]->getX(), _vEnemy[i]->getY());// - _player->getPlayerCam().left, _vEnemy[i]->getY() - _player->getPlayerCam().top);
+
+
+					break;
+
+				default:
+
+					break;
+				}
+			}
+			
 			_vEnemy.erase(_vEnemy.begin() + i);
 		}
 	}

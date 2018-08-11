@@ -6,7 +6,8 @@ HRESULT arrow::init(int arrowMax, float range)
 	_arrowMax = arrowMax;
 	_range = range;
 
-
+	index = 0;
+	count = 0;
 	return S_OK;
 }
 
@@ -20,9 +21,10 @@ void arrow::update(void)
 {
 	move();
 	//move2();
-
+	
 	animation();
 	//animation2();
+	
 
 }
 
@@ -52,28 +54,21 @@ void arrow::fire(float x, float y, float angle)
 	_vArrow.push_back(arrow);
 }
 
-void arrow::fire2(float x, float y, float angle, float angle2, float angle3)
+void arrow::fire2(float x, float y, float angle)
 {
-	if (_arrowMax < _vArrow.size() + 1)return;
-	tagArrow2 poisonArrow;
-	ZeroMemory(&poisonArrow, sizeof(tagArrow2));
+	if (_arrowMax < _vPoison.size() + 1)return;
+	tagArrow2 poison;
+	ZeroMemory(&poison, sizeof(tagArrow2));
+	poison.arrowImage = IMAGEMANAGER->findImage("Poison");
 
-	poisonArrow.angle = angle;
-	poisonArrow.angle2 = angle2;
-	poisonArrow.angle3 = angle3;
-	poisonArrow.x = poisonArrow.fireX = x;
-	poisonArrow.y = poisonArrow.fireY = y;
-	poisonArrow.speed = 12.f;
+	poison.angle = angle;
+	poison.x = poison.fireX = x;
+	poison.y = poison.fireY = y;
+	poison.speed = 12.f;
 
-	poisonArrow.arrowImage = IMAGEMANAGER->findImage("Poison");
-	poisonArrow.arrowImage2 = IMAGEMANAGER->findImage("Poison");
-	poisonArrow.arrowImage3 = IMAGEMANAGER->findImage("Poison");
+	poison.rc = RectMakeCenter(poison.x, poison.y, poison.arrowImage->getFrameWidth(), poison.arrowImage->getFrameHeight());
 
-	poisonArrow.rc = RectMakeCenter(poisonArrow.x, poisonArrow.y, poisonArrow.arrowImage->getFrameWidth(), poisonArrow.arrowImage->getFrameHeight());
-	poisonArrow.rc2 = RectMakeCenter(poisonArrow.x, poisonArrow.y, poisonArrow.arrowImage2->getFrameWidth(), poisonArrow.arrowImage2->getFrameHeight());
-	poisonArrow.rc3 = RectMakeCenter(poisonArrow.x, poisonArrow.y, poisonArrow.arrowImage3->getFrameWidth(), poisonArrow.arrowImage3->getFrameHeight());
-
-	_vPoison.push_back(poisonArrow);
+	_vPoison.push_back(poison);
 }
 
 
@@ -99,7 +94,6 @@ void arrow::move()
 			_viArrow++;
 		}
 	}
-
 }
 
 void arrow::move2()
@@ -108,25 +102,23 @@ void arrow::move2()
 	for (; _viPoison != _vPoison.end();)
 	{
 		_viPoison->x += cosf(_viPoison->angle)*_viPoison->speed;
-		_viPoison->y += -sinf(_viPoison->angle)*_viPoison->speed;
-
-		_viPoison->x += cosf(_viPoison->angle2)*_viPoison->speed;
-		_viPoison->y += -sinf(_viPoison->angle2)*_viPoison->speed;
-
-		_viPoison->x += cosf(_viPoison->angle3)*_viPoison->speed;
-		_viPoison->y += -sinf(_viPoison->angle3)*_viPoison->speed;
-		
 		_viPoison->rc = RectMakeCenter(_viPoison->x, _viPoison->y, _viPoison->arrowImage->getFrameWidth(), _viPoison->arrowImage->getFrameHeight());
-		_viPoison->rc2 = RectMakeCenter(_viPoison->x, _viPoison->y, _viPoison->arrowImage2->getFrameWidth(), _viPoison->arrowImage2->getFrameHeight());
-		_viPoison->rc3 = RectMakeCenter(_viPoison->x, _viPoison->y, _viPoison->arrowImage3->getFrameWidth(), _viPoison->arrowImage3->getFrameHeight());
+
+		if (_range < getDistance(_viPoison->x, _viPoison->y, _viPoison->fireX, _viPoison->fireY))
+		{
+			_viPoison = _vPoison.erase(_viPoison);
+		}
+		else
+		{
+			_viPoison++;
+		} 
 	}
+	
 }
 
 
 void arrow::animation()
 {
-	
-
 	for (int i = 0; i < _vArrow.size(); ++i)
 	{
 		if (_vArrow[i].angle == PI)
@@ -144,11 +136,13 @@ void arrow::animation2()
 {
 	for (int i = 0; i < _vPoison.size(); ++i)
 	{
-		if (_vPoison[i].angle == (PI || PI / 3 || PI / 4))
+		if (_vPoison[i].angle == PI)
 		{
 			_vPoison[i].arrowImage->setFrameY(1);
-			_vPoison[i].arrowImage2->setFrameY(1);
-			_vPoison[i].arrowImage3->setFrameY(1);
+		}
+		else if (_vPoison[i].angle == 0)
+		{
+			_vPoison[i].arrowImage->setFrameY(0);
 		}
 	}
 }

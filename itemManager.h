@@ -2,7 +2,7 @@
 #include "gameNode.h"
 #include "factory.h"
 #include "item.h"
-
+#include "effect.h"
 
 class foxPlayer;
 class enemyManager;
@@ -25,6 +25,9 @@ class itemManager : public gameNode
 private:
 	foxPlayer * _player;
 	enemyManager* _eMG;
+	effect* _effect;
+
+
 	factory2* _itemFactory;
 	//필드아이템
 	vector<item*> _vItem;

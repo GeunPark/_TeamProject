@@ -100,6 +100,7 @@ private:
 	int unDamage;
 	int alphaCount;
 
+
 	bool ang = false;
 	bool chk = false;
 	bool _a;
@@ -185,8 +186,8 @@ public:
 
 	bool getEftChk() { return eftChk; }
 	void setEftChk(bool eC) { eftChk = eC; }
-
-
+	int getUnHit() { return unDamage; }
+	void setUnHit(int a) { unDamage = a; }
 	// 테스트 함수
 	void test();
 	void playerUI();

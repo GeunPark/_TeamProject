@@ -8,6 +8,10 @@ HRESULT itemManager::init(void)
 {
 	_itemFactory = new itemFactory;
 
+	EFFECTMANAGER->addEffect("아이템이펙트", "아이템이펙트", 0.2f, 10);
+
+
+
 	_healthLargePos[0].x = 2475.f, _healthLargePos[0].y = 2200.f;
 	_healthLargePos[1].x = 5500.f, _healthLargePos[1].y = 2050.f;
 	_healthLargePos[2].x = 5600.f, _healthLargePos[2].y = 2100.f;
@@ -141,11 +145,12 @@ void itemManager::update(void)
 				MANA_BIG,
 				MANA_SMALL,
 			*/
-			//_vEnemy[i]->setState(ENEMY_DEAD);
-			//_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+
+			_vItem[i]->setIsActive(false);
+
 			if (_vItem[i]->getItemType() == HEALTH_LARGE)
 			{
-				_player->setHp(_player->getHp() + 10);
+				_player->setHp(_player->getHp() + 30);
 			}
 			else if(_vItem[i]->getItemType() == HEALTH_SMALL)
 			{
@@ -161,16 +166,12 @@ void itemManager::update(void)
 			}
 
 
-			_vItem.erase(_vItem.begin() + i);
 
-			//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
-			//			_player->setIsAttack(false);
-			//			_iMG->setCoin(_vPlantFrog[i]->getX(), _vPlantFrog[i]->getY(), _vPlantFrog[i]->getGold(), _vPlantFrog[i]->getSilver(), _vPlantFrog[i]->getBronze());
-			//			_vPlantFrog.erase(_vPlantFrog.begin() + i);
 		}
 	}
 	
-	
+
+
 	//플레이어 공격렉트와 아이템상자 충돌
 	
 		for (int i = 0; i < _vItemBox.size(); ++i)
@@ -217,6 +218,8 @@ void itemManager::update(void)
 			if (IntersectRect(&_rct, &_vCoinGold[i]->getRc(), &_player->getCollisionRc()))
 			{
 				_player->setGold(_player->getGold() + 10);
+				EFFECTMANAGER->play("아이템이펙트", _vCoinGold[i]->getX(), _vCoinGold[i]->getY());
+
 				_vCoinGold.erase(_vCoinGold.begin() + i);
 			}
 		}
@@ -227,6 +230,8 @@ void itemManager::update(void)
 			if (IntersectRect(&_rct, &_vCoinSilver[i]->getRc(), &_player->getCollisionRc()))
 			{
 				_player->setGold(_player->getGold() + 5);
+				EFFECTMANAGER->play("아이템이펙트", _vCoinSilver[i]->getX(), _vCoinSilver[i]->getY());
+
 				_vCoinSilver.erase(_vCoinSilver.begin() + i);
 			}
 		}
@@ -237,9 +242,24 @@ void itemManager::update(void)
 			if (IntersectRect(&_rct, &_vCoinBronze[i]->getRc(), &_player->getCollisionRc()))
 			{
 				_player->setGold(_player->getGold() + 1);
+				EFFECTMANAGER->play("아이템이펙트", _vCoinBronze[i]->getX(), _vCoinBronze[i]->getY());
+
 				_vCoinBronze.erase(_vCoinBronze.begin() + i);
 			}
 		}
+
+		for (int i = 0; i < _vItem.size(); ++i)
+		{
+			if (!_vItem[i]->getIsActive())
+			{
+				EFFECTMANAGER->play("아이템이펙트", _vItem[i]->getX(), _vItem[i]->getY());
+
+				_vItem.erase(_vItem.begin() + i);
+
+			}
+
+		}
+
 
 }
 

@@ -42,7 +42,8 @@ private:
 private:
 	int _arrowMax;
 	float _range;
-
+	int count;
+	int index;
 public:
 	HRESULT init(int arrowMax, float range);
 	void release(void);
@@ -51,7 +52,7 @@ public:
 
 	void fire(float x, float y, float angle);
 
-	void fire2(float x, float y, float angle, float angle2, float angle3);
+	void fire2(float x, float y, float angle);
 
 	
 
