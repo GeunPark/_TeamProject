@@ -135,7 +135,7 @@ void townScene::update(void)
 	{
 		test = true;
 
-		SCENEMANAGER->loadScene("월드맵");
+		SCENEMANAGER->loadScene("보스");
 		SOUNDMANAGER->stop("마을배경사운드");
 	}
 

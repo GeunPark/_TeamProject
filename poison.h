@@ -38,12 +38,12 @@ public:
 
 	void frameMove();
 
-	void removeCuticle(int index);
+	void removePoison(int index);
 
 	int getIndexX() { return indexX; }
 	int getIndexY() { return indexY; }
 
-	vector<tagPoison> getPoison() { return _vPoison; }
+	vector<tagPoison> getVPoison() { return _vPoison; }
 
 
 

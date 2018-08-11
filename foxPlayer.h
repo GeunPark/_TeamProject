@@ -144,6 +144,7 @@ public:
 	void enemyCollision();
 	void enemyAttCollision();
 	void removeArrow(int index);
+	void removePoison(int index);
 	void foxState();
 	//void fire(float angle);
 	void magicCollision();
@@ -202,6 +203,7 @@ public:
 	//세원쓰^^~ 불금인데 못놀아서 아쉽지 ~~ 월요일날 보니깐 힘내 내가 아래 겟함수 하나 만들었는데~~ 미안쓰 -HG-
 	
 	arrow* getArrow() { return _arrow; }
+	poison* getPoison() { return _poison; }
 	magic* getMagic() {return _magic;}
 	shop* getShop() { return _shop; }
 

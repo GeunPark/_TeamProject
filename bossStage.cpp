@@ -215,6 +215,22 @@ void bossStage::update(void)
 
 		}
 
+		RECT pRc;
+		for (int i = 0; i < _player->getPoison()->getVPoison().size(); ++i)
+		{
+			if (IntersectRect(&pRc, &_player->getPoison()->getVPoison()[i].rc, &_bee->getRc()))
+			{
+
+				if (_bee->getDizzyCount() < 5)
+				{
+					_bee->setDizzyCount(_bee->getDizzyCount() + 1);
+				}
+				_player->removePoison(i);
+
+			}
+
+		}
+
 
 
 
