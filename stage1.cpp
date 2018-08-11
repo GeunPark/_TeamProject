@@ -18,25 +18,46 @@ HRESULT stage1::init(void)
 	eftInit();
 
 	//플레이어 동적할당
-	_player = new foxPlayer;
-	_player->init();
+	//_player = new foxPlayer;
+	//_player->init();
+	//
+	////에너미매니저
+	//_eMG = new enemyManager;
+	//_eMG->init();
+	//
+	////아이템매니저
+	//_iMG = new itemManager;
+	//_iMG->init();
+	//
+	//_ui = new UI;
+	//_ui->init();
+	//
+	//
+	//_shop = new shop;
+	//_shop->init();
 
-	//에너미매니저
-	_eMG = new enemyManager;
-	_eMG->init();
+	_player = SAVEDATA->getPlayer();
+	_player->setX(100);
+	_player->setY(2300);
+	_player->setBgPixel(feildpixel);
 
-	//아이템매니저
-	_iMG = new itemManager;
+	_ui = SAVEDATA->getUI();
+	_ui->setPlayerManager(_player);
+
+	_iMG = SAVEDATA->getItemManager();
 	_iMG->init();
+	_iMG->setEMGLink(_eMG);
+	_iMG->setPlayerLink(_player);
 
-	_ui = new UI;
-	_ui->init();
+	_eMG = SAVEDATA->getEnemyManager();
+	_eMG->init();
+	_eMG->setItemManager(_iMG);
+	_eMG->setPlayerManager(_player);
 
+	//_effMG = SAVEDATA->getEffectManager();
+	////_effMG->init();
+	//_effMG->setPlayerLink(_player);
 
-	_shop = new shop;
-	_shop->init();
-
-	_effMG = effectManager::getSingleton();
 
 	shopMode = false;
 
@@ -61,15 +82,21 @@ HRESULT stage1::init(void)
 	//_eMG->setItemMGLink(_iMG);
 
 	// 플레이어매니저 클래스 가져오기
-	_eMG->setPlayerManager(_player);
-	_eMG->setItemManager(_iMG);
-	_iMG->setPlayerLink(_player);
-	_iMG->setEMGLink(_eMG);
-	_player->setEnemyManager(_eMG);
-	_player->setUIManager(_ui);
-	_player->setShopManager(_shop);
-	_shop->setPlayerManager(_player);
-	_ui->setPlayerManager(_player);
+	//_eMG->setPlayerManager(_player);
+	//_eMG->setItemManager(_iMG);
+
+	//_iMG->setPlayerLink(_player);
+	//_iMG->setEMGLink(_eMG);
+
+	//_player->setEnemyManager(_eMG);
+	//_player->setUIManager(_ui);
+	//_player->setShopManager(_shop);
+
+	//_shop->setPlayerManager(_player);
+
+	//_ui->setPlayerManager(_player);
+
+	_effMG = effectManager::getSingleton();
 	_effMG->setPlayerLink(_player);
 
 	stageClearInit();
@@ -84,7 +111,7 @@ void stage1::release(void)
 	SAFE_DELETE(_eMG);
 	SAFE_DELETE(_iMG);
 	SAFE_DELETE(_effect);
-	SAFE_DELETE(_shop);
+	
 }
  
 void stage1::update(void)
@@ -104,12 +131,12 @@ void stage1::update(void)
 	//플레이어
 	_player->update();
 	//에너미매니저
-	//_eMG->update();
+	_eMG->update();
 
 	//아이템매니저
 	_iMG->update();
 
-	_shop->update();
+	//_shop->update();
 	if (KEYMANAGER->isToggleKey(VK_F2))
 	{
 		cameraMove();
@@ -301,7 +328,7 @@ void stage1::render(void)
 
 	//에너미매니저
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
-	//_eMG->render();
+	_eMG->render();
 
 	for (int i = 0; i < _vEffect.size(); i++)
 	{
@@ -315,7 +342,7 @@ void stage1::render(void)
 		if(!shopMode)shopMode = true;
 		else shopMode = false;
 	}
-	if(shopMode)_shop->render();
+	//if(shopMode)_shop->render();
 
 	char str[128];
 	sprintf_s(str, "%d    %d ", _ptMouse.x + _player->getPlayerCam().left, _ptMouse.y + _player->getPlayerCam().top);

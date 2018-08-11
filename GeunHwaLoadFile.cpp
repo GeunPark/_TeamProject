@@ -18,6 +18,18 @@ void loadingScene::GeunHwaImage()
 	_loading->loadImage("셀렉트씬 배경", "resource/박근화/스타트씬/셀렉트씬배경.bmp", 1280, 720);
 	_loading->loadImage("셀렉트씬 셀렉창", "resource/박근화/스타트씬/셀렉트씬 셀렉창.bmp", 546, 299);
 	_loading->loadImage("셀렉트씬 셀렉박스", "resource/박근화/스타트씬/셀렉트씬 셀렉박스.bmp", 480, 106, true, MAGENTA);
+	//마을 이미지
+	_loading->loadImage("마을배경", "resource/박근화/타운씬/마을배경.bmp", 1792, 720, true, MAGENTA);
+	_loading->loadImage("마을레이어1", "resource/박근화/타운씬/마을레이어1.bmp", 1536, 720);
+	_loading->loadImage("마을레이어2", "resource/박근화/타운씬/마을레이어2.bmp", 1792, 189, true, MAGENTA);
+	_loading->loadImage("마을레이어3", "resource/박근화/타운씬/마을레이어3.bmp", 1792, 720, true, MAGENTA);
+	_loading->loadImage("마을픽셀", "resource/박근화/타운씬/마을픽셀.bmp", 1792, 720, true, MAGENTA);
+
+	//보스 이미지
+	_loading->loadImage("보스여름", "resource/박근화/보스/보스여름.bmp", 1280, 720);
+	_loading->loadImage("보스가을", "resource/박근화/보스/보스가을.bmp", 1280, 720);
+	_loading->loadImage("보스픽셀", "resource/박근화/보스/보스픽셀.bmp", 1280, 720, true, MAGENTA);
+	_loading->loadFrameImage("낙엽", "resource/박근화/보스/낙엽.bmp", 192, 48, 4, 1, true, MAGENTA);
 }
 
 void loadingScene::GeunHwaSound()

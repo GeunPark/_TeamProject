@@ -16,7 +16,28 @@ HRESULT mainGame::init(void)
 	
 	SCENEMANAGER->addScene("로딩화면", new loadingScene);
 	SCENEMANAGER->addScene("스타트씬", new startScene);
+	SCENEMANAGER->addScene("타운씬", new townScene);
 	SCENEMANAGER->addScene("스테이지1", new stage1);
+	SCENEMANAGER->addScene("보스", new bossStage);
+
+	_player = new foxPlayer;
+	SAVEDATA->setPlayer(_player);
+
+	_ui = new UI;
+	SAVEDATA->setUI(_ui);
+
+	_shop = new shop;
+	SAVEDATA->setShop(_shop);
+
+	_em = new enemyManager;
+	SAVEDATA->setEnemyManager(_em);
+
+	_im = new itemManager;
+	SAVEDATA->setItemManager(_im);
+
+	//_effMG = new effectManager;
+	//SAVEDATA->setEffectManager(_effMG);
+	//_effMG->init();
 
 	/*현재씬 설정*/
 	SCENEMANAGER->loadScene("로딩화면");

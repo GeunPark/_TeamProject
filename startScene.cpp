@@ -74,7 +74,7 @@ void startScene::update(void)
 		{
 			if (_selectBox.pos.y == START)
 			{
-				SCENEMANAGER->loadScene("스테이지1");
+				SCENEMANAGER->loadScene("타운씬");
 				SOUNDMANAGER->stop("스타트씬BGM");
 			}
 			else if (_selectBox.pos.y == SETTING)

@@ -7,6 +7,7 @@
 #define MAXMAGICITEM 3
 
 class foxPlayer;
+
 enum kindShop
 {
 	UPGRADE,
@@ -56,6 +57,7 @@ private:
 	
 	float _x, _y;
 
+	bool _isOpen = false;
 public:
 	HRESULT init(void);
 	void release(void);
@@ -73,6 +75,8 @@ public:
 
 	void setPlayerManager(foxPlayer* player);
 
+	bool getOpen() { return _isOpen; }
+	void setOpen(bool isOpen) { _isOpen = isOpen; }
 
 	shop() {}
 	~shop() {}
