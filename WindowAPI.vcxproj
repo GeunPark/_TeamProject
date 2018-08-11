@@ -150,6 +150,7 @@
     <ClInclude Include="animation.h" />
     <ClInclude Include="aniTestScene.h" />
     <ClInclude Include="arrow.h" />
+    <ClInclude Include="bossStage.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camel.h" />
     <ClInclude Include="commonMacroFunction.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="startScene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="timeManager.h" />
+    <ClInclude Include="townScene.h" />
     <ClInclude Include="txtData.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="util.h" />
@@ -199,6 +201,7 @@
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="aniTestScene.cpp" />
     <ClCompile Include="arrow.cpp" />
+    <ClCompile Include="bossStage.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camel.cpp" />
     <ClCompile Include="cuticle.cpp" />
@@ -246,6 +249,7 @@
     </ClCompile>
     <ClCompile Include="SunSooLoadFile.cpp" />
     <ClCompile Include="timeManager.cpp" />
+    <ClCompile Include="townScene.cpp" />
     <ClCompile Include="txtData.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="util.cpp" />

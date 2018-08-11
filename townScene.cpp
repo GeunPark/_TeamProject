@@ -46,6 +46,7 @@ HRESULT townScene::init(void)
 	_player->setY(500);
 	_player->setBgPixel(_pixel.img);
 
+
 	_ui = SAVEDATA->getUI();
 	_ui->setPlayerManager(_player);
 	if(test == false)

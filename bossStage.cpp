@@ -29,14 +29,14 @@ HRESULT bossStage::init(void)
 	}
 
 	rc = RectMake(1160, 0, 80, 625);
-	exit = RectMakeCenter(0, 550, 50, 100);
+	//exit = RectMakeCenter(0, 550, 50, 100);
 
 	isSeason = false;
 	count = 0;
 
 	_player = SAVEDATA->getPlayer();
 	_player->setX(100);
-	_player->setY(600);
+	_player->setY(500);
 	_player->setBgPixel(pixel);
 
 	_ui = SAVEDATA->getUI();
@@ -88,14 +88,18 @@ void bossStage::update(void)
 			}
 		}
 	}
-	else
+	if (_player->getX() < 0)
 	{
-		RECT temp;
-		if(IntersectRect(&temp, &_player->getCollisionRc(), &exit))
-		{
-			SCENEMANAGER->loadScene("Å¸¿î¾À");
-		}
+		SCENEMANAGER->loadScene("Å¸¿î¾À");
 	}
+	//else
+	//{
+	//	RECT temp;
+	//	if(IntersectRect(&temp, &_player->getCollisionRc(), &exit))
+	//	{
+	//		SCENEMANAGER->loadScene("Å¸¿î¾À");
+	//	}
+	//}
 }
 
 void bossStage::render(void)
@@ -123,7 +127,7 @@ void bossStage::render(void)
 	_player->render();
 	_ui->render();
 
-	Rectangle(getMemDC(), exit);
+	//Rectangle(getMemDC(), exit);
 
 	//cout << _player->getX() << ", " << _player->getY() << endl;
 }

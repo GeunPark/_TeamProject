@@ -8,8 +8,9 @@
 #define MAX_STATE 16
 
 class enemyManager;
-class UI;
+//class UI;
 class shop;
+
 enum tagState
 {
 	IDLE = 0,
@@ -78,7 +79,7 @@ private:
 
 	arrow* _arrow;
 	cuticle* _cuticle;
-	UI * _ui;
+	//UI * _ui;
 	shop * _shop;
 
 	// 상점에서 산 아이템 저장하는 벡터
@@ -130,6 +131,9 @@ public:
 	// get, set함수들
 	float getX() { return _player.x; }
 	float getY() { return _player.y; }
+	void setX(float x) { _player.x = x; }
+	void setY(float y) { _player.y = y; }
+
 	bool getLeft() { return _player.isLeft; }
 	bool getRight() { return _player.isRight; }
 	bool getIsAtt() { return _player.isAtt; }
@@ -139,6 +143,9 @@ public:
 
 	void setState(tagState state) { _state = state; }
 	tagState getPlayerState() { return _state;}
+
+	image* getBgPixel() { return _bpx; }
+	void setBgPixel(image* bpx) { _bpx = bpx; }
 
 	// 플레이어 마나
 	float getMana() { return _player.mana; }
@@ -159,8 +166,8 @@ public:
 
 	//에너미매니저와 상호참조
 	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
-	void setUIManager(UI* ui) { _ui = ui; }
-	void setShopManager(shop * shop) { _shop = shop; }
+//	void setUIManager(UI* ui) { _ui = ui; }
+	//void setShopManager(shop * shop) { _shop = shop; }
 
 	// 백터 값 저장
 	//void setVShopItem(vector<shop> shop) { _shopItem = shop; }

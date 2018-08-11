@@ -18,25 +18,51 @@ HRESULT stage1::init(void)
 	eftInit();
 
 	//플레이어 동적할당
-	_player = new foxPlayer;
-	_player->init();
+	//_player = new foxPlayer;
+	//_player->init();
+	//
+	////에너미매니저
+	//_eMG = new enemyManager;
+	//_eMG->init();
+	//
+	////아이템매니저
+	//_iMG = new itemManager;
+	//_iMG->init();
+	//
+	//_ui = new UI;
+	//_ui->init();
+	//
+	//
+	//_shop = new shop;
+	//_shop->init();
 
-	//에너미매니저
-	_eMG = new enemyManager;
-	_eMG->init();
+	_player = SAVEDATA->getPlayer();
+	_player->setX(100);
+	_player->setY(2300);
+	_player->setBgPixel(feildpixel);
 
-	//아이템매니저
-	_iMG = new itemManager;
+	_ui = SAVEDATA->getUI();
+	_ui->setPlayerManager(_player);
+
+	_iMG = SAVEDATA->getItemManager();
 	_iMG->init();
+	_iMG->setEMGLink(_eMG);
+	_iMG->setPlayerLink(_player);
 
-	_ui = new UI;
-	_ui->init();
+	_eMG = SAVEDATA->getEnemyManager();
+	_eMG->init();
+	_eMG->setItemManager(_iMG);
+	_eMG->setPlayerManager(_player);
 
+	//_effMG = SAVEDATA->getEffectManager();
+	////_effMG->init();
+	//_effMG->setPlayerLink(_player);
 
-	_shop = new shop;
-	_shop->init();
+<<<<<<< HEAD
 
+=======
 	_effMG = effectManager::getSingleton();
+>>>>>>> 1934665b096c768503c2b8e535b3c0c00c00bc19
 	shopMode = false;
 
 	_normalBack1._x = 0;
@@ -60,15 +86,21 @@ HRESULT stage1::init(void)
 	//_eMG->setItemMGLink(_iMG);
 
 	// 플레이어매니저 클래스 가져오기
-	_eMG->setPlayerManager(_player);
-	_eMG->setItemManager(_iMG);
-	_iMG->setPlayerLink(_player);
-	_iMG->setEMGLink(_eMG);
-	_player->setEnemyManager(_eMG);
-	_player->setUIManager(_ui);
-	_player->setShopManager(_shop);
-	_shop->setPlayerManager(_player);
-	_ui->setPlayerManager(_player);
+	//_eMG->setPlayerManager(_player);
+	//_eMG->setItemManager(_iMG);
+
+	//_iMG->setPlayerLink(_player);
+	//_iMG->setEMGLink(_eMG);
+
+	//_player->setEnemyManager(_eMG);
+	//_player->setUIManager(_ui);
+	//_player->setShopManager(_shop);
+
+	//_shop->setPlayerManager(_player);
+
+	//_ui->setPlayerManager(_player);
+
+	_effMG = effectManager::getSingleton();
 	_effMG->setPlayerLink(_player);
 
 	stageClearInit();
@@ -83,7 +115,7 @@ void stage1::release(void)
 	SAFE_DELETE(_eMG);
 	SAFE_DELETE(_iMG);
 	SAFE_DELETE(_effect);
-	SAFE_DELETE(_shop);
+	
 }
  
 void stage1::update(void)
@@ -108,7 +140,7 @@ void stage1::update(void)
 	//아이템매니저
 	_iMG->update();
 
-	_shop->update();
+	//_shop->update();
 	if (KEYMANAGER->isToggleKey(VK_F2))
 	{
 		cameraMove();
@@ -313,7 +345,11 @@ void stage1::render(void)
 	//	_vEffect[i]->render(0,0);
 	//	//_vEffect[i]->render();
 	//}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 314bdd80a1cfb30fd97ab57ab4758d7a71df2205
 	// 테스트용 상점 구현
 	if (KEYMANAGER->isOnceKeyDown('Q'))
 	{
@@ -321,7 +357,7 @@ void stage1::render(void)
 		if(!shopMode)shopMode = true;
 		else shopMode = false;
 	}
-	if(shopMode)_shop->render();
+	//if(shopMode)_shop->render();
 
 	char str[128];
 	sprintf_s(str, "%d    %d ", _player->getPlayerState(), _ptMouse.y + _player->getPlayerCam().top);
