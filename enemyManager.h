@@ -59,6 +59,7 @@ public:
 
 	vector<enemy*> getEnemy() { return _vEnemy; }
 	vector<enemy*> getGhost() { return _vGhost; }
+	bee* getBoss() { return _bee; }		//보스 게또 함수 하나 만들엇엉 -세원-
 
 	void setGhost(float itemX, float itemY, int number)
 	{

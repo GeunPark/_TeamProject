@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "arrow.h"
 #include "cuticle.h"
+#include "poison.h"
 
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
@@ -78,6 +79,7 @@ private:
 
 	arrow* _arrow;
 	cuticle* _cuticle;
+	poison* _poison;
 	
 
 	// 상점에서 산 아이템 저장하는 벡터
@@ -124,6 +126,7 @@ public:
 	void enemyAttCollision();
 	void removeArrow(int index);
 	void foxState();
+	void fire(float angle);
 	
 
 	// get, set함수들
