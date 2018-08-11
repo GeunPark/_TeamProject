@@ -17,28 +17,36 @@ HRESULT stage1::init(void)
 	images();
 	eftInit();
 
-	//플레이어 동적할당
-	_player = new foxPlayer;
-	_player->init();
+	_player = SAVEDATA->getPlayer();
+	_player->setX(100);
+	_player->setY(2300);
+	_player->setBgPixel(feildpixel);
+	_player->setEnemyManager(_eMG);
 
-	//에너미매니저
-	_eMG = new enemyManager;
-	_eMG->init();
+	_ui = SAVEDATA->getUI();
+	_ui->setPlayerManager(_player);
 
-	//아이템매니저
-	_iMG = new itemManager;
+	_iMG = SAVEDATA->getItemManager();
 	_iMG->init();
+	_iMG->setEMGLink(_eMG);
+	_iMG->setPlayerLink(_player);
 
-	_ui = new UI;
-	_ui->init();
+	_eMG = SAVEDATA->getEnemyManager();
+	if(isFrist == false)
+		_eMG->init();
+	_eMG->setItemManager(_iMG);
+	_eMG->setPlayerManager(_player);
 
-
-	_shop = new shop;
-	_shop->init();
+<<<<<<< HEAD
+	//_effMG = SAVEDATA->getEffectManager();
+	////_effMG->init();
+	//_effMG->setPlayerLink(_player);
 
 	_effMG = effectManager::getSingleton();
 	shopMode = false;
 
+=======
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 	_normalBack1._x = 0;
 	_normalBack1._y = 0;
 	_normalBack1._img = IMAGEMANAGER->findImage("레이어1");
@@ -55,23 +63,11 @@ HRESULT stage1::init(void)
 	_winterBack2._x = 0;
 	_winterBack2._y = 0;
 
-	//상호참조
-	//_eMG->setPlayerLink(_player);
-	//_eMG->setItemMGLink(_iMG);
-
-	// 플레이어매니저 클래스 가져오기
-	_eMG->setPlayerManager(_player);
-	_eMG->setItemManager(_iMG);
-	_iMG->setPlayerLink(_player);
-	_iMG->setEMGLink(_eMG);
-	_player->setEnemyManager(_eMG);
-	_player->setUIManager(_ui);
-	_player->setShopManager(_shop);
-	_shop->setPlayerManager(_player);
-	_ui->setPlayerManager(_player);
+	_effMG = effectManager::getSingleton();
 	_effMG->setPlayerLink(_player);
 
 	stageClearInit();
+
 	//사운드 
 	SOUNDMANAGER->play("스테이지1 여름");
 
@@ -83,32 +79,29 @@ void stage1::release(void)
 	SAFE_DELETE(_eMG);
 	SAFE_DELETE(_iMG);
 	SAFE_DELETE(_effect);
-	SAFE_DELETE(_shop);
+	
 }
  
 void stage1::update(void)
 {
-	
-
-
 	if (_player->getAng() == false)_state = SUMMER;
 	else if (_player->getAng() == true)_state = WINTER;
-	//imageMove();
-	// 기훈아 두개라서 이거 주석처리했다 니가 나중에 알아서 정리해 -근화-########################################################################
+	
 	cameraMove();
 	this->stageClear();
-	//To Do : 기훈아 내일 이거 건들지말아바 -근화- ##############################################################################################
+	
 	imageMove();
+
 	this->beecollision();
 	//플레이어
 	_player->update();
 	//에너미매니저
 	_eMG->update();
 
+	_ui->update();
 	//아이템매니저
 	_iMG->update();
 
-	_shop->update();
 	if (KEYMANAGER->isToggleKey(VK_F2))
 	{
 		cameraMove();
@@ -117,11 +110,11 @@ void stage1::update(void)
 	//리셋(임시)
 	if (KEYMANAGER->isOnceKeyDown('R'))
 	{
+		isFrist = true;
 		this->init();
 	}
 	if (_state == WINTER && _bagrandslide != WINSIZEX)
 	{
-		
 		_bagrandslide += 32;
 	}
 	if (_state == SUMMER)
@@ -156,7 +149,6 @@ void stage1::render(void)
 	_normalBack2._img->loopRender(getMemDC(), &RectMake(0, 2200 - _player->getPlayerCam().top, WINSIZEX, 2550), _normalBack2._x, _normalBack2._y);
 	if (_state == SUMMER)
 	{
-		
 		//  풀 이미지 출력
 		for (int i = 0; i < _vBush.size(); ++i)
 		{
@@ -204,13 +196,6 @@ void stage1::render(void)
 		}
 		
 		_waterWheel->frameRender(getMemDC(), 8730 - _player->getPlayerCam().left, 2175 - _player->getPlayerCam().top);
-		/*
-		for (int i = 0; i < 4; i++)
-		{
-			feild[i]->render(getMemDC(), 0 + 2500 * i, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
-		}
-		*/
-	
 	}
 
 	if (_state == WINTER)
@@ -244,6 +229,7 @@ void stage1::render(void)
 
 		}
 		_waterWheel->frameRender(getMemDC(), 8730 - _player->getPlayerCam().left, 2175 - _player->getPlayerCam().top);
+
 		//////////////////////////////////////////////겨          울               맵/////////////////////////////////////////////////////////////////////
 		_winterBack1._img->loopRender(getMemDC(), &RectMake(0, 0 - _player->getPlayerCam().top, 0 + _bagrandslide, 2550), _winterBack1._x, _winterBack1._y);
 		_winterBack2._img->loopRender(getMemDC(), &RectMake(0, 2200 - _player->getPlayerCam().top, 0 + _bagrandslide, 2550), _winterBack2._x, _winterBack2._y);
@@ -262,10 +248,6 @@ void stage1::render(void)
 
 		/////////////////////////////////////////////겨          울               맵/////////////////////////////////////////////////////////////
 		feildIce->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, 0 + _bagrandslide, WINSIZEY);
-	//9	for (int i = 0; i < 2; i++)
-	//	{
-	//		_iceBee[i]._img->frameRender(getMemDC(), _iceBee[i].x - _player->getPlayerCam().left, _iceBee[i].y - _player->getPlayerCam().top);
-	//	}
 	}
 	// 픽셀 이미지 출력
 
@@ -300,20 +282,22 @@ void stage1::render(void)
 
 	//아이템매니저
 	_iMG->render();
+
+	_ui->render();
+
 	//플레이어
-	//_player->render(_cam.rc.left, _cam.rc.top);
 	_player->render();
 
-	//에너미매니저
-	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
 
-	//for (int i = 0; i < _vEffect.size(); i++)
-	//{
-	//	_vEffect[i]->render(0,0);
-	//	//_vEffect[i]->render();
-	//}
-	
+
+	for (int i = 0; i < _vEffect.size(); i++)
+	{
+		_vEffect[i]->render(0,0);
+	}
+
+
+
 	// 테스트용 상점 구현
 	if (KEYMANAGER->isOnceKeyDown('Q'))
 	{
@@ -321,7 +305,7 @@ void stage1::render(void)
 		if(!shopMode)shopMode = true;
 		else shopMode = false;
 	}
-	if(shopMode)_shop->render();
+	//if(shopMode)_shop->render();
 
 	char str[128];
 	sprintf_s(str, "%d    %d ", _player->getPlayerState(), _ptMouse.y + _player->getPlayerCam().top);

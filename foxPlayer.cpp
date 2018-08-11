@@ -1,26 +1,36 @@
 #include "stdafx.h"
 #include "foxPlayer.h"
 #include "enemyManager.h"
-#include "shop.h"
-#include "UI.h"
 
 //ToDo : init
 HRESULT foxPlayer::init(void)
 {
 	imageSetting();
 
-	// 형 UI 설정좀 하께  웅웅
-	_ui = new UI;
-	_ui->init();
+<<<<<<< HEAD
+=======
+	
 
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
 	_cuticle = new cuticle;
 	_cuticle->init(500);
+<<<<<<< HEAD
 
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
+
+	_player.x = 9500;
+	_player.y = 1250;
+=======
+
+
+	_player.x = 6500;
+	_player.y = MAX_HEIGHT - 150;
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
+
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
 	_player.gravity = 0.f;
@@ -88,7 +98,8 @@ void foxPlayer::update(void)
 	this->pixelCollision();		//픽셀충돌 함수 호출
 
 	this->frameMove();		//프레임 움직이는 함수 호출
-							//적과 충돌
+
+	//적과 충돌
 	if (KEYMANAGER->isToggleKey(VK_F3))
 	{
 		this->enemyCollision();
@@ -101,10 +112,15 @@ void foxPlayer::update(void)
 	this->foxState();
 	
 	_arrow->update();
+	
+	this->test();
 
 	_cuticle->update();
+<<<<<<< HEAD
+=======
 
-	_ui->update();
+
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 
 	this->camera();			//카메라 움직이는 함수 호출
 	test();
@@ -155,8 +171,6 @@ void foxPlayer::render()
 		nick[_state]->frameRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, nick[_state]->getFrameX(), nick[_state]->getFrameY());
 	}
 	
-	_ui->render();
-
 	for (int i = 0; i < _arrow->getVArrow().size(); i++)
 	{
 		_arrow->getVArrow()[i].arrowImage->frameRender(getMemDC(), _arrow->getVArrow()[i].rc.left - _camera.rc.left, _arrow->getVArrow()[i].rc.top - _camera.rc.top);
@@ -176,8 +190,6 @@ void foxPlayer::render()
 	char str[128];
 	sprintf(str, "중력 : %f, 인덱스 : %d, 상태 : %d, 인덱스2 : %d, 날씨 : %d", _player.gravity, index, _state, index2, weatherIndex);
 	TextOut(getMemDC(), 100, 600, str, strlen(str));
-
-
 }
 
 //ToDo : 이미지 셋팅
@@ -310,12 +322,12 @@ void foxPlayer::keySetting()
 		if (KEYMANAGER->isOnceKeyDown(VK_SPACE) && _state != HIT)
 		{
 			++jumpCount;
-			_player.jumpSpeed = 10.f;
+			_player.jumpSpeed = 9.f;
 			_state = JUMP;
 			if (jumpCount >= 2)
 			{
 				_player.gravity = 0.f;
-				_player.jumpSpeed = 10.f;
+				_player.jumpSpeed = 9.f;
 				actionCount = 0;
 				_state = DOUBLEJUMP;
 			}
@@ -493,7 +505,7 @@ void foxPlayer::keySetting()
 			if (_player.isFoxLeft)
 			{
 				_state = WEATHER;
-				_cuticle->fire(_player.x, _player.y + 35, 100);
+				//_cuticle->fire(_player.x, _player.y + 35, 100);
 				index2 = nick[WEATHER]->getMaxFrameX();
 				count = 0;
 				_player.isChange = true;
@@ -501,7 +513,7 @@ void foxPlayer::keySetting()
 			else
 			{
 				_state = WEATHER;
-				_cuticle->fire(_player.x, _player.y + 35, 100);
+				//_cuticle->fire(_player.x, _player.y + 35, 100);
 				index = 0;
 				count = 0;
 				_player.isChange = true;
@@ -591,17 +603,17 @@ void foxPlayer::camera()		//카메라 움직이는 함수
 	{
 		_camera.x = WINSIZEX / 2;
 	}
-	if (_camera.x + WINSIZEX / 2 > MAX_WIDTH)
+	if (_camera.x + WINSIZEX / 2 > getBgPixel()->getWidth())
 	{
-		_camera.x = MAX_WIDTH - WINSIZEX / 2;
+		_camera.x = getBgPixel()->getWidth() - WINSIZEX / 2;
 	}
 	if (_camera.y - WINSIZEY / 2 < 0)
 	{
 		_camera.y = WINSIZEY / 2;
 	}
-	if (_camera.y + WINSIZEY / 2 > MAX_HEIGHT)
+	if (_camera.y + WINSIZEY / 2 > getBgPixel()->getHeight())
 	{
-		_camera.y = MAX_HEIGHT - WINSIZEY / 2;
+		_camera.y = getBgPixel()->getHeight() - WINSIZEY / 2;
 	}
 }
 //ToDo : 픽셀충돌
@@ -609,7 +621,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 {
 	for (int i = _player.collisionRc.left + _player.speed; i >= _player.collisionRc.left; i--)
 	{
-		COLORREF color = GetPixel(_bpx->getMemDC(), i, _player.y + 30);
+		COLORREF color = GetPixel(this->getBgPixel()->getMemDC(), i, _player.y + 30);
 		int r = GetRValue(color);
 		int g = GetGValue(color);
 		int b = GetBValue(color);
@@ -630,7 +642,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 
 	for (int i = _player.collisionRc.top + _player.speed; i >= _player.collisionRc.top; i--)
 	{
-		COLORREF color = GetPixel(_bpx->getMemDC(), _player.x, i);
+		COLORREF color = GetPixel(this->getBgPixel()->getMemDC(), _player.x, i);
 		int r = GetRValue(color);
 		int g = GetGValue(color);
 		int b = GetBValue(color);
@@ -667,7 +679,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 
 	for (int i = _player.collisionRc.right - _player.speed; i <= _player.collisionRc.right; i++)
 	{
-		COLORREF color = GetPixel(_bpx->getMemDC(), i, _player.y + 30);
+		COLORREF color = GetPixel(this->getBgPixel()->getMemDC(), i, _player.y + 30);
 		int r = GetRValue(color);
 		int g = GetGValue(color);
 		int b = GetBValue(color);
@@ -688,7 +700,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 
 	for (int i = _player.collisionRc.bottom - (_player.speed + _player.gravity); i <= _player.collisionRc.bottom; i++)
 	{
-		COLORREF color = GetPixel(_bpx->getMemDC(), _player.x, i);
+		COLORREF color = GetPixel(this->getBgPixel()->getMemDC(), _player.x, i);
 
 		int r = GetRValue(color);
 		int g = GetGValue(color);
@@ -789,11 +801,6 @@ void foxPlayer::enemyCollision()
 				_state = HIT;
 				unDamage = 0;
 			}
-
-			if (IntersectRect(&tempRc, &_player.collisionRc, &_enemyManger->getEnemy()[i]->getCollisionRc()) && _enemyManger->getEnemy()[i]->getState() != ENEMY_SPAWN && _state != HIT)
-			{
-
-			}
 		}
 	}
 }
@@ -863,11 +870,8 @@ void foxPlayer::enemyAttCollision()
 				_state = HIT;
 				unDamage = 0;
 			}
-			//if(IntersectRect(&temp, &_player.collisionRc, &_enemyManger->getGhost()[i]->getAttRc()))
 		}
 	}
-
-	//for(int i = 0; i < _enemyManger->)
 }
 
 void foxPlayer::removeArrow(int index)
@@ -898,7 +902,6 @@ void foxPlayer::foxState()
 	{
 		_state = DEATH;
 	}
-
 }
 
 void foxPlayer::test()
@@ -936,11 +939,14 @@ void foxPlayer::test()
 		_player.gold -= 100;
 	}
 
-	if (KEYMANAGER->isOnceKeyDown('U'))
+<<<<<<< HEAD
+	/*if (KEYMANAGER->isOnceKeyDown('U'))
 	{
 		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
 		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
-	}
+	}*/
+=======
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 }
 void foxPlayer::playerUI()
 {

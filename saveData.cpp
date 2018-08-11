@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "saveData.h"
+#include "foxPlayer.h"
+#include "UI.h"
+#include "shop.h"
 
 
 HRESULT saveData::init()
