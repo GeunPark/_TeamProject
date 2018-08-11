@@ -477,7 +477,7 @@ void foxPlayer::keySetting()
 		_state = IDLE;
 	}
 	//공격이 끝난후 false처리
-	if ((index < nick[_state]->getMaxFrameX() || index2 > 0) && _state != FIRE && _state != IDLE && _state != HIT && _state != JUMP && _state != DOUBLEJUMP && _state != SIT && _state != RUN && _state != WEATHER && _state != FALL && _state != FALL2)
+	if ((index >= nick[_state]->getMaxFrameX() || index2 <= 0) && _state != FIRE && _state != IDLE && _state != HIT && _state != JUMP && _state != DOUBLEJUMP && _state != SIT && _state != RUN && _state != WEATHER && _state != FALL && _state != FALL2)
 	{
 		_player.isAtt = true;
 	}

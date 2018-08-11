@@ -748,7 +748,7 @@ void bee::init()
 	_state = ENEMY_WALK;
 	_type = GHOST;
 	_x = 800.f;
-	_y = 300.f;
+	_y = 220.f;
 	_isLeft = true;
 	isFire = false;
 	_gold = 0;
@@ -877,7 +877,7 @@ void bee::move()
 		_isLeft = true;
 		attackStartCount++;
 	}
-	else if (_x <= 300)
+	else if (_x <= 400)
 	{
 		_isLeft = false;
 	}

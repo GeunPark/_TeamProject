@@ -126,7 +126,7 @@ public:
 	void enemyAttCollision();
 	void removeArrow(int index);
 	void foxState();
-	void fire(float angle);
+	//void fire(float angle);
 	
 
 	// get, setÇÔ¼öµé
@@ -138,6 +138,7 @@ public:
 	bool getLeft() { return _player.isLeft; }
 	bool getRight() { return _player.isRight; }
 	bool getIsAtt() { return _player.isAtt; }
+	void setIsAtt(bool a) { _player.isAtt = a; }
 	RECT getPlayerCam() { return _camera.rc; }
 	RECT getAttRc() { return attRc; }
 	RECT getAttRc2() { return attRc2; }

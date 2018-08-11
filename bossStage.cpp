@@ -146,7 +146,7 @@ void bossStage::update(void)
 				_bee->setX(_bee->getX() + 2);
 
 			}
-			if (_bee->getIsFire() && _bee->getFireCount() % 60 == 0)
+			if (_bee->getIsFire() && _bee->getFireCount() % 80 == 1)
 			{
 				if (_bee->getIsLeft())
 				{
@@ -170,7 +170,7 @@ void bossStage::update(void)
 			
 			}
 			
-			if (_bee->getFireCount() % 500 == 0)
+			if (_bee->getFireCount() % 300 == 0)
 			{
 				//_beeBullet->release();
 				_bee->getBullet()->release();
@@ -195,10 +195,21 @@ void bossStage::update(void)
 
 	}
 	RECT tempRc;
-	if (IntersectRect(&tempRc, &_player->getCollisionRc(), &_bee->getRc()))
+	if (IntersectRect(&tempRc, &_player->getCollisionRc(), &_bee->getRc()) && _player->getUnHit()>20 && _player->getPlayerState() != HIT)
 	{
 		_player->setState(HIT);
+		_player->setUnHit(0);
 	}
+	for (int i = 0; i < _bee->getBullet()->getVBullet().size(); ++i)
+	{
+		RECT collRc;
+		if (IntersectRect(&collRc, &_player->getCollisionRc(), &_bee->getBullet()->getVBullet()[i].rc) && _player->getUnHit() > 20 && _player->getPlayerState() != HIT)
+		{
+			_player->setState(HIT);
+			_player->setUnHit(0);
+		}
+	}
+		
 	
 
 }
