@@ -42,6 +42,10 @@ HRESULT bossStage::init(void)
 	_ui = SAVEDATA->getUI();
 	_ui->setPlayerManager(_player);
 
+	_bee = new bee;
+	_bee->init();
+
+
 	return S_OK;
 }
 
@@ -100,6 +104,103 @@ void bossStage::update(void)
 	//		SCENEMANAGER->loadScene("鸥款纠");
 	//	}
 	//}
+
+	_bee->update();
+
+	if (_bee->getState() == ENEMY_ATTACK)
+	{
+		_bee->setAttackCount(_bee->getAttackCount() + 1);
+		_bee->setFireCount(_bee->getFireCount() + 1);
+		_bee->setIsFire(true);
+		if (_bee->getHp() > 3)
+		{
+			if (_bee->getY() > 600 || _bee->getX() < 250 || _bee->getX() > 1100)
+			{
+				_bee->setX(_bee->getX());
+				_bee->setY(_bee->getY());
+				//_bee->setState(ENEMY_WALK);
+
+			}
+			else
+			{
+				_bee->setAngle(getAngle(_bee->getX(), _bee->getY(), _player->getX(), _player->getY()));
+				_bee->setX(_bee->getX() + cosf(_bee->getAngle())*_bee->getSpeed());
+				_bee->setY(_bee->getY() - sinf(_bee->getAngle())*_bee->getSpeed());
+
+			}
+			if (_bee->getAttackCount() == 200)
+			{
+				_bee->setState(ENEMY_WALK);
+				_bee->setAttackCount(0);
+			}
+		}
+		else
+		{
+			if (_bee->getIsLeft())
+			{
+			
+				_bee->setX(_bee->getX() - 2);
+			}
+			else if (!_bee->getIsLeft())
+			{
+				_bee->setX(_bee->getX() + 2);
+
+			}
+			if (_bee->getIsFire() && _bee->getFireCount() % 60 == 0)
+			{
+				if (_bee->getIsLeft())
+				{
+					_bee->getBullet()->fire(_bee->getX() - 190, _bee->getY() + 220, 12);
+
+				}
+				else
+				{
+					_bee->getBullet()->fire(_bee->getX() + 220, _bee->getY() + 220, 12);
+
+				}
+			}
+			
+
+			for (int i = 0; i <_bee->getBullet()->getVBullet().size(); ++i)
+			{
+				if (_bee->getBullet()->getVBullet()[i].fire)
+				{
+					_bee->getBullet()->update();
+				}
+			
+			}
+			
+			if (_bee->getFireCount() % 500 == 0)
+			{
+				//_beeBullet->release();
+				_bee->getBullet()->release();
+				_bee->setState(ENEMY_WALK);
+				_bee->setFireCount(0);
+				_bee->setIndexX(0);
+				//_bee->setIsFire(false);
+			}
+		}
+
+		if (_player->getX() < _bee->getX())
+		{
+			_bee->setIsLeft(true);
+		}
+		else
+		{
+			_bee->setIsLeft(false);
+
+		}
+
+		
+
+	}
+	RECT tempRc;
+	if (IntersectRect(&tempRc, &_player->getCollisionRc(), &_bee->getRc()))
+	{
+		_player->setState(HIT);
+	}
+	
+
 }
 
 void bossStage::render(void)
@@ -124,7 +225,22 @@ void bossStage::render(void)
 		Rectangle(getMemDC(), rc);
 	}
 
+
+	//国个眉
+	_bee->getBodyImage()->frameRender(getMemDC(), _bee->getRc().left , _bee->getRc().top, _bee->getBodyImage()->getFrameX(), _bee->getBodyImage()->getFrameY());
+
+	//国醚舅
+	for (int i = 0; i < _bee->getBullet()->getVBullet().size(); ++i)
+	{
+		if (_bee->getBullet()->getVBullet()[i].fire)
+		{
+			_bee->getBullet()->getVBullet()[i].bulletImage->frameRender(getMemDC(), _bee->getBullet()->getVBullet()[i].rc.left , _bee->getBullet()->getVBullet()[i].rc.top , _bee->getBullet()->getIndex(), 0);
+
+		}
+
+	}
 	_player->render();
+
 	_ui->render();
 
 	//Rectangle(getMemDC(), exit);

@@ -56,6 +56,10 @@ protected:
 	int _silver;
 	int _bronze;
 
+
+	//²ÄÀå¾î
+	bool ang;
+
 	//µÎ²¨ºñ
 	bool isJump;
 	bool isTongue;
@@ -98,6 +102,7 @@ public:
 	bool getIsActived() { return _isActived; }
 	bool getIsTongue() { return isTongue; }
 	bool getIsFire() { return isFire; }
+	
 
 	void setState(ENEMY_STATE state) { _state = state; }
 	void setX(float x) { _x = x; }
@@ -107,6 +112,9 @@ public:
 	void setIsLeft(bool isLeft) { _isLeft = isLeft; }
 	void setIsFire(bool _isFire) { isFire = _isFire; }
 	void setIsActived(bool isActived) { _isActived = isActived; }
+	void setAng(bool _ang) { ang = _ang; }
+	void setAngle(float angle) { _angle = angle; }
+	void setCount(int count) { _count = count; }
 
 	int getGold() { return _gold; }
 	int getSilver() { return _silver; }
@@ -199,7 +207,7 @@ public:
 class ghost : public enemy
 {
 private:
-
+	int deadCount = 0;
 public:
 	void init();
 	void idle();
@@ -212,6 +220,10 @@ public:
 class bee : public enemy
 {
 private:
+	int dizzyCount;
+	int hp;
+	int attackStartCount;
+	int attackCount;
 	bool _isFire;
 	int _fireCount;
 	beeBullet * _bullet;
@@ -225,6 +237,13 @@ public:
 	void dead();
 
 	beeBullet* getBullet() { return _bullet; }
+	int getHp() { return hp; }
+	int getDizzyCount() { return dizzyCount; }
+	int getAttackCount() { return attackCount; }
+	int getFireCount() { return _fireCount; }
+	void setFireCount(int fireCount) { _fireCount = fireCount; }
+	void setAttackCount(int _attackCount) { attackCount = _attackCount; }
+	
 };
 
 

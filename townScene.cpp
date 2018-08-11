@@ -152,8 +152,13 @@ void townScene::render(void)
 	{
 		_pixel.img->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
 	}
+<<<<<<< HEAD
 //	Rectangle(getMemDC(), _upgradeShopRc.left - _player->getPlayerCam().left, _upgradeShopRc.top - _player->getPlayerCam().top, _upgradeShopRc.right - _player->getPlayerCam().left, _upgradeShopRc.bottom - _player->getPlayerCam().top);
 //	Rectangle(getMemDC(), _magicShopRc.left - _player->getPlayerCam().left, _magicShopRc.top - _player->getPlayerCam().top, _magicShopRc.right - _player->getPlayerCam().left, _magicShopRc.bottom - _player->getPlayerCam().top);
+=======
+	//Rectangle(getMemDC(), _upgradeShopRc.left - _player->getPlayerCam().left, _upgradeShopRc.top - _player->getPlayerCam().top, _upgradeShopRc.right - _player->getPlayerCam().left, _upgradeShopRc.bottom - _player->getPlayerCam().top);
+	//Rectangle(getMemDC(), _magicShopRc.left - _player->getPlayerCam().left, _magicShopRc.top - _player->getPlayerCam().top, _magicShopRc.right - _player->getPlayerCam().left, _magicShopRc.bottom - _player->getPlayerCam().top);
+>>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 	//°£¹Ù¶¼ ±×³ªÂô!!!(¹ÝÂ¦)(¾öÁöÃ´)
 	_ui->render();
 	_player->render();

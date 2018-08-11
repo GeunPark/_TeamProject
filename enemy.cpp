@@ -223,14 +223,14 @@ void bug::attack()
 
 void bug::move()
 {
-	if (_count % 200 < 100)
+	if (_count % 100 < 50)
 	{
-		_x -= 1;
+		_x -= 2;
 		_isLeft = true;
 	}
-	else if (_count % 200 <= 200)
+	else if (_count % 100 <= 100)
 	{
-		_x += 1;
+		_x += 2;
 		_isLeft = false;
 	}
 	_collisionRc = RectMakeCenter(_x, _y, _bodyImage[ENEMY_WALK]->getFrameWidth(), _bodyImage[ENEMY_WALK]->getFrameHeight());
@@ -560,6 +560,8 @@ void electriceel::init()
 	_gold = 0;
 	_silver = 1;
 	_bronze = 1;
+
+	ang = true;
 }
 
 void electriceel::idle()
@@ -568,16 +570,33 @@ void electriceel::idle()
 
 void electriceel::spawn()
 {
-	if (_isLeft)
+	if (ang)
 	{
-		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
-			_state = ENEMY_WALK;
+		if (_isLeft)
+		{
+			if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+				_state = ENEMY_WALK;
+		}
+		else
+		{
+			if (_indexX <= 0)
+				_state = ENEMY_WALK;
+		}
 	}
-	else
-	{
-		if (_indexX <= 0)
-			_state = ENEMY_WALK;
-	}
+	//else
+	//{
+	//	if (_isLeft)
+	//	{
+	//		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+	//			_state = ENEMY_WALK;
+	//	}
+	//	else
+	//	{
+	//		if (_indexX <= 0)
+	//			_state = ENEMY_WALK;
+	//	}
+	//}
+
 
 	_collisionRc = RectMakeCenter(_x, _y + 50, _bodyImage[_state]->getFrameWidth() * 2 / 3, _bodyImage[_state]->getFrameHeight() / 2);
 
@@ -650,14 +669,13 @@ void ghost::idle()
 
 void ghost::spawn()
 {
-	_animationSpeed = 13.f;
+	_animationSpeed = 20.f;
 
 	if (_isLeft)
 	{
 		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
 		{
 			_state = ENEMY_ATTACK;
-			_indexX = 0;
 		}
 	}
 	else
@@ -677,8 +695,12 @@ void ghost::attack()
 		if (_indexX == _bodyImage[_state]->getMaxFrameX())
 		{
 			isFire = true;
-			//_state = ENEMY_WALK;
-			// _indexX = 0;
+			
+			//deadCount++;
+			//if (deadCount == 28)
+			//{
+			//	_isActived = false;
+			//}
 		}
 	
 	
@@ -703,7 +725,7 @@ void bee::init()
 {
 	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("¹ö±×spawn");
 	//_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("¹úidle");
-	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("¹úidle"); 
+	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("¹úidle");   //¹«ºê¸¦ ¾ÆÀÌµé·Î!!!
 	_bodyImage[ENEMY_SPAWN] = IMAGEMANAGER->findImage("¹údizzy"); // ½ºÆùÀ» µðÁö·Î!!
 	_bodyImage[ENEMY_ATTACK] = IMAGEMANAGER->findImage("¹úattack");
 	_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("¹úhurt"); //¾ÆÀÌµéÀº ÇæÆ®·Î!!
@@ -717,21 +739,27 @@ void bee::init()
 
 	_bfx = IMAGEMANAGER->findImage("½ºÅ×ÀÌÁö1 ÇÈ¼¿");
 
-	_speed = 3.f;
+	_speed = 2.f;
 	_angle = PI / 2;
 	_gravity = 0.f;
 	_count = 0, _indexX = 0, _indexY = 0;
 	_animationSpeed = 10.f;
 	_isActived = true;
-	_state = ENEMY_IDLE;
+	_state = ENEMY_WALK;
 	_type = GHOST;
-	_x = 900.f;
-	_y = 2000.f;
+	_x = 800.f;
+	_y = 300.f;
 	_isLeft = true;
 	isFire = false;
 	_gold = 0;
 	_silver = 0;
 	_bronze = 0;
+	dizzyCount = 4;
+	hp = 2;
+	attackStartCount = 0;
+	attackCount = 0;
+	_fireCount = 0;
+
 }
 
 void bee::idle()
@@ -740,15 +768,16 @@ void bee::idle()
 	{
 		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
 		{
-			_state = ENEMY_SPAWN;
+			//_state = ENEMY_SPAWN;
 			_indexX = 0;
+
 		}
 	}
 	else
 	{
 		if (_indexX <= 0)
 		{
-			_state = ENEMY_SPAWN;
+			//_state = ENEMY_SPAWN;
 
 		}
 	}
@@ -776,74 +805,119 @@ void bee::spawn()
 
 void bee::attack()
 {
-	_fireCount++;
-	isFire = true;
-
-	if (_count % 500 < 250)
-	{
-		_x -= 2;
-	}
-	else if (_count % 500 <= 500)
-	{
-		_x += 2;
-
-	}
-
-	_angle += 0.05f;
-	_y += -sinf(_angle)*_speed;
+	//_fireCount++;
+	//isFire = true;
 
 
-	if (isFire && _fireCount % 50 == 0)
-	{
-		_bullet->fire(_x - 190, _y + 200 , 12);
-
-	}
-
-	for (int i = 0; i < _bullet->getVBullet().size(); ++i)
-	{
-		if (_bullet->getVBullet()[i].fire)
-		{
-			_bullet->update();
-		}
-
-	}
 
 	//if (_isLeft)
 	//{
-	//	if (_indexX >= _bodyImage[_state]->getMaxFrameX())
-	//	{
-	//		_state = ENEMY_WALK;
-	//		_indexX = 0;
-	//	}
+	//
+	//	_x -= 2;
+	//}
+	//else if (!_isLeft)
+	//{
+	//	_x += 2;
+	//
+	//}
+
+	//_angle += 0.09f;
+	//_y += -sinf(_angle)*_speed;
+
+
+	//if (hp > 3)
+	//{
+	//	
 	//}
 	//else
 	//{
-	//	if (_indexX <= 0)
+	//	if (isFire && _fireCount % 50 == 0)
 	//	{
-	//		_state = ENEMY_WALK;
+	//		if (_isLeft)
+	//		{
+	//			_bullet->fire(_x - 190, _y + 220, 12);
+	//
+	//		}
+	//		else
+	//		{
+	//			_bullet->fire(_x + 220, _y + 220, 12);
+	//
+	//		}
 	//
 	//	}
+	//
+	//	for (int i = 0; i < _bullet->getVBullet().size(); ++i)
+	//	{
+	//		if (_bullet->getVBullet()[i].fire)
+	//		{
+	//			_bullet->update();
+	//		}
+	//
+	//	}
+	//
+	//if (_fireCount % 500 == 0)
+	//{
+	//	_state = ENEMY_IDLE;
+	//	_bullet->release();
+	//	_fireCount = 0;
+	//	_indexX = 0;
+	//	_isFire = false;
 	//}
+	//}
+
+
+
 }
 
 void bee::move()
 {
-	//if (_isLeft)
-	//{
-	//	if (_indexX >= _bodyImage[_state]->getMaxFrameX())
-	//	{
-	//		_state = ENEMY_IDLE;
-	//		_indexX = 0;
-	//	}
-	//}
-	//else
-	//{
-	//	if (_indexX <= 0)
-	//	{
-	//		_state = ENEMY_IDLE;
-	//
-	//	}
-	//}
+
+	if (_x >= 1000)
+	{
+		_isLeft = true;
+		attackStartCount++;
+	}
+	else if (_x <= 300)
+	{
+		_isLeft = false;
+	}
+
+	if (_isLeft)
+	{
+		_x -= 10;
+	}
+
+	else if (!_isLeft)
+	{
+		_x += 10;
+
+	}
+
+	if (_isLeft)
+	{
+		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
+		{
+			//_state = ENEMY_IDLE;
+			_indexX = 0;
+		}
+	}
+	else
+	{
+		if (_indexX <= 0)
+		{
+			_indexX = _bodyImage[_state]->getMaxFrameX();
+	
+		}
+	}
+
+	if (attackStartCount == 1)
+	{
+		_state = ENEMY_ATTACK;
+		attackStartCount = 0;
+	}
+
+
+
 }
 
 void bee::dead()
@@ -891,6 +965,8 @@ void enemy::update()
 	{
 		_indexY = 1;
 	}
+
+	_bodyImage[_state]->setFrameY(_indexY);
 
 	this->pixelCollision();
 

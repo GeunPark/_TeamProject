@@ -2,8 +2,12 @@
 #include "gameNode.h"
 #include "arrow.h"
 #include "cuticle.h"
+<<<<<<< HEAD
 #include "magic.h"
 #include "shop.h"
+=======
+#include "poison.h"
+>>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
@@ -82,6 +86,7 @@ private:
 	magic* _magic;
 	shop * _shop;
 	cuticle* _cuticle;
+	poison* _poison;
 	
 
 	// 상점에서 산 아이템 저장하는 벡터
@@ -141,7 +146,12 @@ public:
 	void enemyAttCollision();
 	void removeArrow(int index);
 	void foxState();
+<<<<<<< HEAD
 	void magicCollision();
+=======
+	void fire(float angle);
+	
+>>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 
 	// get, set함수들
 	float getX() { return _player.x; }
@@ -199,8 +209,13 @@ public:
 
 	bool getEftChk() { return eftChk; }
 	void setEftChk(bool eC) { eftChk = eC; }
+
 	int getUnHit() { return unDamage; }
 	void setUnHit(int a) { unDamage = a; }
+
+	//tagState getState() { return _state; }
+	//void setState(tagState state) { _state = state; }
+
 	// 테스트 함수
 	void test();
 	void playerUI();

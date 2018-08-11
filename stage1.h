@@ -35,15 +35,18 @@ struct tagBoxs
 class stage1 : public gameNode
 {
 private:
-
-	//아이템매니져 할당
-	itemManager * _iMG;
+	//플레이어 할당
+	foxPlayer * _player;
 
 	//에너미매니져 할당
 	enemyManager * _eMG;
 
-	//플레이어 할당
-	foxPlayer* _player;
+	//아이템매니져 할당
+	itemManager * _iMG;
+
+
+
+
 
 
 	effect* _effect;
