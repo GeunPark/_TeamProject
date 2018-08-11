@@ -37,7 +37,6 @@ HRESULT stage1::init(void)
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
-<<<<<<< HEAD
 	//_effMG = SAVEDATA->getEffectManager();
 	////_effMG->init();
 	//_effMG->setPlayerLink(_player);
@@ -45,8 +44,7 @@ HRESULT stage1::init(void)
 	_effMG = effectManager::getSingleton();
 	shopMode = false;
 
-=======
->>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
+
 	_normalBack1._x = 0;
 	_normalBack1._y = 0;
 	_normalBack1._img = IMAGEMANAGER->findImage("·¹ÀÌ¾î1");
