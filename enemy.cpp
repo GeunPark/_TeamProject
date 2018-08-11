@@ -709,7 +709,7 @@ void bee::init()
 	_bodyImage[ENEMY_IDLE] = IMAGEMANAGER->findImage("¹úhurt"); //¾ÆÀÌµéÀº ÇæÆ®·Î!!
 
 	_bullet = new beeBullet;
-	_bullet->init(700);
+	_bullet->init(500);
 	//_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("À¯·Édead");
 
 	_isFire = false;
@@ -778,6 +778,20 @@ void bee::attack()
 {
 	_fireCount++;
 	isFire = true;
+
+	if (_count % 500 < 250)
+	{
+		_x -= 2;
+	}
+	else if (_count % 500 <= 500)
+	{
+		_x += 2;
+
+	}
+
+	_angle += 0.05f;
+	_y += -sinf(_angle)*_speed;
+
 
 	if (isFire && _fireCount % 50 == 0)
 	{

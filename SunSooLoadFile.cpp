@@ -62,13 +62,23 @@ void loadingScene::SunSooImage()
 
 	//이펙트
 	//몬스터
-	_loading->loadFrameImage("잠자리dead", "resource/이선수/몬스터/잠자리dead.bmp", 2220, 384, 10, 2);
-	_loading->loadFrameImage("나무인간dead", "resource/이선수/몬스터/나무인간dead.bmp", 1752, 348, 8, 2);
-	_loading->loadFrameImage("버그dead", "resource/이선수/몬스터/버그dead.bmp", 2220, 348, 10, 2);
-	_loading->loadFrameImage("통나무dead", "resource/이선수/몬스터/통나무dead.bmp", 1896, 510, 8, 2);
-	_loading->loadFrameImage("두꺼비dead", "resource/이선수/몬스터/두꺼비dead.bmp", 2442, 348, 11, 2);
-	_loading->loadFrameImage("꼼장어dead", "resource/이선수/몬스터/꼼장어dead.bmp", 2220, 348, 10, 2);
-
+	//Left
+	_loading->loadFrameImage("잠자리deadL", "resource/이선수/몬스터/이펙트/잠자리deadL.bmp", 2220, 174, 10, 1);
+	_loading->loadFrameImage("나무인간deadL", "resource/이선수/몬스터/이펙트/나무인간deadL.bmp", 1752, 174, 8, 1);
+	_loading->loadFrameImage("버그deadL", "resource/이선수/몬스터/이펙트/버그deadL.bmp", 2220, 174, 10, 1);
+	_loading->loadFrameImage("통나무deadL", "resource/이선수/몬스터/이펙트/통나무deadL.bmp", 1896, 255, 8, 1);
+	_loading->loadFrameImage("두꺼비deadL", "resource/이선수/몬스터/이펙트/두꺼비deadL.bmp", 2442, 174, 11, 1);
+	_loading->loadFrameImage("꼼장어deadL", "resource/이선수/몬스터/이펙트/꼼장어deadL.bmp", 2220, 174, 10, 1);
+	//Right
+	_loading->loadFrameImage("잠자리deadR", "resource/이선수/몬스터/이펙트/잠자리deadR.bmp", 2220, 174, 10, 1);
+	_loading->loadFrameImage("나무인간deadR", "resource/이선수/몬스터/이펙트/나무인간deadR.bmp", 1752, 174, 8, 1);
+	_loading->loadFrameImage("버그deadR", "resource/이선수/몬스터/이펙트/버그deadR.bmp", 2220, 174, 10, 1);
+	_loading->loadFrameImage("통나무deadR", "resource/이선수/몬스터/이펙트/통나무deadR.bmp", 1896, 255, 8, 1);
+	_loading->loadFrameImage("두꺼비deadR", "resource/이선수/몬스터/이펙트/두꺼비deadR.bmp", 2442, 174, 11, 1);
+	_loading->loadFrameImage("꼼장어deadR", "resource/이선수/몬스터/이펙트/꼼장어deadR.bmp", 2220, 174, 10, 1);
+	
+	//아이템
+	_loading->loadFrameImage("아이템이펙트", "resource/이선수/아이템/이펙트/아이템이펙트.bmp", 240, 40, 6, 1);
 
 }
 
