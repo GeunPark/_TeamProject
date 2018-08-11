@@ -8,6 +8,7 @@ HRESULT poison::init(float range)
 	bCount = 0;
 	count = index = 0;
 	_isFire = false;
+	indexX = indexY = 0;
 	return S_OK;
 }
 
@@ -17,6 +18,8 @@ void poison::release(void)
 
 void poison::update(void)
 {
+	++count;
+
 	this->move();
 	this->frameMove();
 }
@@ -65,9 +68,10 @@ void poison::fire(float x, float y, int maxPoison, float angle)
 		ZeroMemory(&poison, sizeof(tagPoison));
 		poison.poisonImage = IMAGEMANAGER->findImage("Poison");
 		poison.speed = 12.f;
-		poison.angle = angle;
+		poison.angle = angle + (PI/180* (15 * (i)));
 		poison.x = poison.fireX = x;
 		poison.y = poison.fireY = y;
+		poison.isFire = true;
 
 		_vPoison.push_back(poison);
 	}
@@ -97,48 +101,52 @@ void poison::move()
 
 	for (int i = 0; i < _vPoison.size(); i++)
 	{
-		_vPoison[i].angle += 0.25f;
-		_vPoison[i].x += cosf(_vPoison[i].angle)*_vPoison[i].speed;
-		_vPoison[i].y += -sinf(_vPoison[i].angle)*_vPoison[i].speed;
-		_vPoison[i].rc = RectMakeCenter(_vPoison[i].x, _vPoison[i].y, _vPoison[i].poisonImage->getWidth(), _vPoison[i].poisonImage->getHeight());
-		if (getDistance(_vPoison[i].x, _vPoison[i].y, _vPoison[i].fireX, _vPoison[i].fireY)> _range)
+		if (_vPoison[i].isFire)
 		{
-			_vPoison.erase(_vPoison.begin() + i);
+			_vPoison[i].x += cosf(_vPoison[i].angle)*_vPoison[i].speed;
+			_vPoison[i].y += -sinf(_vPoison[i].angle)*_vPoison[i].speed;
+			_vPoison[i].rc = RectMakeCenter(_vPoison[i].x, _vPoison[i].y, _vPoison[i].poisonImage->getFrameWidth(), _vPoison[i].poisonImage->getFrameHeight());
+			if (getDistance(_vPoison[i].x, _vPoison[i].y, _vPoison[i].fireX, _vPoison[i].fireY)> _range)
+			{
+				_vPoison.erase(_vPoison.begin() + i);
+			}
 		}
+	
 	}
 
 }
 
 void poison::frameMove()
 {
+
 	for (int i = 0; i < _vPoison.size(); ++i)
 	{
-		if (_vPoison[i].angle == PI)
-		{
-			++count;
-			_vPoison[i].poisonImage->setFrameY(1);
-			if (count % 3 == 0)
+		if(_vPoison[i].angle > PI/2)
+		{	
+			indexY = 1;
+			_vPoison[i].poisonImage->setFrameY(indexY);
+			if (count % 5 == 0)
 			{
-				index--;
-				if (index < 0)
+				indexX--;
+				if (indexX < 0)
 				{
-					index = 7;
+					indexX = 6;
 				}
-				_vPoison[i].poisonImage->setFrameX(index);
+				_vPoison[i].poisonImage->setFrameX(indexX);
 			}
 		}
-		if (_vPoison[i].angle == 0)
+		if (_vPoison[i].angle < PI/2)
 		{
-			++count;
-			_vPoison[i].poisonImage->setFrameY(0);
-			if (count % 3 == 0)
+			indexY = 0;
+			_vPoison[i].poisonImage->setFrameY(indexY);
+			if (count % 5 == 0)
 			{
-				index++;
-				if (index > 7)
+				indexX++;
+				if (indexX > 6)
 				{
-					index = 0;
+					indexX = 0;
 				}
-				_vPoison[i].poisonImage->setFrameX(index);
+				_vPoison[i].poisonImage->setFrameX(indexX);
 			}
 		}
 	}
@@ -146,6 +154,7 @@ void poison::frameMove()
 
 }
 
-void poison::removeCuticle(int index)
+void poison::removePoison(int index)
 {
+	_vPoison.erase(_vPoison.begin() + index);
 }

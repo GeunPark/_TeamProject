@@ -8,6 +8,8 @@
 
 class foxPlayer;
 
+
+
 enum kindShop
 {
 	UPGRADE,
@@ -26,6 +28,7 @@ struct tagShopBox
 	int price;
 	int _sellCount;
 	int _maxNum;
+	int _number;
 };
 
 
@@ -54,7 +57,7 @@ private:
 	int magicMaxNum[3];
 
 	bool frameNumChk[4];
-	
+
 	float _x, _y;
 
 	bool _isOpen = false;
@@ -72,9 +75,10 @@ public:
 	void selectObject();
 	void ItemSell();
 
+	kindShop getKindShop() { return _kindShop; }
 	void setKindShop(kindShop kd) { _kindShop = kd; }
-	
-	vector<tagShopBox> getvShopItem() {	return _vShopItem;}
+
+	vector<tagShopBox> getvShopItem() { return _vShopItem; }
 
 	void setPlayerManager(foxPlayer* player);
 

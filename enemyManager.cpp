@@ -287,6 +287,22 @@ void enemyManager::update(void)
 	}
 	for (int i = 0; i < _vEnemy.size(); ++i)
 	{
+		for (int j = 0; j < _player->getPoison()->getVPoison().size(); ++j)
+		{
+			RECT collRc;
+
+			if (IntersectRect(&collRc, &_vEnemy[i]->getCollisionRc(), &_player->getPoison()->getVPoison()[j].rc))
+			{
+				_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+
+				_vEnemy[i]->setIsActived(false);
+
+				_player->removePoison(j);
+			}
+		}
+	}
+	for (int i = 0; i < _vEnemy.size(); ++i)
+	{
 		for (int j = 0; j < _player->getMagic()->getvthunder().size(); j++)
 		{
 			RECT _rct;

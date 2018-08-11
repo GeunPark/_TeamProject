@@ -23,7 +23,7 @@ void loadingScene::SaeWonImage()
 	_loading->loadFrameImage("Die", "resource/foxPlayer/dead.bmp", 720, 360, 4, 2, true, MAGENTA);
 	_loading->loadFrameImage("Twinkle", "resource/foxPlayer/twinkle.bmp", 5805, 384, 15, 1, true, MAGENTA);
 	_loading->loadImage("Cuticle", "resource/foxPlayer/cuticle.bmp", 21, 21, true, MAGENTA);
-	_loading->loadFrameImage("Poison", "resource/foxPlayer/poison.bmp", 672, 72, 7, 2, true, MAGENTA);
+	_loading->loadFrameImage("Poison", "resource/foxPlayer/poison2.bmp", 350, 140, 5, 2, true, MAGENTA);
 	
 
 	_loading->loadFrameImage("번개마법1", "resource/foxPlayer/번개마법1.bmp", 864, 960, 9, 1, true, MAGENTA);
