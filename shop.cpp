@@ -196,11 +196,13 @@ void shop::selectObject()
 				{
 					_player->setGold(_player->getGold() - _Item[_selectNumber].price);
 					ItemSell();
+					_vShopItem.push_back(_Item[_selectNumber]);
 				}
 				else if (_kindShop == MAGIC && upgnum[_selectNumber] < magicMaxNum[_selectNumber])
 				{
 					_player->setGold(_player->getGold() - _Item[_selectNumber].price);
 					ItemSell();
+					_vShopItem.push_back(_Item[_selectNumber]);
 				}
 			}
 			if (_player->getGold() < _Item[_selectNumber].price || upgnum[_selectNumber] > upgMaxNum[_selectNumber] )

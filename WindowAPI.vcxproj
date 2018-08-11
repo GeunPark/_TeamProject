@@ -175,6 +175,7 @@
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="loading.h" />
     <ClInclude Include="loadingScene.h" />
+    <ClInclude Include="magic.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="pixelCollision.h" />
     <ClInclude Include="progressBar.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="loadingScene.cpp" />
+    <ClCompile Include="magic.cpp" />
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="pixelCollision.cpp" />
     <ClCompile Include="progressBar.cpp" />

@@ -260,6 +260,9 @@
     <ClInclude Include="bossStage.h">
       <Filter>MainGame\근화</Filter>
     </ClInclude>
+    <ClInclude Include="magic.h">
+      <Filter>MainGame\세원\arrow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -414,6 +417,9 @@
     </ClCompile>
     <ClCompile Include="bossStage.cpp">
       <Filter>MainGame\근화</Filter>
+    </ClCompile>
+    <ClCompile Include="magic.cpp">
+      <Filter>MainGame\세원\arrow</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
