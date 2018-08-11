@@ -16,24 +16,22 @@ HRESULT foxPlayer::init(void)
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
-<<<<<<< HEAD
+
 
 	//_cuticle = new cuticle;
 	//_cuticle->init(500);
-=======
+
 	_cuticle = new cuticle;
 	_cuticle->init(500);
->>>>>>> 1934665b096c768503c2b8e535b3c0c00c00bc19
+
 
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
-<<<<<<< HEAD
+
 
 	_player.x = 9500;
 	_player.y = 1250;//MAX_HEIGHT - 150;
 
-=======
->>>>>>> 1934665b096c768503c2b8e535b3c0c00c00bc19
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
 	_player.gravity = 0.f;
@@ -952,8 +950,6 @@ void foxPlayer::test()
 
 	if (KEYMANAGER->isOnceKeyDown('U'))
 	{
-		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
-		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
 	}
 }
 void foxPlayer::playerUI()

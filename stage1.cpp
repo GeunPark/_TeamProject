@@ -58,11 +58,11 @@ HRESULT stage1::init(void)
 	////_effMG->init();
 	//_effMG->setPlayerLink(_player);
 
-<<<<<<< HEAD
 
-=======
+
+
 	_effMG = effectManager::getSingleton();
->>>>>>> 1934665b096c768503c2b8e535b3c0c00c00bc19
+
 	shopMode = false;
 
 	_normalBack1._x = 0;
@@ -139,7 +139,7 @@ void stage1::update(void)
 
 	//아이템매니저
 	_iMG->update();
-
+	_ui->update();
 	//_shop->update();
 	if (KEYMANAGER->isToggleKey(VK_F2))
 	{
@@ -339,17 +339,13 @@ void stage1::render(void)
 	//에너미매니저
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
-
+	_ui->render();
 	//for (int i = 0; i < _vEffect.size(); i++)
 	//{
 	//	_vEffect[i]->render(0,0);
 	//	//_vEffect[i]->render();
 	//}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 314bdd80a1cfb30fd97ab57ab4758d7a71df2205
 	// 테스트용 상점 구현
 	if (KEYMANAGER->isOnceKeyDown('Q'))
 	{
