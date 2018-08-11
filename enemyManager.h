@@ -1,7 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "enemy.h"
-#include "foxPlayer.h"
+
 #include "factory.h"
 #include "bullet.h"
 #include "effect.h"

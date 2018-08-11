@@ -1,25 +1,35 @@
 #include "stdafx.h"
 #include "foxPlayer.h"
 #include "enemyManager.h"
-#include "shop.h"
-// #include "UI.h"
 
 //ToDo : init
 HRESULT foxPlayer::init(void)
 {
 	imageSetting();
 
+<<<<<<< HEAD
+=======
+	
+
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
 	_cuticle = new cuticle;
 	_cuticle->init(500);
+<<<<<<< HEAD
 
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
 
 	_player.x = 9500;
 	_player.y = 1250;
+=======
+
+
+	_player.x = 6500;
+	_player.y = MAX_HEIGHT - 150;
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
@@ -106,6 +116,11 @@ void foxPlayer::update(void)
 	this->test();
 
 	_cuticle->update();
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 
 	this->camera();			//카메라 움직이는 함수 호출
 	test();
@@ -307,12 +322,12 @@ void foxPlayer::keySetting()
 		if (KEYMANAGER->isOnceKeyDown(VK_SPACE) && _state != HIT)
 		{
 			++jumpCount;
-			_player.jumpSpeed = 10.f;
+			_player.jumpSpeed = 9.f;
 			_state = JUMP;
 			if (jumpCount >= 2)
 			{
 				_player.gravity = 0.f;
-				_player.jumpSpeed = 10.f;
+				_player.jumpSpeed = 9.f;
 				actionCount = 0;
 				_state = DOUBLEJUMP;
 			}
@@ -786,11 +801,6 @@ void foxPlayer::enemyCollision()
 				_state = HIT;
 				unDamage = 0;
 			}
-
-			if (IntersectRect(&tempRc, &_player.collisionRc, &_enemyManger->getEnemy()[i]->getCollisionRc()) && _enemyManger->getEnemy()[i]->getState() != ENEMY_SPAWN && _state != HIT)
-			{
-
-			}
 		}
 	}
 }
@@ -929,11 +939,14 @@ void foxPlayer::test()
 		_player.gold -= 100;
 	}
 
+<<<<<<< HEAD
 	/*if (KEYMANAGER->isOnceKeyDown('U'))
 	{
 		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
 		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
 	}*/
+=======
+>>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 }
 void foxPlayer::playerUI()
 {
