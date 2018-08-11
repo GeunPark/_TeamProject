@@ -755,9 +755,10 @@ void bee::init()
 	_silver = 0;
 	_bronze = 0;
 	dizzyCount = 4;
-	hp = 7;
+	hp = 2;
 	attackStartCount = 0;
 	attackCount = 0;
+	_fireCount = 0;
 
 }
 
@@ -804,8 +805,8 @@ void bee::spawn()
 
 void bee::attack()
 {
-	_fireCount++;
-	isFire = true;
+	//_fireCount++;
+	//isFire = true;
 
 
 
@@ -854,13 +855,14 @@ void bee::attack()
 	//
 	//	}
 	//
-	//	if (_fireCount % 500 == 0)
-	//	{
-	//		_state = ENEMY_IDLE;
-	//		_bullet->release();
-	//		_fireCount = 0;
-	//		_indexX = 0;
-	//	}
+	//if (_fireCount % 500 == 0)
+	//{
+	//	_state = ENEMY_IDLE;
+	//	_bullet->release();
+	//	_fireCount = 0;
+	//	_indexX = 0;
+	//	_isFire = false;
+	//}
 	//}
 
 

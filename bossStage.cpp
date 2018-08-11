@@ -110,6 +110,8 @@ void bossStage::update(void)
 	if (_bee->getState() == ENEMY_ATTACK)
 	{
 		_bee->setAttackCount(_bee->getAttackCount() + 1);
+		_bee->setFireCount(_bee->getFireCount() + 1);
+		_bee->setIsFire(true);
 		if (_bee->getHp() > 3)
 		{
 			if (_bee->getY() > 600 || _bee->getX() < 250 || _bee->getX() > 1100)
@@ -126,10 +128,57 @@ void bossStage::update(void)
 				_bee->setY(_bee->getY() - sinf(_bee->getAngle())*_bee->getSpeed());
 
 			}
+			if (_bee->getAttackCount() == 200)
+			{
+				_bee->setState(ENEMY_WALK);
+				_bee->setAttackCount(0);
+			}
 		}
 		else
 		{
+			if (_bee->getIsLeft())
+			{
+			
+				_bee->setX(_bee->getX() - 2);
+			}
+			else if (!_bee->getIsLeft())
+			{
+				_bee->setX(_bee->getX() + 2);
 
+			}
+			if (_bee->getIsFire() && _bee->getFireCount() % 60 == 0)
+			{
+				if (_bee->getIsLeft())
+				{
+					_bee->getBullet()->fire(_bee->getX() - 190, _bee->getY() + 220, 12);
+
+				}
+				else
+				{
+					_bee->getBullet()->fire(_bee->getX() + 220, _bee->getY() + 220, 12);
+
+				}
+			}
+			
+
+			for (int i = 0; i <_bee->getBullet()->getVBullet().size(); ++i)
+			{
+				if (_bee->getBullet()->getVBullet()[i].fire)
+				{
+					_bee->getBullet()->update();
+				}
+			
+			}
+			
+			if (_bee->getFireCount() % 500 == 0)
+			{
+				//_beeBullet->release();
+				_bee->getBullet()->release();
+				_bee->setState(ENEMY_WALK);
+				_bee->setFireCount(0);
+				_bee->setIndexX(0);
+				//_bee->setIsFire(false);
+			}
 		}
 
 		if (_player->getX() < _bee->getX())
@@ -142,11 +191,7 @@ void bossStage::update(void)
 
 		}
 
-		if (_bee->getAttackCount() == 200)
-		{
-			_bee->setState(ENEMY_WALK);
-			_bee->setAttackCount(0);
-		}
+		
 
 	}
 	RECT tempRc;
