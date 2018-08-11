@@ -107,6 +107,8 @@ private:
 	bool shopMode;
 	bool _neolttwigiColls;
 
+	bool isFrist = false;
+
 	//int _x, _y;
 public:
 
