@@ -18,9 +18,9 @@ void loadingScene::GiHunImage()
 	_loading->loadImage("레이어2", "resource/스테이지1/레이어2.bmp", 1280, 326, true, MAGENTA);
 	_loading->loadImage("레이어1 겨울", "resource/스테이지1/레이어1 겨울.bmp", 1280, 2340, true, MAGENTA);
 	_loading->loadImage("레이어2 겨울", "resource/스테이지1/레이어2 겨울.bmp", 1280, 326, true, MAGENTA);
-	//_loading->loadImage("스테이지1 얼음", "resource/스테이지1/스테이지1 얼음.bmp", 20000, 2750, true, MAGENTA);
 	_loading->loadImage("스테이지1 픽셀", "resource/스테이지1/스테이지1 픽셀1.bmp", 10000, 2500, true, RGB(255, 0, 255));
-	//_loading->loadImage("스테이지1 얼음 픽셀", "resource/스테이지1/스테이지1 얼음 픽셀.bmp", 20000, 2750, true, RGB(255, 0, 255));
+
+	_loading->loadImage("스테이지 클리어", "resource/스테이지1/스테이지 클리어.bmp", 685, 82);
 	// 기타 이미지
 	_loading->loadImage("큰풀", "resource/스테이지1/큰풀.bmp", 100, 100, true, RGB(255, 0, 255));
 	_loading->loadFrameImage("폭포", "resource/스테이지1/폭포1 프레임.bmp", 4608, 575, 16, 1);
