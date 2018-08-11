@@ -42,7 +42,8 @@ private:
 private:
 	int _arrowMax;
 	float _range;
-	int count = 0;
+	int count;
+	int index;
 public:
 	HRESULT init(int arrowMax, float range);
 	void release(void);
