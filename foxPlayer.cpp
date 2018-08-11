@@ -10,24 +10,17 @@ HRESULT foxPlayer::init(void)
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
-	_magic = new magic;
-	_magic->init();
-	//_cuticle = new cuticle;
-	//_cuticle->init(500);
+	_cuticle = new cuticle;
+	_cuticle->init(500);
+
 	_poison = new poison;
 	_poison->init(600.f);
 
-	_player.x = 9500;
-	_player.y = 1250;
-
-	_cuticle = new cuticle;
-	_cuticle->init(500);
+	_magic = new magic;
+	_magic->init();
 
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
-
-	_cuticle = new cuticle;
-	_cuticle->init(500);
 
 
 	_player.speed = 6.f;
@@ -172,6 +165,7 @@ void foxPlayer::update(void)
 		
 	}
 
+
 	if (KEYMANAGER->isOnceKeyDown('I'))
 	{
 		magicNumCHk += 1;
@@ -182,6 +176,7 @@ void foxPlayer::update(void)
 	_cuticle->update();
 
 	_poison->update();
+
 
 	this->camera();			//카메라 움직이는 함수 호출
 
@@ -263,9 +258,9 @@ void foxPlayer::render()
 	}
 	for (int i = 0; i < _magic->getvthunder().size(); i++)
 	{
-		Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
+		//Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
 	}
-	Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
+	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
 
 }
@@ -428,6 +423,7 @@ void foxPlayer::keySetting()
 		{
 			if (!isArrowChange)
 			{
+<<<<<<< HEAD
 				if (_player.isFoxLeft)
 				{
 					_state = FIRE;
@@ -467,6 +463,23 @@ void foxPlayer::keySetting()
 					index = 0;
 					count = 0;
 				}
+=======
+				_state = FIRE;
+				_arrow->fire(_player.x - 15, _player.y + 30, _player.arrowAngle);
+				//_arrow->fire2(_player.x - 15, _player.y + 30, _player.arrowAngle);
+				//_poison->fire(_player.x - 15, _player.y + 30, 3, _player.arrowAngle);
+				index2 = nick[FIRE]->getMaxFrameX();
+				count = 0;
+			}
+			else
+			{
+				_state = FIRE;
+				_arrow->fire(_player.x + 15, _player.y + 30, _player.arrowAngle);
+				//_arrow->fire2(_player.x + 15, _player.y + 30, _player.arrowAngle);
+				//_poison->fire(_player.x - 15, _player.y + 30, 3, _player.arrowAngle);
+				index = 0;
+				count = 0;
+>>>>>>> 5098be67502424d9093608203950495de7899c22
 			}
 			
 		}
@@ -933,6 +946,67 @@ void foxPlayer::enemyCollision()
 			}
 		}
 	}
+	//if (unDamage > 15)
+	//{
+	//	RECT collRc;
+	//	if (IntersectRect(&collRc, &_player.collisionRc, &_enemyManger->getBoss()->getRc()))
+	//	{
+	//		if (chk == false)
+	//		{
+	//			_player.HP -= 5;
+	//			chk = true;
+	//		}
+	//		int width = (collRc.right - collRc.left) + 50;
+	//		int height = (collRc.bottom - collRc.top) + 50;
+	//
+	//		if (_player.x < _enemyManger->getBoss()->getRc().left)
+	//		{
+	//			if (_player.x > width)
+	//			{
+	//				_player.x -= 30;
+	//			}
+	//			if (_player.y > height)
+	//			{
+	//				_player.y -= 30;
+	//			}
+	//		}
+	//		else if (_player.x > _enemyManger->getBoss()[i]->getRc().right)
+	//		{
+	//			if (_player.x < width)
+	//			{
+	//				_player.x += 30;
+	//			}
+	//			if (_player.y < height)
+	//			{
+	//				_player.y += 30;
+	//			}
+	//		}
+	//		else if (_player.y < _enemyManger->getBoss()[i]->getRc().top)
+	//		{
+	//			if (_player.x > width)
+	//			{
+	//				_player.x -= 30;
+	//			}
+	//			if (_player.y > height)
+	//			{
+	//				_player.y -= 30;
+	//			}
+	//		}
+	//		else if (_player.y > _enemyManger->getBoss()->getRc().bottom)
+	//		{
+	//			if (_player.x < width)
+	//			{
+	//				_player.x += 30;
+	//			}
+	//			if (_player.y < height)
+	//			{
+	//				_player.y += 30;
+	//			}
+	//		}
+	//		_state = HIT;
+	//		unDamage = 0;
+	//	}
+	//}
 	
 }
 //todo : 적의 공격에 충돌
@@ -1085,12 +1159,8 @@ void foxPlayer::test()
 		_player.gold -= 100;
 	}
 
-	/*if (KEYMANAGER->isOnceKeyDown('U'))
-	{
-	}
-		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
-		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
-	}*/
+
+
 }
 void foxPlayer::playerUI()
 {

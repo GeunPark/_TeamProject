@@ -238,7 +238,9 @@ public:
 
 	beeBullet* getBullet() { return _bullet; }
 	int getHp() { return hp; }
+	void setHp(int _hp) { hp = _hp; }
 	int getDizzyCount() { return dizzyCount; }
+	void setDizzyCount(int _dizzyCount) { dizzyCount = _dizzyCount; }
 	int getAttackCount() { return attackCount; }
 	int getFireCount() { return _fireCount; }
 	void setFireCount(int fireCount) { _fireCount = fireCount; }

@@ -748,14 +748,14 @@ void bee::init()
 	_state = ENEMY_WALK;
 	_type = GHOST;
 	_x = 800.f;
-	_y = 300.f;
+	_y = 200.f;
 	_isLeft = true;
 	isFire = false;
 	_gold = 0;
 	_silver = 0;
 	_bronze = 0;
-	dizzyCount = 4;
-	hp = 2;
+	dizzyCount = 0;
+	hp = 7;
 	attackStartCount = 0;
 	attackCount = 0;
 	_fireCount = 0;
@@ -764,11 +764,12 @@ void bee::init()
 
 void bee::idle()
 {
+	_animationSpeed = 30.f;
 	if (_isLeft)
 	{
 		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
 		{
-			//_state = ENEMY_SPAWN;
+			_state = ENEMY_WALK;
 			_indexX = 0;
 
 		}
@@ -777,7 +778,8 @@ void bee::idle()
 	{
 		if (_indexX <= 0)
 		{
-			//_state = ENEMY_SPAWN;
+			_state = ENEMY_WALK;
+			_indexX = _bodyImage[_state]->getMaxFrameX();
 
 		}
 	}
@@ -789,7 +791,6 @@ void bee::spawn()
 	{
 		if (_indexX >= _bodyImage[_state]->getMaxFrameX())
 		{
-			_state = ENEMY_ATTACK;
 			_indexX = 0;
 		}
 	}
@@ -797,14 +798,24 @@ void bee::spawn()
 	{
 		if (_indexX <= 0)
 		{
-			_state = ENEMY_ATTACK;
-
+			_indexX = _bodyImage[_state]->getMaxFrameX();
 		}
 	}
+
+
+
 }
 
 void bee::attack()
 {
+
+
+	if (dizzyCount == 5)
+	{
+		_state = ENEMY_SPAWN;
+		dizzyCount = 0;
+		_bullet->release();
+	}
 	//_fireCount++;
 	//isFire = true;
 
@@ -877,7 +888,7 @@ void bee::move()
 		_isLeft = true;
 		attackStartCount++;
 	}
-	else if (_x <= 300)
+	else if (_x <= 450)
 	{
 		_isLeft = false;
 	}

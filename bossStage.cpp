@@ -33,7 +33,7 @@ HRESULT bossStage::init(void)
 
 	isSeason = false;
 	count = 0;
-
+	alpha = 250;
 	_player = SAVEDATA->getPlayer();
 	_player->setX(100);
 	_player->setY(500);
@@ -139,13 +139,16 @@ void bossStage::update(void)
 			if (_bee->getIsLeft())
 			{
 			
-				_bee->setX(_bee->getX() - 2);
+				_bee->setX(_bee->getX() - 1);
 			}
 			else if (!_bee->getIsLeft())
 			{
-				_bee->setX(_bee->getX() + 2);
-
+				_bee->setX(_bee->getX() + 1);
 			}
+
+			_bee->setAngle(_bee->getAngle() + 0.05f);
+			_bee->setY(_bee->getY() - sinf(_bee->getAngle())*2.0f);
+
 			if (_bee->getIsFire() && _bee->getFireCount() % 60 == 0)
 			{
 				if (_bee->getIsLeft())
@@ -159,7 +162,6 @@ void bossStage::update(void)
 
 				}
 			}
-			
 
 			for (int i = 0; i <_bee->getBullet()->getVBullet().size(); ++i)
 			{
@@ -179,6 +181,9 @@ void bossStage::update(void)
 				_bee->setIndexX(0);
 				//_bee->setIsFire(false);
 			}
+
+
+
 		}
 
 		if (_player->getX() < _bee->getX())
@@ -192,7 +197,46 @@ void bossStage::update(void)
 		}
 
 		
+		RECT _rcT;
 
+		for (int i = 0; i < _player->getArrow()->getVArrow().size(); ++i)
+		{
+			if (IntersectRect(&_rcT, &_player->getArrow()->getVArrow()[i].rc, &_bee->getRc()))
+			{
+
+				if (_bee->getDizzyCount() < 5)
+				{
+					_bee->setDizzyCount(_bee->getDizzyCount() + 1);
+
+				}
+				_player->removeArrow(i);
+
+			}
+
+		}
+
+
+
+
+	}
+	if (_bee->getState() == ENEMY_SPAWN)
+	{
+		if (_player->getAng())
+		{
+			_bee->setX(_bee->getX() + 8);
+			if (_bee->getX() > 1000)
+			{
+				_bee->setHp(_bee->getHp() - 1);
+				_bee->setIndexX(0);
+
+				_bee->setState(ENEMY_IDLE);
+			}
+		}
+	}
+	alpha -= 20;
+	if (alpha <= 0)
+	{
+		alpha = 250;
 	}
 	RECT tempRc;
 	if (IntersectRect(&tempRc, &_player->getCollisionRc(), &_bee->getRc()) && _player->getUnHit()>20 && _player->getPlayerState() != HIT)
@@ -236,10 +280,14 @@ void bossStage::render(void)
 		Rectangle(getMemDC(), rc);
 	}
 
-
 	//벌몸체
 	_bee->getBodyImage()->frameRender(getMemDC(), _bee->getRc().left , _bee->getRc().top, _bee->getBodyImage()->getFrameX(), _bee->getBodyImage()->getFrameY());
+	//디지카운트표시
+	for (int i = 0; i < _bee->getDizzyCount(); ++i)
+	{
+		IMAGEMANAGER->alphaRender("디지카운트", getMemDC(), _bee->getX() - 250 + i * 150, _bee->getY() , alpha);
 
+	}
 	//벌총알
 	for (int i = 0; i < _bee->getBullet()->getVBullet().size(); ++i)
 	{

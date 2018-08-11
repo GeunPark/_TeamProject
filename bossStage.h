@@ -29,6 +29,7 @@ private:
 	UI* _ui;
 
 	int count;
+	int alpha;
 	bool isSeason;
 	
 
