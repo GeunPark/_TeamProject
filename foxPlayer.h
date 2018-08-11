@@ -8,8 +8,7 @@
 #define MAX_STATE 16
 
 class enemyManager;
-//class UI;
-class shop;
+
 
 enum tagState
 {
@@ -79,8 +78,7 @@ private:
 
 	arrow* _arrow;
 	cuticle* _cuticle;
-	//UI * _ui;
-	shop * _shop;
+	
 
 	// 상점에서 산 아이템 저장하는 벡터
 	
@@ -166,12 +164,7 @@ public:
 
 	//에너미매니저와 상호참조
 	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
-//	void setUIManager(UI* ui) { _ui = ui; }
-	//void setShopManager(shop * shop) { _shop = shop; }
 
-	// 백터 값 저장
-	//void setVShopItem(vector<shop> shop) { _shopItem = shop; }
-	//vector<shop> getVShopItem() { return _shopItem;  }
 
 	tagPlayer getTag() { return _player; }
 

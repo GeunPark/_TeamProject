@@ -1,39 +1,24 @@
 #include "stdafx.h"
 #include "foxPlayer.h"
 #include "enemyManager.h"
-#include "shop.h"
-// #include "UI.h"
 
 //ToDo : init
 HRESULT foxPlayer::init(void)
 {
 	imageSetting();
 
-	// 형 UI 설정좀 하께  웅웅
-	//_ui = new UI;
-	//_ui->init();
+	
 
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
-<<<<<<< HEAD
-
-	//_cuticle = new cuticle;
-	//_cuticle->init(500);
-=======
 	_cuticle = new cuticle;
 	_cuticle->init(500);
->>>>>>> 1934665b096c768503c2b8e535b3c0c00c00bc19
+
 
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
-<<<<<<< HEAD
 
-	_player.x = 9500;
-	_player.y = 1250;//MAX_HEIGHT - 150;
-
-=======
->>>>>>> 1934665b096c768503c2b8e535b3c0c00c00bc19
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
 	_player.gravity = 0.f;
@@ -116,9 +101,9 @@ void foxPlayer::update(void)
 	_arrow->update();
 	this->test();
 
-	//_cuticle->update();
+	_cuticle->update();
 
-	//_ui->update();
+
 
 	this->camera();			//카메라 움직이는 함수 호출
 	test();
@@ -142,10 +127,10 @@ void foxPlayer::render()
 		//Rectangle(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, twinkleRc.right - _camera.rc.left, twinkleRc.bottom - _camera.rc.top);
 		_twinkle->frameRender(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, _twinkle->getFrameX(), _twinkle->getFrameY());
 
-		//for (int i = 0; i < _cuticle->getCuticle().size(); i++)
-		//{
-		//	_cuticle->getCuticle()[i].cuticleImage->render(getMemDC(), _cuticle->getCuticle()[i].rc.left - _camera.rc.left, _cuticle->getCuticle()[i].rc.top - _camera.rc.top);
-		//}
+		for (int i = 0; i < _cuticle->getCuticle().size(); i++)
+		{
+			_cuticle->getCuticle()[i].cuticleImage->render(getMemDC(), _cuticle->getCuticle()[i].rc.left - _camera.rc.left, _cuticle->getCuticle()[i].rc.top - _camera.rc.top);
+		}
 	}
 	
 	if (KEYMANAGER->isToggleKey('O'))
@@ -803,11 +788,6 @@ void foxPlayer::enemyCollision()
 				_state = HIT;
 				unDamage = 0;
 			}
-
-			if (IntersectRect(&tempRc, &_player.collisionRc, &_enemyManger->getEnemy()[i]->getCollisionRc()) && _enemyManger->getEnemy()[i]->getState() != ENEMY_SPAWN && _state != HIT)
-			{
-
-			}
 		}
 	}
 }
@@ -877,11 +857,8 @@ void foxPlayer::enemyAttCollision()
 				_state = HIT;
 				unDamage = 0;
 			}
-			//if(IntersectRect(&temp, &_player.collisionRc, &_enemyManger->getGhost()[i]->getAttRc()))
 		}
 	}
-
-	//for(int i = 0; i < _enemyManger->)
 }
 
 void foxPlayer::removeArrow(int index)
@@ -950,11 +927,6 @@ void foxPlayer::test()
 		_player.gold -= 100;
 	}
 
-	if (KEYMANAGER->isOnceKeyDown('U'))
-	{
-		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
-		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
-	}
 }
 void foxPlayer::playerUI()
 {
