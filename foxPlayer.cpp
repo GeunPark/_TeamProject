@@ -7,21 +7,14 @@ HRESULT foxPlayer::init(void)
 {
 	imageSetting();
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 470ec218d9a9d2fe73425bf77285540fb1af0de2
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
 	_cuticle = new cuticle;
 	_cuticle->init(500);
-<<<<<<< HEAD
-=======
 
 	_poison = new poison;
 	_poison->init(600.f);
->>>>>>> 470ec218d9a9d2fe73425bf77285540fb1af0de2
 
 	_magic = new magic;
 	_magic->init();
@@ -161,10 +154,7 @@ void foxPlayer::update(void)
 		if (arrowNumChk > arrowNum - 1)arrowNumChk = 0;
 	}
 
-<<<<<<< HEAD
-	_cuticle->update();
 
-=======
 	if (KEYMANAGER->isOnceKeyDown('I'))
 	{
 		magicNumCHk += 1;
@@ -175,7 +165,7 @@ void foxPlayer::update(void)
 	_cuticle->update();
 
 	_poison->update();
->>>>>>> 470ec218d9a9d2fe73425bf77285540fb1af0de2
+
 
 	this->camera();			//카메라 움직이는 함수 호출
 
@@ -1094,17 +1084,9 @@ void foxPlayer::test()
 	{
 		_player.gold -= 100;
 	}
-<<<<<<< HEAD
-=======
 
-	/*if (KEYMANAGER->isOnceKeyDown('U'))
-	{
-	}
-		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
-		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
-	}*/
 
->>>>>>> 470ec218d9a9d2fe73425bf77285540fb1af0de2
+
 }
 void foxPlayer::playerUI()
 {

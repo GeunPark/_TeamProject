@@ -18,18 +18,12 @@ HRESULT stage1::init(void)
 	eftInit();
 
 	_player = SAVEDATA->getPlayer();
-<<<<<<< HEAD
-	_player->setX(6500);
-	_player->setY(2300);
-	_player->setBgPixel(feildpixel);
-	_player->setEnemyManager(SAVEDATA->getEnemyManager());
-=======
 
-	
 	_player->setX(300);
 	_player->setY(2300);
 	_player->setBgPixel(feildpixel);
->>>>>>> 470ec218d9a9d2fe73425bf77285540fb1af0de2
+	_player->setEnemyManager(SAVEDATA->getEnemyManager());
+
 
 	_ui = SAVEDATA->getUI();
 
@@ -38,15 +32,10 @@ HRESULT stage1::init(void)
 
 
 	_eMG = SAVEDATA->getEnemyManager();
-<<<<<<< HEAD
 	_eMG->init();
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
-
-
-
-=======
 	if (isFrist == false)
 		_eMG->init();
 	_eMG->init();
@@ -59,13 +48,8 @@ HRESULT stage1::init(void)
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
-	//_effMG = SAVEDATA->getEffectManager();
-	////_effMG->init();
-	//_effMG->setPlayerLink(_player);
 
 
-	_effMG = effectManager::getSingleton();
->>>>>>> 470ec218d9a9d2fe73425bf77285540fb1af0de2
 	shopMode = false;
 
 
@@ -171,12 +155,9 @@ void stage1::update(void)
 	if (_player->getX() < 0)
 	{
 		SCENEMANAGER->loadScene("Å¸¿î¾À");
-<<<<<<< HEAD
-=======
+
 		_eMG->release();
 		_iMG->release();
-		//isFrist = true;
->>>>>>> 470ec218d9a9d2fe73425bf77285540fb1af0de2
 	}
 }
 

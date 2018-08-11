@@ -134,11 +134,8 @@ void townScene::update(void)
 	if (_player->getX() < 0)
 	{
 		test = true;
-<<<<<<< HEAD
+
 		SCENEMANAGER->loadScene("월드맵");
-=======
-		SCENEMANAGER->loadScene("보스");
->>>>>>> 470ec218d9a9d2fe73425bf77285540fb1af0de2
 		SOUNDMANAGER->stop("마을배경사운드");
 	}
 
