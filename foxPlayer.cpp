@@ -10,17 +10,11 @@ HRESULT foxPlayer::init(void)
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
-<<<<<<< HEAD
-	_cuticle = new cuticle;
-	_cuticle->init(500);
-
 	_poison = new poison;
 	_poison->init(600.f);
 
 	_player.x = 9500;
 	_player.y = 1250;
-=======
-
 
 	_cuticle = new cuticle;
 	_cuticle->init(500);
@@ -31,7 +25,6 @@ HRESULT foxPlayer::init(void)
 
 
 
->>>>>>> 7a01130e7d1e0d942c8af65449243f8357f0385f
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
 	_player.gravity = 0.f;
@@ -808,67 +801,7 @@ void foxPlayer::enemyCollision()
 			}
 		}
 	}
-	if (unDamage > 15)
-	{
-		RECT collRc;
-		if (IntersectRect(&collRc, &_player.collisionRc, &_enemyManger->getBoss()->getRc()))
-		{
-			if (chk == false)
-			{
-				_player.HP -= 5;
-				chk = true;
-			}
-			int width = (collRc.right - collRc.left) + 50;
-			int height = (collRc.bottom - collRc.top) + 50;
-
-			if (_player.x < _enemyManger->getBoss()->getRc().left)
-			{
-				if (_player.x > width)
-				{
-					_player.x -= 30;
-				}
-				if (_player.y > height)
-				{
-					_player.y -= 30;
-				}
-			}
-			else if (_player.x > _enemyManger->getBoss()[i]->getRc().right)
-			{
-				if (_player.x < width)
-				{
-					_player.x += 30;
-				}
-				if (_player.y < height)
-				{
-					_player.y += 30;
-				}
-			}
-			else if (_player.y < _enemyManger->getBoss()[i]->getRc().top)
-			{
-				if (_player.x > width)
-				{
-					_player.x -= 30;
-				}
-				if (_player.y > height)
-				{
-					_player.y -= 30;
-				}
-			}
-			else if (_player.y > _enemyManger->getBoss()->getRc().bottom)
-			{
-				if (_player.x < width)
-				{
-					_player.x += 30;
-				}
-				if (_player.y < height)
-				{
-					_player.y += 30;
-				}
-			}
-			_state = HIT;
-			unDamage = 0;
-		}
-	}
+	
 }
 //todo : 적의 공격에 충돌
 void foxPlayer::enemyAttCollision()
@@ -1011,10 +944,6 @@ void foxPlayer::test()
 		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
 		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
 	}*/
-<<<<<<< HEAD
-=======
-
->>>>>>> 7a01130e7d1e0d942c8af65449243f8357f0385f
 }
 void foxPlayer::playerUI()
 {

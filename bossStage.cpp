@@ -149,7 +149,12 @@ void bossStage::update(void)
 		}
 
 	}
-
+	RECT tempRc;
+	if (IntersectRect(&tempRc, &_player->getCollisionRc(), &_bee->getRc()))
+	{
+		_player->setState(HIT);
+	}
+	
 
 }
 

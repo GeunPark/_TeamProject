@@ -186,6 +186,9 @@ public:
 	int getUnHit() { return unDamage; }
 	void setUnHit(int a) { unDamage = a; }
 
+	//tagState getState() { return _state; }
+	//void setState(tagState state) { _state = state; }
+
 	// 테스트 함수
 	void test();
 	void playerUI();

@@ -43,14 +43,11 @@ HRESULT stage1::init(void)
 	////_effMG->init();
 	//_effMG->setPlayerLink(_player);
 
-<<<<<<< HEAD
 
 
 
 	_effMG = effectManager::getSingleton();
 
-=======
->>>>>>> 7a01130e7d1e0d942c8af65449243f8357f0385f
 	_effMG = effectManager::getSingleton();
 	shopMode = false;
 
@@ -309,10 +306,6 @@ void stage1::render(void)
 	_iMG->render();
 
 	_eMG->render();
-<<<<<<< HEAD
-=======
-
->>>>>>> 7a01130e7d1e0d942c8af65449243f8357f0385f
 	_ui->render();
 	//for (int i = 0; i < _vEffect.size(); i++)
 	//{
