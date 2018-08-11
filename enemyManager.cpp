@@ -251,9 +251,26 @@ void enemyManager::update(void)
 			if (IntersectRect(&_rct, &_vEnemy[i]->getCollisionRc(), &_player->getArrow()->getVArrow()[j].rc))
 			{
 				//_vEnemy[i]->setState(ENEMY_DEAD);
-				_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 
-				_vEnemy[i]->setIsActived(false);
+
+				if (_vEnemy[i]->getType() == TREEMAN)
+				{
+					if (_vEnemy[i]->getIsStrong())
+					{
+						_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+
+						_vEnemy[i]->setIsActived(false);
+					}
+					_vEnemy[i]->setIsStrong(true);
+
+				}
+				else
+				{
+					_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+
+					_vEnemy[i]->setIsActived(false);
+
+				}
 				//_vEnemy.erase(_vEnemy.begin() + i);
 
 				//선수씨~ 여기다가 저의 흔적을 남기고가요~ㅎㅎ

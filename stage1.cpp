@@ -35,9 +35,13 @@ HRESULT stage1::init(void)
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
+<<<<<<< HEAD
+
+=======
 	if (isFrist == false)
 		_eMG->init();
 	_eMG->init();
+>>>>>>> b460d98272f4ef9199f1c8610eaa282863257ce6
 
 	_shop = SAVEDATA->getShop();
 	_shop->setPlayerManager(_player);
