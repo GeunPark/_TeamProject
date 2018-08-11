@@ -10,19 +10,30 @@ HRESULT foxPlayer::init(void)
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
+<<<<<<< HEAD
+	_magic = new magic;
+	_magic->init();
+	//_cuticle = new cuticle;
+	//_cuticle->init(500);
+=======
 	_poison = new poison;
 	_poison->init(600.f);
 
 	_player.x = 9500;
 	_player.y = 1250;
+>>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 
 	_cuticle = new cuticle;
 	_cuticle->init(500);
 
-
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
 
+<<<<<<< HEAD
+	_cuticle = new cuticle;
+	_cuticle->init(500);
+=======
+>>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 
 
 	_player.speed = 6.f;
@@ -34,7 +45,6 @@ HRESULT foxPlayer::init(void)
 	_player.isJump = false;
 
 	index = count = actionCount = index2 = jumpCount = hitCount = unDamage = weatherIndex = effectIndex = effectCount = jumpAttCount = unDamage = alphaCount = 0;
-
 	animationSpeed = 6;
 
 	_player.maxMana = _player.mana = 100;
@@ -46,7 +56,20 @@ HRESULT foxPlayer::init(void)
 	_camera.x = _player.x;
 	_camera.y = _player.y;
 
+	arrowNum = 2;
+	arrowNumChk = 0;
+
+	magicNum = 3;
+	magicNumCHk = 0;
+
+	_magicUseCount = 0;
+	_magicUseChk = false;
+	_magicUseChk2 = false;
+
+	tempX = tempY = 0;
 	_bpx = IMAGEMANAGER->findImage("스테이지1 픽셀");
+
+
 
 	return S_OK;
 }
@@ -59,11 +82,19 @@ void foxPlayer::release(void)
 void foxPlayer::update(void)
 {
 	playerUI();
+	this->pixelCollision();		//픽셀충돌 함수 호출
+	this->frameMove();		//프레임 움직이는 함수 호출
+	this->attRect();
+	//여우 상태 
+	this->foxState();
+	_cuticle->update();
+	this->camera();			//카메라 움직이는 함수 호출
+	this->keySetting();	  //키셋팅 함수 호출
+	_magic->update();
+	_arrow->update();
+	test();
 
 	_player.gravity += 0.58f;
-
-	this->keySetting();	  //키셋팅 함수 호출
-
 	if (_state == JUMP)
 	{
 		if (-sinf(_player.angle) * _player.jumpSpeed + _player.gravity > 0)
@@ -82,13 +113,15 @@ void foxPlayer::update(void)
 
 	//점프할때랑 픽셀충돌하지않을때 플레이어를 밑으로 내려줌
 	_player.y += -sinf(_player.angle) * _player.jumpSpeed + _player.gravity;
-
 	_player.collisionRc = RectMakeCenter(_player.x, _player.y + 40, 50, 85);
 
+<<<<<<< HEAD
+=======
 	this->pixelCollision();		//픽셀충돌 함수 호출
 
 	this->frameMove();		//프레임 움직이는 함수 호출
 
+>>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 	//적과 충돌
 	if (KEYMANAGER->isToggleKey(VK_F3))
 	{
@@ -97,12 +130,55 @@ void foxPlayer::update(void)
 	}
 
 	//공격렉트 생성
-	this->attRect();
-	//여우 상태 
-	this->foxState();
+	_magic->setvthundwe(_camera.rc.left, _camera.rc.top);
+	_magic->nightMove(_camera.rc.right - 400 - a, _camera.rc.top + 200);
 	
-	_arrow->update();
+	if (KEYMANAGER->isOnceKeyDown('P'))
+	{
+		_magicUseChk = true;
+	}
+	if (_magicUseChk == true)
+	{
+		_magicUseCount += 1;
+		for (int i = 0; i < _magic->getvthunder().size(); i++)
+		if (_magicUseCount > 60)
+		{
+			_magicUseCount = 0;
+			_magicUseChk = false;
+		}
+	}
+	if (KEYMANAGER->isOnceKeyDown('B'))
+	{
+		if (_magicUseChk2 == false)
+		{
+			_magicUseChk2 = true;
+		}
 	
+<<<<<<< HEAD
+	}
+	if (_magicUseChk2 == true)
+	{
+		_magic->a();
+		a+= 10;
+		if (_magic->getvnightMare()[0]._rc.right < _camera.rc.left)
+		{
+			a = 0;
+			_magicUseChk2 = false;
+		}
+	}
+	if (KEYMANAGER->isOnceKeyDown('U'))
+	{
+		arrowNumChk += 1;
+		if (arrowNumChk > arrowNum - 1)arrowNumChk = 0;
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('I'))
+	{
+		magicNumCHk += 1;
+		if (magicNumCHk > magicNum - 1)magicNumCHk = 0;
+	}
+	
+=======
 	this->test();
 
 	_cuticle->update();
@@ -111,6 +187,7 @@ void foxPlayer::update(void)
 
 	this->camera();			//카메라 움직이는 함수 호출
 
+>>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 	_player.rc = RectMakeCenter(_player.x, _player.y, nick[_state]->getFrameWidth(), nick[_state]->getFrameHeight());
 	twinkleRc = RectMakeCenter(_player.x, _player.y + 50, _twinkle->getFrameWidth(), _twinkle->getFrameHeight());
 	_camera.rc = RectMakeCenter(_camera.x, _camera.y, WINSIZEX, WINSIZEY);
@@ -168,18 +245,35 @@ void foxPlayer::render()
 	{
 		_poison->getPoison()[i].poisonImage->frameRender(getMemDC(), _poison->getPoison()[i].rc.left - _camera.rc.left, _poison->getPoison()[i].rc.top - _camera.rc.top);
 	}
+<<<<<<< HEAD
+
+	for (int i = 0; i <_magic->getvthunder().size(); ++i)
+	{
+		if (_magicUseChk == true)_magic->getvthunder()[i]._img->frameRender(getMemDC(), _magic->getvthunder()[i]._x - _camera.rc.left, _magic->getvthunder()[i]._y - _camera.rc.top);
+	}
+	if (_magicUseChk2 == true)
+	{
+		_magic->getvnightMare()[0]._img2->render(getMemDC(), (_magic->getvnightMare()[0]._x + 25) - _camera.rc.left, (_magic->getvnightMare()[0]._y - 25) - _camera.rc.top);
+		_magic->getvnightMare()[0]._img->render(getMemDC(), _magic->getvnightMare()[0]._x - _camera.rc.left, _magic->getvnightMare()[0]._y - _camera.rc.top);
+
+	}
+=======
 	
+>>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 	if (KEYMANAGER->isToggleKey(VK_F1))
 	{
 		for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
 		{
-			Rectangle(getMemDC(), _enemyManger->getEnemy()[i]->getRc().left - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().top - _camera.rc.top, _enemyManger->getEnemy()[i]->getRc().right - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().bottom - _camera.rc.top);
+			if (_magicUseChk == true)Rectangle(getMemDC(), _enemyManger->getEnemy()[i]->getRc().left - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().top - _camera.rc.top, _enemyManger->getEnemy()[i]->getRc().right - _camera.rc.left, _enemyManger->getEnemy()[i]->getRc().bottom - _camera.rc.top);
 		}
 	}
+	for (int i = 0; i < _magic->getvthunder().size(); i++)
+	{
+		Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
+	}
+	Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
-	char str[128];
-	sprintf(str, "중력 : %f, 인덱스 : %d, 상태 : %d, 인덱스2 : %d, 날씨 : %d", _player.gravity, index, _state, index2, weatherIndex);
-	TextOut(getMemDC(), 100, 600, str, strlen(str));
+
 }
 
 //ToDo : 이미지 셋팅
@@ -477,7 +571,7 @@ void foxPlayer::keySetting()
 		_state = IDLE;
 	}
 	//공격이 끝난후 false처리
-	if ((index >= nick[_state]->getMaxFrameX() || index2 <= 0) && _state != FIRE && _state != IDLE && _state != HIT && _state != JUMP && _state != DOUBLEJUMP && _state != SIT && _state != RUN && _state != WEATHER && _state != FALL && _state != FALL2)
+	if ((index < nick[_state]->getMaxFrameX() || index2 > 0) && _state != FIRE && _state != IDLE && _state != HIT && _state != JUMP && _state != DOUBLEJUMP && _state != SIT && _state != RUN && _state != WEATHER && _state != FALL && _state != FALL2)
 	{
 		_player.isAtt = true;
 	}
@@ -903,6 +997,21 @@ void foxPlayer::foxState()
 	}
 }
 
+void foxPlayer::magicCollision()
+{
+	RECT _rcT;
+	for (int i = 0; i < _magic->getvthunder().size(); i++)
+	{
+		for (int j = 0; j < _enemyManger->getEnemy().size(); j++)
+		{
+			if (IntersectRect(&_rcT, &_magic->getvthunder()[i]._rc, &_enemyManger->getEnemy()[j]->getCollisionRc()))
+			{
+			
+			}
+		}
+	}
+}
+
 void foxPlayer::test()
 {
 	if (KEYMANAGER->isOnceKeyDown('F') && _player.MaxHp < 100)
@@ -937,6 +1046,8 @@ void foxPlayer::test()
 	{
 		_player.gold -= 100;
 	}
+<<<<<<< HEAD
+=======
 
 	/*if (KEYMANAGER->isOnceKeyDown('U'))
 	{
@@ -944,6 +1055,7 @@ void foxPlayer::test()
 		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
 		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
 	}*/
+>>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 }
 void foxPlayer::playerUI()
 {

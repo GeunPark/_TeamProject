@@ -268,9 +268,37 @@ void enemyManager::update(void)
 		}
 
 	}
+	for (int i = 0; i < _vEnemy.size(); ++i)
+	{
+		for (int j = 0; j < _player->getMagic()->getvthunder().size(); j++)
+		{
+			RECT _rct;
+			if (IntersectRect(&_rct, &_vEnemy[i]->getCollisionRc(),&_player->getMagic()->getvthunder()[j]._rc))
+			{
+				if (_player->getmagicUseChk() == true)_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+
+				if(_player->getmagicUseChk() == true)_vEnemy[i]->setIsActived(false);
+			}
+		}
+	}
 
 	for (int i = 0; i < _vEnemy.size(); ++i)
 	{
+<<<<<<< HEAD
+		
+		RECT _rct2;
+		if (IntersectRect(&_rct2, &_vEnemy[i]->getCollisionRc(), &_player->getMagic()->getvnightMare()[0]._rc))
+		{
+			if (_player->getmagicUseChk2() == true)_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+			if (_player->getmagicUseChk2() == true)_vEnemy[i]->setIsActived(false);
+		}
+		
+	}
+	//if (KEYMANAGER->isStayKeyDown(VK_RBUTTON))
+	//{
+	//	EFFECTMANAGER->play("ÀáÀÚ¸®Á×À½",100, 100);
+	//}
+=======
 		if (_vEnemy[i]->getType() == ELECTRICEEL)
 		{
 			if (_player->getAng())
@@ -309,6 +337,7 @@ void enemyManager::update(void)
 
 
 
+>>>>>>> 6feb6882fd506c81d21945e18013937e595264f3
 
 
 	this->beAttackedEffect();

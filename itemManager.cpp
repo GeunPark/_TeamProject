@@ -189,7 +189,7 @@ void itemManager::update(void)
 					//_vEnemy[i]->setState(ENEMY_DEAD);
 					//_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 					_vItemBox[i]->setIsActive(true);
-					_player->setIsAtt(false);
+					
 
 					if (i == 3 )
 					{

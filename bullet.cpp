@@ -397,7 +397,7 @@ void beeBullet::fire(float x, float y, int bulletMax)
 			//구조체의 변수들의 값을 한번에 0으로 초기화 시켜준다
 			ZeroMemory(&bullet, sizeof(tagBullet));
 			bullet.bulletImage = IMAGEMANAGER->findImage("벌bullet");
-			bullet.speed = 0.2f;
+			bullet.speed = 0.1f;
 			bullet.angle = PI / 180 * (i * 30) + fireNum * 3;
 			bullet.x = x;
 			bullet.y = y;
@@ -435,7 +435,7 @@ void beeBullet::move()
 			//}
 			_vBullet[i].x += cosf(_vBullet[i].angle)*_vBullet[i].speed;
 			_vBullet[i].y += -sinf(_vBullet[i].angle)*_vBullet[i].speed;
-			_vBullet[i].rc = RectMakeCenter(_vBullet[i].x, _vBullet[i].y, 20, 20);
+			_vBullet[i].rc = RectMakeCenter(_vBullet[i].x, _vBullet[i].y, 50, 50);
 
 			if (getDistance(_vBullet[i].x, _vBullet[i].y, _vBullet[i].fireX, _vBullet[i].fireY) > _range || _vBullet[i].count == 10000)
 			{
