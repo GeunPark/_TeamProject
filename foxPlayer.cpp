@@ -325,7 +325,8 @@ void foxPlayer::keySetting()
 	if (KEYMANAGER->isOnceKeyDown('A'))
 	{
 		//화살 발사
-		if (_state != FIRE && _state != SIT && _state != JUMP && _state != DOUBLEJUMP && _state != FALL && _state != FALL2 && !_player.isUp && _state != JUMPATT && _state != JUMPATT2)
+		if (_state != FIRE && _state != SIT && _state != JUMP && _state != DOUBLEJUMP && _state != FALL && _state != FALL2 
+			&& !_player.isUp && _state != JUMPATT && _state != JUMPATT2 && _state != HIT && _state != DEATH)
 		{
 			if (_player.isFoxLeft)
 			{
@@ -529,7 +530,7 @@ void foxPlayer::keySetting()
 		effectIndex = 0;
 	}
 }
-
+//todo ; 공격 렉트 생성
 void foxPlayer::attRect()
 {
 	if (_player.isAtt && _state == SITATT)
@@ -693,7 +694,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 		int g = GetGValue(color);
 		int b = GetBValue(color);
 
-		if ((r == 0 && g == 255 && b == 255) || (r == 255 && g == 0 && b == 0))
+		if ((r == 0 && g == 255 && b == 255) || (!ang && (r == 255 && g == 0 && b == 0)))
 		{
 			_player.y = i - (_player.collisionRc.bottom - _player.collisionRc.top) / 2 - 40;
 			_player.gravity = 0.f;
@@ -701,7 +702,7 @@ void foxPlayer::pixelCollision()		//픽셀 충돌
 			_player.jumpSpeed = 0.f;
 			jumpCount = 0;
 			actionCount = 0;
-			if (_state == FALL || _state == FALL2)
+			if (_state == FALL || _state == FALL2 || _state == JUMPATT || _state == JUMPATT2)
 			{
 				_state = IDLE;
 			}
@@ -796,7 +797,7 @@ void foxPlayer::enemyCollision()
 		}
 	}
 }
-
+//todo : 적의 공격에 충돌
 void foxPlayer::enemyAttCollision()
 {
 	for (int i = 0; i < _enemyManger->getEnemy().size(); ++i)
@@ -873,7 +874,7 @@ void foxPlayer::removeArrow(int index)
 {
 	_arrow->removeArrow(index);
 }
-
+//todo : 여우상태
 void foxPlayer::foxState()
 {
 	if (_state == IDLE || _state == RUN || _state == SIT || _state == JUMP || _state == DOUBLEJUMP || _state == FALL || _state == FALL2)
