@@ -82,6 +82,7 @@ private:
 
 
 	image* feild;
+	image* stageClearImg;
 	//image* feild[4];
 	image* feildIce;
 	image* feildpixel;
@@ -111,7 +112,9 @@ private:
 	bool _neolttwigiColls;
 
 	bool isFrist = false;
-
+	bool stageClearChk;
+	int stageClearCount;
+	
 	//int _x, _y;
 public:
 
