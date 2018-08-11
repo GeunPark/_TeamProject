@@ -3,7 +3,6 @@
 #include "arrow.h"
 #include "cuticle.h"
 #include "magic.h"
-#include "shop.h"
 #include "poison.h"
 
 #define MAX_HEIGHT 2500
@@ -11,7 +10,6 @@
 #define MAX_STATE 16
 
 class enemyManager;
-
 
 enum tagState
 {
@@ -81,7 +79,6 @@ private:
 
 	arrow* _arrow;
 	magic* _magic;
-	shop * _shop;
 	cuticle* _cuticle;
 	poison* _poison;
 	
@@ -186,6 +183,7 @@ public:
 
 	//에너미매니저와 상호참조
 	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
+	
 	tagPlayer getTag() { return _player; }
 
 	// 계절을 변화시켰는지 아닌지 판별
@@ -196,7 +194,7 @@ public:
 	
 	arrow* getArrow() { return _arrow; }
 	magic* getMagic() {return _magic;}
-	shop* getShop() { return _shop; }
+	
 
 	RECT getCollisionRc() { return _player.collisionRc; }
 
@@ -218,6 +216,8 @@ public:
 
 	int getMagicNUm() { return magicNum; }
 	int getMagicNUmChk() { return magicNumCHk; }
+
+	void setMagicNum(int a) { magicNum = a; }
 
 	foxPlayer() {}
 	~foxPlayer() {}

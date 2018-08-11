@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "foxPlayer.h"
 #include "enemyManager.h"
+#include "shop.h"
 
 //ToDo : init
 HRESULT foxPlayer::init(void)
@@ -26,8 +27,7 @@ HRESULT foxPlayer::init(void)
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
 
-	_cuticle = new cuticle;
-	_cuticle->init(500);
+
 
 
 	_player.speed = 6.f;
@@ -43,7 +43,7 @@ HRESULT foxPlayer::init(void)
 
 	_player.maxMana = _player.mana = 100;
 	_player.HP = _player.MaxHp = 50;
-	_player.gold = 0;
+	_player.gold = 9999;
 	eftChk = false;
 	_state = IDLE;
 
@@ -53,7 +53,7 @@ HRESULT foxPlayer::init(void)
 	arrowNum = 2;
 	arrowNumChk = 0;
 
-	magicNum = 3;
+	magicNum = 0;
 	magicNumCHk = 0;
 
 	_magicUseCount = 0;
@@ -86,6 +86,7 @@ void foxPlayer::update(void)
 	this->keySetting();	  //키셋팅 함수 호출
 	_magic->update();
 	_arrow->update();
+
 
 	_player.gravity += 0.58f;
 	if (_state == JUMP)
@@ -125,8 +126,23 @@ void foxPlayer::update(void)
 	
 	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
-		_magicUseChk = true;
+		if (magicNum > 0 && _player.mana == _player.maxMana)
+		{
+			if (magicNumCHk == 0)
+			{
+				_magicUseChk2 = true;
+				
+			}
+			else if (magicNumCHk == 1)
+			{
+				_magicUseChk = true;
+			}
+			_player.mana = 0;
+		}
+
 	}
+	
+
 	if (_magicUseChk == true)
 	{
 		_magicUseCount += 1;
@@ -137,14 +153,7 @@ void foxPlayer::update(void)
 			_magicUseChk = false;
 		}
 	}
-	if (KEYMANAGER->isOnceKeyDown('B'))
-	{
-		if (_magicUseChk2 == false)
-		{
-			_magicUseChk2 = true;
-		}
 	
-	}
 	if (_magicUseChk2 == true)
 	{
 		_magic->a();
@@ -254,7 +263,9 @@ void foxPlayer::render()
 		Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
 	}
 	Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
-
+	char str[128];
+	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
+	TextOut(getMemDC(), 100, 600, str, strlen(str));
 
 }
 

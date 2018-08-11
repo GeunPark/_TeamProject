@@ -3,6 +3,7 @@
 
 #define MAXHEART 10
 class foxPlayer;
+class shop;
 
 struct tagBox
 {
@@ -38,15 +39,16 @@ private:
 	image * _warningLine;
 	image * _magicImage[5];
 	foxPlayer * _player;
+	shop* _shop;
 	int manaUpNum;
 	int manaWarning;
 	int MaxMana;
-	
+
 	int _frameNum[4];
 	bool frameNumChk[4];
 	bool _isManaUse;
 	int _goldNum;
-	
+
 	int b = 0;
 	int _heartNum;
 	bool _isManaWarning;
@@ -66,7 +68,7 @@ public:
 	void nowHeart();
 	void nowArrow();
 	void nowMagic();
-	
+
 
 
 	void nowGold();
@@ -78,6 +80,7 @@ public:
 
 	//get, set ÇÔ¼öµé
 	void setPlayerManager(foxPlayer* player) { _player = player; }
+	void setShopLink(shop* shop) { _shop = shop; }
 	//void setPLink(foxPlayer* py) { _players = py; }
 	UI() {}
 	~UI() {}
