@@ -18,10 +18,10 @@ HRESULT stage1::init(void)
 	eftInit();
 
 	_player = SAVEDATA->getPlayer();
-	_player->setX(100);
+	_player->setX(6500);
 	_player->setY(2300);
 	_player->setBgPixel(feildpixel);
-	_player->setEnemyManager(_eMG);
+	_player->setEnemyManager(SAVEDATA->getEnemyManager());
 
 	_ui = SAVEDATA->getUI();
 	_ui->setPlayerManager(_player);
@@ -32,21 +32,16 @@ HRESULT stage1::init(void)
 	_iMG->setPlayerLink(_player);
 
 	_eMG = SAVEDATA->getEnemyManager();
-	if(isFrist == false)
-		_eMG->init();
+	_eMG->init();
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
-<<<<<<< HEAD
-	//_effMG = SAVEDATA->getEffectManager();
-	////_effMG->init();
-	//_effMG->setPlayerLink(_player);
 
-	_effMG = effectManager::getSingleton();
+
+
 	shopMode = false;
 
-=======
->>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
+
 	_normalBack1._x = 0;
 	_normalBack1._y = 0;
 	_normalBack1._img = IMAGEMANAGER->findImage("레이어1");
@@ -62,6 +57,8 @@ HRESULT stage1::init(void)
 	_winterBack2._img = IMAGEMANAGER->findImage("레이어2 겨울");
 	_winterBack2._x = 0;
 	_winterBack2._y = 0;
+
+
 
 	_effMG = effectManager::getSingleton();
 	_effMG->setPlayerLink(_player);
@@ -110,7 +107,6 @@ void stage1::update(void)
 	//리셋(임시)
 	if (KEYMANAGER->isOnceKeyDown('R'))
 	{
-		isFrist = true;
 		this->init();
 	}
 	if (_state == WINTER && _bagrandslide != WINSIZEX)
@@ -141,6 +137,11 @@ void stage1::update(void)
 	}
 	
 	for (int i = 0; i<_vEffect.size(); i++)_vEffect[i]->update();
+
+	if (_player->getX() < 0)
+	{
+		SCENEMANAGER->loadScene("타운씬");
+	}
 }
 
 void stage1::render(void)

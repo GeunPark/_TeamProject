@@ -260,6 +260,9 @@
     <ClInclude Include="bossStage.h">
       <Filter>MainGame\근화</Filter>
     </ClInclude>
+    <ClInclude Include="worldMapScene.h">
+      <Filter>MainGame\근화</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -413,6 +416,9 @@
       <Filter>MainGame\근화</Filter>
     </ClCompile>
     <ClCompile Include="bossStage.cpp">
+      <Filter>MainGame\근화</Filter>
+    </ClCompile>
+    <ClCompile Include="worldMapScene.cpp">
       <Filter>MainGame\근화</Filter>
     </ClCompile>
   </ItemGroup>

@@ -19,6 +19,7 @@ HRESULT mainGame::init(void)
 	SCENEMANAGER->addScene("타운씬", new townScene);
 	SCENEMANAGER->addScene("스테이지1", new stage1);
 	SCENEMANAGER->addScene("보스", new bossStage);
+	SCENEMANAGER->addScene("월드맵", new worldMapScene);
 
 	_player = new foxPlayer;
 	SAVEDATA->setPlayer(_player);
@@ -35,9 +36,6 @@ HRESULT mainGame::init(void)
 	_im = new itemManager;
 	SAVEDATA->setItemManager(_im);
 
-	//_effMG = new effectManager;
-	//SAVEDATA->setEffectManager(_effMG);
-	//_effMG->init();
 
 	/*현재씬 설정*/
 	SCENEMANAGER->loadScene("로딩화면");

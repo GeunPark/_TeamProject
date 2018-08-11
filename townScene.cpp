@@ -107,7 +107,7 @@ void townScene::update(void)
 	if (_player->getX() < 0)
 	{
 		test = true;
-		SCENEMANAGER->loadScene("스테이지1");
+		SCENEMANAGER->loadScene("월드맵");
 		SOUNDMANAGER->stop("마을배경사운드");
 	}
 

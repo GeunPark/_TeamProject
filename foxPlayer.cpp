@@ -7,29 +7,17 @@ HRESULT foxPlayer::init(void)
 {
 	imageSetting();
 
-<<<<<<< HEAD
-=======
-	
 
->>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
 	_cuticle = new cuticle;
 	_cuticle->init(500);
-<<<<<<< HEAD
-
-	_player.x = 6500;
-	_player.y = MAX_HEIGHT - 150;
-
-	_player.x = 9500;
-	_player.y = 1250;
-=======
 
 
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
->>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
+
 
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
@@ -116,11 +104,7 @@ void foxPlayer::update(void)
 	this->test();
 
 	_cuticle->update();
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 
 	this->camera();			//카메라 움직이는 함수 호출
 	test();
@@ -938,15 +922,6 @@ void foxPlayer::test()
 	{
 		_player.gold -= 100;
 	}
-
-<<<<<<< HEAD
-	/*if (KEYMANAGER->isOnceKeyDown('U'))
-	{
-		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
-		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
-	}*/
-=======
->>>>>>> 1103e685c8423c6cf8505dc1f6fcd871ffa665bc
 }
 void foxPlayer::playerUI()
 {

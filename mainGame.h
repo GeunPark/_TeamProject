@@ -6,6 +6,7 @@
 #include "townScene.h"
 #include "stage1.h"
 #include "bossStage.h"
+#include "worldMapScene.h"
 
 #include "foxPlayer.h"
 #include "UI.h"
