@@ -23,6 +23,7 @@ private:
 	float _range;
 	int fireNum;
 	int count, index;
+	int indexX, indexY;
 	int bCount;
 	bool _isFire;
 public:
@@ -38,6 +39,9 @@ public:
 	void frameMove();
 
 	void removeCuticle(int index);
+
+	int getIndexX() { return indexX; }
+	int getIndexY() { return indexY; }
 
 	vector<tagPoison> getPoison() { return _vPoison; }
 
