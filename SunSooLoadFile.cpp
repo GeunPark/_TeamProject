@@ -78,7 +78,7 @@ void loadingScene::SunSooImage()
 	_loading->loadFrameImage("꼼장어deadR", "resource/이선수/몬스터/이펙트/꼼장어deadR.bmp", 2220, 174, 10, 1);
 	
 	//아이템
-	_loading->loadFrameImage("아이템이펙트", "resource/이선수/아이템/이펙트/아이템이펙트.bmp", 240, 40, 6, 1, true, MAGENTA);
+	_loading->loadFrameImage("아이템이펙트", "resource/이선수/아이템/이펙트/아이템이펙트.bmp", 360, 60, 6, 1, true, MAGENTA);
 
 }
 
