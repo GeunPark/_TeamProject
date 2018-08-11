@@ -145,7 +145,7 @@ void itemManager::update(void)
 			//_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 			if (_vItem[i]->getItemType() == HEALTH_LARGE)
 			{
-				_player->setHp(_player->getHp() + 10);
+				_player->setHp(_player->getHp() + 30);
 			}
 			else if(_vItem[i]->getItemType() == HEALTH_SMALL)
 			{

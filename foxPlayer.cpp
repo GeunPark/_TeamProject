@@ -19,7 +19,7 @@ HRESULT foxPlayer::init(void)
 	_cuticle = new cuticle;
 	_cuticle->init(500);
 
-	_player.x = 300;
+	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
@@ -36,7 +36,7 @@ HRESULT foxPlayer::init(void)
 	_player.maxMana = _player.mana = 100;
 	_player.HP = _player.MaxHp = 50;
 	_player.gold = 0;
-
+	eftChk = false;
 	_state = IDLE;
 
 	_camera.x = _player.x;
@@ -107,7 +107,7 @@ void foxPlayer::update(void)
 	_ui->update();
 
 	this->camera();			//카메라 움직이는 함수 호출
-
+	test();
 	_player.rc = RectMakeCenter(_player.x, _player.y, nick[_state]->getFrameWidth(), nick[_state]->getFrameHeight());
 	twinkleRc = RectMakeCenter(_player.x, _player.y + 50, _twinkle->getFrameWidth(), _twinkle->getFrameHeight());
 	_camera.rc = RectMakeCenter(_camera.x, _camera.y, WINSIZEX, WINSIZEY);
@@ -307,7 +307,7 @@ void foxPlayer::keySetting()
 
 	if (jumpCount < 2)
 	{
-		if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+		if (KEYMANAGER->isOnceKeyDown(VK_SPACE) && _state != HIT)
 		{
 			++jumpCount;
 			_player.jumpSpeed = 10.f;
@@ -478,6 +478,7 @@ void foxPlayer::keySetting()
 
 	if (KEYMANAGER->isOnceKeyDown('S') && _state == IDLE)
 	{
+		if (eftChk == false)eftChk = true;
 		if (!ang && _player.mana > 30)
 		{
 			ang = true;
@@ -932,6 +933,12 @@ void foxPlayer::test()
 	if (KEYMANAGER->isStayKeyDown('M') && _player.gold > 0)
 	{
 		_player.gold -= 100;
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('U'))
+	{
+		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
+		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
 	}
 }
 void foxPlayer::playerUI()

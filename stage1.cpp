@@ -37,7 +37,6 @@ HRESULT stage1::init(void)
 	_shop->init();
 
 	_effMG = effectManager::getSingleton();
-
 	shopMode = false;
 
 	_normalBack1._x = 0;
@@ -100,7 +99,7 @@ void stage1::update(void)
 	this->stageClear();
 	//To Do : 기훈아 내일 이거 건들지말아바 -근화- ##############################################################################################
 	imageMove();
-
+	this->beecollision();
 	//플레이어
 	_player->update();
 	//에너미매니저
@@ -122,36 +121,32 @@ void stage1::update(void)
 	}
 	if (_state == WINTER && _bagrandslide != WINSIZEX)
 	{
-		if (_player->getEftChk() == true)
-		{
-			for (int i = 0; i < _vEffect.size(); i++)
-			{
-				_vEffect[i]->startEffect(_eftX[i] - _player->getPlayerCam().left, _eftY[i] - _player->getPlayerCam().top);
-			}
 		
-			_player->setEftChk(false);
-		}
 		_bagrandslide += 32;
 	}
 	if (_state == SUMMER)
 	{
-		if (_player->getEftChk() == true)
-		{
-			for (int i = 0; i < _vEffect.size(); i++)
-			{
-				_vEffect[i]->startEffect(_eftX[i] - _player->getPlayerCam().left, _eftY[i] - _player->getPlayerCam().top);
-			}
-			_player->setEftChk(false);
-		}
+		
 		_bagrandslide = 0;
+	}
+
+	if (_player->getEftChk() == true)
+	{
+
+		for (int i = 0; i < _vEffect.size(); i++)
+		{
+			_vEffect[i]->startEffect(_eftX[i] - _player->getPlayerCam().left, _eftY[i] - _player->getPlayerCam().top);
+		}
+		_player->setEftChk(false);
+
 	}
 	this->bgMove();
 
 	for (int i = 0; i < 2; i++)
 	{
-		
-		_bee[i].rc = RectMake(_bee[i].x - _player->getPlayerCam().left, _bee[i].y - _player->getPlayerCam().top, 240, 240);
+		_bee[i].rc = RectMake(_bee[i].x, _bee[i].y , 240, 240);
 	}
+	
 	for (int i = 0; i<_vEffect.size(); i++)_vEffect[i]->update();
 }
 
@@ -215,20 +210,7 @@ void stage1::render(void)
 			feild[i]->render(getMemDC(), 0 + 2500 * i, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
 		}
 		*/
-		if (_neolttwigiColls == false)
-		{
-			_neolttwigi[0]._img->render(getMemDC(), _neolttwigi[0].x - _player->getPlayerCam().left, _neolttwigi[0].y - _player->getPlayerCam().top);
-			_brid[0]._img->frameRender(getMemDC(), _brid[0].x - _player->getPlayerCam().left, _brid[0].y - _player->getPlayerCam().top);
-		}
-		else if (_neolttwigiColls == true)
-		{
-			_neolttwigi[1]._img->frameRender(getMemDC(), _neolttwigi[1].x - _player->getPlayerCam().left, _neolttwigi[1].y - _player->getPlayerCam().top);
-			_brid[1]._img->render(getMemDC(), _brid[1].x - _player->getPlayerCam().left, _brid[1].y - _player->getPlayerCam().top);
-		}
-		for (int i = 0; i < 2; i++)
-		{
-			Rectangle(getMemDC(), _neolttwigi[0].rc);
-		}
+	
 	}
 
 	if (_state == WINTER)
@@ -286,11 +268,34 @@ void stage1::render(void)
 	//	}
 	}
 	// 픽셀 이미지 출력
+
+	for (int i = 0; i < _vEffect.size(); i++)
+	{
+		_vEffect[i]->render(0, 0);
+	}
+
+	if (_neolttwigiColls == false)
+	{
+		_neolttwigi[0]._img->render(getMemDC(), _neolttwigi[0].x - _player->getPlayerCam().left, _neolttwigi[0].y - _player->getPlayerCam().top);
+		_brid[0]._img->frameRender(getMemDC(), _brid[0].x - _player->getPlayerCam().left, _brid[0].y - _player->getPlayerCam().top);
+	}
+	else if (_neolttwigiColls == true)
+	{
+		_neolttwigi[1]._img->frameRender(getMemDC(), _neolttwigi[1].x - _player->getPlayerCam().left, _neolttwigi[1].y - _player->getPlayerCam().top);
+		_brid[1]._img->render(getMemDC(), _brid[1].x - _player->getPlayerCam().left, _brid[1].y - _player->getPlayerCam().top);
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		Rectangle(getMemDC(), _neolttwigi[0].rc);
+	}
 	if (KEYMANAGER->isToggleKey(VK_F4))
 	{
 		feildpixel->render(getMemDC(), 0, 0, _player->getPlayerCam().left, _player->getPlayerCam().top, WINSIZEX, WINSIZEY);
-		Rectangle(getMemDC(), _bee[0].rc);
-		Rectangle(getMemDC(), _bee[1].rc);
+		for (int i = 0; i < 2; i++)
+		{
+			Rectangle(getMemDC(), _bee[i].rc.left - _player->getPlayerCam().left, _bee[i].rc.top - _player->getPlayerCam().top, 240 + (_bee[i].rc.left - _player->getPlayerCam().left), 240 + (_bee[i].rc.top - _player->getPlayerCam().top));
+		}
+		Rectangle(getMemDC(), _neolttwigi[0].rc.left - _player->getPlayerCam().left, _neolttwigi[0].rc.top - _player->getPlayerCam().top, 50 + (_neolttwigi[0].rc.left - _player->getPlayerCam().left), 20 + (_neolttwigi[0].rc.top - _player->getPlayerCam().top));
 	}
 
 	//아이템매니저
@@ -303,11 +308,7 @@ void stage1::render(void)
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
 
-	for (int i = 0; i < _vEffect.size(); i++)
-	{
-		_vEffect[i]->render(0,0);
-		//_vEffect[i]->render();
-	}
+	
 	// 테스트용 상점 구현
 	if (KEYMANAGER->isOnceKeyDown('Q'))
 	{
@@ -318,7 +319,7 @@ void stage1::render(void)
 	if(shopMode)_shop->render();
 
 	char str[128];
-	sprintf_s(str, "%d    %d ", _ptMouse.x + _player->getPlayerCam().left, _ptMouse.y + _player->getPlayerCam().top);
+	sprintf_s(str, "%d    %d ", _player->getPlayerState(), _ptMouse.y + _player->getPlayerCam().top);
 	TextOut(getMemDC(), 120, WINSIZEY / 2, str, strlen(str));
 	
 }
@@ -421,6 +422,8 @@ void stage1::imagePosition()
 
 		_iceBee[i]._count = 0;
 		_iceBee[i]._index = 0;
+		_bee[i].rc = RectMake(_bee[i].x, _bee[i].y, 50, 50);
+		_iceBee[i].rc = RectMake(_iceBee[i].x, _iceBee[i].y, 50, 50);
 	}
 
 	_bush[9].y = 2600;
@@ -641,10 +644,10 @@ void stage1::beecollision()
 	RECT _Trc;
 	for(int i=0;i<2;i++)
 	{
-		if (IntersectRect(&_Trc, &_bee[i].rc, &_player->getCollisionRc()))
+		if (IntersectRect(&_Trc, &_bee[i].rc, &_player->getCollisionRc()) && _state == SUMMER && _player->getUnHit() >50 && _player->getPlayerState() != HIT)
 		{
-			_b++;
 			_player->setState(HIT);
+			_player->setUnHit(0);
 		}
 	}
 }

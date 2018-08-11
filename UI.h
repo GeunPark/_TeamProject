@@ -63,8 +63,15 @@ public:
 	void nowHeart();
 	void nowArrow();
 	void nowMagic();
+	
+
 
 	void nowGold();
+
+	void setArrowNumChk(int anc) { _arrowNumChk = anc; }
+	void setArrowNum(int an) { _arrowNum = an; }
+	int getArrowNumChk() { return _arrowNumChk; }
+	int getArrowNum() { return _arrowNum; }
 
 	//get, set ÇÔ¼öµé
 	void setPlayerManager(foxPlayer* player) { _player = player; }
