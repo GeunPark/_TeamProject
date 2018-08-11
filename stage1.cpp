@@ -58,11 +58,7 @@ HRESULT stage1::init(void)
 	////_effMG->init();
 	//_effMG->setPlayerLink(_player);
 
-<<<<<<< HEAD
-
-=======
 	_effMG = effectManager::getSingleton();
->>>>>>> 1934665b096c768503c2b8e535b3c0c00c00bc19
 	shopMode = false;
 
 	_normalBack1._x = 0;
