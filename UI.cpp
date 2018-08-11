@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "UI.h"
 #include "foxPlayer.h"
+#include "shop.h"
 
 HRESULT UI::init(void)
 {
@@ -88,6 +89,15 @@ void UI::render()
 	{
 		if (frameNumChk[i] == true)_number[i]->frameRender(getMemDC(), 1100 + (24 * i), 50, _frameNum[i], 0);
 	}
+
+	for (int i = 0; i < _shop->getvShopItem().size(); i++)
+	{
+		if (_magicNumChk == _shop->getvShopItem()[i]._number)
+		{
+			_shop->getvShopItem()[i]._img->render(getMemDC(), 800, 20);
+		}
+	}
+
 
 }
 
@@ -214,6 +224,7 @@ void UI::nowMagic()
 		_MagicChoice[i]._x = 920;
 		_MagicChoice[i]._y = 20 + i * 24;
 	}
+
 }
 
 void UI::nowGold()
@@ -225,10 +236,13 @@ void UI::nowGold()
 	_frameNum[3] = _goldNum % 10;
 
 
+<<<<<<< HEAD
+=======
 
 
 
 	if (_goldNum >= 0) frameNumChk[3] = true;
+>>>>>>> f39cd0295fc23d47695de5de22518185d8463bda
 	frameNumChk[3] = true;
 
 
