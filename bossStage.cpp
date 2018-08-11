@@ -219,7 +219,6 @@ void bossStage::update(void)
 
 
 	}
-<<<<<<< HEAD
 	if (_bee->getState() == ENEMY_SPAWN)
 	{
 		if (_player->getAng())
@@ -239,14 +238,12 @@ void bossStage::update(void)
 	{
 		alpha = 250;
 	}
-=======
 	RECT tempRc;
 	if (IntersectRect(&tempRc, &_player->getCollisionRc(), &_bee->getRc()))
 	{
 		_player->setState(HIT);
 	}
 	
->>>>>>> 3f77273b5e7a2638d71ef7719f53615ac85f793e
 
 }
 

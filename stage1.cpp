@@ -43,7 +43,6 @@ HRESULT stage1::init(void)
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
-<<<<<<< HEAD
 	//_effMG = SAVEDATA->getEffectManager();
 	////_effMG->init();
 	//_effMG->setPlayerLink(_player);
@@ -51,9 +50,6 @@ HRESULT stage1::init(void)
 
 	_effMG = effectManager::getSingleton();
 	shopMode = false;
-=======
-	
->>>>>>> 3f77273b5e7a2638d71ef7719f53615ac85f793e
 
 
 	_normalBack1._x = 0;
@@ -311,10 +307,7 @@ void stage1::render(void)
 	_iMG->render();
 
 	_eMG->render();
-<<<<<<< HEAD
 
-=======
->>>>>>> 3f77273b5e7a2638d71ef7719f53615ac85f793e
 	_ui->render();
 	//for (int i = 0; i < _vEffect.size(); i++)
 	//{

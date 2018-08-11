@@ -134,7 +134,7 @@ void townScene::update(void)
 	if (_player->getX() < 0)
 	{
 		test = true;
-		SCENEMANAGER->loadScene("스테이지1");
+		SCENEMANAGER->loadScene("보스");
 		SOUNDMANAGER->stop("마을배경사운드");
 	}
 

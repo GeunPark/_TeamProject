@@ -10,33 +10,17 @@ HRESULT foxPlayer::init(void)
 	_arrow = new arrow;
 	_arrow->init(3, 600);
 
-<<<<<<< HEAD
 	_cuticle = new cuticle;
 	_cuticle->init(500);
 
 	_poison = new poison;
 	_poison->init(600.f);
 
-=======
 	_magic = new magic;
 	_magic->init();
-	//_cuticle = new cuticle;
-	//_cuticle->init(500);
-	_poison = new poison;
-	_poison->init(600.f);
-
-	_player.x = 9500;
-	_player.y = 1250;
-
-	_cuticle = new cuticle;
-	_cuticle->init(500);
->>>>>>> 3f77273b5e7a2638d71ef7719f53615ac85f793e
 
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
-
-	_cuticle = new cuticle;
-	_cuticle->init(500);
 
 
 	_player.speed = 6.f;
@@ -886,7 +870,6 @@ void foxPlayer::enemyCollision()
 			}
 		}
 	}
-<<<<<<< HEAD
 	//if (unDamage > 15)
 	//{
 	//	RECT collRc;
@@ -948,9 +931,7 @@ void foxPlayer::enemyCollision()
 	//		unDamage = 0;
 	//	}
 	//}
-=======
 	
->>>>>>> 3f77273b5e7a2638d71ef7719f53615ac85f793e
 }
 //todo : 적의 공격에 충돌
 void foxPlayer::enemyAttCollision()
@@ -1108,10 +1089,7 @@ void foxPlayer::test()
 		_ui->setArrowNumChk(_ui->getArrowNumChk() + 1);
 		if (_ui->getArrowNumChk() > 1)_ui->setArrowNumChk(0);
 	}*/
-<<<<<<< HEAD
 
-=======
->>>>>>> 3f77273b5e7a2638d71ef7719f53615ac85f793e
 }
 void foxPlayer::playerUI()
 {
