@@ -41,15 +41,12 @@ HRESULT stage1::init(void)
 	////_effMG->init();
 	//_effMG->setPlayerLink(_player);
 
-<<<<<<< HEAD
 
 
 
 	_effMG = effectManager::getSingleton();
 
-=======
 	_effMG = effectManager::getSingleton();
->>>>>>> 081e46836ca24439487fd32db3ce00952b1ac088
 	shopMode = false;
 
 
@@ -107,12 +104,9 @@ void stage1::update(void)
 	_ui->update();
 	//아이템매니저
 	_iMG->update();
-<<<<<<< HEAD
 	_ui->update();
 	//_shop->update();
-=======
 
->>>>>>> 081e46836ca24439487fd32db3ce00952b1ac088
 	if (KEYMANAGER->isToggleKey(VK_F2))
 	{
 		cameraMove();
@@ -300,7 +294,6 @@ void stage1::render(void)
 	_player->render();
 
 	_eMG->render();
-<<<<<<< HEAD
 	_ui->render();
 	//for (int i = 0; i < _vEffect.size(); i++)
 	//{
@@ -308,7 +301,6 @@ void stage1::render(void)
 	//	//_vEffect[i]->render();
 	//}
 
-=======
 
 
 	for (int i = 0; i < _vEffect.size(); i++)
@@ -318,11 +310,9 @@ void stage1::render(void)
 
 
 
->>>>>>> 081e46836ca24439487fd32db3ce00952b1ac088
 	// 테스트용 상점 구현
 	if (KEYMANAGER->isOnceKeyDown('Q'))
 	{
-
 		if(!shopMode)shopMode = true;
 		else shopMode = false;
 	}

@@ -44,6 +44,7 @@ private:
 	float _range;
 	int count;
 	int index;
+	tagArrow2 poison[3];
 public:
 	HRESULT init(int arrowMax, float range);
 	void release(void);
@@ -57,7 +58,6 @@ public:
 	
 
 	void move();
-	void move2();
 
 	void animation();
 	void animation2();
@@ -67,6 +67,8 @@ public:
 
 	vector<tagArrow> getVArrow() { return _vArrow; }
 	vector<tagArrow2> getVPoison() { return _vPoison; }
+
+	tagArrow2 getPoison() { return poison[3]; }
 	
 
 	arrow() {}

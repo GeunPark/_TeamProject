@@ -251,14 +251,17 @@
     <ClInclude Include="startScene.h">
       <Filter>MainGame\근화</Filter>
     </ClInclude>
-    <ClInclude Include="cuticle.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="townScene.h">
       <Filter>MainGame\근화</Filter>
     </ClInclude>
     <ClInclude Include="bossStage.h">
       <Filter>MainGame\근화</Filter>
+    </ClInclude>
+    <ClInclude Include="cuticle.h">
+      <Filter>MainGame\세원\플레이어</Filter>
+    </ClInclude>
+    <ClInclude Include="poison.h">
+      <Filter>MainGame\세원\플레이어</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -406,14 +409,17 @@
     <ClCompile Include="startScene.cpp">
       <Filter>MainGame\근화</Filter>
     </ClCompile>
-    <ClCompile Include="cuticle.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="townScene.cpp">
       <Filter>MainGame\근화</Filter>
     </ClCompile>
     <ClCompile Include="bossStage.cpp">
       <Filter>MainGame\근화</Filter>
+    </ClCompile>
+    <ClCompile Include="cuticle.cpp">
+      <Filter>MainGame\세원\플레이어</Filter>
+    </ClCompile>
+    <ClCompile Include="poison.cpp">
+      <Filter>MainGame\세원\플레이어</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

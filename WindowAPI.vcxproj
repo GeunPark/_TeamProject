@@ -177,6 +177,7 @@
     <ClInclude Include="loadingScene.h" />
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="pixelCollision.h" />
+    <ClInclude Include="poison.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="rotateTestScene.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="loadingScene.cpp" />
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="pixelCollision.cpp" />
+    <ClCompile Include="poison.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="rotateTestScene.cpp" />
     <ClCompile Include="saveData.cpp" />
