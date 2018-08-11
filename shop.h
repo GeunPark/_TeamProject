@@ -70,8 +70,8 @@ public:
 	void selectObject();
 	void ItemSell();
 
+	void setKindShop(kindShop kd) { _kindShop = kd; }
 
-	void setKindShop(kindShop ks) { _kindShop = ks; }
 
 	void setPlayerManager(foxPlayer* player);
 

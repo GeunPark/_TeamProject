@@ -39,11 +39,6 @@ void shop::update(void)
 	
 	frameImageMove();
 	selectObject();
-	if (KEYMANAGER->isOnceKeyDown('W'))
-	{
-		if (_kindShop == UPGRADE)_kindShop = MAGIC;
-		else if (_kindShop == MAGIC)_kindShop = UPGRADE;
-	}
 }
 void shop::render()
 {
