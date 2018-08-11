@@ -308,15 +308,12 @@ void stage1::render(void)
 	//_eMG->render(_player->getPlayerCam().left, _player->getPlayerCam().top);
 	_eMG->render();
 
-<<<<<<< HEAD
 	//for (int i = 0; i < _vEffect.size(); i++)
 	//{
 	//	_vEffect[i]->render(0,0);
 	//	//_vEffect[i]->render();
 	//}
-=======
 	
->>>>>>> f3afca46b720579503dd2f7c8261c57f3cfdc5c5
 	// 테스트용 상점 구현
 	if (KEYMANAGER->isOnceKeyDown('Q'))
 	{
