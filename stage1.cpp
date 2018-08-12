@@ -31,6 +31,13 @@ HRESULT stage1::init(void)
 
 	_eMG = SAVEDATA->getEnemyManager();
 	_eMG->init();
+
+
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
 	//_eMG->init();
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
@@ -38,6 +45,8 @@ HRESULT stage1::init(void)
 	if (isFrist == false)
 		_eMG->init();
 		_eMG->init();
+>>>>>>> ef7ac078ef9a6aa6aeafc8e3c3b301ef21b912f4
+>>>>>>> 64dd3a382c6827d0214fc650823d8793cf264159
 	_shop = SAVEDATA->getShop();
 	_shop->setPlayerManager(_player);
 	_player->setEnemyManager(_eMG);
@@ -47,7 +56,7 @@ HRESULT stage1::init(void)
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
-
+	
 
 	shopMode = false;
 
@@ -734,6 +743,10 @@ void stage1::stageClear()
 		stageClearCount++;
 		if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 		{
+			SOUNDMANAGER->stop("스테이지1 여름");
+			SOUNDMANAGER->stop("스테이지1 겨울");
+
+			_player->setClearCount(1);
 			SCENEMANAGER->loadScene("타운씬");
 		}
 	}

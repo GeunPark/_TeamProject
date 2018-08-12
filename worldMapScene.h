@@ -24,6 +24,7 @@ private:
 	tagWorld _player;
 	bool move;
 
+	foxPlayer* _fox;
 	//테스트 임시 변수
 	int clearCount;
 	int loopCount;

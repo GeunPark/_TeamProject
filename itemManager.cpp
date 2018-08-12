@@ -231,6 +231,7 @@ void itemManager::update(void)
 			{
 				_player->setGold(_player->getGold() + 10);
 				EFFECTMANAGER->play("¾ÆÀÌÅÛÀÌÆåÆ®", _vCoinGold[i]->getX(), _vCoinGold[i]->getY());
+				SOUNDMANAGER->play("ÄÚÀÎÈ¹µæ»ç¿îµå", 2.0f);
 
 				_vCoinGold.erase(_vCoinGold.begin() + i);
 			}
@@ -243,6 +244,7 @@ void itemManager::update(void)
 			{
 				_player->setGold(_player->getGold() + 5);
 				EFFECTMANAGER->play("¾ÆÀÌÅÛÀÌÆåÆ®", _vCoinSilver[i]->getX(), _vCoinSilver[i]->getY());
+				SOUNDMANAGER->play("ÄÚÀÎÈ¹µæ»ç¿îµå", 2.0f);
 
 				_vCoinSilver.erase(_vCoinSilver.begin() + i);
 			}
@@ -255,6 +257,7 @@ void itemManager::update(void)
 			{
 				_player->setGold(_player->getGold() + 1);
 				EFFECTMANAGER->play("¾ÆÀÌÅÛÀÌÆåÆ®", _vCoinBronze[i]->getX(), _vCoinBronze[i]->getY());
+				SOUNDMANAGER->play("ÄÚÀÎÈ¹µæ»ç¿îµå", 2.0f);
 
 				_vCoinBronze.erase(_vCoinBronze.begin() + i);
 			}
@@ -265,6 +268,7 @@ void itemManager::update(void)
 			if (!_vItem[i]->getIsActive())
 			{
 				EFFECTMANAGER->play("¾ÆÀÌÅÛÀÌÆåÆ®", _vItem[i]->getX(), _vItem[i]->getY());
+				SOUNDMANAGER->play("¸¶³ªÈ¹µæ»ç¿îµå", 2.0f);
 
 				_vItem.erase(_vItem.begin() + i);
 

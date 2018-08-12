@@ -249,6 +249,12 @@ void bossStage::update(void)
 			}
 		}
 	}
+
+	if (_bee->getHp() == 0)
+	{
+		SCENEMANAGER->loadScene("¿£µù¾À");
+	}
+
 	alpha -= 20;
 	if (alpha <= 0)
 	{
