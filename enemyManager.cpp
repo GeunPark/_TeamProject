@@ -388,6 +388,7 @@ void enemyManager::update(void)
 		}
 
 	}
+	
 
 
 

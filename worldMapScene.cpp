@@ -50,6 +50,9 @@ HRESULT worldMapScene::init(void)
 	_bossRoad.x = _wayPoint.x - _bossRoad.img->getWidth();
 	_bossRoad.y = _wayPoint.y - (_bossRoad.img->getHeight() / 2 + 20);
 
+	_fox = SAVEDATA->getPlayer();
+
+
 	//테스트임시변수
 	clearCount = 0;
 	loopCount = 0;
@@ -102,7 +105,7 @@ void worldMapScene::update(void)
 		}
 	}
 
-	if (clearCount > 0)
+	if (_fox->getClearCount() > 0)
 	{
 		_bossPoint.count++;
 		_bossPoint.img->setFrameY(0);
@@ -192,7 +195,7 @@ void worldMapScene::update(void)
 
 
 	//알파 테스트##############################################################################################################################################################################
-	if (clearCount <= 0)
+	if (_fox->getClearCount() <= 0)
 	{
 		loopCount++;
 		if (loopCount % 40 == 0)
@@ -210,11 +213,11 @@ void worldMapScene::update(void)
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
-		clearCount++;
+		_fox->setClearCount(1);
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
-		clearCount = 0;
+		_fox->setClearCount(0);
 	}
 	//#########################################################################################################################################################################################
 }
@@ -231,7 +234,7 @@ void worldMapScene::render(void)
 	if (_player.x == _stagePoint.x - 50)
 		_stageTxt.img->render(getMemDC(), WINSIZEX / 2 - (_stageTxt.img->getWidth() / 2), 200);
 
-	if (clearCount > 0)
+	if (_fox->getClearCount() > 0)
 	{
 		_bossRoad.img->render(getMemDC(), _bossRoad.x, _bossRoad.y);
 		_bossPoint.img->frameRender(getMemDC(), _bossRoad.x - _bossPoint.img->getFrameWidth(), _bossRoad.y, _bossPoint.img->getFrameX(), _bossPoint.img->getFrameY());

@@ -266,6 +266,15 @@
     <ClInclude Include="cuticle.h">
       <Filter>MainGame\세원</Filter>
     </ClInclude>
+    <ClInclude Include="magic.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="poison.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="endingScene.h">
+      <Filter>MainGame\근화</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -426,6 +435,15 @@
     </ClCompile>
     <ClCompile Include="cuticle.cpp">
       <Filter>MainGame\세원</Filter>
+    </ClCompile>
+    <ClCompile Include="magic.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="poison.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="endingScene.cpp">
+      <Filter>MainGame\근화</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

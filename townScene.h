@@ -29,7 +29,7 @@ private:
 	RECT _magicShopRc;
 	int shopCount = 0;
 
-	bool test = false;
+	bool _test = false;
 
 public:
 	townScene();
@@ -39,5 +39,7 @@ public:
 	void release(void);
 	void update(void);
 	void render(void);
+
+	void setTest(bool test) { _test = test; }
 };
 
