@@ -54,7 +54,7 @@ void loadingScene::GeunHwaSound()
 	//스테이지1
 	_loading->loadSound("스테이지1 여름", "resource/박근화/사운드리소스/스테이지 1 배경 사운드.wav", true, true);
 	_loading->loadSound("스테이지1 겨울", "resource/박근화/사운드리소스/겨울 배경 사운드.wav", true, true);
-
+	_loading->loadSound("보스 배경", "resource/박근화/사운드리소스/보스 배경.wav", true, true);
 	//플레이어관련###############################################################################################
 
 	//점프
