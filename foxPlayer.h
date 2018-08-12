@@ -122,6 +122,7 @@ private:
 
 	float _c[10], _d[10];
 
+	int clearCount;
 public:
 
 
@@ -151,6 +152,9 @@ public:
 	float getY() { return _player.y; }
 	void setX(float x) { _player.x = x; }
 	void setY(float y) { _player.y = y; }
+
+	int getClearCount() { return clearCount; }
+	void setClearCount(int count) { clearCount = count; }
 
 	bool getmagicUseChk() { return _magicUseChk; }
 	bool getmagicUseChk2() { return _magicUseChk2; }

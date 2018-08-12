@@ -20,6 +20,7 @@ HRESULT mainGame::init(void)
 	SCENEMANAGER->addScene("스테이지1", new stage1);
 	SCENEMANAGER->addScene("보스", new bossStage);
 	SCENEMANAGER->addScene("월드맵", new worldMapScene);
+	SCENEMANAGER->addScene("엔딩씬", new endingScene);
 
 	_player = new foxPlayer;
 	SAVEDATA->setPlayer(_player);

@@ -56,7 +56,7 @@ HRESULT foxPlayer::init(void)
 	tempX = tempY = 0;
 	_bpx = IMAGEMANAGER->findImage("스테이지1 픽셀");
 
-
+	clearCount = 0;
 
 	return S_OK;
 }

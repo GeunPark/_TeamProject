@@ -739,6 +739,7 @@ void stage1::stageClear()
 		stageClearCount++;
 		if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 		{
+			_player->setClearCount(1);
 			SCENEMANAGER->loadScene("Å¸¿î¾À");
 		}
 	}
