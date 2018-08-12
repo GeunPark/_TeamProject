@@ -4,7 +4,8 @@
 #include "UI.h"
 #include "bullet.h"
 #include "enemy.h"
-
+#include "enemyManager.h"
+#include "itemManager.h"
 struct tagLeaf
 {
 	int x, y;
@@ -20,7 +21,8 @@ private:
 	tagLeaf leaf[20];
 
 	foxPlayer* _player;
-
+	enemyManager* _eMG;
+	itemManager* _iMG;
 
 	//beeBullet* _beeBullet;
 	bee* _bee;

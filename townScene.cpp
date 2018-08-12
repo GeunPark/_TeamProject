@@ -44,6 +44,9 @@ HRESULT townScene::init(void)
 	_player->setY(500);
 	_player->setBgPixel(_pixel.img);
 	
+	_eMG = SAVEDATA->getEnemyManager();
+	
+
 
 
 	_ui = SAVEDATA->getUI();
@@ -56,6 +59,7 @@ HRESULT townScene::init(void)
 	_shop->init();
 
 	_ui->setShopLink(_shop);
+	_player->setEnemyManager(_eMG);
 
 	_upgradeShopRc = RectMakeCenter(1210, 520, 250, 200);
 	_magicShopRc = RectMakeCenter(930, 520,250,200);

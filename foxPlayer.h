@@ -11,6 +11,7 @@
 #define MAX_STATE 16
 
 class enemyManager;
+class itemManager;
 
 enum tagState
 {
@@ -75,7 +76,7 @@ class foxPlayer : public gameNode
 {
 private:
 	enemyManager * _enemyManger;
-
+	itemManager* _itemManager;
 	tagPlayer _player;
 	tagCam _camera;
 	tagState _state;
@@ -200,7 +201,9 @@ public:
 
 	//에너미매니저와 상호참조
 	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
-	
+	//
+	void setItemManager(itemManager* eer) { _itemManager = eer; }
+
 	tagPlayer getTag() { return _player; }
 	void setTag(tagPlayer player) { _player = player; }
 

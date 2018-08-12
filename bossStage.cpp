@@ -39,6 +39,15 @@ HRESULT bossStage::init(void)
 	_player->setY(500);
 	_player->setBgPixel(pixel);
 
+	_eMG = SAVEDATA->getEnemyManager();
+	_iMG = SAVEDATA->getItemManager();
+
+	_player->setEnemyManager(_eMG);
+	_player->setItemManager(_iMG);
+
+
+
+
 	_ui = SAVEDATA->getUI();
 	_ui->setPlayerManager(_player);
 
@@ -279,6 +288,20 @@ void bossStage::update(void)
 			_player->setHp(_player->getHp() - 5);
 		}
 	}
+
+	if (_player->getHp() < 0)
+	{
+
+
+		//_player->setState(DEATH);
+		//this->init();
+
+		SCENEMANAGER->loadScene("Å¸¿î¾À");
+		//_bee->getBullet()->release();
+	}
+
+
+
 	
 
 }

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "enemyManager.h"
 #include "foxPlayer.h"
-#include "bossStage.h"
+
 
 HRESULT enemyManager::init(void)
 {
@@ -139,7 +139,7 @@ HRESULT enemyManager::init(void)
 
 void enemyManager::release(void)
 {
-	SAFE_DELETE(_factory);
+	//SAFE_DELETE(_factory);
 	_vEnemy.clear();
 	
 }

@@ -34,6 +34,7 @@ HRESULT stage1::init(void)
 	
 
 	_player->setEnemyManager(_eMG);
+	_player->setItemManager(_iMG);
 	_ui->setPlayerManager(_player);
 	_iMG->setEMGLink(_eMG);
 	_iMG->setPlayerLink(_player);

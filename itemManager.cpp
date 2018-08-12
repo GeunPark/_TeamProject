@@ -91,7 +91,7 @@ HRESULT itemManager::init(void)
 
 void itemManager::release(void)
 {
-	SAFE_DELETE(_itemFactory);
+	//SAFE_DELETE(_itemFactory);
 	_vItem.clear();
 	_vCoinBronze.clear();
 	_vCoinSilver.clear();

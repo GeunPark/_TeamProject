@@ -3,6 +3,7 @@
 #include "foxPlayer.h"
 #include "UI.h"
 #include "shop.h"
+#include "enemyManager.h"
 
 struct tagBackGround
 {
@@ -15,6 +16,7 @@ class townScene : public gameNode
 private:
 	foxPlayer * _player;
 	UI* _ui;
+	enemyManager* _eMG;
 
 	shop* _shop;
 

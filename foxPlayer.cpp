@@ -110,11 +110,12 @@ void foxPlayer::update(void)
 	this->pixelCollision();		//픽셀충돌 함수 호출
 
 	//적과 충돌
-	if (KEYMANAGER->isToggleKey(VK_F3))
-	{
+	//if (KEYMANAGER->isToggleKey(VK_F3))
+	//{
+	
 		this->enemyCollision();
 		this->enemyAttCollision();
-	}
+	//}
 
 	_magic->setvthundwe(_camera.rc.left, _camera.rc.top);
 	_magic->nightMove(_camera.rc.right - 400 - a, _camera.rc.top + 200);
@@ -313,6 +314,7 @@ void foxPlayer::frameMove()
 
 	if (_player.isFoxLeft)
 	{
+		
 		count++;
 		nick[_state]->setFrameY(1);
 		if ((count % animationSpeed) == 0)
@@ -1040,7 +1042,7 @@ void foxPlayer::enemyAttCollision()
 						_player.y += 30;
 					}
 				}
-				
+				SOUNDMANAGER->play("맞음");
 				_state = HIT;
 				unDamage = 0;
 			}
@@ -1066,10 +1068,10 @@ void foxPlayer::foxState()
 
 	if (_state == HIT)
 	{
+
 		hitCount++;
 		alphaCount++;
 		if (hitCount > 25)
-		SOUNDMANAGER->play("맞음");
 		{
 			chk = false;
 			_state = IDLE;
@@ -1077,7 +1079,7 @@ void foxPlayer::foxState()
 			hitCount = 0;
 		}
 	}
-	if (_player.HP == 0)
+	if (_player.HP == 0 || _player.y > 3000)
 	{
 		//SOUNDMANAGER->play("죽음");
 		_state = DEATH;
@@ -1085,6 +1087,8 @@ void foxPlayer::foxState()
 	if (_state == DEATH)
 	{
 		this->init();
+		_enemyManger->release();
+		_itemManager->release();
 		SCENEMANAGER->loadScene("타운씬");
 		
 	}
