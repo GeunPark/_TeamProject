@@ -43,7 +43,7 @@ HRESULT foxPlayer::init(void)
 	_camera.x = _player.x;
 	_camera.y = _player.y;
 
-	arrowNum = 2;
+	arrowNum = 1;
 	arrowNumChk = 0;
 
 	magicNum = 0;
@@ -161,7 +161,7 @@ void foxPlayer::update(void)
 	if (KEYMANAGER->isOnceKeyDown('U'))
 	{
 		SOUNDMANAGER->play("셀렉이동사운드");
-		if (!isArrowChange)
+		if (!isArrowChange &&  arrowNum>1)
 			isArrowChange = true;
 		else
 			isArrowChange = false;
@@ -470,7 +470,7 @@ void foxPlayer::keySetting()
 					count = 0;
 				}
 			}
-			else
+			else if(isArrowChange )
 			{
 				if (_player.isFoxLeft)
 				{

@@ -176,6 +176,8 @@ public:
 	image* getBgPixel() { return _bpx; }
 	void setBgPixel(image* bpx) { _bpx = bpx; }
 
+	void setArrowNum(int a) { arrowNum = a; }
+
 	// 플레이어 마나
 	float getMana() { return _player.mana; }
 	float getMaxMana() { return _player.maxMana; }

@@ -33,13 +33,6 @@ HRESULT stage1::init(void)
 	_eMG->init();
 
 
-	//_eMG->init();
-	_eMG->setItemManager(_iMG);
-	_eMG->setPlayerManager(_player);
-
-	if (isFrist == false)
-		_eMG->init();
-		_eMG->init();
 	_shop = SAVEDATA->getShop();
 	_shop->setPlayerManager(_player);
 	_player->setEnemyManager(_eMG);

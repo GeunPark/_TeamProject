@@ -57,7 +57,7 @@ private:
 	int magicMaxNum[3];
 
 	bool frameNumChk[4];
-
+	bool chk;
 	float _x, _y;
 
 	bool _isOpen = false;
