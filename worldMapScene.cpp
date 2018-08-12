@@ -164,7 +164,7 @@ void worldMapScene::update(void)
 				move = false;
 			}
 		}
-		if (_player.x <= _wayPoint.x - 50 && _player.x >= _bossPoint.x &&  clearCount > 0)
+		if (_player.x <= _wayPoint.x - 50 && _player.x >= _bossPoint.x &&  _fox->getClearCount() > 0)
 		{
 			_player.x -= 2;
 			_player.y -= 0.5f;

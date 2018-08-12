@@ -155,13 +155,13 @@ public:
 	void setX(float x) { _player.x = x; }
 	void setY(float y) { _player.y = y; }
 
-<<<<<<< HEAD
+
 	int getClearCount() { return clearCount; }
 	void setClearCount(int count) { clearCount = count; }
-=======
+
 	bool getIsTouch() { return isTouch; }
 	void setIsTouch(bool a) { isTouch = a; }
->>>>>>> 3f0ddcf51d9e4214a4cd3f42e21538408d3af3cb
+
 
 	bool getmagicUseChk() { return _magicUseChk; }
 	bool getmagicUseChk2() { return _magicUseChk2; }
