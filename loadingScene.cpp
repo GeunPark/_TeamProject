@@ -57,7 +57,7 @@ void loadingScene::render(void)
 	{
 		char str[128];
 		sprintf_s(str, "%s  을(를) 읽는중...", _loading->getLoadItem()[_loading->getCurrnetGauge()]->getImageResource().keyName.c_str());
-		TextOut(getMemDC(), 300, 580, str, strlen(str));
+		TextOut(getMemDC(), 450, 580, str, strlen(str));
 	}
 
 	float num = _loading->getLoadItem().size();
@@ -65,7 +65,7 @@ void loadingScene::render(void)
 	float per = cur / num * 100;
 	char str[128];
 	sprintf_s(str, "%.f %%", per);
-	TextOut(getMemDC(), 660, 430, str, strlen(str));
+	TextOut(getMemDC(), 860, 630, str, strlen(str));
 
 }
 

@@ -281,9 +281,9 @@ void foxPlayer::render()
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
 
-	char str[128];
-	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
-	TextOut(getMemDC(), 100, 600, str, strlen(str));
+	//char str[128];
+	//sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
+	//TextOut(getMemDC(), 100, 600, str, strlen(str));
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 }
 
