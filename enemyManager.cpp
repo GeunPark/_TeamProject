@@ -209,7 +209,7 @@ void enemyManager::update(void)
 
 	//에너미 충돌처리
 
-	//플레이어와 에너미 충돌
+	//플레이어 공격렉트와 에너미 충돌
 	for (int i = 0; i < _vEnemy.size(); ++i)
 	{
 		RECT _rct;
@@ -218,7 +218,8 @@ void enemyManager::update(void)
 		{
 			//_vEnemy[i]->setState(ENEMY_DEAD);
 			_vEnemy[i]->setIsActived(false);
-
+			SOUNDMANAGER->play("에너미죽는사운드", 2.0f);
+			SOUNDMANAGER->play("코인생성사운드", 2.0f);
 			_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 			//_vEnemy.erase(_vEnemy.begin() + i);
 
@@ -236,6 +237,9 @@ void enemyManager::update(void)
 		if (IntersectRect(&_rct, &_vEnemy[i]->getRc(), &_player->getAttRc2()) && _player->getIsAtt())
 		{
 			_vEnemy[i]->setIsActived(false);
+			SOUNDMANAGER->play("에너미죽는사운드", 2.0f);
+			SOUNDMANAGER->play("코인생성사운드", 2.0f);
+
 			_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 			//_vEnemy.erase(_vEnemy.begin() + i);
 		}
@@ -260,6 +264,9 @@ void enemyManager::update(void)
 						_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 
 						_vEnemy[i]->setIsActived(false);
+						SOUNDMANAGER->play("에너미죽는사운드", 2.0f);
+						SOUNDMANAGER->play("코인생성사운드", 2.0f);
+
 					}
 					_vEnemy[i]->setIsStrong(true);
 
@@ -269,6 +276,8 @@ void enemyManager::update(void)
 					_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 
 					_vEnemy[i]->setIsActived(false);
+					SOUNDMANAGER->play("에너미죽는사운드", 2.0f);
+					SOUNDMANAGER->play("코인생성사운드", 2.0f);
 
 				}
 				//_vEnemy.erase(_vEnemy.begin() + i);
@@ -296,6 +305,8 @@ void enemyManager::update(void)
 				_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 
 				_vEnemy[i]->setIsActived(false);
+				SOUNDMANAGER->play("에너미죽는사운드", 2.0f);
+				SOUNDMANAGER->play("코인생성사운드", 2.0f);
 
 				_player->removePoison(j);
 			}
@@ -308,9 +319,14 @@ void enemyManager::update(void)
 			RECT _rct;
 			if (IntersectRect(&_rct, &_vEnemy[i]->getCollisionRc(), &_player->getMagic()->getvthunder()[j]._rc))
 			{
-				if (_player->getmagicUseChk() == true)_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+				if (_player->getmagicUseChk() == true)
+					_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 
-				if (_player->getmagicUseChk() == true)_vEnemy[i]->setIsActived(false);
+				if (_player->getmagicUseChk() == true)
+					_vEnemy[i]->setIsActived(false);
+
+				//SOUNDMANAGER->play("에너미죽는사운드");
+
 			}
 		}
 	}
@@ -321,8 +337,12 @@ void enemyManager::update(void)
 		RECT _rct2;
 		if (IntersectRect(&_rct2, &_vEnemy[i]->getCollisionRc(), &_player->getMagic()->getvnightMare()[0]._rc))
 		{
-			if (_player->getmagicUseChk2() == true)_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
-			if (_player->getmagicUseChk2() == true)_vEnemy[i]->setIsActived(false);
+			if (_player->getmagicUseChk2() == true)
+				_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
+			if (_player->getmagicUseChk2() == true)
+				_vEnemy[i]->setIsActived(false);
+			//SOUNDMANAGER->play("에너미죽는사운드", 0.5f);
+
 		}
 
 	}
@@ -351,6 +371,8 @@ void enemyManager::update(void)
 
 						if ((r == 255 && g == 255 && b == 0))
 						{
+							SOUNDMANAGER->play("에너미죽는사운드");
+
 							_vEnemy[i]->setIsActived(false);
 						}
 
@@ -366,6 +388,7 @@ void enemyManager::update(void)
 		}
 
 	}
+	
 
 
 

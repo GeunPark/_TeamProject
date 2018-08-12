@@ -5,6 +5,7 @@
 #include "magic.h"
 #include "poison.h"
 
+
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
 #define MAX_STATE 16
@@ -52,12 +53,14 @@ struct tagPlayer
 	bool isDown;
 	bool isAtt;
 	bool isChange;
+	bool isDead;
 
 	float mana;
 	float maxMana;
 	int HP;
 	int MaxHp;
 	int gold;
+
 };
 
 struct tagCam
@@ -82,7 +85,6 @@ private:
 	cuticle* _cuticle;
 	poison* _poison;
 	
-
 	// 상점에서 산 아이템 저장하는 벡터
 	
 
@@ -121,6 +123,7 @@ private:
 
 	float _c[10], _d[10];
 
+	int clearCount;
 public:
 
 
@@ -152,8 +155,13 @@ public:
 	void setX(float x) { _player.x = x; }
 	void setY(float y) { _player.y = y; }
 
+<<<<<<< HEAD
+	int getClearCount() { return clearCount; }
+	void setClearCount(int count) { clearCount = count; }
+=======
 	bool getIsTouch() { return isTouch; }
 	void setIsTouch(bool a) { isTouch = a; }
+>>>>>>> 3f0ddcf51d9e4214a4cd3f42e21538408d3af3cb
 
 	bool getmagicUseChk() { return _magicUseChk; }
 	bool getmagicUseChk2() { return _magicUseChk2; }

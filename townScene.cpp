@@ -38,10 +38,8 @@ HRESULT townScene::init(void)
 
 
 	_player = SAVEDATA->getPlayer();
-	if (test == false)
-	{
+	if(_test == false)
 		_player->init();
-	}
 	_player->setX(100);
 	_player->setY(500);
 	_player->setBgPixel(_pixel.img);
@@ -50,7 +48,7 @@ HRESULT townScene::init(void)
 
 	_ui = SAVEDATA->getUI();
 	_ui->setPlayerManager(_player);
-	if(test == false)
+	if(_test == false)
 	_ui->init();
 	
 	_shop = SAVEDATA->getShop();
@@ -139,7 +137,7 @@ void townScene::update(void)
 
 	if (_player->getX() < 0)
 	{
-		test = true;
+		_test = true;
 
 		SCENEMANAGER->loadScene("월드맵");
 		SOUNDMANAGER->stop("마을배경사운드");
