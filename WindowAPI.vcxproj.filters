@@ -239,9 +239,6 @@
     <ClInclude Include="arrow.h">
       <Filter>MainGame\세원\arrow</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>MainGame\기훈</Filter>
-    </ClInclude>
     <ClInclude Include="shop.h">
       <Filter>MainGame\기훈</Filter>
     </ClInclude>
@@ -277,6 +274,9 @@
     </ClInclude>
     <ClInclude Include="worldMapScene.h">
       <Filter>MainGame\근화</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>MainGame\로딩화면</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -156,8 +156,6 @@ public:
 	void setX(float x) { _player.x = x; }
 	void setY(float y) { _player.y = y; }
 
-
-
 	int getClearCount() { return clearCount; }
 	void setClearCount(int count) { clearCount = count; }
 

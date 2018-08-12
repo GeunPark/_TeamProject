@@ -113,8 +113,8 @@ void foxPlayer::update(void)
 	//if (KEYMANAGER->isToggleKey(VK_F3))
 	//{
 	
-		this->enemyCollision();
-		this->enemyAttCollision();
+		//this->enemyCollision();
+		//this->enemyAttCollision();
 	//}
 
 	_magic->setvthundwe(_camera.rc.left, _camera.rc.top);
@@ -210,11 +210,11 @@ void foxPlayer::render()
 	}
 	//Rectangle(getMemDC(), _player.collisionRc.left - _camera.rc.left, _player.collisionRc.top - _camera.rc.top, _player.collisionRc.right - _camera.rc.left, _player.collisionRc.bottom - _camera.rc.top);
 	
-	if (_player.isAtt)
-	{
+	//if (_player.isAtt)
+	//{
 		//Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
 		//Rectangle(getMemDC(), attRc2.left - _camera.rc.left, attRc2.top - _camera.rc.top, attRc2.right - _camera.rc.left, attRc2.bottom - _camera.rc.top);
-	}
+	//}
 	if (_player.isChange)
 	{
 		_twinkle->frameRender(getMemDC(), twinkleRc.left - _camera.rc.left, twinkleRc.top - _camera.rc.top, _twinkle->getFrameX(), _twinkle->getFrameY());
@@ -278,30 +278,13 @@ void foxPlayer::render()
 		//Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
 	}
 
-	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
-
 
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
 
-	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
-
-
-	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
-
-	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
-
-
-<<<<<<< HEAD
 	/*char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
 	TextOut(getMemDC(), 100, 600, str, strlen(str));*/
-=======
-	//char str[128];
-	//sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
-	//TextOut(getMemDC(), 100, 600, str, strlen(str));
->>>>>>> c7ef701307ecb39920857a3f936cdd3821ff4c0d
-	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 }
 
 //ToDo : 이미지 셋팅
@@ -386,7 +369,6 @@ void foxPlayer::frameMove()
 			_twinkle->setFrameX(effectIndex);
 		}
 	}
-
 }
 
 //ToDo : 키 셋팅
@@ -1185,5 +1167,8 @@ void foxPlayer::playerUI()
 	if (_player.maxMana < _player.mana)_player.mana = _player.maxMana;
 	if (_player.maxMana > 216)_player.maxMana = 216;
 
-	
+	if (KEYMANAGER->isOnceKeyDown('M'))
+	{
+		_player.mana += 30;
+	}
 }

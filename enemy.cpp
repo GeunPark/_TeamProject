@@ -756,7 +756,7 @@ void bee::init()
 	_silver = 0;
 	_bronze = 0;
 	dizzyCount = 0;
-	hp = 1;
+	hp = 7;
 	attackStartCount = 0;
 	attackCount = 0;
 	_fireCount = 0;
