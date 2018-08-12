@@ -266,11 +266,6 @@
     <ClInclude Include="cuticle.h">
       <Filter>MainGame\세원</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="worldMapScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-=======
     <ClInclude Include="magic.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -280,10 +275,12 @@
     <ClInclude Include="endingScene.h">
       <Filter>MainGame\근화</Filter>
     </ClInclude>
->>>>>>> 63d483e9e2d6aef9830cece6a1e442fed922d24e
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
+      <Filter>WinMain</Filter>
+    </ClCompile>
+    <ClCompile Include="winMain.cpp">
       <Filter>WinMain</Filter>
     </ClCompile>
     <ClCompile Include="mainGame.cpp">
@@ -439,14 +436,6 @@
     <ClCompile Include="cuticle.cpp">
       <Filter>MainGame\세원</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="worldMapScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="winMain.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-=======
     <ClCompile Include="magic.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -456,6 +445,5 @@
     <ClCompile Include="endingScene.cpp">
       <Filter>MainGame\근화</Filter>
     </ClCompile>
->>>>>>> 63d483e9e2d6aef9830cece6a1e442fed922d24e
   </ItemGroup>
 </Project>

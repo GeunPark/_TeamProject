@@ -59,11 +59,7 @@ HRESULT foxPlayer::init(void)
 	tempX = tempY = 0;
 	_bpx = IMAGEMANAGER->findImage("스테이지1 픽셀");
 
-<<<<<<< HEAD
 	clearCount = 0;
-
-=======
->>>>>>> 3f0ddcf51d9e4214a4cd3f42e21538408d3af3cb
 	return S_OK;
 }
 
@@ -268,15 +264,11 @@ void foxPlayer::render()
 	{
 		//Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
 	}
-<<<<<<< HEAD
-	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
-=======
-
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
->>>>>>> d5b55bb5d3f0bda781b785d8dc1efa12f48fe7dc
+	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 	char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
 	TextOut(getMemDC(), 100, 600, str, strlen(str));
@@ -388,16 +380,15 @@ void foxPlayer::keySetting()
 		{
 			_state = RUN;
 		}
-<<<<<<< HEAD
+
 		
 		if(isArrowChange)
 			_player.arrowAngle = PI / 180 * 150;
 		else
 			_player.arrowAngle = PI;
 
-=======
+
 		_player.arrowAngle = PI / 180 * 150;
->>>>>>> d5b55bb5d3f0bda781b785d8dc1efa12f48fe7dc
 		_player.isLeft = true;
 		_player.isFoxLeft = true;
 		_player.isUp = false;
