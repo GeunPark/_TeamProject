@@ -86,7 +86,7 @@ void vineMan::init()
 	_bodyImage[ENEMY_SPAWN] = IMAGEMANAGER->findImage("나무인간spawn");
 	_bodyImage[ENEMY_WALK] = IMAGEMANAGER->findImage("나무인간move");
 	_bodyImage[ENEMY_ATTACK] = IMAGEMANAGER->findImage("나무인간attack");
-	_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("나무인간dead");
+	//_bodyImage[ENEMY_DEAD] = IMAGEMANAGER->findImage("나무인간dead");
 
 	_bfx = IMAGEMANAGER->findImage("스테이지1 픽셀");
 
@@ -94,11 +94,11 @@ void vineMan::init()
 	_angle = 270.f * 3.14f / 180;
 	_gravity = 0.f;
 	_count = 0, _indexX = 0;
-	_animationSpeed = 3.f;
+	_animationSpeed = 10.f;
 	_isActived = true;
 	_state = ENEMY_SPAWN;
 	_type = VINEMAN;
-	_x = 3480.f;
+	_x = 0;
 	_y = 900.f;
 	_isLeft = true;
 	_gold = 0;
@@ -139,7 +139,7 @@ void vineMan::attack()
 	{
 		if (_attRc.right - _attRc.left < 130)
 		{
-			_attRc.left -= 130;
+			_attRc.left -= 130 ;
 
 		}
 	}
@@ -756,7 +756,7 @@ void bee::init()
 	_silver = 0;
 	_bronze = 0;
 	dizzyCount = 0;
-	hp = 7;
+	hp = 1;
 	attackStartCount = 0;
 	attackCount = 0;
 	_fireCount = 0;

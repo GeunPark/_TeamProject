@@ -103,7 +103,7 @@ void bossStage::update(void)
 	}
 	if (_player->getX() < 0)
 	{
-		SOUNDMANAGER->stop("보스배경사운드");
+		//SOUNDMANAGER->stop("보스배경사운드");
 		SCENEMANAGER->loadScene("타운씬");
 	}
 	//else
@@ -260,9 +260,11 @@ void bossStage::update(void)
 		}
 	}
 
-	if (_bee->getHp() == 0)
+	if (_bee->getHp() <= 0)
 	{
+		SOUNDMANAGER->stop("보스 배경");
 		SCENEMANAGER->loadScene("엔딩씬");
+
 	}
 
 	alpha -= 20;
