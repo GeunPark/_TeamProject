@@ -59,10 +59,19 @@ HRESULT foxPlayer::init(void)
 	tempX = tempY = 0;
 	_bpx = IMAGEMANAGER->findImage("스테이지1 픽셀");
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 61c20073ccb03f92b349f8d2b200ed6438ff3ff3
 	clearCount = 0;
+<<<<<<< HEAD
 
+<<<<<<< HEAD
 
+=======
+=======
+>>>>>>> ef7ac078ef9a6aa6aeafc8e3c3b301ef21b912f4
+>>>>>>> 61c20073ccb03f92b349f8d2b200ed6438ff3ff3
 	return S_OK;
 }
 
@@ -163,6 +172,7 @@ void foxPlayer::update(void)
 	}
 	if (KEYMANAGER->isOnceKeyDown('U'))
 	{
+		SOUNDMANAGER->play("셀렉이동사운드");
 		if (!isArrowChange)
 			isArrowChange = true;
 		else
@@ -176,6 +186,7 @@ void foxPlayer::update(void)
 
 	if (KEYMANAGER->isOnceKeyDown('I'))
 	{
+		SOUNDMANAGER->play("셀렉이동사운드");
 		magicNumCHk += 1;
 		if (magicNumCHk > magicNum - 1)magicNumCHk = 0;
 	}
@@ -265,15 +276,25 @@ void foxPlayer::render()
 	{
 		//Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
 	}
+<<<<<<< HEAD
 
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
+=======
+	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
+>>>>>>> 61c20073ccb03f92b349f8d2b200ed6438ff3ff3
 
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
+<<<<<<< HEAD
 
+<<<<<<< HEAD
 
+=======
+=======
+>>>>>>> ef7ac078ef9a6aa6aeafc8e3c3b301ef21b912f4
+>>>>>>> 61c20073ccb03f92b349f8d2b200ed6438ff3ff3
 	char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
 	TextOut(getMemDC(), 100, 600, str, strlen(str));
@@ -385,14 +406,29 @@ void foxPlayer::keySetting()
 		{
 			_state = RUN;
 		}
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> ef7ac078ef9a6aa6aeafc8e3c3b301ef21b912f4
+>>>>>>> 61c20073ccb03f92b349f8d2b200ed6438ff3ff3
 		
 		if(isArrowChange)
 			_player.arrowAngle = PI / 180 * 150;
 		else
 			_player.arrowAngle = PI;
 
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+
+		_player.arrowAngle = PI / 180 * 150;
+>>>>>>> ef7ac078ef9a6aa6aeafc8e3c3b301ef21b912f4
+>>>>>>> 61c20073ccb03f92b349f8d2b200ed6438ff3ff3
 		_player.isLeft = true;
 		_player.isFoxLeft = true;
 		_player.isUp = false;
@@ -458,6 +494,7 @@ void foxPlayer::keySetting()
 		{
 			if (!isArrowChange)
 			{
+				SOUNDMANAGER->play("화살발사사운드");
 				if (_player.isFoxLeft)
 				{
 					_state = FIRE;
@@ -636,10 +673,17 @@ void foxPlayer::keySetting()
 		if (!ang && _player.mana > 30)
 		{
 			ang = true;
+			SOUNDMANAGER->resume("스테이지1 겨울");
+			SOUNDMANAGER->play("계절변경사운드");
+			SOUNDMANAGER->pause("스테이지1 여름");
 		}
 		else
 		{
 			ang = false;
+			
+			SOUNDMANAGER->play("계절해제사운드");
+			SOUNDMANAGER->resume("스테이지1 여름");
+			SOUNDMANAGER->pause("스테이지1 겨울");
 		}
 		if (_state != WEATHER)
 		{
@@ -1112,7 +1156,12 @@ void foxPlayer::playerUI()
 	if (ang)
 	{
 		_player.mana -= 0.1f;
-		if (_player.mana <= 0)ang = false;
+		if (_player.mana <= 0)
+		{
+			SOUNDMANAGER->play("스테이지1 여름");
+			SOUNDMANAGER->pause("스테이지1 겨울");
+			ang = false;
+		}
 	}
 	else
 	{

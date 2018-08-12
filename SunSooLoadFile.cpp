@@ -81,6 +81,14 @@ void loadingScene::SunSooImage()
 	//아이템
 	_loading->loadFrameImage("아이템이펙트", "resource/이선수/아이템/이펙트/아이템이펙트.bmp", 360, 60, 6, 1, true, MAGENTA);
 
+
+	//엔딩
+	_loading->loadFrameImage("엔딩배경최종", "resource/엔딩/엔딩배경최종.bmp", 7680, 720, 6, 1);
+	_loading->loadFrameImage("엔딩나무최종", "resource/엔딩/엔딩나무최종.bmp", 4800, 800, 6, 1);
+	_loading->loadImage("엔딩알파배경", "resource/엔딩/엔딩알파배경.bmp", 1280, 720);
+
+
+
 }
 
 void loadingScene::SunSooSound()

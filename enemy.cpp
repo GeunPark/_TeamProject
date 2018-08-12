@@ -27,7 +27,7 @@ void dragonFly::init()
 	_type = DRAGONFLY;
 	_x = 0.f;
 	_y = 0.f;
-	_isLeft = false;
+	_isLeft = true;
 	//ÄÚÀÎ
 	_gold = 0;
 	_silver = 1;
@@ -100,7 +100,7 @@ void vineMan::init()
 	_type = VINEMAN;
 	_x = 3480.f;
 	_y = 900.f;
-	_isLeft = false;
+	_isLeft = true;
 	_gold = 0;
 	_silver = 1;
 	_bronze = 1;
@@ -756,7 +756,7 @@ void bee::init()
 	_silver = 0;
 	_bronze = 0;
 	dizzyCount = 0;
-	hp = 7;
+	hp = 1;
 	attackStartCount = 0;
 	attackCount = 0;
 	_fireCount = 0;
