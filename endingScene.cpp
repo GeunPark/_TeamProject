@@ -17,6 +17,8 @@ HRESULT endingScene::init(void)
 	bg = IMAGEMANAGER->findImage("엔딩배경최종");
 	tree = IMAGEMANAGER->findImage("엔딩나무최종");
 	alphaBg = IMAGEMANAGER->findImage("엔딩알파배경");
+	SOUNDMANAGER->stop("보스배경사운드");
+
 
 	_player = SAVEDATA->getPlayer();
 	_player->setX(100);
