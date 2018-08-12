@@ -154,6 +154,7 @@ void poison::frameMove()
 
 }
 
-void poison::removeCuticle(int index)
+void poison::removePoison(int index)
 {
+	_vPoison.erase(_vPoison.begin() + index);
 }

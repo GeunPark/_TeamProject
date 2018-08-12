@@ -263,6 +263,7 @@ void treeMan::init()
 	_gold = 3;
 	_silver = 0;
 	_bronze = 0;
+	isStrong = false;
 }
 
 void treeMan::idle()

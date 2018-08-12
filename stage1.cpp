@@ -29,15 +29,21 @@ HRESULT stage1::init(void)
 	_iMG = SAVEDATA->getItemManager();
 	_iMG->init();
 
-
 	_eMG = SAVEDATA->getEnemyManager();
+<<<<<<< HEAD
 	_eMG->init();
+=======
+	//_eMG->init();
+>>>>>>> 44ac215c20beac4f1bfc2ff71f6a0597c365c804
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
 	if (isFrist == false)
 		_eMG->init();
+<<<<<<< HEAD
 	_eMG->init();
+=======
+>>>>>>> 44ac215c20beac4f1bfc2ff71f6a0597c365c804
 
 	_shop = SAVEDATA->getShop();
 	_shop->setPlayerManager(_player);
