@@ -52,6 +52,7 @@ HRESULT worldMapScene::init(void)
 
 	_fox = SAVEDATA->getPlayer();
 
+	SOUNDMANAGER->play("월드맵사운드",0.2f);
 
 	//테스트임시변수
 	clearCount = 0;

@@ -40,7 +40,7 @@ HRESULT startScene::init(void)
 	_bird.rc = RectMake(_bird.pos.x, _bird.pos.y, _bird.img->getWidth(), _bird.img->getHeight());
 	_bird.turn = false;
 
-	SOUNDMANAGER->play("½ºÅ¸Æ®¾ÀBGM");
+	SOUNDMANAGER->play("½ºÅ¸Æ®¾ÀBGM",0.3f);
 
 	alpha = alpha2 = 255;
 	count = _enterCount = 0;
