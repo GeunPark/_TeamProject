@@ -23,8 +23,6 @@ HRESULT foxPlayer::init(void)
 
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
-
-
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
 	_player.gravity = 0.f;
@@ -263,13 +261,19 @@ void foxPlayer::render()
 	{
 		//Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
 	}
+<<<<<<< HEAD
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
+=======
+
+	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
+
+	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
+
+>>>>>>> d5b55bb5d3f0bda781b785d8dc1efa12f48fe7dc
 	char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
 	TextOut(getMemDC(), 100, 600, str, strlen(str));
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
-
-
 }
 
 //ToDo : 이미지 셋팅
@@ -377,12 +381,16 @@ void foxPlayer::keySetting()
 		{
 			_state = RUN;
 		}
+<<<<<<< HEAD
 		
 		if(isArrowChange)
 			_player.arrowAngle = PI / 180 * 150;
 		else
 			_player.arrowAngle = PI;
 
+=======
+		_player.arrowAngle = PI / 180 * 150;
+>>>>>>> d5b55bb5d3f0bda781b785d8dc1efa12f48fe7dc
 		_player.isLeft = true;
 		_player.isFoxLeft = true;
 		_player.isUp = false;
@@ -394,20 +402,20 @@ void foxPlayer::keySetting()
 		_state = IDLE;
 		_player.isLeft = false;
 		_player.isRight = false;
-		
+
 	}
 	else if (_state == RUN && KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		_state = IDLE;
 		_player.isLeft = false;
-		
+
 	}
 
 	if (_state == IDLE && KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		_player.isUp = false;
-		if (_state != SITATT && _state != HIT && _state != JUMP && _state != DOUBLEJUMP && _state != FALL && _state != FALL2)		//임뫄~! 이거하나면 해결되는거자나! 정신똑띠 차리자!!! 이거 좀 화낫다 너무 쉬운거여서 화낫다   -세원-
-		_state = SIT;
+		if (_state != SITATT && _state != HIT && _state != JUMP && _state != DOUBLEJUMP && _state != FALL && _state != FALL2)      //임뫄~! 이거하나면 해결되는거자나! 정신똑띠 차리자!!! 이거 좀 화낫다 너무 쉬운거여서 화낫다   -세원-
+			_state = SIT;
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_DOWN) && _state != SITATT)
 	{
@@ -425,7 +433,7 @@ void foxPlayer::keySetting()
 	}
 	if (jumpCount < 2)
 	{
-		if (_state != HIT && _state != WEATHER   && KEYMANAGER->isOnceKeyDown(VK_SPACE))
+		if (_state != HIT && _state != WEATHER && KEYMANAGER->isOnceKeyDown(VK_SPACE))
 		{
 			++jumpCount;
 			_player.jumpSpeed = 9.f;
@@ -443,8 +451,8 @@ void foxPlayer::keySetting()
 	if (KEYMANAGER->isOnceKeyDown('A'))
 	{
 		//화살 발사
-		if (_state != FIRE && _state != SIT && _state != JUMP && _state != DOUBLEJUMP && _state != FALL && _state != FALL2 
-			&& !_player.isUp && _state != JUMPATT && _state != JUMPATT2 && _state != HIT && _state != DEATH && _state != SITATT && _state != WEATHER )
+		if (_state != FIRE && _state != SIT && _state != JUMP && _state != DOUBLEJUMP && _state != FALL && _state != FALL2
+			&& !_player.isUp && _state != JUMPATT && _state != JUMPATT2 && _state != HIT && _state != DEATH && _state != SITATT && _state != WEATHER)
 		{
 			if (!isArrowChange)
 			{
@@ -672,6 +680,7 @@ void foxPlayer::keySetting()
 		_player.isChange = false;
 		effectIndex = 0;
 	}
+
 }
 //todo ; 공격 렉트 생성
 void foxPlayer::attRect()

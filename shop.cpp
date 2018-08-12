@@ -61,7 +61,9 @@ void shop::render()
 	if (!_isSelect)_selectOj._img->render(getMemDC(), _selectOj._x, _selectOj._y);
 	else if (_isSelect)_selectOj._img->frameRender(getMemDC(), _selectOj._x, _selectOj._y);
 
-	
+	char str[128];
+	sprintf(str, "Ã¼·Â : %d              %d", _isNotSelect[0], upgnum[_selectNumber]);
+	TextOut(getMemDC(), 100, 700, str, strlen(str));
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
@@ -206,7 +208,7 @@ void shop::selectObject()
 					_player->setMagicNum(_player->getMagicNUm() + 1);
 				}
 			}
-			if (_player->getGold() < _Item[_selectNumber].price || upgnum[_selectNumber] > upgMaxNum[_selectNumber])
+			if (_player->getGold() < _Item[_selectNumber].price || upgnum[_selectNumber] >= upgMaxNum[_selectNumber])
 			{
 				_isNotSelect[0] = true;
 			}
