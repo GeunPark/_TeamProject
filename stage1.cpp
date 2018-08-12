@@ -33,6 +33,20 @@ HRESULT stage1::init(void)
 	_eMG->init();
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+	//_eMG->init();
+	_eMG->setItemManager(_iMG);
+	_eMG->setPlayerManager(_player);
+
+	if (isFrist == false)
+		_eMG->init();
+		_eMG->init();
+>>>>>>> ef7ac078ef9a6aa6aeafc8e3c3b301ef21b912f4
+>>>>>>> 64dd3a382c6827d0214fc650823d8793cf264159
 	_shop = SAVEDATA->getShop();
 	_shop->setPlayerManager(_player);
 	_player->setEnemyManager(_eMG);
