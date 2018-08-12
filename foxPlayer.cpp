@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "foxPlayer.h"
 #include "enemyManager.h"
-#include "shop.h"
+
 
 //ToDo : init
 HRESULT foxPlayer::init(void)
@@ -58,19 +58,9 @@ HRESULT foxPlayer::init(void)
 	tempX = tempY = 0;
 	_bpx = IMAGEMANAGER->findImage("스테이지1 픽셀");
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 61c20073ccb03f92b349f8d2b200ed6438ff3ff3
 	clearCount = 0;
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> ef7ac078ef9a6aa6aeafc8e3c3b301ef21b912f4
->>>>>>> 61c20073ccb03f92b349f8d2b200ed6438ff3ff3
 	return S_OK;
 }
 
@@ -275,32 +265,21 @@ void foxPlayer::render()
 	{
 		//Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
 	}
-<<<<<<< HEAD
-	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
-=======
-<<<<<<< HEAD
 
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
-=======
+
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
->>>>>>> 61c20073ccb03f92b349f8d2b200ed6438ff3ff3
->>>>>>> 8cefc952336dceb7dcf0d2c6f7a319eb62294e49
+
+
+	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
+
 
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
-<<<<<<< HEAD
 
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-=======
-=======
-=======
->>>>>>> ef7ac078ef9a6aa6aeafc8e3c3b301ef21b912f4
->>>>>>> 61c20073ccb03f92b349f8d2b200ed6438ff3ff3
->>>>>>> 8cefc952336dceb7dcf0d2c6f7a319eb62294e49
 	char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
 	TextOut(getMemDC(), 100, 600, str, strlen(str));
@@ -412,35 +391,12 @@ void foxPlayer::keySetting()
 		{
 			_state = RUN;
 		}
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> ef7ac078ef9a6aa6aeafc8e3c3b301ef21b912f4
->>>>>>> 61c20073ccb03f92b349f8d2b200ed6438ff3ff3
->>>>>>> 8cefc952336dceb7dcf0d2c6f7a319eb62294e49
-		
 		if(isArrowChange)
 			_player.arrowAngle = PI / 180 * 150;
 		else
 			_player.arrowAngle = PI;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-=======
-
-		_player.arrowAngle = PI / 180 * 150;
->>>>>>> ef7ac078ef9a6aa6aeafc8e3c3b301ef21b912f4
->>>>>>> 61c20073ccb03f92b349f8d2b200ed6438ff3ff3
->>>>>>> 8cefc952336dceb7dcf0d2c6f7a319eb62294e49
 		_player.isLeft = true;
 		_player.isFoxLeft = true;
 		_player.isUp = false;

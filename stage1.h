@@ -2,7 +2,6 @@
 #include "gameNode.h"
 #include "enemyManager.h"
 #include "itemManager.h"
-#include "shop.h"
 #include "foxPlayer.h"
 #include "UI.h"
 #include "effect.h"
@@ -44,16 +43,8 @@ private:
 	//아이템매니져 할당
 	itemManager * _iMG;
 
-
-
-
-
-
 	effect* _effect;
 	effectManager* _effMG;
-
-	// 상점 할당
-	shop * _shop;
 
 	UI * _ui;
 

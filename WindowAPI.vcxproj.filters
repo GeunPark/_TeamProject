@@ -275,6 +275,9 @@
     <ClInclude Include="endingScene.h">
       <Filter>MainGame\근화</Filter>
     </ClInclude>
+    <ClInclude Include="worldMapScene.h">
+      <Filter>MainGame\근화</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -443,6 +446,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="endingScene.cpp">
+      <Filter>MainGame\근화</Filter>
+    </ClCompile>
+    <ClCompile Include="worldMapScene.cpp">
       <Filter>MainGame\근화</Filter>
     </ClCompile>
   </ItemGroup>

@@ -67,7 +67,7 @@ void loadingScene::GeunHwaSound()
 
 	//상태
 	_loading->loadSound("맞음", "resource/박근화/사운드리소스/맞음.wav");
-	//_loading->loadSound("죽음", "resource/박근화/사운드리소스/죽음.wav");
+	_loading->loadSound("죽음", "resource/박근화/사운드리소스/죽음.wav");
 
 
 	//공격
