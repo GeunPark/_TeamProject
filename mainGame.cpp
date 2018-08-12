@@ -23,6 +23,7 @@ HRESULT mainGame::init(void)
 
 	_player = new foxPlayer;
 	SAVEDATA->setPlayer(_player);
+	
 
 	_ui = new UI;
 	SAVEDATA->setUI(_ui);

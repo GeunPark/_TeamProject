@@ -115,9 +115,8 @@ void arrow::animation()
 		if (_vArrow[i].angle == PI)
 		{
 			_vArrow[i].arrowImage->setFrameY(1);
-
 		}
-		else if (_vArrow[i].angle == 0)
+		if (_vArrow[i].angle == 0)
 		{
 			_vArrow[i].arrowImage->setFrameY(0);
 		}

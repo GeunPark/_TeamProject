@@ -366,6 +366,7 @@ void enemyManager::update(void)
 		}
 
 	}
+	
 
 
 

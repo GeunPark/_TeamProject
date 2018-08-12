@@ -5,6 +5,7 @@
 #include "magic.h"
 #include "poison.h"
 
+
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
 #define MAX_STATE 16
@@ -52,12 +53,14 @@ struct tagPlayer
 	bool isDown;
 	bool isAtt;
 	bool isChange;
+	bool isDead;
 
 	float mana;
 	float maxMana;
 	int HP;
 	int MaxHp;
 	int gold;
+
 };
 
 struct tagCam
@@ -82,7 +85,6 @@ private:
 	cuticle* _cuticle;
 	poison* _poison;
 	
-
 	// 상점에서 산 아이템 저장하는 벡터
 	
 
