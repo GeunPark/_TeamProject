@@ -18,7 +18,6 @@ HRESULT stage1::init(void)
 	eftInit();
 
 	_player = SAVEDATA->getPlayer();
-
 	_player->setX(300);
 	_player->setY(2300);
 	_player->setBgPixel(feildpixel);
@@ -30,17 +29,17 @@ HRESULT stage1::init(void)
 	_iMG = SAVEDATA->getItemManager();
 	_iMG->init();
 
-
 	_eMG = SAVEDATA->getEnemyManager();
 	_eMG->init();
+	//_eMG->init();
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
 	if (isFrist == false)
 		_eMG->init();
-	_eMG->init();
-
-
+		_eMG->init();
+	_shop = SAVEDATA->getShop();
+	_shop->setPlayerManager(_player);
 	_player->setEnemyManager(_eMG);
 	_ui->setPlayerManager(_player);
 	_iMG->setEMGLink(_eMG);

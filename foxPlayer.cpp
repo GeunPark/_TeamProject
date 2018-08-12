@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "foxPlayer.h"
 #include "enemyManager.h"
+#include "shop.h"
+#include "townScene.h"
 
 //ToDo : init
 HRESULT foxPlayer::init(void)
@@ -21,8 +23,6 @@ HRESULT foxPlayer::init(void)
 
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
-
-
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
 	_player.gravity = 0.f;
@@ -36,7 +36,7 @@ HRESULT foxPlayer::init(void)
 
 	_player.maxMana = _player.mana = 100;
 	_player.HP = _player.MaxHp = 50;
-	_player.gold = 0;
+	_player.gold = 9999;
 	eftChk = false;
 	_state = IDLE;
 
@@ -46,18 +46,24 @@ HRESULT foxPlayer::init(void)
 	arrowNum = 2;
 	arrowNumChk = 0;
 
-	magicNum = 3;
+	magicNum = 0;
 	magicNumCHk = 0;
 
 	_magicUseCount = 0;
 	_magicUseChk = false;
 	_magicUseChk2 = false;
 
+	isTouch = false;
+	isArrowChange = false;
+
 	tempX = tempY = 0;
 	_bpx = IMAGEMANAGER->findImage("스테이지1 픽셀");
 
+<<<<<<< HEAD
 	clearCount = 0;
 
+=======
+>>>>>>> 3f0ddcf51d9e4214a4cd3f42e21538408d3af3cb
 	return S_OK;
 }
 
@@ -71,14 +77,17 @@ void foxPlayer::update(void)
 	playerUI();
 	this->pixelCollision();		//픽셀충돌 함수 호출
 	this->frameMove();		//프레임 움직이는 함수 호출
-	this->attRect();
 	//여우 상태 
 	this->foxState();
-	_cuticle->update();
-	this->camera();			//카메라 움직이는 함수 호출
+	this->camera();	//카메라 움직이는 함수 호출
+
 	this->keySetting();	  //키셋팅 함수 호출
+
+	this->attRect();
+
 	_magic->update();
 	_arrow->update();
+
 
 	_player.gravity += 0.58f;
 	if (_state == JUMP)
@@ -103,8 +112,6 @@ void foxPlayer::update(void)
 
 	this->pixelCollision();		//픽셀충돌 함수 호출
 
-	this->frameMove();		//프레임 움직이는 함수 호출
-
 	//적과 충돌
 	if (KEYMANAGER->isToggleKey(VK_F3))
 	{
@@ -112,14 +119,28 @@ void foxPlayer::update(void)
 		this->enemyAttCollision();
 	}
 
-	//공격렉트 생성
 	_magic->setvthundwe(_camera.rc.left, _camera.rc.top);
 	_magic->nightMove(_camera.rc.right - 400 - a, _camera.rc.top + 200);
 	
 	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
-		_magicUseChk = true;
+		if (magicNum > 0 && _player.mana == _player.maxMana)
+		{
+			if (magicNumCHk == 0)
+			{
+				_magicUseChk2 = true;
+				
+			}
+			else if (magicNumCHk == 1)
+			{
+				_magicUseChk = true;
+			}
+			_player.mana = 0;
+		}
+
 	}
+	
+
 	if (_magicUseChk == true)
 	{
 		_magicUseCount += 1;
@@ -130,14 +151,7 @@ void foxPlayer::update(void)
 			_magicUseChk = false;
 		}
 	}
-	if (KEYMANAGER->isOnceKeyDown('B'))
-	{
-		if (_magicUseChk2 == false)
-		{
-			_magicUseChk2 = true;
-		}
 	
-	}
 	if (_magicUseChk2 == true)
 	{
 		_magic->a();
@@ -150,8 +164,14 @@ void foxPlayer::update(void)
 	}
 	if (KEYMANAGER->isOnceKeyDown('U'))
 	{
+		if (!isArrowChange)
+			isArrowChange = true;
+		else
+			isArrowChange = false;
+
 		arrowNumChk += 1;
 		if (arrowNumChk > arrowNum - 1)arrowNumChk = 0;
+		
 	}
 
 
@@ -177,7 +197,7 @@ void foxPlayer::update(void)
 //ToDo : render
 void foxPlayer::render()
 {
-	Rectangle(getMemDC(), _player.collisionRc.left - _camera.rc.left, _player.collisionRc.top - _camera.rc.top, _player.collisionRc.right - _camera.rc.left, _player.collisionRc.bottom - _camera.rc.top);
+	//Rectangle(getMemDC(), _player.collisionRc.left - _camera.rc.left, _player.collisionRc.top - _camera.rc.top, _player.collisionRc.right - _camera.rc.left, _player.collisionRc.bottom - _camera.rc.top);
 	
 	if (_player.isAtt)
 	{
@@ -213,20 +233,18 @@ void foxPlayer::render()
 	{
 		nick[_state]->frameRender(getMemDC(), _player.rc.left - _camera.rc.left, _player.rc.top - _camera.rc.top, nick[_state]->getFrameX(), nick[_state]->getFrameY());
 	}
-	
+	//화살 그려주는 부분
 	for (int i = 0; i < _arrow->getVArrow().size(); i++)
 	{
 		_arrow->getVArrow()[i].arrowImage->frameRender(getMemDC(), _arrow->getVArrow()[i].rc.left - _camera.rc.left, _arrow->getVArrow()[i].rc.top - _camera.rc.top);
 	}
-	/*for (int i = 0; i < _arrow->getVPoison().size(); ++i)
+	// 독화살 그려주는 부분
+	for (int i = 0; i < _poison->getVPoison().size(); i++)
 	{
-		_arrow->getVPoison()[i].arrowImage->frameRender(getMemDC(), _arrow->getVPoison()[i].rc.left - _camera.rc.left, _arrow->getVPoison()[i].rc.top - _camera.rc.top);
-	}*/
-	for (int i = 0; i < _poison->getPoison().size(); i++)
-	{
-		_poison->getPoison()[i].poisonImage->frameRender(getMemDC(), _poison->getPoison()[i].rc.left - _camera.rc.left, _poison->getPoison()[i].rc.top - _camera.rc.top);
-	}
 
+		_poison->getVPoison()[i].poisonImage->frameRender(getMemDC(), _poison->getVPoison()[i].rc.left - _camera.rc.left, _poison->getVPoison()[i].rc.top - _camera.rc.top, _poison->getIndexX(), _poison->getIndexY());
+	}
+	//썬더스킬 그려주는 부분
 	for (int i = 0; i <_magic->getvthunder().size(); ++i)
 	{
 		if (_magicUseChk == true)_magic->getvthunder()[i]._img->frameRender(getMemDC(), _magic->getvthunder()[i]._x - _camera.rc.left, _magic->getvthunder()[i]._y - _camera.rc.top);
@@ -246,11 +264,21 @@ void foxPlayer::render()
 	}
 	for (int i = 0; i < _magic->getvthunder().size(); i++)
 	{
-		Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
+		//Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
 	}
-	Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
+<<<<<<< HEAD
+	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
+=======
 
+	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
+	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
+
+>>>>>>> d5b55bb5d3f0bda781b785d8dc1efa12f48fe7dc
+	char str[128];
+	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
+	TextOut(getMemDC(), 100, 600, str, strlen(str));
+	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 }
 
 //ToDo : 이미지 셋팅
@@ -277,16 +305,24 @@ void foxPlayer::imageSetting()
 //ToDo : 프레임 움직임
 void foxPlayer::frameMove()
 {
+
 	if (_player.isFoxLeft)
 	{
 		count++;
 		nick[_state]->setFrameY(1);
-		if ((count & animationSpeed) == 0)
+		if ((count % animationSpeed) == 0)
 		{
-			index2--;
+			--index2;
 			if (index2 < 0)
 			{
 				index2 = nick[_state]->getMaxFrameX();
+				if (_state == DEATH)
+				{
+					
+					index2 = 0;
+						
+				}
+				isTouch = false;
 			}
 			nick[_state]->setFrameX(index2);
 		}
@@ -295,16 +331,23 @@ void foxPlayer::frameMove()
 	{
 		count++;
 		nick[_state]->setFrameY(0);
-		if ((count & animationSpeed) == 0)
+		if ((count % animationSpeed) == 0)
 		{
-			index++;
+			++index;
 			if (index > nick[_state]->getMaxFrameX())
 			{
 				index = 0;
+				if (_state == DEATH)
+				{
+					index = nick[DEATH]->getMaxFrameX();
+				}
+			
+				isTouch = false;
 			}
 			nick[_state]->setFrameX(index);
 		}
 	}
+
 	if (_player.isChange)
 	{
 		effectCount++;
@@ -319,6 +362,7 @@ void foxPlayer::frameMove()
 			_twinkle->setFrameX(effectIndex);
 		}
 	}
+
 }
 
 //ToDo : 키 셋팅
@@ -330,7 +374,7 @@ void foxPlayer::keySetting()
 		{
 			_state = RUN;
 		}
-		
+		_player.arrowAngle = 0;
 		_player.isFoxLeft = false;
 		_player.isRight = true;
 		_player.isUp = false;
@@ -342,7 +386,16 @@ void foxPlayer::keySetting()
 		{
 			_state = RUN;
 		}
+<<<<<<< HEAD
 		
+		if(isArrowChange)
+			_player.arrowAngle = PI / 180 * 150;
+		else
+			_player.arrowAngle = PI;
+
+=======
+		_player.arrowAngle = PI / 180 * 150;
+>>>>>>> d5b55bb5d3f0bda781b785d8dc1efa12f48fe7dc
 		_player.isLeft = true;
 		_player.isFoxLeft = true;
 		_player.isUp = false;
@@ -354,19 +407,19 @@ void foxPlayer::keySetting()
 		_state = IDLE;
 		_player.isLeft = false;
 		_player.isRight = false;
-		_player.arrowAngle = 0;
+
 	}
 	else if (_state == RUN && KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		_state = IDLE;
 		_player.isLeft = false;
-		_player.arrowAngle = PI;
+
 	}
 
-	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+	if (_state == IDLE && KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		_player.isUp = false;
-		if (_state != SITATT && _state != HIT)		//임뫄~! 이거하나면 해결되는거자나! 정신똑띠 차리자!!! 이거 좀 화낫다 너무 쉬운거여서 화낫다   -세원-
+		if (_state != SITATT && _state != HIT && _state != JUMP && _state != DOUBLEJUMP && _state != FALL && _state != FALL2)      //임뫄~! 이거하나면 해결되는거자나! 정신똑띠 차리자!!! 이거 좀 화낫다 너무 쉬운거여서 화낫다   -세원-
 			_state = SIT;
 	}
 	if (KEYMANAGER->isOnceKeyUp(VK_DOWN) && _state != SITATT)
@@ -381,10 +434,11 @@ void foxPlayer::keySetting()
 	if (KEYMANAGER->isOnceKeyUp(VK_UP))
 	{
 		_player.isUp = false;
+		_state = IDLE;
 	}
 	if (jumpCount < 2)
 	{
-		if (_state != HIT && _state != WEATHER   && KEYMANAGER->isOnceKeyDown(VK_SPACE))
+		if (_state != HIT && _state != WEATHER && KEYMANAGER->isOnceKeyDown(VK_SPACE))
 		{
 			++jumpCount;
 			_player.jumpSpeed = 9.f;
@@ -392,7 +446,6 @@ void foxPlayer::keySetting()
 			if (jumpCount >= 2)
 			{
 				_player.gravity = 0.f;
-				//_player.jumpSpeed = 9.f;
 				_player.jumpSpeed = 14.f;
 				actionCount = 0;
 				_state = DOUBLEJUMP;
@@ -403,29 +456,44 @@ void foxPlayer::keySetting()
 	if (KEYMANAGER->isOnceKeyDown('A'))
 	{
 		//화살 발사
-		if (_state != FIRE && _state != SIT && _state != JUMP && _state != DOUBLEJUMP && _state != FALL && _state != FALL2 
+		if (_state != FIRE && _state != SIT && _state != JUMP && _state != DOUBLEJUMP && _state != FALL && _state != FALL2
 			&& !_player.isUp && _state != JUMPATT && _state != JUMPATT2 && _state != HIT && _state != DEATH && _state != SITATT && _state != WEATHER)
 		{
-			if (_player.isFoxLeft)
+			if (!isArrowChange)
 			{
-				_state = FIRE;
-				_arrow->fire(_player.x - 15, _player.y + 30, _player.arrowAngle);
-				//_arrow->fire2(_player.x - 15, _player.y + 30, _player.arrowAngle);
-				//_poison->fire(_player.x - 15, _player.y + 30, 3, _player.arrowAngle);
-				index2 = nick[FIRE]->getMaxFrameX();
-				count = 0;
+				if (_player.isFoxLeft)
+				{
+					_state = FIRE;
+					_arrow->fire(_player.x - 15, _player.y + 30, _player.arrowAngle);
+					index2 = nick[FIRE]->getMaxFrameX();
+					count = 0;
+				}
+				else
+				{
+					_state = FIRE;
+					_arrow->fire(_player.x + 15, _player.y + 30, _player.arrowAngle);
+					index = 0;
+					count = 0;
+				}
 			}
 			else
 			{
-				_state = FIRE;
-				_arrow->fire(_player.x + 15, _player.y + 30, _player.arrowAngle);
-				//_arrow->fire2(_player.x + 15, _player.y + 30, _player.arrowAngle);
-				//_poison->fire(_player.x - 15, _player.y + 30, 3, _player.arrowAngle);
-				index = 0;
-				count = 0;
+				if (_player.isFoxLeft)
+				{
+					_state = FIRE;
+					_poison->fire(_player.x - 15, _player.y + 30, 3, _player.arrowAngle);
+					index2 = nick[FIRE]->getMaxFrameX();
+					count = 0;
+				}
+				else
+				{
+					_state = FIRE;
+					_poison->fire(_player.x - 15, _player.y + 30, 3, _player.arrowAngle);
+					index = 0;
+					count = 0;
+				}
 			}
 		}
-
 		//앉아 공격
 		if (_state == SIT)
 		{
@@ -548,14 +616,21 @@ void foxPlayer::keySetting()
 		_state = IDLE;
 	}
 	//공격이 끝난후 false처리
-	if ((index < nick[_state]->getMaxFrameX() || index2 > 0) && _state != FIRE && _state != IDLE && _state != HIT && _state != JUMP && _state != DOUBLEJUMP && _state != SIT && _state != RUN && _state != WEATHER && _state != FALL && _state != FALL2)
+	if (!isTouch)
 	{
-		_player.isAtt = true;
+		if ((index < nick[_state]->getMaxFrameX() || index2 > 0) && _state != FIRE && _state != IDLE && _state != HIT && _state != JUMP && _state != DOUBLEJUMP && _state != SIT && _state != RUN && _state != WEATHER && _state != FALL && _state != FALL2)
+		{
+			_player.isAtt = true;
+		}
+		else
+		{
+			_player.isAtt = false;
+		}
 	}
 	else
 	{
-		_player.isAtt = false;
-		attRc2 = RectMakeCenter(-1000, -1000, 30, 100);
+		attRc = RectMakeCenter(-10000, -10000, 180, 180);
+		attRc2 = RectMakeCenter(-10000, -10000, 180, 180);
 	}
 
 	if (KEYMANAGER->isOnceKeyDown('S') && _state == IDLE)
@@ -610,6 +685,7 @@ void foxPlayer::keySetting()
 		_player.isChange = false;
 		effectIndex = 0;
 	}
+
 }
 //todo ; 공격 렉트 생성
 void foxPlayer::attRect()
@@ -872,68 +948,6 @@ void foxPlayer::enemyCollision()
 			}
 		}
 	}
-	//if (unDamage > 15)
-	//{
-	//	RECT collRc;
-	//	if (IntersectRect(&collRc, &_player.collisionRc, &_enemyManger->getBoss()->getRc()))
-	//	{
-	//		if (chk == false)
-	//		{
-	//			_player.HP -= 5;
-	//			chk = true;
-	//		}
-	//		int width = (collRc.right - collRc.left) + 50;
-	//		int height = (collRc.bottom - collRc.top) + 50;
-	//
-	//		if (_player.x < _enemyManger->getBoss()->getRc().left)
-	//		{
-	//			if (_player.x > width)
-	//			{
-	//				_player.x -= 30;
-	//			}
-	//			if (_player.y > height)
-	//			{
-	//				_player.y -= 30;
-	//			}
-	//		}
-	//		else if (_player.x > _enemyManger->getBoss()[i]->getRc().right)
-	//		{
-	//			if (_player.x < width)
-	//			{
-	//				_player.x += 30;
-	//			}
-	//			if (_player.y < height)
-	//			{
-	//				_player.y += 30;
-	//			}
-	//		}
-	//		else if (_player.y < _enemyManger->getBoss()[i]->getRc().top)
-	//		{
-	//			if (_player.x > width)
-	//			{
-	//				_player.x -= 30;
-	//			}
-	//			if (_player.y > height)
-	//			{
-	//				_player.y -= 30;
-	//			}
-	//		}
-	//		else if (_player.y > _enemyManger->getBoss()->getRc().bottom)
-	//		{
-	//			if (_player.x < width)
-	//			{
-	//				_player.x += 30;
-	//			}
-	//			if (_player.y < height)
-	//			{
-	//				_player.y += 30;
-	//			}
-	//		}
-	//		_state = HIT;
-	//		unDamage = 0;
-	//	}
-	//}
-	
 }
 //todo : 적의 공격에 충돌
 void foxPlayer::enemyAttCollision()
@@ -1009,6 +1023,10 @@ void foxPlayer::removeArrow(int index)
 {
 	_arrow->removeArrow(index);
 }
+void foxPlayer::removePoison(int index)
+{
+	_poison->removePoison(index);
+}
 //todo : 여우상태
 void foxPlayer::foxState()
 {
@@ -1031,7 +1049,14 @@ void foxPlayer::foxState()
 	}
 	if (_player.HP == 0)
 	{
+		
 		_state = DEATH;
+	}
+	if (_state == DEATH)
+	{
+		this->init();
+		SCENEMANAGER->loadScene("타운씬");
+		
 	}
 }
 
@@ -1084,9 +1109,6 @@ void foxPlayer::test()
 	{
 		_player.gold -= 100;
 	}
-
-
-
 }
 void foxPlayer::playerUI()
 {

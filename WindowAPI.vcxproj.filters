@@ -251,17 +251,20 @@
     <ClInclude Include="startScene.h">
       <Filter>MainGame\근화</Filter>
     </ClInclude>
-    <ClInclude Include="cuticle.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="townScene.h">
       <Filter>MainGame\근화</Filter>
     </ClInclude>
     <ClInclude Include="bossStage.h">
       <Filter>MainGame\근화</Filter>
     </ClInclude>
-    <ClInclude Include="worldMapScene.h">
-      <Filter>MainGame\근화</Filter>
+    <ClInclude Include="magic.h">
+      <Filter>MainGame\기훈</Filter>
+    </ClInclude>
+    <ClInclude Include="poison.h">
+      <Filter>MainGame\세원</Filter>
+    </ClInclude>
+    <ClInclude Include="cuticle.h">
+      <Filter>MainGame\세원</Filter>
     </ClInclude>
     <ClInclude Include="magic.h">
       <Filter>헤더 파일</Filter>
@@ -418,17 +421,20 @@
     <ClCompile Include="startScene.cpp">
       <Filter>MainGame\근화</Filter>
     </ClCompile>
-    <ClCompile Include="cuticle.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="townScene.cpp">
       <Filter>MainGame\근화</Filter>
     </ClCompile>
     <ClCompile Include="bossStage.cpp">
       <Filter>MainGame\근화</Filter>
     </ClCompile>
-    <ClCompile Include="worldMapScene.cpp">
-      <Filter>MainGame\근화</Filter>
+    <ClCompile Include="magic.cpp">
+      <Filter>MainGame\기훈</Filter>
+    </ClCompile>
+    <ClCompile Include="poison.cpp">
+      <Filter>MainGame\세원</Filter>
+    </ClCompile>
+    <ClCompile Include="cuticle.cpp">
+      <Filter>MainGame\세원</Filter>
     </ClCompile>
     <ClCompile Include="magic.cpp">
       <Filter>소스 파일</Filter>

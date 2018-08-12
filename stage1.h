@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "enemyManager.h"
 #include "itemManager.h"
+#include "shop.h"
 #include "foxPlayer.h"
 #include "UI.h"
 #include "effect.h"

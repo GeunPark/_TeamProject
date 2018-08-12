@@ -38,10 +38,8 @@ HRESULT townScene::init(void)
 
 
 	_player = SAVEDATA->getPlayer();
-	if (test == false)
-	{
+	if(_test == false)
 		_player->init();
-	}
 	_player->setX(100);
 	_player->setY(500);
 	_player->setBgPixel(_pixel.img);
@@ -50,14 +48,14 @@ HRESULT townScene::init(void)
 
 	_ui = SAVEDATA->getUI();
 	_ui->setPlayerManager(_player);
-	if(test == false)
-		_ui->init();
+	if(_test == false)
+	_ui->init();
 	
-
 	_shop = SAVEDATA->getShop();
 	_shop->setPlayerManager(_player);
 	_shop->init();
 
+	_ui->setShopLink(_shop);
 
 	_upgradeShopRc = RectMakeCenter(1210, 520, 250, 200);
 	_magicShopRc = RectMakeCenter(930, 520,250,200);
@@ -128,12 +126,12 @@ void townScene::update(void)
 			}
 		}
 	}
-
+	
 
 
 	if (_player->getX() < 0)
 	{
-		test = true;
+		_test = true;
 
 		SCENEMANAGER->loadScene("¿ùµå¸Ê");
 		SOUNDMANAGER->stop("¸¶À»¹è°æ»ç¿îµå");
@@ -161,10 +159,10 @@ void townScene::render(void)
 	//Rectangle(getMemDC(), _magicShopRc.left - _player->getPlayerCam().left, _magicShopRc.top - _player->getPlayerCam().top, _magicShopRc.right - _player->getPlayerCam().left, _magicShopRc.bottom - _player->getPlayerCam().top);
 
 	//°£¹Ù¶¼ ±×³ªÂô!!!(¹İÂ¦)(¾öÁöÃ´)
-	_ui->render();
 	_player->render();
 	if (_shop->getOpen())
 	{
 		_shop->render();
 	}
+	_ui->render();
 }

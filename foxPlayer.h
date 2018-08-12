@@ -3,15 +3,14 @@
 #include "arrow.h"
 #include "cuticle.h"
 #include "magic.h"
-#include "shop.h"
 #include "poison.h"
+
 
 #define MAX_HEIGHT 2500
 #define MAX_WIDTH 10000
 #define MAX_STATE 16
 
 class enemyManager;
-
 
 enum tagState
 {
@@ -54,12 +53,14 @@ struct tagPlayer
 	bool isDown;
 	bool isAtt;
 	bool isChange;
+	bool isDead;
 
 	float mana;
 	float maxMana;
 	int HP;
 	int MaxHp;
 	int gold;
+
 };
 
 struct tagCam
@@ -81,11 +82,9 @@ private:
 
 	arrow* _arrow;
 	magic* _magic;
-	shop * _shop;
 	cuticle* _cuticle;
 	poison* _poison;
 	
-
 	// 상점에서 산 아이템 저장하는 벡터
 	
 
@@ -119,6 +118,8 @@ private:
 	bool _magicUseChk2;
 	int a = 0;
 	float tempX, tempY;
+	bool isTouch;
+	bool isArrowChange;
 
 	float _c[10], _d[10];
 
@@ -143,6 +144,7 @@ public:
 	void enemyCollision();
 	void enemyAttCollision();
 	void removeArrow(int index);
+	void removePoison(int index);
 	void foxState();
 	//void fire(float angle);
 	void magicCollision();
@@ -153,14 +155,20 @@ public:
 	void setX(float x) { _player.x = x; }
 	void setY(float y) { _player.y = y; }
 
+<<<<<<< HEAD
 	int getClearCount() { return clearCount; }
 	void setClearCount(int count) { clearCount = count; }
+=======
+	bool getIsTouch() { return isTouch; }
+	void setIsTouch(bool a) { isTouch = a; }
+>>>>>>> 3f0ddcf51d9e4214a4cd3f42e21538408d3af3cb
 
 	bool getmagicUseChk() { return _magicUseChk; }
 	bool getmagicUseChk2() { return _magicUseChk2; }
 	bool getLeft() { return _player.isLeft; }
 	bool getRight() { return _player.isRight; }
 	bool getIsAtt() { return _player.isAtt; }
+	void setIsAtt(bool a) { _player.isAtt = a; }
 	RECT getPlayerCam() { return _camera.rc; }
 	RECT getAttRc() { return attRc; }
 	RECT getAttRc2() { return attRc2; }
@@ -190,7 +198,9 @@ public:
 
 	//에너미매니저와 상호참조
 	void setEnemyManager(enemyManager* enemyManager) { _enemyManger = enemyManager; }
+	
 	tagPlayer getTag() { return _player; }
+	void setTag(tagPlayer player) { _player = player; }
 
 	// 계절을 변화시켰는지 아닌지 판별
 	bool getAng() { return ang; }
@@ -199,8 +209,9 @@ public:
 	//세원쓰^^~ 불금인데 못놀아서 아쉽지 ~~ 월요일날 보니깐 힘내 내가 아래 겟함수 하나 만들었는데~~ 미안쓰 -HG-
 	
 	arrow* getArrow() { return _arrow; }
+	poison* getPoison() { return _poison; }
 	magic* getMagic() {return _magic;}
-	shop* getShop() { return _shop; }
+	
 
 	RECT getCollisionRc() { return _player.collisionRc; }
 
@@ -222,6 +233,8 @@ public:
 
 	int getMagicNUm() { return magicNum; }
 	int getMagicNUmChk() { return magicNumCHk; }
+
+	void setMagicNum(int a) { magicNum = a; }
 
 	foxPlayer() {}
 	~foxPlayer() {}

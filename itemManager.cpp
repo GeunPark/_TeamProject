@@ -184,13 +184,13 @@ void itemManager::update(void)
 			RECT _rct;
 			//if (!_vItemBox[i]->getIsActive())
 			//{
-			if (IntersectRect(&_rct, &_vItemBox[i]->getRc(), &_player->getAttRc()) && _player->getIsAtt())
+			if (IntersectRect(&_rct, &_vItemBox[i]->getRc(), &_player->getAttRc()) && _player->getIsAtt() && !_player->getIsTouch())
 				{
 					//_vEnemy[i]->setState(ENEMY_DEAD);
 					//_iMG->setCoin(_vEnemy[i]->getX(), _vEnemy[i]->getY(), _vEnemy[i]->getGold(), _vEnemy[i]->getSilver(), _vEnemy[i]->getBronze());
 					_vItemBox[i]->setIsActive(true);
+					_player->setIsTouch(true);
 					
-
 					if (i == 3 )
 					{
 						_eMG->setGhost(_vItemBox[i]->getX(), _vItemBox[i]->getY(),1);
@@ -212,7 +212,7 @@ void itemManager::update(void)
 						bronze = 2;
 					}
 		
-					//break;
+					break;
 
 					//			_vPlantFrog[i]->setEnemyAction(E_DEAD);
 					//			_player->setIsAttack(false);

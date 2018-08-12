@@ -36,7 +36,7 @@ void shop::release(void)
 void shop::update(void)
 {
 	ItemList();
-	
+
 	frameImageMove();
 	selectObject();
 }
@@ -45,8 +45,8 @@ void shop::render()
 	_backImage._img->render(getMemDC(), _backImage._x, _backImage._y);
 	for (int i = 0; i < 3; i++)
 	{
-		_Item[i]._img->render(getMemDC(), _Item[i]._x, _Item[i]._y);	
-	}	
+		_Item[i]._img->render(getMemDC(), _Item[i]._x, _Item[i]._y);
+	}
 
 	if (!_isNotSelect[0] && !_isNotSelect[1])
 	{
@@ -55,19 +55,17 @@ void shop::render()
 			if (frameNumChk[i] == true)_priceNum[i]._img->frameRender(getMemDC(), _priceNum[i]._x, _priceNum[i]._y, num[i], 0);
 		}
 	}
-	
 
 	_ItemInfo[_selectNumber]._img->render(getMemDC(), _ItemInfo[_selectNumber]._x, _ItemInfo[_selectNumber]._y);
-	//_ItemInfo[1]._img->render(getMemDC(), _ItemInfo[1]._x, _ItemInfo[1]._y);
-	
-	if(!_isSelect)_selectOj._img->render(getMemDC(), _selectOj._x, _selectOj._y);
-	else if(_isSelect)_selectOj._img->frameRender(getMemDC(), _selectOj._x, _selectOj._y);
+
+	if (!_isSelect)_selectOj._img->render(getMemDC(), _selectOj._x, _selectOj._y);
+	else if (_isSelect)_selectOj._img->frameRender(getMemDC(), _selectOj._x, _selectOj._y);
 
 	char str[128];
-	sprintf_s(str, "%d    %d           %d", upgnum[_selectNumber],upgMaxNum[_selectNumber], _isNotSelect);
-	TextOut(getMemDC(), 200, WINSIZEY / 2, str, strlen(str));
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+	sprintf(str, "체력 : %d              %d", _isNotSelect[0], upgnum[_selectNumber]);
+	TextOut(getMemDC(), 100, 700, str, strlen(str));
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }
 void shop::ItemList()
 {
@@ -94,23 +92,25 @@ void shop::ItemList()
 		_Item[1].price = 150;
 		_Item[2].price = 200;
 
-		upgMaxNum[0]= MAXGREENARROW;
+
+
+		upgMaxNum[0] = MAXGREENARROW;
 		upgMaxNum[1] = MAXMANAITEM;
 		upgMaxNum[2] = MAXHPITEM;
 	}
 	else if (MAGIC)
 	{
 		_Item[0]._img = IMAGEMANAGER->findImage("불 마법");
-		_Item[1]._img = IMAGEMANAGER->findImage("얼음 마법");
-		_Item[2]._img = IMAGEMANAGER->findImage("번개 마법");
+		_Item[1]._img = IMAGEMANAGER->findImage("번개 마법");
+		_Item[2]._img = IMAGEMANAGER->findImage("얼음 마법");
 
 		_ItemInfo[0]._img = IMAGEMANAGER->findImage("불 마법 정보");
-		_ItemInfo[1]._img = IMAGEMANAGER->findImage("얼음 마법 정보");
-		_ItemInfo[2]._img = IMAGEMANAGER->findImage("번개 마법 정보");
+		_ItemInfo[1]._img = IMAGEMANAGER->findImage("번개 마법 정보");
+		_ItemInfo[2]._img = IMAGEMANAGER->findImage("얼음 마법 정보");
 
-		_Item[0].price = 30;
-		_Item[1].price = 30;
-		_Item[2].price = 30;
+		_Item[0].price = 3000;
+		_Item[1].price = 3000;
+		_Item[2].price = 00;
 
 		upgMaxNum[3];
 		magicMaxNum[3];
@@ -119,6 +119,9 @@ void shop::ItemList()
 		magicMaxNum[1] = 1;
 		magicMaxNum[2] = 1;
 
+		_Item[0]._number = 0;
+		_Item[1]._number = 1;
+		_Item[2]._number = 2;
 	}
 	for (int i = 0; i < 4; i++)
 	{
@@ -146,15 +149,15 @@ void shop::frameImageMove()
 			_selectCount = 0;
 			_selectOj._count = 0;
 			_selectOj._index = 0;
-			
+
 		}
 	}
-	
+
 	num[0] = _Item[_selectNumber].price / 1000;
 	num[1] = (_Item[_selectNumber].price % 1000) / 100;
 	num[2] = (_Item[_selectNumber].price % 100) / 10;
 	num[3] = _Item[_selectNumber].price % 10;
-	
+
 
 	if (_Item[_selectNumber].price >= 0) frameNumChk[3] = true;
 	if (_Item[_selectNumber].price > 9) frameNumChk[2] = true;
@@ -190,26 +193,26 @@ void shop::selectObject()
 		if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 		{
 			_isSelect = true;
-			if (_player->getGold() >= _Item[_selectNumber].price )
+			if (_player->getGold() >= _Item[_selectNumber].price)
 			{
 				if (_kindShop == UPGRADE && upgnum[_selectNumber] < upgMaxNum[_selectNumber])
 				{
 					_player->setGold(_player->getGold() - _Item[_selectNumber].price);
 					ItemSell();
-					_vShopItem.push_back(_Item[_selectNumber]);
 				}
-				else if (_kindShop == MAGIC && upgnum[_selectNumber] < magicMaxNum[_selectNumber])
+				else if (_kindShop == MAGIC && magicNum[_selectNumber] < magicMaxNum[_selectNumber] && _player->getMagicNUm() < 2)
 				{
 					_player->setGold(_player->getGold() - _Item[_selectNumber].price);
 					ItemSell();
 					_vShopItem.push_back(_Item[_selectNumber]);
+					_player->setMagicNum(_player->getMagicNUm() + 1);
 				}
 			}
-			if (_player->getGold() < _Item[_selectNumber].price || upgnum[_selectNumber] > upgMaxNum[_selectNumber] )
+			if (_player->getGold() < _Item[_selectNumber].price || upgnum[_selectNumber] >= upgMaxNum[_selectNumber])
 			{
 				_isNotSelect[0] = true;
 			}
-			if (_player->getGold() < _Item[_selectNumber].price || magicNum[_selectNumber] > magicMaxNum[_selectNumber])
+			if (_player->getGold() < _Item[_selectNumber].price || magicNum[_selectNumber] > magicMaxNum[_selectNumber] || _player->getMagicNUm() > 2)
 			{
 				_isNotSelect[1] = true;
 			}
@@ -220,7 +223,7 @@ void shop::selectObject()
 	_selectOj._y = _Item[_selectNumber]._y;
 
 	if (!_isSelect)_selectOj._img = IMAGEMANAGER->findImage("아이템 선택");
-	else if(_isSelect)_selectOj._img = IMAGEMANAGER->findImage("선택함");
+	else if (_isSelect)_selectOj._img = IMAGEMANAGER->findImage("선택함");
 
 	if (_isNotSelect[0] && _kindShop == UPGRADE)_ItemInfo[_selectNumber]._img = IMAGEMANAGER->findImage("업그레이드 불가");
 	if (_isNotSelect[1] && _kindShop == MAGIC)_ItemInfo[_selectNumber]._img = IMAGEMANAGER->findImage("마법 구매 불가");
@@ -235,7 +238,7 @@ void shop::ItemSell()
 		upgnum[_selectNumber] += 1;
 		if (_selectNumber == 0)
 		{
-			
+
 		}
 		else if (_selectNumber == 1)
 		{
