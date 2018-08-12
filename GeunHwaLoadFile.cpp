@@ -85,7 +85,7 @@ void loadingScene::GeunHwaSound()
 	_loading->loadSound("하트먹음", "resource/박근화/사운드리소스/하트먹음.wav");
 
 
-
+	_loading->loadSound("보스배경사운드", "resource/박근화/사운드리소스/보스 배경 사운드.wav", true, true);
 
 
 

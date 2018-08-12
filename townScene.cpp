@@ -14,7 +14,7 @@ townScene::~townScene()
 HRESULT townScene::init(void)
 {
 	
-	SOUNDMANAGER->play("마을배경사운드");
+	SOUNDMANAGER->play("마을배경사운드", 0.3f);
 	//_backGround = IMAGEMANAGER->findImage("타운씬 배경");
 	//_layer1 = IMAGEMANAGER->findImage("타운씬 레이어1");
 	//_layer2 = IMAGEMANAGER->findImage("타운씬 레이어2");
@@ -139,7 +139,7 @@ void townScene::update(void)
 	{
 		_test = true;
 
-		SCENEMANAGER->loadScene("보스");
+		SCENEMANAGER->loadScene("월드맵");
 		SOUNDMANAGER->stop("마을배경사운드");
 		SOUNDMANAGER->play("월드맵배경사운드");
 	}

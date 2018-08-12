@@ -119,7 +119,7 @@ HRESULT loading::init(void)
 	_shot->setY(435);
 
 	_target = IMAGEMANAGER->addFrameImage("Å¸°Ù", "resource/¹Ú±ÙÈ­/·Îµù/°ú³á.bmp", 480, 96, 5, 1, true, MAGENTA);
-	_target->setX(790);
+	_target->setX(820);
 	_target->setY(510);
 
 	count = index = 0;

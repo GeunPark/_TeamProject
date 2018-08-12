@@ -31,8 +31,7 @@ HRESULT stage1::init(void)
 	_eMG = SAVEDATA->getEnemyManager();
 	_eMG->init();
 
-	if (isFrist == false)
-		_eMG->init();
+	
 
 	_player->setEnemyManager(_eMG);
 	_ui->setPlayerManager(_player);
@@ -70,7 +69,7 @@ HRESULT stage1::init(void)
 	stageClearInit();
 
 	//사운드 
-	SOUNDMANAGER->play("스테이지1 여름",0.2f);
+	SOUNDMANAGER->play("스테이지1 여름",0.1f);
 
 	return S_OK;
 }

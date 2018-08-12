@@ -17,7 +17,7 @@ HRESULT bossStage::init(void)
 	fall = IMAGEMANAGER->findImage("보스가을");
 	pixel = IMAGEMANAGER->findImage("보스픽셀");
 
-
+	SOUNDMANAGER->play("보스배경사운드",0.2f);
 
 	for (int i = 0; i < 20; i++)
 	{
@@ -94,6 +94,7 @@ void bossStage::update(void)
 	}
 	if (_player->getX() < 0)
 	{
+		SOUNDMANAGER->stop("보스배경사운드");
 		SCENEMANAGER->loadScene("타운씬");
 	}
 	//else
