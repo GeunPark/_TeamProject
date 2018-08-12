@@ -285,6 +285,7 @@ void enemyManager::update(void)
 		}
 
 	}
+	//독화살과 충돌
 	for (int i = 0; i < _vEnemy.size(); ++i)
 	{
 		for (int j = 0; j < _player->getPoison()->getVPoison().size(); ++j)
@@ -300,6 +301,18 @@ void enemyManager::update(void)
 				_player->removePoison(j);
 			}
 		}
+	}
+	for (int i = 0; i < _vGhost.size(); ++i)
+	{
+		RECT rct;
+
+		if (IntersectRect(&rct, &this->_ghostBullet[i].getBulletRc(), &_player->getCollisionRc()) && _player->getUnHit()>20 && _player->getPlayerState() != HIT)
+		{
+			_player->setState(HIT);
+			_player->setUnHit(0);
+			_player->setHp(_player->getHp() - 5);
+		}
+		
 	}
 	for (int i = 0; i < _vEnemy.size(); ++i)
 	{

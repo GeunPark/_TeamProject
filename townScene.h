@@ -40,6 +40,6 @@ public:
 	void update(void);
 	void render(void);
 
-	void setTest(bool test) { _test = test; }
+	//void setTest(bool test) { _test = test; }
 };
 

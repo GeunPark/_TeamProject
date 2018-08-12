@@ -35,5 +35,21 @@ void loadingScene::SaeWonImage()
 
 void loadingScene::SaeWonSound()
 {
+	//계절 체인지################################################################################################
+	_loading->loadSound("계절변경사운드", "resource/박근화/사운드리소스/계절 바꿀때 사운드.wav");
+	_loading->loadSound("계절해제사운드", "resource/박근화/사운드리소스/계절 해제할때 사운드.wav");
 
+	//마을씬 관련 ################################################################################################
+	_loading->loadSound("마을배경사운드", "resource/박근화/사운드리소스/마을 배경 사운드.wav", true, true);
+	_loading->loadSound("마을상점선택사운드", "resource/박근화/사운드리소스/마을 상점 셀렉 사운드.wav");
+	_loading->loadSound("마을상점캔슬사운드", "resource/박근화/사운드리소스/마을 상점 캔슬 사운드.wav");
+	_loading->loadSound("돈모자를때사운드", "resource/박근화/사운드리소스/노코인사운드.wav");
+
+	//월드맵 관련##################################################################################################
+	_loading->loadSound("월드맵배경사운드", "resource/박근화/사운드리소스/월드맵 배경 사운드.wav", true, true);
+
+	//에너미 관련 사운드
+	_loading->loadSound("에너미죽는사운드", "resource/박근화/사운드리소스/에너미 죽는 사운드.wav");
+	_loading->loadSound("코인생성사운드", "resource/박근화/사운드리소스/코인 젠됬을때 사운드.wav");
+	_loading->loadSound("코인획득사운드", "resource/박근화/사운드리소스/코인 먹었을때 사운드.wav");
 }

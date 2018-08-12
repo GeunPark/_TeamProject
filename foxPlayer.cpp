@@ -2,7 +2,6 @@
 #include "foxPlayer.h"
 #include "enemyManager.h"
 #include "shop.h"
-#include "townScene.h"
 
 //ToDo : init
 HRESULT foxPlayer::init(void)
@@ -196,8 +195,8 @@ void foxPlayer::render()
 	
 	if (_player.isAtt)
 	{
-		Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
-		Rectangle(getMemDC(), attRc2.left - _camera.rc.left, attRc2.top - _camera.rc.top, attRc2.right - _camera.rc.left, attRc2.bottom - _camera.rc.top);
+		//Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
+		//Rectangle(getMemDC(), attRc2.left - _camera.rc.left, attRc2.top - _camera.rc.top, attRc2.right - _camera.rc.left, attRc2.bottom - _camera.rc.top);
 	}
 	if (_player.isChange)
 	{
@@ -261,15 +260,12 @@ void foxPlayer::render()
 	{
 		//Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
 	}
-<<<<<<< HEAD
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
-=======
 
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
->>>>>>> d5b55bb5d3f0bda781b785d8dc1efa12f48fe7dc
 	char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
 	TextOut(getMemDC(), 100, 600, str, strlen(str));
@@ -381,16 +377,12 @@ void foxPlayer::keySetting()
 		{
 			_state = RUN;
 		}
-<<<<<<< HEAD
 		
 		if(isArrowChange)
 			_player.arrowAngle = PI / 180 * 150;
 		else
 			_player.arrowAngle = PI;
 
-=======
-		_player.arrowAngle = PI / 180 * 150;
->>>>>>> d5b55bb5d3f0bda781b785d8dc1efa12f48fe7dc
 		_player.isLeft = true;
 		_player.isFoxLeft = true;
 		_player.isUp = false;
@@ -435,6 +427,7 @@ void foxPlayer::keySetting()
 	{
 		if (_state != HIT && _state != WEATHER && KEYMANAGER->isOnceKeyDown(VK_SPACE))
 		{
+			SOUNDMANAGER->play("점프사운드",50.f);
 			++jumpCount;
 			_player.jumpSpeed = 9.f;
 			_state = JUMP;
@@ -443,6 +436,7 @@ void foxPlayer::keySetting()
 				_player.gravity = 0.f;
 				_player.jumpSpeed = 14.f;
 				actionCount = 0;
+				SOUNDMANAGER->play("2단점프사운드", 50.f);
 				_state = DOUBLEJUMP;
 			}
 		}
@@ -458,6 +452,7 @@ void foxPlayer::keySetting()
 			{
 				if (_player.isFoxLeft)
 				{
+					SOUNDMANAGER->play("화살발사사운드", 50.f);
 					_state = FIRE;
 					_arrow->fire(_player.x - 15, _player.y + 30, _player.arrowAngle);
 					index2 = nick[FIRE]->getMaxFrameX();
@@ -465,6 +460,7 @@ void foxPlayer::keySetting()
 				}
 				else
 				{
+					SOUNDMANAGER->play("화살발사사운드", 50.f);
 					_state = FIRE;
 					_arrow->fire(_player.x + 15, _player.y + 30, _player.arrowAngle);
 					index = 0;
@@ -475,6 +471,7 @@ void foxPlayer::keySetting()
 			{
 				if (_player.isFoxLeft)
 				{
+					SOUNDMANAGER->play("독화살", 10.f);
 					_state = FIRE;
 					_poison->fire(_player.x - 15, _player.y + 30, 3, _player.arrowAngle);
 					index2 = nick[FIRE]->getMaxFrameX();
@@ -494,12 +491,14 @@ void foxPlayer::keySetting()
 		{
 			if (_player.isFoxLeft)
 			{
+				SOUNDMANAGER->play("앉은공격사운드", 10.f);
 				_state = SITATT;
 				index2 = nick[SITATT]->getMaxFrameX();
 				count = 0;
 			}
 			else
 			{
+				SOUNDMANAGER->play("앉은공격사운드", 10.f);
 				_state = SITATT;
 				index = 0;
 				count = 0;
@@ -510,6 +509,7 @@ void foxPlayer::keySetting()
 		{
 			if (_player.isFoxLeft)
 			{
+				SOUNDMANAGER->play("1단점프공격사운드", 10.f);
 				_state = JUMPATT;
 				index2 = nick[JUMPATT]->getMaxFrameX();
 				count = 0;
@@ -517,6 +517,7 @@ void foxPlayer::keySetting()
 			}
 			else
 			{
+				SOUNDMANAGER->play("1단점프공격사운드", 10.f);
 				_state = JUMPATT;
 				index = 0;
 				count = 0;
@@ -528,6 +529,7 @@ void foxPlayer::keySetting()
 		{
 			if (_player.isFoxLeft)
 			{
+				SOUNDMANAGER->play("2단점프공격사운드", 10.f);
 				_state = JUMPATT2;
 				index2 = nick[JUMPATT2]->getMaxFrameX();
 				count = 0;
@@ -535,6 +537,7 @@ void foxPlayer::keySetting()
 			}
 			else
 			{
+				SOUNDMANAGER->play("2단점프공격사운드", 10.f);
 				_state = JUMPATT2;
 				index = 0;
 				count = 0;
@@ -546,12 +549,14 @@ void foxPlayer::keySetting()
 		{
 			if (_player.isFoxLeft)
 			{
+				SOUNDMANAGER->play("상단베기");
 				_state = UPATT;
 				index2 = nick[UPATT]->getMaxFrameX();
 				count = 0;
 			}
 			else
 			{
+				SOUNDMANAGER->play("상단베기");
 				_state = UPATT;
 				index = 0;
 				count = 0;
@@ -620,12 +625,14 @@ void foxPlayer::keySetting()
 		else
 		{
 			_player.isAtt = false;
+			attRc = RectMakeCenter(-10000, -10000, 180, 180);
+			attRc2 = RectMakeCenter(-10000, -10000, 30, 100);
 		}
 	}
 	else
 	{
 		attRc = RectMakeCenter(-10000, -10000, 180, 180);
-		attRc2 = RectMakeCenter(-10000, -10000, 180, 180);
+		attRc2 = RectMakeCenter(-10000, -10000, 30, 100);
 	}
 
 	if (KEYMANAGER->isOnceKeyDown('S') && _state == IDLE)
@@ -643,6 +650,7 @@ void foxPlayer::keySetting()
 		{
 			if (_player.isFoxLeft)
 			{
+				SOUNDMANAGER->play("계절변경사운드", 10.f);
 				_state = WEATHER;
 				_cuticle->fire(_player.x, _player.y + 35, 100);
 				index2 = nick[WEATHER]->getMaxFrameX();
@@ -651,6 +659,7 @@ void foxPlayer::keySetting()
 			}
 			else
 			{
+				SOUNDMANAGER->play("계절변경사운드", 10.f);
 				_state = WEATHER;
 				_cuticle->fire(_player.x, _player.y + 35, 100);
 				index = 0;
@@ -662,6 +671,7 @@ void foxPlayer::keySetting()
 		weatherIndex++;
 		if (weatherIndex > 1 || _player.mana < 30)
 		{
+			SOUNDMANAGER->play("계절해제사운드", 10.f);
 			_state = IDLE;
 			weatherIndex = 0;
 			_player.isChange = false;
@@ -938,6 +948,7 @@ void foxPlayer::enemyCollision()
 						_player.y += 30;
 					}
 				}
+				
 				_state = HIT;
 				unDamage = 0;
 			}
@@ -1007,6 +1018,7 @@ void foxPlayer::enemyAttCollision()
 						_player.y += 30;
 					}
 				}
+				
 				_state = HIT;
 				unDamage = 0;
 			}
@@ -1035,6 +1047,7 @@ void foxPlayer::foxState()
 		hitCount++;
 		alphaCount++;
 		if (hitCount > 25)
+		SOUNDMANAGER->play("맞음");
 		{
 			chk = false;
 			_state = IDLE;
@@ -1044,7 +1057,7 @@ void foxPlayer::foxState()
 	}
 	if (_player.HP == 0)
 	{
-		
+		//SOUNDMANAGER->play("죽음");
 		_state = DEATH;
 	}
 	if (_state == DEATH)

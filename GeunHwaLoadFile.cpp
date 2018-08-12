@@ -65,32 +65,26 @@ void loadingScene::GeunHwaSound()
 	_loading->loadSound("1단점프공격사운드", "resource/박근화/사운드리소스/1단점프 공격 사운드.wav");
 	_loading->loadSound("2단점프공격사운드", "resource/박근화/사운드리소스/2단점프 공격 사운드.wav");
 
+	//상태
+	_loading->loadSound("맞음", "resource/박근화/사운드리소스/맞음.wav");
+	//_loading->loadSound("죽음", "resource/박근화/사운드리소스/죽음.wav");
+
+
 	//공격
 	_loading->loadSound("화살발사사운드", "resource/박근화/사운드리소스/화살발사 효과사운드.wav");
 	_loading->loadSound("화살펄스사운드", "resource/박근화/사운드리소스/화살발사 펄스 효과음.wav");
 	_loading->loadSound("앉은공격사운드", "resource/박근화/사운드리소스/앉은공격 사운드.wav");
+	_loading->loadSound("상단베기", "resource/박근화/사운드리소스/상단베기.wav");
+	_loading->loadSound("독화살", "resource/박근화/사운드리소스/독화살.wav");
+	_loading->loadSound("나이트메어", "resource/박근화/사운드리소스/나이트메어.wav");
+	_loading->loadSound("썬더", "resource/박근화/사운드리소스/썬더.wav");
 
-	//마나
+	//마나, 하트
 	_loading->loadSound("마나획득사운드", "resource/박근화/사운드리소스/마나먹을때 싸운드.wav");
 	_loading->loadSound("마나알람사운드", "resource/박근화/사운드리소스/마나 알람 사운드.wav", false, true);
+	_loading->loadSound("하트먹음", "resource/박근화/사운드리소스/하트먹음.wav");
 
-	//계절 체인지################################################################################################
-	_loading->loadSound("계절변경사운드", "resource/박근화/사운드리소스/계절 바꿀때 사운드.wav");
-	_loading->loadSound("계절해제사운드", "resource/박근화/사운드리소스/계절 해제할때 사운드.wav");
 
-	//마을씬 관련 ################################################################################################
-	_loading->loadSound("마을배경사운드", "resource/박근화/사운드리소스/마을 배경 사운드.wav", true, true);
-	_loading->loadSound("마을상점선택사운드", "resource/박근화/사운드리소스/마을 상점 셀렉 사운드.wav");
-	_loading->loadSound("마을상점캔슬사운드", "resource/박근화/사운드리소스/마을 상점 캔슬 사운드.wav");
-	_loading->loadSound("돈모자를때사운드", "resource/박근화/사운드리소스/노코인사운드.wav");
-
-	//월드맵 관련##################################################################################################
-	_loading->loadSound("월드맵배경사운드", "resource/박근화/사운드리소스/월드맵 배경 사운드.wav", true, true);
-
-	//에너미 관련 사운드
-	_loading->loadSound("에너미죽는사운드", "resource/박근화/사운드리소스/에너미 죽는 사운드.wav");
-	_loading->loadSound("코인생성사운드", "resource/박근화/사운드리소스/코인 젠됬을때 사운드.wav");
-	_loading->loadSound("코인획득사운드", "resource/박근화/사운드리소스/코인 먹었을때 사운드.wav");
 
 
 

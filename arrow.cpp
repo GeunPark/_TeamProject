@@ -97,6 +97,7 @@ void arrow::move()
 		{
 			//_viArrow->arrowImage->release();
 			//SAFE_DELETE(_viArrow->arrowImage);
+			//SOUNDMANAGER->play("화살펄스사운드", 10.f);
 			_viArrow = _vArrow.erase(_viArrow);
 		}
 		else
@@ -162,6 +163,8 @@ void arrow::removeArrow(int index)
 {
 	//_vArrow[index].arrowImage->release();
 	//SAFE_DELETE(_vArrow[index].arrowImage);
+
+	//SOUNDMANAGER->play("화살펄스사운드", 10.f);
 	_vArrow.erase(_vArrow.begin() + index);
 }
 

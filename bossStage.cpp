@@ -259,6 +259,7 @@ void bossStage::update(void)
 	{
 		_player->setState(HIT);
 		_player->setUnHit(0);
+		_player->setHp(_player->getHp() - 5);
 	}
 
 	for (int i = 0; i < _bee->getBullet()->getVBullet().size(); ++i)
@@ -268,6 +269,7 @@ void bossStage::update(void)
 		{
 			_player->setState(HIT);
 			_player->setUnHit(0);
+			_player->setHp(_player->getHp() - 5);
 		}
 	}
 	

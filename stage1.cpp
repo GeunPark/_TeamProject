@@ -76,17 +76,13 @@ HRESULT stage1::init(void)
 	stageClearInit();
 
 	//사운드 
-	SOUNDMANAGER->play("스테이지1 여름");
+	SOUNDMANAGER->play("스테이지1 여름",0.2f);
 
 	return S_OK;
 }
 void stage1::release(void)
 {
-	SAFE_DELETE(_player);
-	//_eMG->release();
-	SAFE_DELETE(_eMG);
-	SAFE_DELETE(_iMG);
-	SAFE_DELETE(_effect);
+
 
 }
 
