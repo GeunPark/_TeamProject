@@ -57,7 +57,7 @@ void loadingScene::render(void)
 	{
 		char str[128];
 		sprintf_s(str, "%s  을(를) 읽는중...", _loading->getLoadItem()[_loading->getCurrnetGauge()]->getImageResource().keyName.c_str());
-		TextOut(getMemDC(), 300, 580, str, strlen(str));
+		TextOut(getMemDC(), 620, 580, str, strlen(str));
 	}
 
 	float num = _loading->getLoadItem().size();
