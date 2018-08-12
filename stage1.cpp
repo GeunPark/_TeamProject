@@ -31,18 +31,9 @@ HRESULT stage1::init(void)
 
 	_eMG = SAVEDATA->getEnemyManager();
 	_eMG->init();
-<<<<<<< HEAD
 
 
-=======
-	//_eMG->init();
-	_eMG->setItemManager(_iMG);
-	_eMG->setPlayerManager(_player);
 
-	if (isFrist == false)
-		_eMG->init();
-		_eMG->init();
->>>>>>> 36660b36fb0869ebd5b1802c99f0b434036f09a6
 	_shop = SAVEDATA->getShop();
 	_shop->setPlayerManager(_player);
 	_player->setEnemyManager(_eMG);
