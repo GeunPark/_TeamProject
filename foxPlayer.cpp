@@ -22,11 +22,6 @@ HRESULT foxPlayer::init(void)
 
 	_player.x = 6500;
 	_player.y = MAX_HEIGHT - 150;
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 44ac215c20beac4f1bfc2ff71f6a0597c365c804
 	_player.speed = 6.f;
 	_player.jumpSpeed = 0.f;
 	_player.gravity = 0.f;
@@ -265,22 +260,15 @@ void foxPlayer::render()
 	{
 		//Rectangle(getMemDC(), _magic->getvthunder()[i]._rc);
 	}
-<<<<<<< HEAD
+
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
+	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
-=======
-	Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
->>>>>>> 44ac215c20beac4f1bfc2ff71f6a0597c365c804
 	char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
 	TextOut(getMemDC(), 100, 600, str, strlen(str));
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 44ac215c20beac4f1bfc2ff71f6a0597c365c804
 }
 
 //ToDo : 이미지 셋팅
@@ -471,11 +459,6 @@ void foxPlayer::keySetting()
 					index = 0;
 					count = 0;
 				}
-<<<<<<< HEAD
-
-=======
-			
->>>>>>> 44ac215c20beac4f1bfc2ff71f6a0597c365c804
 			}
 		}
 		//앉아 공격
