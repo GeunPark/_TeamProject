@@ -126,11 +126,13 @@ void foxPlayer::update(void)
 		{
 			if (magicNumCHk == 0)
 			{
+				SOUNDMANAGER->play("나이트메어");
 				_magicUseChk2 = true;
 				
 			}
 			else if (magicNumCHk == 1)
 			{
+				SOUNDMANAGER->play("썬더");
 				_magicUseChk = true;
 			}
 			_player.mana = 0;
@@ -197,6 +199,15 @@ void foxPlayer::update(void)
 //ToDo : render
 void foxPlayer::render()
 {
+	if (KEYMANAGER->isToggleKey('T'))
+	{
+		Rectangle(getMemDC(), _player.collisionRc.left - _camera.rc.left, _player.collisionRc.top - _camera.rc.top, _player.collisionRc.right - _camera.rc.left, _player.collisionRc.bottom - _camera.rc.top);
+		if (_player.isAtt)
+		{
+			Rectangle(getMemDC(), attRc.left - _camera.rc.left, attRc.top - _camera.rc.top, attRc.right - _camera.rc.left, attRc.bottom - _camera.rc.top);
+			Rectangle(getMemDC(), attRc2.left - _camera.rc.left, attRc2.top - _camera.rc.top, attRc2.right - _camera.rc.left, attRc2.bottom - _camera.rc.top);
+		}
+	}
 	//Rectangle(getMemDC(), _player.collisionRc.left - _camera.rc.left, _player.collisionRc.top - _camera.rc.top, _player.collisionRc.right - _camera.rc.left, _player.collisionRc.bottom - _camera.rc.top);
 	
 	if (_player.isAtt)
@@ -281,9 +292,9 @@ void foxPlayer::render()
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 
 
-	char str[128];
+	/*char str[128];
 	sprintf(str, "중력 : %f, 점프카운터 : %d, 상태 : %d, 체력 : %d", _player.gravity, jumpCount, magicNumCHk);
-	TextOut(getMemDC(), 100, 600, str, strlen(str));
+	TextOut(getMemDC(), 100, 600, str, strlen(str));*/
 	//Rectangle(getMemDC(), _magic->getvnightMare()[0]._rc);
 }
 
@@ -491,13 +502,16 @@ void foxPlayer::keySetting()
 					SOUNDMANAGER->play("독화살", 10.f);
 					_state = FIRE;
 					_poison->fire(_player.x - 15, _player.y + 30, 3, _player.arrowAngle);
+					_player.mana -= 15;
 					index2 = nick[FIRE]->getMaxFrameX();
 					count = 0;
 				}
 				else
 				{
+					SOUNDMANAGER->play("독화살", 10.f);
 					_state = FIRE;
 					_poison->fire(_player.x - 15, _player.y + 30, 3, _player.arrowAngle);
+					_player.mana -= 15;
 					index = 0;
 					count = 0;
 				}
@@ -1164,4 +1178,6 @@ void foxPlayer::playerUI()
 	if (_player.HP < 0)_player.HP = 0;
 	if (_player.maxMana < _player.mana)_player.mana = _player.maxMana;
 	if (_player.maxMana > 216)_player.maxMana = 216;
+
+	
 }

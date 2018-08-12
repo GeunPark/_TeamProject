@@ -241,6 +241,26 @@ void bossStage::update(void)
 
 		}
 
+		RECT aRc;
+		if (IntersectRect(&aRc, &_player->getAttRc(), &_bee->getRc()) && _player->getIsAtt() && !_player->getIsTouch())
+		{
+			if (_bee->getDizzyCount() < 5)
+			{
+				_bee->setDizzyCount(_bee->getDizzyCount() + 1);
+			}
+			_player->setIsTouch(true);
+		}
+
+		RECT aRc2;
+		if (IntersectRect(&aRc2, &_player->getAttRc2(), &_bee->getRc()) && _player->getIsAtt() && !_player->getIsTouch())
+		{
+			if (_bee->getDizzyCount() < 5)
+			{
+				_bee->setDizzyCount(_bee->getDizzyCount() + 1);
+			}
+			_player->setIsTouch(true);
+		}
+
 
 
 

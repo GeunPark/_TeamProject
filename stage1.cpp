@@ -22,7 +22,6 @@ HRESULT stage1::init(void)
 	_player->setY(2300);
 	_player->setBgPixel(feildpixel);
 
-
 	_ui = SAVEDATA->getUI();
 
 	_iMG = SAVEDATA->getItemManager();
@@ -30,8 +29,6 @@ HRESULT stage1::init(void)
 
 	_eMG = SAVEDATA->getEnemyManager();
 	_eMG->init();
-
-	
 
 	_player->setEnemyManager(_eMG);
 	_player->setItemManager(_iMG);
@@ -41,10 +38,7 @@ HRESULT stage1::init(void)
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
-	
-
 	shopMode = false;
-
 
 	_normalBack1._x = 0;
 	_normalBack1._y = 0;
@@ -61,8 +55,6 @@ HRESULT stage1::init(void)
 	_winterBack2._img = IMAGEMANAGER->findImage("레이어2 겨울");
 	_winterBack2._x = 0;
 	_winterBack2._y = 0;
-
-
 
 	_effMG = effectManager::getSingleton();
 	_effMG->setPlayerLink(_player);
@@ -332,13 +324,12 @@ void stage1::render(void)
 		//if(shopMode)_shop->render();
 
 
-		if (stageClearCount > 180)stageClearImg->render(getMemDC(), 297, 359);
-
 		char str[128];
 		sprintf_s(str, "%d    %d ", _player->getPlayerState(), stageClearCount);
 		TextOut(getMemDC(), 120, WINSIZEY / 2, str, strlen(str));
 
 	}
+	if (stageClearCount > 180)stageClearImg->render(getMemDC(), 297, 359);
 }
 
 // 프레임 이미지 움직임
