@@ -183,10 +183,17 @@ void worldMapScene::update(void)
 		else if (_player.x == _stagePoint.x - 50)
 		{
 			SCENEMANAGER->loadScene("스테이지1");
+			SOUNDMANAGER->stop("월드맵배경사운드");
+			SOUNDMANAGER->play("스테이지1 여름");
+			SOUNDMANAGER->play("스테이지1 겨울");
+			SOUNDMANAGER->pause("스테이지1 겨울");
 		}
 		else if (_player.x == _bossPoint.x)
 		{
 			SCENEMANAGER->loadScene("보스");
+			SOUNDMANAGER->stop("월드맵배경사운드");
+			SOUNDMANAGER->play("보스 배경");
+			
 		}
 	}
 

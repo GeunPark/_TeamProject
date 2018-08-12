@@ -158,6 +158,7 @@ void foxPlayer::update(void)
 	}
 	if (KEYMANAGER->isOnceKeyDown('U'))
 	{
+		SOUNDMANAGER->play("셀렉이동사운드");
 		if (!isArrowChange)
 			isArrowChange = true;
 		else
@@ -171,6 +172,7 @@ void foxPlayer::update(void)
 
 	if (KEYMANAGER->isOnceKeyDown('I'))
 	{
+		SOUNDMANAGER->play("셀렉이동사운드");
 		magicNumCHk += 1;
 		if (magicNumCHk > magicNum - 1)magicNumCHk = 0;
 	}
@@ -428,6 +430,7 @@ void foxPlayer::keySetting()
 		{
 			if (!isArrowChange)
 			{
+				SOUNDMANAGER->play("화살발사사운드");
 				if (_player.isFoxLeft)
 				{
 					_state = FIRE;
@@ -606,10 +609,17 @@ void foxPlayer::keySetting()
 		if (!ang && _player.mana > 30)
 		{
 			ang = true;
+			SOUNDMANAGER->resume("스테이지1 겨울");
+			SOUNDMANAGER->play("계절변경사운드");
+			SOUNDMANAGER->pause("스테이지1 여름");
 		}
 		else
 		{
 			ang = false;
+			
+			SOUNDMANAGER->play("계절해제사운드");
+			SOUNDMANAGER->resume("스테이지1 여름");
+			SOUNDMANAGER->pause("스테이지1 겨울");
 		}
 		if (_state != WEATHER)
 		{
@@ -1075,7 +1085,12 @@ void foxPlayer::playerUI()
 	if (ang)
 	{
 		_player.mana -= 0.1f;
-		if (_player.mana <= 0)ang = false;
+		if (_player.mana <= 0)
+		{
+			SOUNDMANAGER->play("스테이지1 여름");
+			SOUNDMANAGER->pause("스테이지1 겨울");
+			ang = false;
+		}
 	}
 	else
 	{

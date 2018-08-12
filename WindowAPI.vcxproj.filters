@@ -266,12 +266,12 @@
     <ClInclude Include="cuticle.h">
       <Filter>MainGame\세원</Filter>
     </ClInclude>
+    <ClInclude Include="worldMapScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>WinMain</Filter>
-    </ClCompile>
-    <ClCompile Include="winMain.cpp">
       <Filter>WinMain</Filter>
     </ClCompile>
     <ClCompile Include="mainGame.cpp">
@@ -426,6 +426,12 @@
     </ClCompile>
     <ClCompile Include="cuticle.cpp">
       <Filter>MainGame\세원</Filter>
+    </ClCompile>
+    <ClCompile Include="worldMapScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="winMain.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

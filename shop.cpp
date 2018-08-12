@@ -185,13 +185,16 @@ void shop::selectObject()
 		if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD5) && _selectNumber < 2)
 		{
 			_selectNumber++;
+			SOUNDMANAGER->play("셀렉이동사운드");
 		}
 		if (KEYMANAGER->isOnceKeyDown(VK_NUMPAD8) && _selectNumber > 0)
 		{
 			_selectNumber--;
+			SOUNDMANAGER->play("셀렉이동사운드");
 		}
 		if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 		{
+			
 			_isSelect = true;
 			if (_player->getGold() >= _Item[_selectNumber].price)
 			{
@@ -199,6 +202,7 @@ void shop::selectObject()
 				{
 					_player->setGold(_player->getGold() - _Item[_selectNumber].price);
 					ItemSell();
+					SOUNDMANAGER->play("셀렉트효과음");
 				}
 				else if (_kindShop == MAGIC && magicNum[_selectNumber] < magicMaxNum[_selectNumber] && _player->getMagicNUm() < 2)
 				{
@@ -206,15 +210,18 @@ void shop::selectObject()
 					ItemSell();
 					_vShopItem.push_back(_Item[_selectNumber]);
 					_player->setMagicNum(_player->getMagicNUm() + 1);
+					SOUNDMANAGER->play("셀렉트효과음");
 				}
 			}
 			if (_player->getGold() < _Item[_selectNumber].price || upgnum[_selectNumber] >= upgMaxNum[_selectNumber])
 			{
 				_isNotSelect[0] = true;
+				SOUNDMANAGER->play("돈모자를때사운드");
 			}
-			if (_player->getGold() < _Item[_selectNumber].price || magicNum[_selectNumber] > magicMaxNum[_selectNumber] || _player->getMagicNUm() > 2)
+			if (_player->getGold() < _Item[_selectNumber].price || magicNum[_selectNumber] >= magicMaxNum[_selectNumber] || _player->getMagicNUm() >= 2)
 			{
 				_isNotSelect[1] = true;
+				SOUNDMANAGER->play("돈모자를때사운드");
 			}
 		}
 	}

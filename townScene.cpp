@@ -98,11 +98,13 @@ void townScene::update(void)
 			shopCount++;
 			if (shopCount < 2)
 			{
+				SOUNDMANAGER->play("마을상점선택사운드");
 				_shop->setOpen(true);
 				_shop->setKindShop(UPGRADE);
 			}
 			else
 			{
+				SOUNDMANAGER->play("마을상점캔슬사운드");
 				_shop->setOpen(false);
 				shopCount = 0;
 			}
@@ -118,13 +120,17 @@ void townScene::update(void)
 			shopCount++;
 			if (shopCount < 2)
 			{
+				SOUNDMANAGER->play("마을상점선택사운드");
 				_shop->setOpen(true);
 				_shop->setKindShop(MAGIC);
+				
 			}
 			else
 			{
+				SOUNDMANAGER->play("마을상점캔슬사운드");
 				_shop->setOpen(false);
 				shopCount = 0;
+				
 			}
 		}
 	}
@@ -137,6 +143,7 @@ void townScene::update(void)
 
 		SCENEMANAGER->loadScene("월드맵");
 		SOUNDMANAGER->stop("마을배경사운드");
+		SOUNDMANAGER->play("월드맵배경사운드");
 	}
 
 }

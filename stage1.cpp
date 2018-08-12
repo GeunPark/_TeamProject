@@ -47,7 +47,7 @@ HRESULT stage1::init(void)
 	_eMG->setItemManager(_iMG);
 	_eMG->setPlayerManager(_player);
 
-
+	
 
 	shopMode = false;
 
@@ -738,6 +738,9 @@ void stage1::stageClear()
 		stageClearCount++;
 		if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
 		{
+			SOUNDMANAGER->stop("스테이지1 여름");
+			SOUNDMANAGER->stop("스테이지1 겨울");
+
 			SCENEMANAGER->loadScene("타운씬");
 		}
 	}
